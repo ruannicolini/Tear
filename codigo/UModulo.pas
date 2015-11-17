@@ -1,4 +1,4 @@
-unit UInterface;
+unit UModulo;
 
 interface
 
@@ -10,52 +10,31 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls;
 
 type
-  TFInterface = class(TFBase)
-    FDQuery1idinterface: TFDAutoIncField;
-    FDQuery1idmodulo: TIntegerField;
-    FDQuery1idgrupo: TIntegerField;
+  TFModulo = class(TFBase)
+    FDQuery1idmodulo: TFDAutoIncField;
     FDQuery1descricao: TStringField;
     FDQuery1icone: TIntegerField;
-    FDQuery1tela: TStringField;
-    ClientDataSet1idinterface: TAutoIncField;
-    ClientDataSet1idmodulo: TIntegerField;
-    ClientDataSet1idgrupo: TIntegerField;
+    ClientDataSet1idmodulo: TAutoIncField;
     ClientDataSet1descricao: TStringField;
     ClientDataSet1icone: TIntegerField;
-    ClientDataSet1tela: TStringField;
     Label1: TLabel;
-    Label2: TLabel;
     DBEdit1: TDBEdit;
-    Label3: TLabel;
+    Label2: TLabel;
     DBEdit2: TDBEdit;
-    Label5: TLabel;
-    DBEdit4: TDBEdit;
-    Label6: TLabel;
+    Label3: TLabel;
     DBEditIcone: TDBEdit;
-    Label7: TLabel;
-    DBEdit6: TDBEdit;
-    FModulo: TFDQuery;
-    DataSetModulo: TDataSetProvider;
-    ClientDataSetModulo: TClientDataSet;
-    DataSource1: TDataSource;
-    FModuloidmodulo: TFDAutoIncField;
-    FModulodescricao: TStringField;
-    ClientDataSetModuloidmodulo: TAutoIncField;
-    ClientDataSetModulodescricao: TStringField;
-    ClientDataSet1modulo: TStringField;
     ListView: TListView;
-    Label4: TLabel;
-    DBEditBeleza1: TDBEditBeleza;
-    procedure FormShow(Sender: TObject);
-    procedure acEditarExecute(Sender: TObject);
+
+    procedure SetIcon(Sender : TObject);
     procedure Action1Execute(Sender: TObject);
     procedure Action3Execute(Sender: TObject);
     procedure Action4Execute(Sender: TObject);
     procedure Action2Execute(Sender: TObject);
-    procedure SetIcon(Sender : TObject);
+    procedure acEditarExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure ListViewSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
   private
@@ -65,7 +44,7 @@ type
   end;
 
 var
-  FInterface: TFInterface;
+  FModulo: TFModulo;
   UltSelecionado : String;
 
 implementation
@@ -74,42 +53,40 @@ implementation
 
 uses uPrincipal;
 
-procedure TFInterface.SetIcon(Sender : TObject);
-begin
-  ListView.Items[ClientDataSet1.Fields[4].AsInteger].Selected := True;
-end;
 
-procedure TFInterface.acEditarExecute(Sender: TObject);
+{ TFBase1 }
+
+procedure TFModulo.acEditarExecute(Sender: TObject);
 begin
   inherited;
   SetIcon(self);
 end;
 
-procedure TFInterface.Action1Execute(Sender: TObject);
+procedure TFModulo.Action1Execute(Sender: TObject);
 begin
   inherited;
   SetIcon(self);
 end;
 
-procedure TFInterface.Action2Execute(Sender: TObject);
+procedure TFModulo.Action2Execute(Sender: TObject);
 begin
   inherited;
   SetIcon(self);
 end;
 
-procedure TFInterface.Action3Execute(Sender: TObject);
+procedure TFModulo.Action3Execute(Sender: TObject);
 begin
   inherited;
   SetIcon(self);
 end;
 
-procedure TFInterface.Action4Execute(Sender: TObject);
+procedure TFModulo.Action4Execute(Sender: TObject);
 begin
   inherited;
   SetIcon(self);
 end;
 
-procedure TFInterface.FormShow(Sender: TObject);
+procedure TFModulo.FormShow(Sender: TObject);
 var
   Cont, I : Integer;
   ListItem : TListItem;
@@ -117,7 +94,7 @@ begin
   inherited;
   Cont := FPrincipal.ImageList32.Count;
 
-  for I := 0 to Cont - 1 do
+ for I := 0 to Cont - 1 do
   begin
     ListItem := ListView.Items.Add;
     ListItem.ImageIndex:= I;
@@ -126,7 +103,7 @@ begin
 
 end;
 
-procedure TFInterface.ListViewSelectItem(Sender: TObject; Item: TListItem;
+procedure TFModulo.ListViewSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
   inherited;
@@ -137,8 +114,13 @@ begin
   end;
 end;
 
+procedure TFModulo.SetIcon(Sender: TObject);
+begin
+  ListView.Items[ClientDataSet1.Fields[2].AsInteger].Selected := True;
+end;
+
 Initialization
-  RegisterClass(TFInterface);
+  RegisterClass(TFModulo);
 Finalization
-  UnRegisterClass(TFInterface);
+  UnRegisterClass(TFModulo);
 end.

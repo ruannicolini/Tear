@@ -1,4 +1,4 @@
-unit UInterface;
+unit U03001;
 
 interface
 
@@ -13,7 +13,7 @@ uses
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza;
 
 type
-  TFInterface = class(TFBase)
+  TF03001 = class(TFBase)
     FDQuery1idinterface: TFDAutoIncField;
     FDQuery1idmodulo: TIntegerField;
     FDQuery1idgrupo: TIntegerField;
@@ -49,15 +49,12 @@ type
     ListView: TListView;
     Label4: TLabel;
     DBEditBeleza1: TDBEditBeleza;
-    procedure FormShow(Sender: TObject);
-    procedure acEditarExecute(Sender: TObject);
-    procedure Action1Execute(Sender: TObject);
-    procedure Action3Execute(Sender: TObject);
-    procedure Action4Execute(Sender: TObject);
-    procedure Action2Execute(Sender: TObject);
-    procedure SetIcon(Sender : TObject);
+
     procedure ListViewSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure ClientDataSet1AfterScroll(DataSet: TDataSet);
+    procedure FormCreate(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -65,7 +62,7 @@ type
   end;
 
 var
-  FInterface: TFInterface;
+  F03001: TF03001;
   UltSelecionado : String;
 
 implementation
@@ -74,42 +71,13 @@ implementation
 
 uses uPrincipal;
 
-procedure TFInterface.SetIcon(Sender : TObject);
+procedure TF03001.ClientDataSet1AfterScroll(DataSet: TDataSet);
 begin
+  inherited;
   ListView.Items[ClientDataSet1.Fields[4].AsInteger].Selected := True;
 end;
 
-procedure TFInterface.acEditarExecute(Sender: TObject);
-begin
-  inherited;
-  SetIcon(self);
-end;
-
-procedure TFInterface.Action1Execute(Sender: TObject);
-begin
-  inherited;
-  SetIcon(self);
-end;
-
-procedure TFInterface.Action2Execute(Sender: TObject);
-begin
-  inherited;
-  SetIcon(self);
-end;
-
-procedure TFInterface.Action3Execute(Sender: TObject);
-begin
-  inherited;
-  SetIcon(self);
-end;
-
-procedure TFInterface.Action4Execute(Sender: TObject);
-begin
-  inherited;
-  SetIcon(self);
-end;
-
-procedure TFInterface.FormShow(Sender: TObject);
+procedure TF03001.FormCreate(Sender: TObject);
 var
   Cont, I : Integer;
   ListItem : TListItem;
@@ -123,10 +91,9 @@ begin
     ListItem.ImageIndex:= I;
     ListItem.Caption := IntToStr(I);
   end;
-
 end;
 
-procedure TFInterface.ListViewSelectItem(Sender: TObject; Item: TListItem;
+procedure TF03001.ListViewSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
   inherited;
@@ -138,7 +105,7 @@ begin
 end;
 
 Initialization
-  RegisterClass(TFInterface);
+  RegisterClass(TF03001);
 Finalization
-  UnRegisterClass(TFInterface);
+  UnRegisterClass(TF03001);
 end.

@@ -8,13 +8,13 @@ uses
   Vcl.Imaging.pngimage, Vcl.StdCtrls, Vcl.Imaging.jpeg, IdHashMessageDigest, iniFiles, DateUtils,
   System.ImageList, Vcl.ImgList, Vcl.ComCtrls, System.Actions, Vcl.ActnList,
   Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.ActnMenus,
-  Vcl.PlatformDefaultStyleActnCtrls;
+  Vcl.PlatformDefaultStyleActnCtrls, VCLTee.TeCanvas;
 
 type
   TFPrincipal = class(TForm)
-    ImageList: TImageList;
+    ImageList64: TImageList;
     Background: TImage;
-    Button1: TButton;
+    ImageList32: TImageList;
     procedure FormShow(Sender: TObject);
     procedure MouseEnterComponente(Sender: TObject);
     procedure MouseLeaveComponente(Sender: TObject);
@@ -22,7 +22,6 @@ type
     procedure MontarMenu(Sender: TObject);
     procedure AbrirTela(Sender: TObject);
     procedure CriarForm(Tela, Desc : String);
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,11 +52,6 @@ begin
   Tela := 'F' + DModule.qAux.Fields[5].AsString;
   Desc := DModule.qAux.Fields[3].AsString;
   CriarForm(Tela, Desc);
-end;
-
-procedure TFPrincipal.Button1Click(Sender: TObject);
-begin
-  CriarForm('FInterface', 'Inteface');
 end;
 
 procedure TFPrincipal.CriarForm(Tela, Desc : String);
@@ -117,6 +111,7 @@ begin
   Panel.Parent := PageScroller;
   Panel.Height := 100;
 
+
   DModule.qAux.SQL.Text := 'SELECT * FROM MODULO WHERE IDMODULO = :ID';
   DModule.qAux.ParamByName('ID').AsInteger := Tag;
 
@@ -124,7 +119,7 @@ begin
   FPrincipal.Caption := NomeForm + ' - Módulo ' + DModule.qAux.Fields[1].AsString;
   Button := TButton.Create(Panel);
   Button.Parent := Panel;
-  Button.Images := ImageList;
+  Button.Images := ImageList64;
   Button.ImageAlignment := iaCenter;
   Button.ImageIndex := DModule.qAux.Fields[2].AsInteger; // Ícone
   Button.Top := 5;
@@ -147,7 +142,7 @@ begin
 
     Button := TButton.Create(Panel);
     Button.Parent := Panel;
-    Button.Images := ImageList;
+    Button.Images := ImageList64;
     Button.Height := 70;
     Button.Width := 70;
     Button.Top := 10;
@@ -172,7 +167,6 @@ begin
 
     DModule.qAux.Next;
   end;
-
 end;
 
 procedure TFPrincipal.MontarMenu(Sender: TObject);
@@ -201,7 +195,7 @@ begin
   begin
     Button := TButton.Create(self);
     Button.Parent := Panel;
-    Button.Images := ImageList;
+    Button.Images := ImageList64;
     Button.Height := 70;
     Button.Width := 70;
     Button.Top := 10;
@@ -226,7 +220,6 @@ begin
 
     DModule.FModulo.Next;
   end;
-
 end;
 
 end.

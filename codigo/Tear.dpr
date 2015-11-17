@@ -16,10 +16,11 @@ uses
   U01007 in 'M01\U01007.pas' {F01007},
   U01008 in 'M01\U01008.pas' {F01008},
   U01009 in 'M01\U01009.pas' {F01009},
-  UInterface in 'UInterface.pas' {FInterface},
+  U03001 in 'M03\U03001.pas' {F03001},
   U01010 in 'M01\U01010.pas' {F01010},
   U01011 in 'M01\U01011.pas' {F01011},
-  U01012 in 'M01\U01012.pas' {F01012};
+  U01012 in 'M01\U01012.pas' {F01012},
+  U03002 in 'M03\U03002.pas' {F03002};
 
 {$R *.res}
 

@@ -1,159 +1,83 @@
-inherited FInterface: TFInterface
-  Caption = 'FInterface'
+inherited FModulo: TFModulo
+  Caption = 'FModulo'
+  ExplicitTop = 5
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    ExplicitLeft = -40
-    ExplicitTop = 65
+    ExplicitTop = 46
     inherited TbDados: TTabSheet
       inherited grDados: TGroupBox
-        object Label2: TLabel
+        object Label1: TLabel
           Left = 16
           Top = 16
-          Width = 56
+          Width = 54
           Height = 13
-          Caption = 'INTERFACE'
+          Caption = 'IDMODULO'
           FocusControl = DBEdit1
         end
-        object Label3: TLabel
+        object Label2: TLabel
           Left = 16
-          Top = 72
-          Width = 43
-          Height = 13
-          Caption = 'MODULO'
-          FocusControl = DBEdit2
-        end
-        object Label5: TLabel
-          Left = 16
-          Top = 136
-          Width = 105
-          Height = 13
-          Caption = 'NOME DA INTERFACE'
-          FocusControl = DBEdit4
-        end
-        object Label6: TLabel
-          Left = 16
-          Top = 197
-          Width = 32
-          Height = 13
-          Caption = #205'CONE'
-          FocusControl = DBEditIcone
-        end
-        object Label7: TLabel
-          Left = 306
-          Top = 136
-          Width = 24
-          Height = 13
-          Caption = 'TELA'
-          FocusControl = DBEdit6
-        end
-        object Label4: TLabel
-          Left = 83
           Top = 72
           Width = 59
           Height = 13
           Caption = 'DESCRI'#199#195'O'
           FocusControl = DBEdit2
         end
+        object Label3: TLabel
+          Left = 16
+          Top = 128
+          Width = 32
+          Height = 13
+          Caption = #205'CONE'
+          FocusControl = DBEditIcone
+          Visible = False
+        end
         object DBEdit1: TDBEdit
           Left = 16
-          Top = 35
-          Width = 69
+          Top = 32
+          Width = 134
           Height = 21
-          DataField = 'idinterface'
+          DataField = 'idmodulo'
           DataSource = DS
           TabOrder = 0
         end
         object DBEdit2: TDBEdit
           Left = 16
           Top = 88
-          Width = 69
-          Height = 21
-          DataField = 'idmodulo'
-          DataSource = DS
-          TabOrder = 1
-        end
-        object DBEdit4: TDBEdit
-          Left = 16
-          Top = 155
-          Width = 270
+          Width = 329
           Height = 21
           DataField = 'descricao'
           DataSource = DS
-          TabOrder = 2
+          TabOrder = 1
         end
         object DBEditIcone: TDBEdit
-          Left = 184
-          Top = 35
+          Left = 220
+          Top = 32
           Width = 134
           Height = 21
           DataField = 'icone'
           DataSource = DS
-          TabOrder = 3
-        end
-        object DBEdit6: TDBEdit
-          Left = 306
-          Top = 155
-          Width = 69
-          Height = 21
-          DataField = 'tela'
-          DataSource = DS
-          TabOrder = 4
-        end
-        object DBEditBeleza1: TDBEditBeleza
-          Left = 83
-          Top = 88
-          Width = 292
-          Height = 21
-          Color = clWhite
-          DataField = 'modulo'
-          DataSource = DS
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 5
-          Ativar_Pesquisa = True
-          mostrar_Botao = True
-          sql.Strings = (
-            'select idmodulo, descricao from modulo where descricao like :x')
-          database = 'balay'
-          campo = 'descricao'
-          Sempre_Mostrar_Janela = False
-          Outro_Edit = DBEdit2
-          campo_outro_edit = 'idmodulo'
-          CorBorda = clGray
-          NovoLayout = False
+          TabOrder = 2
+          Visible = False
         end
         object ListView: TListView
           Left = 16
-          Top = 216
+          Top = 156
           Width = 781
           Height = 209
           Columns = <>
           LargeImages = FPrincipal.ImageList32
-          TabOrder = 6
+          TabOrder = 3
           OnSelectItem = ListViewSelectItem
         end
       end
     end
-    inherited TbFiltros: TTabSheet
-      object Label1: TLabel [0]
-        Left = 24
-        Top = 56
-        Width = 51
-        Height = 13
-        Caption = 'idinterface'
-      end
-    end
   end
   inherited ImageList1: TImageList
-    Left = 760
-    Top = 216
+    Left = 664
+    Top = 144
     Bitmap = {
-      494C01010C002C00C00018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B00018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000060000000600000000100180000000000006C
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1061,75 +985,37 @@ inherited FInterface: TFInterface
       000000000000}
   end
   inherited DS: TDataSource
-    Left = 760
-    Top = 76
+    Left = 720
+    Top = 88
   end
   inherited ClientDataSet1: TClientDataSet
-    Left = 680
-    Top = 76
-    object ClientDataSet1idinterface: TAutoIncField
-      FieldName = 'idinterface'
-      Origin = 'idinterface'
-    end
-    object ClientDataSet1idmodulo: TIntegerField
+    Left = 664
+    Top = 88
+    object ClientDataSet1idmodulo: TAutoIncField
       FieldName = 'idmodulo'
-      Origin = 'idmodulo'
-    end
-    object ClientDataSet1idgrupo: TIntegerField
-      FieldName = 'idgrupo'
-      Origin = 'idgrupo'
     end
     object ClientDataSet1descricao: TStringField
       FieldName = 'descricao'
-      Origin = 'descricao'
       Size = 45
     end
     object ClientDataSet1icone: TIntegerField
       FieldName = 'icone'
-      Origin = 'icone'
-    end
-    object ClientDataSet1tela: TStringField
-      FieldName = 'tela'
-      Origin = 'tela'
-      Required = True
-      Size = 5
-    end
-    object ClientDataSet1modulo: TStringField
-      FieldKind = fkLookup
-      FieldName = 'modulo'
-      LookupDataSet = ClientDataSetModulo
-      LookupKeyFields = 'idmodulo'
-      LookupResultField = 'descricao'
-      KeyFields = 'idmodulo'
-      Origin = 'modulo'
-      Size = 30
-      Lookup = True
     end
   end
   inherited DataSetProvider1: TDataSetProvider
-    Left = 592
-    Top = 76
+    Left = 576
+    Top = 88
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      'SELECT * FROM INTERFACE')
-    Left = 520
-    Top = 76
-    object FDQuery1idinterface: TFDAutoIncField
-      FieldName = 'idinterface'
-      Origin = 'idinterface'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      IdentityInsert = True
-    end
-    object FDQuery1idmodulo: TIntegerField
-      AutoGenerateValue = arDefault
+      'SELECT * FROM MODULO')
+    Left = 504
+    Top = 88
+    object FDQuery1idmodulo: TFDAutoIncField
       FieldName = 'idmodulo'
       Origin = 'idmodulo'
-    end
-    object FDQuery1idgrupo: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idgrupo'
-      Origin = 'idgrupo'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      IdentityInsert = True
     end
     object FDQuery1descricao: TStringField
       AutoGenerateValue = arDefault
@@ -1142,67 +1028,9 @@ inherited FInterface: TFInterface
       FieldName = 'icone'
       Origin = 'icone'
     end
-    object FDQuery1tela: TStringField
-      FieldName = 'tela'
-      Origin = 'tela'
-      Required = True
-      Size = 5
-    end
   end
   inherited ActAcoes: TActionList
-    Left = 684
-    Top = 208
-  end
-  object FModulo: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'SELECT * FROM MODULO;')
-    Left = 520
-    Top = 142
-    object FModuloidmodulo: TFDAutoIncField
-      FieldName = 'idmodulo'
-      Origin = 'idmodulo'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      IdentityInsert = True
-    end
-    object FModulodescricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSetModulo: TDataSetProvider
-    DataSet = FModulo
-    Left = 592
-    Top = 142
-  end
-  object ClientDataSetModulo: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetModulo'
-    BeforeInsert = ClientDataSet1BeforeInsert
-    AfterInsert = ClientDataSet1AfterInsert
-    AfterPost = ClientDataSet1AfterPost
-    AfterCancel = ClientDataSet1AfterCancel
-    AfterDelete = ClientDataSet1AfterDelete
-    Left = 680
-    Top = 142
-    object ClientDataSetModuloidmodulo: TAutoIncField
-      FieldName = 'idmodulo'
-      Origin = 'idmodulo'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object ClientDataSetModulodescricao: TStringField
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSource1: TDataSource
-    DataSet = ClientDataSetModulo
-    OnStateChange = DSStateChange
-    Left = 760
-    Top = 142
+    Left = 724
+    Top = 144
   end
 end

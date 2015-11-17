@@ -1,7 +1,7 @@
 object DModule: TDModule
   OldCreateOrder = False
   Height = 375
-  Width = 407
+  Width = 424
   object FDConnection: TFDConnection
     Params.Strings = (
       'ConnectionDef=balay')

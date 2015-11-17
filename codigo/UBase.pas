@@ -135,13 +135,13 @@ end;
 
 procedure TFBase.acPesquisarExecute(Sender: TObject);
 begin
-ds.DataSet.Close;
-ds.DataSet.Open;
+DS.DataSet.Close;
+DS.DataSet.Open;
 end;
 
 procedure TFBase.acSalvarExecute(Sender: TObject);
 begin
-ds.DataSet.Post;
+DS.DataSet.Post;
 end;
 
 procedure TFBase.Action1Execute(Sender: TObject);
