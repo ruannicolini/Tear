@@ -10,7 +10,8 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza, DBEditCalendario;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza, DBEditCalendario,
+  EditBeleza;
 
 type
   TF01007 = class(TFBase)
@@ -40,12 +41,58 @@ type
     DBEdit4: TDBEdit;
     DBEditBeleza1: TDBEditBeleza;
     DBEdit_Calendario1: TDBEdit_Calendario;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    GroupBox1: TGroupBox;
+    DBGridBeleza2: TDBGridBeleza;
+    DataSource2: TDataSource;
+    ClientDataSet3: TClientDataSet;
+    DataSetProvider3: TDataSetProvider;
+    FDQuery3: TFDQuery;
+    FDQuery3idProduto: TIntegerField;
+    FDQuery3idFase: TIntegerField;
+    FDQuery3prioridade: TIntegerField;
+    FDQuery3idfase_1: TIntegerField;
+    FDQuery3descricao: TStringField;
+    ClientDataSet3idProduto: TIntegerField;
+    ClientDataSet3idFase: TIntegerField;
+    ClientDataSet3prioridade: TIntegerField;
+    ClientDataSet3idfase_1: TIntegerField;
+    ClientDataSet3descricao: TStringField;
+    EditBeleza1: TEditBeleza;
+    BitBtn1: TBitBtn;
+    BtnExcluirTipoRegistro: TBitBtn;
+    Edit1: TEdit;
+    GroupBox2: TGroupBox;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    Label5: TLabel;
+    DBEdit3: TDBEdit;
+    Label6: TLabel;
+    DBEdit5: TDBEdit;
+    Label7: TLabel;
+    DBEdit6: TDBEdit;
+    Label8: TLabel;
+    DBEdit7: TDBEdit;
+    Label9: TLabel;
+    DBEdit8: TDBEdit;
     procedure acInserirExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure acExcluirExecute(Sender: TObject);
+    procedure acPesquisarExecute(Sender: TObject);
+    procedure Action1Execute(Sender: TObject);
+    procedure Action3Execute(Sender: TObject);
+    procedure Action4Execute(Sender: TObject);
+    procedure Action2Execute(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
+    procedure ClientDataSet3AfterDelete(DataSet: TDataSet);
+    procedure ClientDataSet3AfterPost(DataSet: TDataSet);
+    procedure BtnExcluirTipoRegistroClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -74,6 +121,9 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit4.Color := CorCamposOnlyRead();
+
+  BitBtn2.Enabled := true;
+  BitBtn3.Enabled := true;
 end;
 
 procedure TF01007.acExcluirExecute(Sender: TObject);
@@ -96,13 +146,132 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit4.Color := CorCamposOnlyRead();
+
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+
+  BitBtn2.Enabled := true;
+  BitBtn3.Enabled := true;
+
+end;
+procedure TF01007.acPesquisarExecute(Sender: TObject);
+begin
+  inherited;
+
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+
 end;
 
-procedure TF01007.acSalvarExecute(Sender: TObject);
+Procedure TF01007.acSalvarExecute(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;
   DBEdit4.Color := clWindow;
+end;
+
+procedure TF01007.Action1Execute(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+
+end;
+
+procedure TF01007.Action2Execute(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+Procedure TF01007.Action3Execute(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+procedure TF01007.Action4Execute(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+procedure TF01007.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+  if trim(EditBeleza1.Text) <> '' then
+  begin
+    if not DataSource2.DataSet.Active then
+          DataSource2.DataSet.Open;
+
+    if(ClientDataSet3.Locate('idfase',Edit1.Text,[]) = false)then
+    begin
+
+      {Modo de inserção}
+      DataSource2.DataSet.Append;
+      {Stribuição dos dados}
+      ClientDataSet3prioridade.Value := DataSource2.DataSet.RecordCount + 1;
+      ClientDataSet3idProduto.Value := ClientDataSet1idProduto.AsInteger;
+      ClientDataSet3idFase.Value := StrToInt(Edit1.Text);
+
+      {Salva}
+      DataSource2.DataSet.Post;
+
+      {Atualiza DBGRID FASE}
+      FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+      DataSource2.DataSet.Close;
+      DataSource2.DataSet.Open;
+
+      Edit1.Text :='';
+    end else
+      ShowMessage('Fase já adicionada');
+  end else
+    ShowMessage('Selecione uma fase.');
+end;
+
+procedure TF01007.BitBtn2Click(Sender: TObject);
+begin
+  inherited;
+  ShowMessage( IntToStr(DataSource2.DataSet.RecordCount));
+
+end;
+
+procedure TF01007.BtnExcluirTipoRegistroClick(Sender: TObject);
+var
+x: integer;
+begin
+  inherited;
+  if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idFase.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+
+      ClientDataSet3.Delete;
+
+
+
+      while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
+      begin
+        DataSource2.DataSet.Edit;
+        ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+        DataSource2.DataSet.Post;
+        ClientDataSet3.Next;  //vai para o próximo registro
+      end;
+
+     end;
 end;
 
 procedure TF01007.ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -110,6 +279,25 @@ begin
   inherited;
   ClientDataSet1idProduto.AsInteger := DModule.buscaProximoParametro('seqProduto');
 
+end;
+
+procedure TF01007.ClientDataSet3AfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet3.CancelUpdates;
+
+end;
+
+procedure TF01007.ClientDataSet3AfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01007.ClientDataSet3AfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet3.ApplyUpdates(-1);
 end;
 
 Initialization

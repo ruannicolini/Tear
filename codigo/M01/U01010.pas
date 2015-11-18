@@ -153,34 +153,44 @@ end;
 procedure TF01010.BitBtn1Click(Sender: TObject);
 begin
     inherited;
-if trim(EditBeleza1.Text) <> '' then
-begin
-  {Coloca em Modo de Edição}
-  if not DS_TR.DataSet.Active then
-        DS_TR.DataSet.Open;
-            DS_TR.DataSet.Append;
-            CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
-            CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
+  if trim(EditBeleza1.Text) <> '' then
+  begin
+    {Coloca em Modo de Edição}
+    if not DS_TR.DataSet.Active then
+          DS_TR.DataSet.Open;
 
-           {Salva}
-            DS_TR.DataSet.Post;
+    if(CDS_TR.Locate('idtiporecurso',Edit1.Text,[]) = false)then
+      begin
+      DS_TR.DataSet.Append;
+      CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
+      CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
+
+      {Salva}
+      DS_TR.DataSet.Post;
 
 
-            {Atualiza grid}
-            Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-            DS_TR.DataSet.Close;
-            DS_TR.DataSet.Open;
+      {Atualiza grid}
+      Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+      DS_TR.DataSet.Close;
+      DS_TR.DataSet.Open;
 
-end
-else
-   showmessage('preencha o campo');
+      edit1.Text := '';
+      end else
+        ShowMessage('Tipo de Recurso ja Adicionado.');
+
+  end else
+     showmessage('preencha o campo');
 end;
+
+
+
+
 
 procedure TF01010.BtnExcluirTipoRegistroClick(Sender: TObject);
 begin
   inherited;
 
-    if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    if MessageDlg('Deseja Apagar Item '+ IntToStr(CDS_TRidtipo_recurso.AsInteger)+ ' - ' + CDS_TRdescricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
      begin
           CDS_TR.Delete;
      end;
