@@ -50,7 +50,7 @@ CREATE TABLE `batida` (
   `idbatida` int(11) NOT NULL DEFAULT '0',
   `minutos` int(11) DEFAULT NULL,
   `segundos` int(11) DEFAULT NULL,
-  `centezimos` int(11) DEFAULT NULL,
+  `centesimos` int(11) DEFAULT NULL,
   `utilizar` tinyint(1) DEFAULT NULL,
   `idCronometragem` int(11) DEFAULT NULL,
   PRIMARY KEY (`idbatida`)

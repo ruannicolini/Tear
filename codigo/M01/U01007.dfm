@@ -1,8 +1,7 @@
 inherited F01007: TF01007
   Caption = 'F01007'
   ClientWidth = 811
-  ExplicitLeft = -35
-  ExplicitTop = -120
+  ExplicitTop = -142
   ExplicitWidth = 827
   PixelsPerInch = 96
   TextHeight = 13
@@ -21,7 +20,6 @@ inherited F01007: TF01007
       ExplicitWidth = 803
       inherited grDados: TGroupBox
         Width = 803
-        ExplicitLeft = -3
         ExplicitWidth = 803
         object Label1: TLabel
           Left = 24
@@ -192,7 +190,7 @@ inherited F01007: TF01007
                 OnClick = BitBtn1Click
               end
               object BtnExcluirTipoRegistro: TBitBtn
-                Left = 446
+                Left = 448
                 Top = 12
                 Width = 48
                 Height = 23
@@ -245,7 +243,7 @@ inherited F01007: TF01007
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = []
-              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
               ParentFont = False
               ParentShowHint = False
               ShowHint = True
@@ -255,7 +253,7 @@ inherited F01007: TF01007
               TitleFont.Height = -11
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
-              Cor_2 = 16773849
+              Cor_2 = clWindow
               Direcao_Cor2 = dg_Vertical
               Direcao_Enter = dg_Horiz
               ClickTituloOrdenar = True
@@ -313,6 +311,7 @@ inherited F01007: TF01007
             Caption = '\/'
             Enabled = False
             TabOrder = 1
+            OnClick = BitBtn3Click
           end
         end
         object DBEdit3: TDBEdit
@@ -419,7 +418,7 @@ inherited F01007: TF01007
     Left = 656
     Top = 184
     Bitmap = {
-      494C01010C002C00B40018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

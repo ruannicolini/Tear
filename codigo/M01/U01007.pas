@@ -93,6 +93,7 @@ type
     procedure ClientDataSet3AfterDelete(DataSet: TDataSet);
     procedure ClientDataSet3AfterPost(DataSet: TDataSet);
     procedure BtnExcluirTipoRegistroClick(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -247,7 +248,40 @@ end;
 procedure TF01007.BitBtn2Click(Sender: TObject);
 begin
   inherited;
+  {
   ShowMessage( IntToStr(DataSource2.DataSet.RecordCount));
+  ShowMessage( IntToStr(ClientDataSet3prioridade.Value));
+  }
+  if(ClientDataSet3prioridade.Value > 1)then
+  begin
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+    DataSource2.DataSet.Post;
+    ClientDataSet3.Prior;
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
+    DataSource2.DataSet.Post;
+    DataSource2.DataSet.Refresh;
+  end;
+
+
+end;
+
+procedure TF01007.BitBtn3Click(Sender: TObject);
+begin
+  inherited;
+
+  if(ClientDataSet3prioridade.Value < DataSource2.DataSet.RecordCount)then
+  begin
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
+    DataSource2.DataSet.Post;
+    ClientDataSet3.Next;
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+    DataSource2.DataSet.Post;
+    DataSource2.DataSet.Refresh;
+  end;
 
 end;
 
@@ -258,11 +292,7 @@ begin
   inherited;
   if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idFase.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
      begin
-
       ClientDataSet3.Delete;
-
-
-
       while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
       begin
         DataSource2.DataSet.Edit;
