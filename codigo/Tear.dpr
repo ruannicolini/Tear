@@ -20,7 +20,8 @@ uses
   U01010 in 'M01\U01010.pas' {F01010},
   U01011 in 'M01\U01011.pas' {F01011},
   U01012 in 'M01\U01012.pas' {F01012},
-  U03002 in 'M03\U03002.pas' {F03002};
+  U03002 in 'M03\U03002.pas' {F03002},
+  U01013 in 'M01\U01013.pas' {F01013};
 
 {$R *.res}
 
@@ -30,5 +31,6 @@ begin
   Application.CreateForm(TFPrincipal, FPrincipal);
   Application.CreateForm(TDModule, DModule);
   Application.CreateForm(TFBase, FBase);
+  Application.CreateForm(TF01013, F01013);
   Application.Run;
 end.

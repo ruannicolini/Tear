@@ -28,6 +28,11 @@ type
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
     procedure acExcluirExecute(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -90,11 +95,58 @@ begin
   DBEdit1.Color := clWindow;
 end;
 
+procedure TF01011.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
+procedure TF01011.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01011.BExcluirClick(Sender: TObject);
+begin
+  inherited;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from operacao op where op.idfase =:idFase';
+  DModule.qAux.ParamByName('idFase').AsInteger:= (ClientDataSet1idfase.AsInteger);
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+  begin
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'select * from fase_has_grupo fhg where fhg.idFase =:idFase';
+    DModule.qAux.ParamByName('idFase').AsInteger:= (ClientDataSet1idfase.AsInteger);
+    DModule.qAux.Open;
+    if(DModule.qAux.IsEmpty)then
+    begin
+      inherited;
+    end else
+      ShowMessage('Grupo de Operadores vinculado a esta Fase. Não é possível excluir.');
+  end else
+    ShowMessage('Operação vinculada a esta Fase. Não é possível excluir.');
+
+end;
+
+procedure TF01011.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
 procedure TF01011.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idfase.AsInteger := DModule.buscaProximoParametro('seqFase');
 
+end;
+
+procedure TF01011.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
 end;
 
 Initialization

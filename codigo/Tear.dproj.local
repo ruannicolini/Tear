@@ -1,2 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject/>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2016/01/11 11:49:29.497,=C:\Users\Ruan\Desktop\Tear\codigo\Unit1.pas</Transaction>
+    <Transaction>2016/01/11 11:50:38.292,C:\Users\Ruan\Desktop\Tear\codigo\M01\U01013.dfm=C:\Users\Ruan\Desktop\Tear\codigo\Unit1.dfm</Transaction>
+    <Transaction>2016/01/11 11:50:38.292,C:\Users\Ruan\Desktop\Tear\codigo\M01\U01013.pas=C:\Users\Ruan\Desktop\Tear\codigo\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

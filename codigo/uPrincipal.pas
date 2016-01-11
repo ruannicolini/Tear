@@ -8,13 +8,24 @@ uses
   Vcl.Imaging.pngimage, Vcl.StdCtrls, Vcl.Imaging.jpeg, IdHashMessageDigest, iniFiles, DateUtils,
   System.ImageList, Vcl.ImgList, Vcl.ComCtrls, System.Actions, Vcl.ActnList,
   Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.ActnMenus,
-  Vcl.PlatformDefaultStyleActnCtrls, VCLTee.TeCanvas;
+  Vcl.PlatformDefaultStyleActnCtrls, VCLTee.TeCanvas, Vcl.Buttons;
 
 type
   TFPrincipal = class(TForm)
     ImageList64: TImageList;
     Background: TImage;
     ImageList32: TImageList;
+    Panel: TPanel;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Image1: TImage;
+    ImageListWin: TImageList;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
     procedure FormShow(Sender: TObject);
     procedure MouseEnterComponente(Sender: TObject);
     procedure MouseLeaveComponente(Sender: TObject);
@@ -22,11 +33,12 @@ type
     procedure MontarMenu(Sender: TObject);
     procedure AbrirTela(Sender: TObject);
     procedure CriarForm(Tela, Desc : String);
+    procedure ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
+    function fncAlturaBarraTarefas: Integer;
   private
     { Private declarations }
   public
-    Panel : TPanel;
-    PageScroller : TPageScroller;
+    PageScroller: TPageScroller;
     Button : TButton;
     Lab : TLabel;
     NomeForm : String;
@@ -54,6 +66,25 @@ begin
   CriarForm(Tela, Desc);
 end;
 
+procedure TFPrincipal.ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
+var
+  R : TRect;
+  Rgn : HRGN;
+begin
+
+  with Componente do
+  begin
+    R := ClientRect;
+    Rgn := CreateRoundRectRgn(R.Left +2, R.Top+2, R.Right-2, R.Bottom-2, Radius, Radius);
+    //Perform(EM_GETRECT, 0, lParam(@R));
+    //InflateRect(R, -5, -5);
+    //Perform(EM_SETRECTNP, 0, lParam(@R));
+    SetWindowRgn(Handle, Rgn, True);
+    Invalidate;
+  end;
+
+end;
+
 procedure TFPrincipal.CriarForm(Tela, Desc : String);
 var
   PClass : TPersistentClass;
@@ -65,21 +96,63 @@ begin
       try
         Name := Tela;
         Caption := Tela + ' - ' + Desc;
+
+        //Oculta a Barra de Titulo
+        SetWindowLong(Handle,
+                  GWL_STYLE,
+                  GetWindowLong(Handle,GWL_STYLE) and not WS_CAPTION);
+
+
+        //Laugura
+        Width := (Screen.Width);
+
+        //Altura = altura da tela - Altura do Panel Menu - Altura Barra de Tarefas - Altura barra de tituto do formPrincipal
+
+        //*Frame Com panel da FPrincipal a mostra
+        Height := (Screen.Height) - (FPrincipal.Panel.Height) - fncAlturaBarraTarefas - GetSystemMetrics(SM_CYCAPTION) - 2;
+
+        //*Altura Frame Completo
+        //Height := Screen.Height - fncAlturaBarraTarefas - GetSystemMetrics(SM_CYCAPTION) - 2;
+
+        //Alinha o Frame no final da tela
+        Align := alBottom;
+
+        //Frame Meio Transparente
+        //AlphaBlend := true;
+        //AlphaBlendValue := 200;
+
+        //Mostra
         ShowModal;
       finally
         Free;
         tFormClass(PClass) := nil;
+
+        // Cor do FPrincipal.Panel
+        //FPrincipal.Panel.Color := clWhite;
       end;
    end;
+end;
+
+function TFPrincipal.fncAlturaBarraTarefas: Integer;
+var
+  rRect: TRect;
+  rBarraTarefas: HWND;
+begin
+  //Localiza o Handle da barra de tarefas
+  rBarraTarefas := FindWindow('Shell_TrayWnd', nil);
+
+  //Pega o "retângulo" que envolve a barra e sua altura
+  GetWindowRect(rBarraTarefas, rRect);
+
+  //Retorna a altura da barra
+  Result := rRect.Bottom - rRect.Top;
 end;
 
 procedure TFPrincipal.FormShow(Sender: TObject);
 begin
   NomeForm := 'Sistema de Balancameanto';
-
-  PageScroller := TPageScroller.Create(self);
-  Panel := Tpanel.Create(PageScroller);
   MontarMenu(PageScroller);
+
 end;
 
 procedure TFPrincipal.MouseEnterComponente(Sender: TObject);
@@ -106,10 +179,20 @@ begin
   Aux := 100;
   Tag := TButton(Sender).Tag;
 
-  Panel.Destroy;
-  Panel := Tpanel.Create(PageScroller);
-  Panel.Parent := PageScroller;
+  {Limpa os botoes}
+  while Panel.ControlCount > 0 do
+  begin
+    Panel.Controls[0].Free;
+  end;
+  PageScroller := TPageScroller.Create(self);
+  PageScroller.SetParentComponent(Panel);
+
+  //Panel.Destroy;
+  //Panel := Tpanel.Create(PageScroller);
+  //Panel.Parent := PageScroller;
   Panel.Height := 100;
+  Panel.BevelOuter := bvNone;
+  //Panel.Color := clBlack;
 
 
   DModule.qAux.SQL.Text := 'SELECT * FROM MODULO WHERE IDMODULO = :ID';
@@ -142,7 +225,7 @@ begin
 
     Button := TButton.Create(Panel);
     Button.Parent := Panel;
-    Button.Images := ImageList64;
+    Button.Images := ImageList32; //ImageList64;
     Button.Height := 70;
     Button.Width := 70;
     Button.Top := 10;
@@ -155,6 +238,9 @@ begin
 
     Button.Left := Aux + 20;
     Aux := Aux + 90;
+
+   // Teste <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    ArredondarComponente(Button,20);
 
     Lab := TLabel.Create(Panel);
     Lab.Parent := Panel;
@@ -177,18 +263,21 @@ begin
   FPrincipal.Caption := NomeForm;
   Aux := 0;
 
-  Panel.Destroy;
-  Panel := Tpanel.Create(PageScroller);
+  {Limpa os botoes}
+  while Panel.ControlCount > 0 do
+  begin
+    Panel.Controls[0].Free;
+  end;
+  PageScroller := TPageScroller.Create(self);
+  PageScroller.SetParentComponent(Panel);
 
-  PageScroller.Parent := FPrincipal;
-  PageScroller.Control := Panel;
   PageScroller.Align := alTop;
-  PageScroller.Height := 100;
-  Panel.Parent := PageScroller;
-  Panel.Height := 100;
+  PageScroller.Height := 100;   //100
+  Panel.Height := 100;          //100
 
   DModule.FModulo.Open;
-  Panel.Width := DModule.FModulo.RecordCount * 90 + 20;
+  Panel.Align := alTop;
+  Panel.Width := DModule.FModulo.RecordCount * 90 + 20;     //90 + 20
 
   DModule.FModulo.First;
   while not dModule.FModulo.Eof do
@@ -196,9 +285,9 @@ begin
     Button := TButton.Create(self);
     Button.Parent := Panel;
     Button.Images := ImageList64;
-    Button.Height := 70;
-    Button.Width := 70;
-    Button.Top := 10;
+    Button.Height := 70; //     70
+    Button.Width := 70;  //   70
+    Button.Top := 10;    // 10
     Button.ImageAlignment := iaCenter;
     Button.ImageIndex := DModule.FModulo.Fields[2].AsInteger;
     Button.Tag := DModule.FModulo.Fields[0].AsInteger;
@@ -208,6 +297,9 @@ begin
 
     Button.Left := Aux + 20;
     Aux := Aux + 90;
+
+    //TESTE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    ArredondarComponente(Button,20);
 
     Lab := TLabel.Create(Panel);
     Lab.Parent := Panel;

@@ -94,6 +94,16 @@ type
     procedure ClientDataSet3AfterPost(DataSet: TDataSet);
     procedure BtnExcluirTipoRegistroClick(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
+    procedure BFirstClick(Sender: TObject);
+    procedure BPriorClick(Sender: TObject);
+    procedure BNextClick(Sender: TObject);
+    procedure BLastClick(Sender: TObject);
+    procedure BPesquisarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -212,6 +222,61 @@ begin
   DataSource2.DataSet.Open;
 end;
 
+procedure TF01007.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit4.Color := clWindow;
+end;
+
+procedure TF01007.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit4.Color := CorCamposOnlyRead();
+
+  BitBtn2.Enabled := true;
+  BitBtn3.Enabled := true;
+end;
+
+procedure TF01007.BExcluirClick(Sender: TObject);
+begin
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idProduto =:idProd';
+  DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+  begin
+    inherited;
+  end else
+    ShowMessage('Cronometragem vinculada a este Produto. Não é possível excluir.');
+
+end;
+
+procedure TF01007.BFirstClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+procedure TF01007.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit4.Color := CorCamposOnlyRead();
+
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+
+  BitBtn2.Enabled := true;
+  BitBtn3.Enabled := true;
+end;
+
 procedure TF01007.BitBtn1Click(Sender: TObject);
 begin
   inherited;
@@ -283,6 +348,49 @@ begin
     DataSource2.DataSet.Refresh;
   end;
 
+end;
+
+procedure TF01007.BLastClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+procedure TF01007.BNextClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+procedure TF01007.BPesquisarClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+procedure TF01007.BPriorClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+end;
+
+procedure TF01007.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit4.Color := clWindow;
 end;
 
 procedure TF01007.BtnExcluirTipoRegistroClick(Sender: TObject);

@@ -71,6 +71,11 @@ type
     procedure acCancelarExecute(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure acExcluirExecute(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -132,6 +137,61 @@ begin
 end;
 
 procedure TF01008.acSalvarExecute(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+
+  DBEdit3.Color := clWindow;
+  DBEdit4.Color := clWindow;
+  DBEdit5.Color := clWindow;
+end;
+
+procedure TF01008.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+
+  DBEdit3.Color := clWindow;
+  DBEdit4.Color := clWindow;
+  DBEdit5.Color := clWindow;
+end;
+
+procedure TF01008.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  PageControl.ActivePageIndex := 0;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit3.Color := CorCamposOnlyRead();
+  DBEdit4.Color := CorCamposOnlyRead();
+  DBEdit5.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01008.BExcluirClick(Sender: TObject);
+begin
+  inherited;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idOperacao =:idCrono';
+  DModule.qAux.ParamByName('idCrono').AsInteger:= (ClientDataSet1idoperacao.AsInteger);
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+  begin
+    inherited;
+  end else
+    ShowMessage('Cronometragem vinculada a esta Operação. Não é possível excluir.');
+
+end;
+
+procedure TF01008.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  PageControl.ActivePageIndex := 0;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit3.Color := CorCamposOnlyRead();
+  DBEdit4.Color := CorCamposOnlyRead();
+  DBEdit5.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01008.BSalvarClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;

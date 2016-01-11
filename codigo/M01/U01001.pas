@@ -28,6 +28,11 @@ type
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
     procedure acExcluirExecute(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -78,6 +83,44 @@ begin
 end;
 
 procedure TF01001.acSalvarExecute(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
+procedure TF01001.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
+procedure TF01001.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01001.BExcluirClick(Sender: TObject);
+begin
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from operacao op where op.idacao =:idAcao';
+  DModule.qAux.ParamByName('idAcao').AsInteger:= (ClientDataSet1idacao.AsInteger);
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+  begin
+    inherited;
+  end else
+    ShowMessage('Operação vinculada a esta Ação. Não é possível excluír.');
+
+end;
+
+procedure TF01001.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01001.BSalvarClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;

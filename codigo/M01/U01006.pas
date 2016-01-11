@@ -45,6 +45,10 @@ type
     procedure acCancelarExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -75,6 +79,7 @@ begin
   DBEdit4.Color := CorCamposOnlyRead();
 end;
 
+
 procedure TF01006.acInserirExecute(Sender: TObject);
 begin
   inherited;
@@ -83,6 +88,34 @@ begin
 end;
 
 procedure TF01006.acSalvarExecute(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit4.Color := clWindow;
+end;
+
+procedure TF01006.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit4.Color := clWindow;
+end;
+
+procedure TF01006.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit4.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01006.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit4.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01006.BSalvarClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;

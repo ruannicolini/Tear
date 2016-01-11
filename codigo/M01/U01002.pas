@@ -28,6 +28,11 @@ type
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
     procedure acExcluirExecute(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -77,6 +82,45 @@ begin
 end;
 
 procedure TF01002.acSalvarExecute(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
+procedure TF01002.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
+procedure TF01002.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01002.BExcluirClick(Sender: TObject);
+begin
+  inherited;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idCronometrista =:idC';
+  DModule.qAux.ParamByName('idC').AsInteger:= (ClientDataSet1idcronometrista.AsInteger);
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+  begin
+    inherited;
+  end else
+    ShowMessage('Cronometragem vinculada ao Cronometrista. Não é possível excluir.');
+
+end;
+
+procedure TF01002.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01002.BSalvarClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;

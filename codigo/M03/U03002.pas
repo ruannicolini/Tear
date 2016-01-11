@@ -63,7 +63,7 @@ var
   ListItem : TListItem;
 begin
   inherited;
-  Cont := FPrincipal.ImageList32.Count;
+  Cont := FPrincipal.ImageList64.Count;
 
  for I := 0 to Cont - 1 do
   begin

@@ -75,6 +75,17 @@ type
     procedure CDS_TRAfterPost(DataSet: TDataSet);
     procedure CDS_TRAfterDelete(DataSet: TDataSet);
     procedure acExcluirExecute(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
+    procedure BPesquisarClick(Sender: TObject);
+    procedure BFirstClick(Sender: TObject);
+    procedure BPriorClick(Sender: TObject);
+    procedure BNextClick(Sender: TObject);
+    procedure BLastClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -150,47 +161,140 @@ begin
   DS_TR.DataSet.Close;
 end;
 
+procedure TF01010.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DS_TR.DataSet.Close;
+  DBEdit1.Color := clWindow;
+  DBEdit3.Color := clWindow;
+end;
+
+procedure TF01010.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit3.Color := CorCamposOnlyRead();
+
+  {DBGRID TIPO RECURSO}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
+end;
+
+procedure TF01010.BExcluirClick(Sender: TObject);
+begin
+  inherited;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := ' select * from cronometragem c where c.idoperador =:idOp';
+  DModule.qAux.ParamByName('idOp').AsInteger:= (ClientDataSet1idoperador.AsInteger);
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+  begin
+    inherited;
+  end else
+    ShowMessage('Cronometragem vinculada ao Operador. Não é possível excluir.');
+end;
+
+procedure TF01010.BFirstClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
+end;
+
+procedure TF01010.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit3.Color := CorCamposOnlyRead();
+
+  {DBGRID TIPO RECURSO}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
+
+  if not DS_TR.DataSet.Active then
+        DS_TR.DataSet.Open;
+end;
+
 procedure TF01010.BitBtn1Click(Sender: TObject);
 begin
     inherited;
-  if trim(EditBeleza1.Text) <> '' then
-  begin
-    {Coloca em Modo de Edição}
-    if not DS_TR.DataSet.Active then
-          DS_TR.DataSet.Open;
+if trim(EditBeleza1.Text) <> '' then
+begin
+  {Coloca em Modo de Edição}
+  if not DS_TR.DataSet.Active then
+        DS_TR.DataSet.Open;
+            DS_TR.DataSet.Append;
+            CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
+            CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
 
-    if(CDS_TR.Locate('idtiporecurso',Edit1.Text,[]) = false)then
-      begin
-      DS_TR.DataSet.Append;
-      CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
-      CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
-
-      {Salva}
-      DS_TR.DataSet.Post;
+           {Salva}
+            DS_TR.DataSet.Post;
 
 
-      {Atualiza grid}
-      Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-      DS_TR.DataSet.Close;
-      DS_TR.DataSet.Open;
+            {Atualiza grid}
+            Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+            DS_TR.DataSet.Close;
+            DS_TR.DataSet.Open;
 
-      edit1.Text := '';
-      end else
-        ShowMessage('Tipo de Recurso ja Adicionado.');
-
-  end else
-     showmessage('preencha o campo');
+end
+else
+   showmessage('preencha o campo');
 end;
 
+procedure TF01010.BLastClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
+end;
 
+procedure TF01010.BNextClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
+end;
 
+procedure TF01010.BPesquisarClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
+end;
 
+procedure TF01010.BPriorClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
+end;
+
+procedure TF01010.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit3.Color := clWindow;
+
+  DS_TR.DataSet.Close;
+end;
 
 procedure TF01010.BtnExcluirTipoRegistroClick(Sender: TObject);
 begin
   inherited;
 
-    if MessageDlg('Deseja Apagar Item '+ IntToStr(CDS_TRidtipo_recurso.AsInteger)+ ' - ' + CDS_TRdescricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
      begin
           CDS_TR.Delete;
      end;
@@ -219,6 +323,12 @@ begin
   inherited;
   ClientDataSet1idoperador.AsInteger := DModule.buscaProximoParametro('seqOperador');
 
+end;
+
+procedure TF01010.FormShow(Sender: TObject);
+begin
+  inherited;
+  BPesquisarClick(Sender);
 end;
 
 Initialization
