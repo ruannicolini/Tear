@@ -43,7 +43,6 @@ type
     Label1: TLabel;
     DBEdit1: TDBEdit;
     DBCheckBox1: TDBCheckBox;
-    DBCheckBox2: TDBCheckBox;
     Label2: TLabel;
     DBEdit2: TDBEdit;
     Label3: TLabel;
@@ -116,6 +115,10 @@ type
     DBEditBeleza4: TDBEditBeleza;
     DBEditBeleza5: TDBEditBeleza;
     ClientDataSet1cronometrista: TStringField;
+    Panel3: TPanel;
+    DBCheckBox2: TDBCheckBox;
+    Panel4: TPanel;
+    DBCheckBox3: TDBCheckBox;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
   private
