@@ -1,20 +1,401 @@
 inherited F01013: TF01013
   Caption = 'F01013'
-  ExplicitWidth = 834
-  ExplicitHeight = 557
+  ClientHeight = 631
+  ClientWidth = 862
+  ExplicitLeft = -91
+  ExplicitTop = -108
+  ExplicitWidth = 878
+  ExplicitHeight = 670
   PixelsPerInch = 96
   TextHeight = 13
+  inherited Panel1: TPanel
+    Width = 862
+    ExplicitWidth = 862
+  end
   inherited PageControl: TPageControl
+    Width = 862
+    Height = 555
+    ActivePage = TbDados
+    ExplicitWidth = 862
+    ExplicitHeight = 555
+    inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 854
+      ExplicitHeight = 527
+      inherited grDados: TGroupBox
+        Width = 854
+        Height = 527
+        ExplicitWidth = 854
+        ExplicitHeight = 527
+        inherited ImgSaveWhite: TImage
+          Left = 802
+          Top = 19
+          ExplicitLeft = 802
+          ExplicitTop = 19
+        end
+        inherited ImgSaveGray: TImage
+          Left = 826
+          Top = 19
+          ExplicitLeft = 826
+          ExplicitTop = 19
+        end
+        inherited Image1: TImage
+          Left = 802
+          Top = 50
+          ExplicitLeft = 802
+          ExplicitTop = 50
+        end
+        inherited Image2: TImage
+          Left = 826
+          Top = 50
+          ExplicitLeft = 826
+          ExplicitTop = 50
+        end
+        inherited Image3: TImage
+          Left = 802
+          Top = 81
+          ExplicitLeft = 802
+          ExplicitTop = 81
+        end
+        inherited Image6: TImage
+          Left = 826
+          Top = 81
+          ExplicitLeft = 826
+          ExplicitTop = 81
+        end
+        inherited Image7: TImage
+          Left = 826
+          Top = 112
+          ExplicitLeft = 826
+          ExplicitTop = 112
+        end
+        inherited Image8: TImage
+          Left = 802
+          Top = 112
+          ExplicitLeft = 802
+          ExplicitTop = 112
+        end
+        inherited Image4: TImage
+          Left = 826
+          Top = 143
+          ExplicitLeft = 826
+          ExplicitTop = 143
+        end
+        inherited Image5: TImage
+          Left = 802
+          Top = 143
+          ExplicitLeft = 802
+          ExplicitTop = 143
+        end
+        inherited Image9: TImage
+          Left = 826
+          Top = 174
+          ExplicitLeft = 826
+          ExplicitTop = 174
+        end
+        inherited Image10: TImage
+          Left = 802
+          Top = 174
+          ExplicitLeft = 802
+          ExplicitTop = 174
+        end
+        object Label1: TLabel
+          Left = 25
+          Top = 7
+          Width = 22
+          Height = 13
+          Caption = 'COD'
+          FocusControl = DBEdit1
+        end
+        object Label2: TLabel
+          Left = 25
+          Top = 199
+          Width = 24
+          Height = 13
+          Caption = 'ritmo'
+          FocusControl = DBEdit2
+        end
+        object Label3: TLabel
+          Left = 25
+          Top = 239
+          Width = 54
+          Height = 13
+          Caption = 'num_pecas'
+          FocusControl = DBEdit3
+        end
+        object Label4: TLabel
+          Left = 25
+          Top = 279
+          Width = 47
+          Height = 13
+          Caption = 'tolerancia'
+          FocusControl = DBEdit4
+        end
+        object Label5: TLabel
+          Left = 25
+          Top = 319
+          Width = 89
+          Height = 13
+          Caption = 'comprimento_prod'
+          FocusControl = DBEdit5
+        end
+        object Label6: TLabel
+          Left = 25
+          Top = 359
+          Width = 76
+          Height = 13
+          Caption = 'num_ocorrencia'
+          FocusControl = DBEdit6
+        end
+        object Label7: TLabel
+          Left = 25
+          Top = 54
+          Width = 49
+          Height = 13
+          Caption = 'PRODUTO'
+          FocusControl = DBEdit7
+        end
+        object Label8: TLabel
+          Left = 380
+          Top = 103
+          Width = 87
+          Height = 13
+          Caption = 'CRONOMETRISTA'
+          FocusControl = DBEdit8
+        end
+        object Label9: TLabel
+          Left = 25
+          Top = 151
+          Width = 38
+          Height = 13
+          Caption = 'TECIDO'
+          FocusControl = DBEdit9
+        end
+        object Label10: TLabel
+          Left = 380
+          Top = 54
+          Width = 56
+          Height = 13
+          Caption = 'OPERA'#199#195'O'
+          FocusControl = DBEdit10
+        end
+        object Label11: TLabel
+          Left = 25
+          Top = 103
+          Width = 56
+          Height = 13
+          Caption = 'OPERADOR'
+          FocusControl = DBEdit11
+        end
+        object DBEdit1: TDBEdit
+          Left = 25
+          Top = 23
+          Width = 87
+          Height = 21
+          DataField = 'idcronometragem'
+          DataSource = DS
+          TabOrder = 0
+        end
+        object DBCheckBox1: TDBCheckBox
+          Left = 187
+          Top = 230
+          Width = 97
+          Height = 17
+          Caption = 'tempo_original'
+          DataField = 'tempo_original'
+          DataSource = DS
+          TabOrder = 1
+        end
+        object DBCheckBox2: TDBCheckBox
+          Left = 290
+          Top = 230
+          Width = 97
+          Height = 17
+          Caption = 'tempo_ideal'
+          DataField = 'tempo_ideal'
+          DataSource = DS
+          TabOrder = 2
+        end
+        object DBEdit2: TDBEdit
+          Left = 25
+          Top = 215
+          Width = 134
+          Height = 21
+          DataField = 'ritmo'
+          DataSource = DS
+          TabOrder = 3
+        end
+        object DBEdit3: TDBEdit
+          Left = 25
+          Top = 255
+          Width = 134
+          Height = 21
+          DataField = 'num_pecas'
+          DataSource = DS
+          TabOrder = 4
+        end
+        object DBEdit4: TDBEdit
+          Left = 25
+          Top = 295
+          Width = 134
+          Height = 21
+          DataField = 'tolerancia'
+          DataSource = DS
+          TabOrder = 5
+        end
+        object DBEdit5: TDBEdit
+          Left = 25
+          Top = 335
+          Width = 134
+          Height = 21
+          DataField = 'comprimento_prod'
+          DataSource = DS
+          TabOrder = 6
+        end
+        object DBEdit6: TDBEdit
+          Left = 25
+          Top = 375
+          Width = 134
+          Height = 21
+          DataField = 'num_ocorrencia'
+          DataSource = DS
+          TabOrder = 7
+        end
+        object DBEdit7: TDBEdit
+          Left = 25
+          Top = 70
+          Width = 28
+          Height = 21
+          DataField = 'idProduto'
+          DataSource = DS
+          TabOrder = 8
+        end
+        object DBEdit8: TDBEdit
+          Left = 380
+          Top = 119
+          Width = 28
+          Height = 21
+          DataField = 'idCronometrista'
+          DataSource = DS
+          TabOrder = 9
+        end
+        object DBEdit9: TDBEdit
+          Left = 25
+          Top = 167
+          Width = 28
+          Height = 21
+          DataField = 'idTecido'
+          DataSource = DS
+          TabOrder = 10
+        end
+        object DBEdit10: TDBEdit
+          Left = 380
+          Top = 70
+          Width = 28
+          Height = 21
+          DataField = 'idOperacao'
+          DataSource = DS
+          TabOrder = 11
+        end
+        object DBEdit11: TDBEdit
+          Left = 25
+          Top = 119
+          Width = 28
+          Height = 21
+          DataField = 'idOperador'
+          DataSource = DS
+          TabOrder = 12
+        end
+        object DBEditBeleza1: TDBEditBeleza
+          Left = 52
+          Top = 70
+          Width = 305
+          Height = 21
+          Color = 15724527
+          DataField = 'produto'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 13
+          OnClick = DBEditBeleza1Click
+          Ativar_Pesquisa = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idproduto, descricao '
+            'from produto where descricao'
+            'like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit7
+          campo_outro_edit = 'idProduto'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object DBEditBeleza2: TDBEditBeleza
+          Left = 408
+          Top = 70
+          Width = 305
+          Height = 21
+          Color = 15724527
+          DataField = 'Operacao'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 14
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idoperacao, descricao '
+            'from operacao where descricao'
+            'like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit10
+          campo_outro_edit = 'idOperacao'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+      end
+    end
     inherited TbFiltros: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 414
+      ExplicitWidth = 854
+      ExplicitHeight = 527
+      inherited GBFiltros: TGroupBox
+        Width = 854
+        ExplicitWidth = 854
+      end
+      inherited DBGridBeleza1: TDBGridBeleza
+        Width = 854
+        Height = 490
+      end
+    end
+  end
+  inherited Panel2: TPanel
+    Width = 862
+    ExplicitWidth = 862
+    inherited BFechar: TSpeedButton
+      Left = 828
+      ExplicitLeft = 828
     end
   end
   inherited ImageList1: TImageList
+    Left = 736
+    Top = 152
     Bitmap = {
-      494C01010F002C002C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00340118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -1209,9 +1590,158 @@ inherited F01013: TF01013
       07000001F0000FF0000FF0000F00000100000000000000000000000000000000
       000000000000}
   end
+  inherited DS: TDataSource
+    Left = 760
+    Top = 112
+  end
+  inherited ClientDataSet1: TClientDataSet
+    Left = 728
+    Top = 112
+    object ClientDataSet1idcronometragem: TIntegerField
+      FieldName = 'idcronometragem'
+    end
+    object ClientDataSet1tempo_original: TBooleanField
+      FieldName = 'tempo_original'
+    end
+    object ClientDataSet1tempo_ideal: TBooleanField
+      FieldName = 'tempo_ideal'
+    end
+    object ClientDataSet1ritmo: TIntegerField
+      FieldName = 'ritmo'
+    end
+    object ClientDataSet1num_pecas: TIntegerField
+      FieldName = 'num_pecas'
+    end
+    object ClientDataSet1tolerancia: TIntegerField
+      FieldName = 'tolerancia'
+    end
+    object ClientDataSet1comprimento_prod: TSingleField
+      FieldName = 'comprimento_prod'
+    end
+    object ClientDataSet1num_ocorrencia: TIntegerField
+      FieldName = 'num_ocorrencia'
+    end
+    object ClientDataSet1idProduto: TIntegerField
+      FieldName = 'idProduto'
+    end
+    object ClientDataSet1idCronometrista: TIntegerField
+      FieldName = 'idCronometrista'
+    end
+    object ClientDataSet1idTecido: TIntegerField
+      FieldName = 'idTecido'
+    end
+    object ClientDataSet1idOperacao: TIntegerField
+      FieldName = 'idOperacao'
+    end
+    object ClientDataSet1idOperador: TIntegerField
+      FieldName = 'idOperador'
+    end
+    object ClientDataSet1produto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'produto'
+      LookupDataSet = ClientDataSet2
+      LookupKeyFields = 'idProduto'
+      LookupResultField = 'descricao'
+      KeyFields = 'idProduto'
+      Size = 50
+      Lookup = True
+    end
+    object ClientDataSet1operacao: TStringField
+      FieldKind = fkLookup
+      FieldName = 'operacao'
+      LookupDataSet = ClientDataSet3
+      LookupKeyFields = 'idoperacao'
+      LookupResultField = 'descricao'
+      KeyFields = 'idOperacao'
+      Size = 50
+      Lookup = True
+    end
+  end
+  inherited DataSetProvider1: TDataSetProvider
+    Left = 696
+    Top = 112
+  end
+  inherited FDQuery1: TFDQuery
+    SQL.Strings = (
+      'select * from cronometragem')
+    Left = 672
+    Top = 112
+    object FDQuery1idcronometragem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idcronometragem'
+      Origin = 'idcronometragem'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQuery1tempo_original: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempo_original'
+      Origin = 'tempo_original'
+    end
+    object FDQuery1tempo_ideal: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempo_ideal'
+      Origin = 'tempo_ideal'
+    end
+    object FDQuery1ritmo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ritmo'
+      Origin = 'ritmo'
+    end
+    object FDQuery1num_pecas: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'num_pecas'
+      Origin = 'num_pecas'
+    end
+    object FDQuery1tolerancia: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'tolerancia'
+      Origin = 'tolerancia'
+    end
+    object FDQuery1comprimento_prod: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'comprimento_prod'
+      Origin = 'comprimento_prod'
+    end
+    object FDQuery1num_ocorrencia: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'num_ocorrencia'
+      Origin = 'num_ocorrencia'
+    end
+    object FDQuery1idProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object FDQuery1idCronometrista: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idCronometrista'
+      Origin = 'idCronometrista'
+    end
+    object FDQuery1idTecido: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idTecido'
+      Origin = 'idTecido'
+    end
+    object FDQuery1idOperacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOperacao'
+      Origin = 'idOperacao'
+    end
+    object FDQuery1idOperador: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOperador'
+      Origin = 'idOperador'
+    end
+  end
+  inherited ActAcoes: TActionList
+    Left = 764
+    Top = 152
+  end
   inherited ImageListBase: TImageList
+    Left = 704
+    Top = 152
     Bitmap = {
-      494C01010C002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1745,5 +2275,142 @@ inherited F01013: TF01013
       E067E067FE17FE17E047E047FFA3FFA3E00FE00FFFC3FFC3E01FE01FFFE7FFE7
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object DataSource2: TDataSource
+    DataSet = ClientDataSet2
+    Left = 800
+    Top = 336
+  end
+  object ClientDataSet2: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider2'
+    Left = 768
+    Top = 336
+    object ClientDataSet2idProduto: TIntegerField
+      FieldName = 'idProduto'
+    end
+    object ClientDataSet2descricao: TStringField
+      FieldName = 'descricao'
+      Size = 45
+    end
+    object ClientDataSet2data: TDateField
+      FieldName = 'data'
+    end
+    object ClientDataSet2idGrupo: TIntegerField
+      FieldName = 'idGrupo'
+    end
+  end
+  object DataSetProvider2: TDataSetProvider
+    DataSet = FDQuery2
+    Left = 744
+    Top = 336
+  end
+  object FDQuery2: TFDQuery
+    ConnectionName = 'balay'
+    SQL.Strings = (
+      'SELECT * FROM PRODUTO')
+    Left = 712
+    Top = 336
+    object FDQuery2idProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQuery2descricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      Size = 45
+    end
+    object FDQuery2data: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'data'
+      Origin = '`data`'
+    end
+    object FDQuery2idGrupo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idGrupo'
+      Origin = 'idGrupo'
+    end
+  end
+  object DataSource3: TDataSource
+    DataSet = ClientDataSet3
+    Left = 800
+    Top = 392
+  end
+  object ClientDataSet3: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider3'
+    Left = 768
+    Top = 392
+  end
+  object DataSetProvider3: TDataSetProvider
+    DataSet = FDQuery3
+    Left = 736
+    Top = 392
+  end
+  object FDQuery3: TFDQuery
+    ConnectionName = 'balay'
+    SQL.Strings = (
+      'select * from operacao')
+    Left = 704
+    Top = 392
+  end
+  object DataSource4: TDataSource
+    Left = 800
+    Top = 448
+  end
+  object DataSource5: TDataSource
+    Left = 800
+    Top = 504
+  end
+  object DataSource6: TDataSource
+    Left = 800
+    Top = 560
+  end
+  object ClientDataSet4: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 776
+    Top = 448
+  end
+  object ClientDataSet5: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 768
+    Top = 504
+  end
+  object ClientDataSet6: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 768
+    Top = 560
+  end
+  object DataSetProvider4: TDataSetProvider
+    Left = 744
+    Top = 448
+  end
+  object DataSetProvider5: TDataSetProvider
+    Left = 736
+    Top = 504
+  end
+  object DataSetProvider6: TDataSetProvider
+    Left = 736
+    Top = 560
+  end
+  object FDQuery4: TFDQuery
+    Left = 712
+    Top = 448
+  end
+  object FDQuery5: TFDQuery
+    Left = 704
+    Top = 504
+  end
+  object FDQuery6: TFDQuery
+    Left = 704
+    Top = 560
   end
 end
