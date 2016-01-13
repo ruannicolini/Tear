@@ -2,8 +2,7 @@ inherited F01013: TF01013
   Caption = 'F01013'
   ClientHeight = 631
   ClientWidth = 862
-  ExplicitLeft = -91
-  ExplicitTop = -108
+  ExplicitTop = -94
   ExplicitWidth = 878
   ExplicitHeight = 670
   PixelsPerInch = 96
@@ -111,41 +110,41 @@ inherited F01013: TF01013
         object Label2: TLabel
           Left = 25
           Top = 199
-          Width = 24
+          Width = 33
           Height = 13
-          Caption = 'ritmo'
+          Caption = 'RITMO'
           FocusControl = DBEdit2
         end
         object Label3: TLabel
           Left = 25
           Top = 239
-          Width = 54
+          Width = 94
           Height = 13
-          Caption = 'num_pecas'
+          Caption = 'NUMERO DE PE'#199'AS'
           FocusControl = DBEdit3
         end
         object Label4: TLabel
           Left = 25
           Top = 279
-          Width = 47
+          Width = 64
           Height = 13
-          Caption = 'tolerancia'
+          Caption = 'TOLER'#194'NCIA'
           FocusControl = DBEdit4
         end
         object Label5: TLabel
           Left = 25
           Top = 319
-          Width = 89
+          Width = 145
           Height = 13
-          Caption = 'comprimento_prod'
+          Caption = 'COMPRIMENTO DO PRODUTO'
           FocusControl = DBEdit5
         end
         object Label6: TLabel
           Left = 25
           Top = 359
-          Width = 76
+          Width = 68
           Height = 13
-          Caption = 'num_ocorrencia'
+          Caption = 'OCORR'#202'NCIA'
           FocusControl = DBEdit6
         end
         object Label7: TLabel
@@ -200,19 +199,19 @@ inherited F01013: TF01013
         object DBCheckBox1: TDBCheckBox
           Left = 187
           Top = 230
-          Width = 97
+          Width = 110
           Height = 17
-          Caption = 'tempo_original'
+          Caption = 'TEMPO ORIGINAL'
           DataField = 'tempo_original'
           DataSource = DS
           TabOrder = 1
         end
         object DBCheckBox2: TDBCheckBox
-          Left = 290
+          Left = 311
           Top = 230
           Width = 97
           Height = 17
-          Caption = 'tempo_ideal'
+          Caption = 'TEMPO IDEAL'
           DataField = 'tempo_ideal'
           DataSource = DS
           TabOrder = 2
@@ -308,7 +307,7 @@ inherited F01013: TF01013
           TabOrder = 12
         end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 52
+          Left = 53
           Top = 70
           Width = 305
           Height = 21
@@ -366,6 +365,93 @@ inherited F01013: TF01013
           CorBorda = clGray
           NovoLayout = False
         end
+        object DBEditBeleza3: TDBEditBeleza
+          Left = 53
+          Top = 167
+          Width = 305
+          Height = 21
+          Color = 15724527
+          DataField = 'tecido'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 15
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idtecido, descricao '
+            'from tecido where descricao'
+            'like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit9
+          campo_outro_edit = 'idtecido'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object DBEditBeleza4: TDBEditBeleza
+          Left = 53
+          Top = 119
+          Width = 305
+          Height = 21
+          Color = 15724527
+          DataField = 'operador'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 16
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idoperador, nome '
+            'from operador where nome'
+            'like :varDescricao')
+          database = 'balay'
+          campo = 'nome'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit11
+          campo_outro_edit = 'idoperador'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object DBEditBeleza5: TDBEditBeleza
+          Left = 408
+          Top = 119
+          Width = 305
+          Height = 21
+          Color = 15724527
+          DataField = 'cronometrista'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 17
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idcronometrista, nome '
+            'from cronometrista where nome'
+            'like :varDescricao')
+          database = 'balay'
+          campo = 'nome'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit8
+          campo_outro_edit = 'idcronometrista'
+          CorBorda = clGray
+          NovoLayout = False
+        end
       end
     end
     inherited TbFiltros: TTabSheet
@@ -395,7 +481,7 @@ inherited F01013: TF01013
     Left = 736
     Top = 152
     Bitmap = {
-      494C01010F002C00340118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00380118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -1656,6 +1742,36 @@ inherited F01013: TF01013
       Size = 50
       Lookup = True
     end
+    object ClientDataSet1tecido: TStringField
+      FieldKind = fkLookup
+      FieldName = 'tecido'
+      LookupDataSet = ClientDataSet4
+      LookupKeyFields = 'idtecido'
+      LookupResultField = 'descricao'
+      KeyFields = 'idTecido'
+      Size = 50
+      Lookup = True
+    end
+    object ClientDataSet1operador: TStringField
+      FieldKind = fkLookup
+      FieldName = 'operador'
+      LookupDataSet = ClientDataSet5
+      LookupKeyFields = 'idoperador'
+      LookupResultField = 'nome'
+      KeyFields = 'idOperador'
+      Size = 50
+      Lookup = True
+    end
+    object ClientDataSet1cronometrista: TStringField
+      FieldKind = fkLookup
+      FieldName = 'cronometrista'
+      LookupDataSet = ClientDataSet6
+      LookupKeyFields = 'idcronometrista'
+      LookupResultField = 'nome'
+      KeyFields = 'idCronometrista'
+      Size = 50
+      Lookup = True
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 696
@@ -1741,7 +1857,7 @@ inherited F01013: TF01013
     Left = 704
     Top = 152
     Bitmap = {
-      494C01010C002C008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2360,57 +2476,140 @@ inherited F01013: TF01013
     Top = 392
   end
   object DataSource4: TDataSource
+    DataSet = ClientDataSet4
     Left = 800
     Top = 448
   end
   object DataSource5: TDataSource
+    DataSet = ClientDataSet5
     Left = 800
     Top = 504
   end
   object DataSource6: TDataSource
+    DataSet = ClientDataSet6
     Left = 800
     Top = 560
   end
   object ClientDataSet4: TClientDataSet
     Aggregates = <>
     Params = <>
+    ProviderName = 'DataSetProvider4'
     Left = 776
     Top = 448
+    object ClientDataSet4idtecido: TIntegerField
+      FieldName = 'idtecido'
+    end
+    object ClientDataSet4descricao: TStringField
+      FieldName = 'descricao'
+      Size = 45
+    end
   end
   object ClientDataSet5: TClientDataSet
     Aggregates = <>
     Params = <>
+    ProviderName = 'DataSetProvider5'
     Left = 768
     Top = 504
+    object ClientDataSet5idoperador: TIntegerField
+      FieldName = 'idoperador'
+    end
+    object ClientDataSet5nome: TStringField
+      FieldName = 'nome'
+      Size = 45
+    end
+    object ClientDataSet5idGrupo: TIntegerField
+      FieldName = 'idGrupo'
+    end
   end
   object ClientDataSet6: TClientDataSet
     Aggregates = <>
     Params = <>
+    ProviderName = 'DataSetProvider6'
     Left = 768
     Top = 560
+    object ClientDataSet6idcronometrista: TIntegerField
+      FieldName = 'idcronometrista'
+    end
+    object ClientDataSet6nome: TStringField
+      FieldName = 'nome'
+      Size = 45
+    end
   end
   object DataSetProvider4: TDataSetProvider
+    DataSet = FDQuery4
     Left = 744
     Top = 448
   end
   object DataSetProvider5: TDataSetProvider
+    DataSet = FDQuery5
     Left = 736
     Top = 504
   end
   object DataSetProvider6: TDataSetProvider
+    DataSet = FDQuery6
     Left = 736
     Top = 560
   end
   object FDQuery4: TFDQuery
+    ConnectionName = 'balay'
+    SQL.Strings = (
+      'select * from tecido')
     Left = 712
     Top = 448
+    object FDQuery4idtecido: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idtecido'
+      Origin = 'idtecido'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQuery4descricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      Size = 45
+    end
   end
   object FDQuery5: TFDQuery
+    ConnectionName = 'balay'
+    SQL.Strings = (
+      'select * from operador')
     Left = 704
     Top = 504
+    object FDQuery5idoperador: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idoperador'
+      Origin = 'idoperador'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQuery5nome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 45
+    end
+    object FDQuery5idGrupo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idGrupo'
+      Origin = 'idGrupo'
+    end
   end
   object FDQuery6: TFDQuery
+    ConnectionName = 'balay'
+    SQL.Strings = (
+      'select * from cronometrista')
     Left = 704
     Top = 560
+    object FDQuery6idcronometrista: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idcronometrista'
+      Origin = 'idcronometrista'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQuery6nome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 45
+    end
   end
 end

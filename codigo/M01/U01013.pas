@@ -96,6 +96,26 @@ type
     FDQuery4: TFDQuery;
     FDQuery5: TFDQuery;
     FDQuery6: TFDQuery;
+    DBEditBeleza3: TDBEditBeleza;
+    FDQuery4idtecido: TIntegerField;
+    FDQuery4descricao: TStringField;
+    ClientDataSet4idtecido: TIntegerField;
+    ClientDataSet4descricao: TStringField;
+    ClientDataSet1tecido: TStringField;
+    FDQuery5idoperador: TIntegerField;
+    FDQuery5nome: TStringField;
+    FDQuery5idGrupo: TIntegerField;
+    FDQuery6idcronometrista: TIntegerField;
+    FDQuery6nome: TStringField;
+    ClientDataSet5idoperador: TIntegerField;
+    ClientDataSet5nome: TStringField;
+    ClientDataSet5idGrupo: TIntegerField;
+    ClientDataSet6idcronometrista: TIntegerField;
+    ClientDataSet6nome: TStringField;
+    ClientDataSet1operador: TStringField;
+    DBEditBeleza4: TDBEditBeleza;
+    DBEditBeleza5: TDBEditBeleza;
+    ClientDataSet1cronometrista: TStringField;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
   private
