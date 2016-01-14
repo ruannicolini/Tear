@@ -118,7 +118,6 @@ type
     Panel3: TPanel;
     DBCheckBox2: TDBCheckBox;
     Panel4: TPanel;
-    DBCheckBox3: TDBCheckBox;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
   private

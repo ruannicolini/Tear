@@ -2,7 +2,7 @@ inherited F01013: TF01013
   Caption = 'F01013'
   ClientHeight = 631
   ClientWidth = 1156
-  ExplicitTop = -94
+  ExplicitTop = -119
   ExplicitWidth = 1172
   ExplicitHeight = 670
   PixelsPerInch = 96
@@ -442,13 +442,13 @@ inherited F01013: TF01013
           Left = 25
           Top = 452
           Width = 137
-          Height = 37
+          Height = 21
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 16
           object DBCheckBox1: TDBCheckBox
-            Left = 11
-            Top = 8
+            Left = 13
+            Top = 0
             Width = 110
             Height = 17
             Caption = 'TEMPO ORIGINAL'
@@ -457,31 +457,21 @@ inherited F01013: TF01013
             TabOrder = 0
           end
         end
-        object DBCheckBox2: TDBCheckBox
-          Left = 516
-          Top = 265
-          Width = 97
-          Height = 17
-          Caption = 'TEMPO IDEAL'
-          DataField = 'tempo_ideal'
-          DataSource = DS
-          TabOrder = 17
-        end
         object Panel4: TPanel
-          Left = 178
+          Left = 173
           Top = 452
-          Width = 132
-          Height = 37
+          Width = 137
+          Height = 21
           BevelKind = bkFlat
           BevelOuter = bvNone
-          TabOrder = 18
-          object DBCheckBox3: TDBCheckBox
-            Left = 12
-            Top = 8
-            Width = 110
+          TabOrder = 17
+          object DBCheckBox2: TDBCheckBox
+            Left = 14
+            Top = 0
+            Width = 97
             Height = 17
-            Caption = 'TEMPO ORIGINAL'
-            DataField = 'tempo_original'
+            Caption = 'TEMPO IDEAL'
+            DataField = 'tempo_ideal'
             DataSource = DS
             TabOrder = 0
           end

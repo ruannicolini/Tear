@@ -26,6 +26,7 @@ type
     Panel6: TPanel;
     Panel7: TPanel;
     Panel8: TPanel;
+    PageScroller: TPageScroller;
     procedure FormShow(Sender: TObject);
     procedure MouseEnterComponente(Sender: TObject);
     procedure MouseLeaveComponente(Sender: TObject);
@@ -38,7 +39,6 @@ type
   private
     { Private declarations }
   public
-    PageScroller: TPageScroller;
     Button : TButton;
     Lab : TLabel;
     NomeForm : String;
@@ -182,17 +182,9 @@ begin
   {Limpa os botoes}
   while Panel.ControlCount > 0 do
   begin
+    //ShowMessage(panel.Controls[0].ToString);
     Panel.Controls[0].Free;
   end;
-  PageScroller := TPageScroller.Create(self);
-  PageScroller.SetParentComponent(Panel);
-
-  //Panel.Destroy;
-  //Panel := Tpanel.Create(PageScroller);
-  //Panel.Parent := PageScroller;
-  Panel.Height := 100;
-  Panel.BevelOuter := bvNone;
-  //Panel.Color := clBlack;
 
 
   DModule.qAux.SQL.Text := 'SELECT * FROM MODULO WHERE IDMODULO = :ID';
@@ -217,7 +209,10 @@ begin
 
   DModule.qAux.Open;
   Cont := DModule.qAux.RecordCount;
-  Panel.Width := 130 + (Cont * 90);  // Corrigir essa função
+  Panel.Width := 130 + (Cont * 90);
+
+  PageScroller.Height := 100;
+  Panel.Height := 100;
 
   DModule.qAux.First;
   while not DModule.qAux.Eof do
@@ -239,7 +234,6 @@ begin
     Button.Left := Aux + 20;
     Aux := Aux + 90;
 
-   // Teste <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     ArredondarComponente(Button,20);
 
     Lab := TLabel.Create(Panel);
@@ -268,15 +262,11 @@ begin
   begin
     Panel.Controls[0].Free;
   end;
-  PageScroller := TPageScroller.Create(self);
-  PageScroller.SetParentComponent(Panel);
 
-  PageScroller.Align := alTop;
-  PageScroller.Height := 100;   //100
-  Panel.Height := 100;          //100
+  PageScroller.Height := 100;
+  Panel.Height := 100;
 
   DModule.FModulo.Open;
-  Panel.Align := alTop;
   Panel.Width := DModule.FModulo.RecordCount * 90 + 20;     //90 + 20
 
   DModule.FModulo.First;
@@ -285,9 +275,9 @@ begin
     Button := TButton.Create(self);
     Button.Parent := Panel;
     Button.Images := ImageList64;
-    Button.Height := 70; //     70
-    Button.Width := 70;  //   70
-    Button.Top := 10;    // 10
+    Button.Height := 70;
+    Button.Width := 70;
+    Button.Top := 10;
     Button.ImageAlignment := iaCenter;
     Button.ImageIndex := DModule.FModulo.Fields[2].AsInteger;
     Button.Tag := DModule.FModulo.Fields[0].AsInteger;
@@ -297,6 +287,7 @@ begin
 
     Button.Left := Aux + 20;
     Aux := Aux + 90;
+
 
     //TESTE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     ArredondarComponente(Button,20);

@@ -20,9 +20,9 @@ object FPrincipal: TFPrincipal
   TextHeight = 13
   object Background: TImage
     Left = 0
-    Top = 41
+    Top = 45
     Width = 954
-    Height = 536
+    Height = 532
     Align = alClient
     AutoSize = True
     Center = True
@@ -556,33 +556,24 @@ object FPrincipal: TFPrincipal
       B5FC471384E73EDDEDCCF6738D0000A0A4FF070843490B8C2942250000000049
       454E44AE426082}
     Stretch = True
+    ExplicitTop = 41
     ExplicitWidth = 1170
     ExplicitHeight = 630
   end
-  object Panel: TPanel
-    Left = 0
-    Top = 0
-    Width = 954
-    Height = 41
-    Align = alTop
-    Color = 14802909
-    ParentBackground = False
-    TabOrder = 0
-  end
   object Panel1: TPanel
     Left = 0
-    Top = 41
+    Top = 45
     Width = 954
-    Height = 536
+    Height = 532
     Align = alClient
     Color = 14342357
     ParentBackground = False
-    TabOrder = 1
+    TabOrder = 0
     object Panel2: TPanel
       Left = 8
       Top = 9
       Width = 937
-      Height = 523
+      Height = 519
       Align = alCustom
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelOuter = bvNone
@@ -593,13 +584,14 @@ object FPrincipal: TFPrincipal
         Left = 0
         Top = -3
         Width = 937
-        Height = 484
+        Height = 480
         Align = alCustom
         Anchors = [akLeft, akTop, akRight, akBottom]
         Center = True
         ParentShowHint = False
         Proportional = True
         ShowHint = False
+        ExplicitHeight = 484
       end
     end
   end
@@ -613,7 +605,7 @@ object FPrincipal: TFPrincipal
     BevelOuter = bvNone
     Color = 15987699
     ParentBackground = False
-    TabOrder = 2
+    TabOrder = 1
     object Panel3: TPanel
       Left = 158
       Top = 32
@@ -675,6 +667,26 @@ object FPrincipal: TFPrincipal
       TabOrder = 4
     end
   end
+  object PageScroller: TPageScroller
+    Left = 0
+    Top = 0
+    Width = 954
+    Height = 45
+    Align = alTop
+    Control = Panel
+    TabOrder = 2
+    object Panel: TPanel
+      Left = 0
+      Top = 0
+      Width = 954
+      Height = 45
+      Align = alCustom
+      Anchors = [akLeft, akTop, akRight]
+      Color = 14802909
+      ParentBackground = False
+      TabOrder = 0
+    end
+  end
   object ImageList64: TImageList
     ColorDepth = cd32Bit
     DrawingStyle = dsTransparent
@@ -683,7 +695,7 @@ object FPrincipal: TFPrincipal
     Left = 32
     Top = 65528
     Bitmap = {
-      494C010148006000CC0140004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010148006000E00140004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000000010000C004000001002000000000000000
       1300000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -40826,7 +40838,7 @@ object FPrincipal: TFPrincipal
     Left = 112
     Top = 65528
     Bitmap = {
-      494C0101500078006C0220002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010150007800800220002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000080000000A002000001002000000000000040
       0500000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -51929,7 +51941,7 @@ object FPrincipal: TFPrincipal
     Left = 240
     Top = 65528
     Bitmap = {
-      494C01010100E400140120002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C01010100E400280120002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
