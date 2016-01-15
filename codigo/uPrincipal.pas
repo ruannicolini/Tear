@@ -35,6 +35,8 @@ type
     procedure AbrirTela(Sender: TObject);
     procedure CriarForm(Tela, Desc : String);
     procedure ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
+    procedure AumentarBotao(Sender: TObject);
+    procedure DiminuirBotao(Sender: TObject);
     function fncAlturaBarraTarefas: Integer;
   private
     { Private declarations }
@@ -61,9 +63,15 @@ begin
   DModule.qAux.ParamByName('ID').AsInteger := TButton(Sender).Tag;
   DModule.qAux.Open;
 
+  AumentarBotao(Sender);
+  TButton(Sender).Enabled := False;
+
   Tela := 'F' + DModule.qAux.Fields[5].AsString;
   Desc := DModule.qAux.Fields[3].AsString;
   CriarForm(Tela, Desc);
+
+  DiminuirBotao(Sender);
+  TButton(Sender).Enabled := True;
 end;
 
 procedure TFPrincipal.ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
@@ -85,6 +93,14 @@ begin
 
 end;
 
+procedure TFPrincipal.AumentarBotao(Sender: TObject);
+begin
+  TButton(sender).Height := TButton(sender).Height + 10;
+  TButton(sender).Width := TButton(sender).Width + 10;
+  TButton(sender).Left := TButton(sender).Left - 5;
+  TButton(sender).Top := TButton(sender).Top - 5;
+end;
+
 procedure TFPrincipal.CriarForm(Tela, Desc : String);
 var
   PClass : TPersistentClass;
@@ -102,15 +118,12 @@ begin
                   GWL_STYLE,
                   GetWindowLong(Handle,GWL_STYLE) and not WS_CAPTION);
 
-
         //Laugura
         Width := (Screen.Width);
 
         //Altura = altura da tela - Altura do Panel Menu - Altura Barra de Tarefas - Altura barra de tituto do formPrincipal
-
         //*Frame Com panel da FPrincipal a mostra
         Height := (Screen.Height) - (FPrincipal.Panel.Height) - fncAlturaBarraTarefas - GetSystemMetrics(SM_CYCAPTION) - 2;
-
         //*Altura Frame Completo
         //Height := Screen.Height - fncAlturaBarraTarefas - GetSystemMetrics(SM_CYCAPTION) - 2;
 
@@ -126,11 +139,16 @@ begin
       finally
         Free;
         tFormClass(PClass) := nil;
-
-        // Cor do FPrincipal.Panel
-        //FPrincipal.Panel.Color := clWhite;
       end;
    end;
+end;
+
+procedure TFPrincipal.DiminuirBotao(Sender: TObject);
+begin
+  TButton(sender).Height := TButton(sender).Height - 10;
+  TButton(sender).Width := TButton(sender).Width - 10;
+  TButton(sender).Left := TButton(sender).Left + 5;
+  TButton(sender).Top := TButton(sender).Top + 5;
 end;
 
 function TFPrincipal.fncAlturaBarraTarefas: Integer;
@@ -152,23 +170,28 @@ procedure TFPrincipal.FormShow(Sender: TObject);
 begin
   NomeForm := 'Sistema de Balancameanto';
   MontarMenu(PageScroller);
-
 end;
 
+//Função de movimento do Botão
 procedure TFPrincipal.MouseEnterComponente(Sender: TObject);
 begin
+{
   TButton(sender).Height := TButton(sender).Height + 8;
   TButton(sender).Width := TButton(sender).Width + 8;
   TButton(sender).Left := TButton(sender).Left - 4;
   TButton(sender).Top := TButton(sender).Top - 4;
+}
 end;
 
+//Função de movimento do Botão
 procedure TFPrincipal.MouseLeaveComponente(Sender: TObject);
 begin
+{
   TButton(sender).Height := TButton(sender).Height - 8;
   TButton(sender).Width := TButton(sender).Width - 8;
   TButton(sender).Left := TButton(sender).Left + 4;
   TButton(sender).Top := TButton(sender).Top + 4;
+}
 end;
 
 procedure TFPrincipal.MouseClickComponente(Sender: TObject);
@@ -185,7 +208,6 @@ begin
     //ShowMessage(panel.Controls[0].ToString);
     Panel.Controls[0].Free;
   end;
-
 
   DModule.qAux.SQL.Text := 'SELECT * FROM MODULO WHERE IDMODULO = :ID';
   DModule.qAux.ParamByName('ID').AsInteger := Tag;
@@ -217,7 +239,6 @@ begin
   DModule.qAux.First;
   while not DModule.qAux.Eof do
   begin
-
     Button := TButton.Create(Panel);
     Button.Parent := Panel;
     Button.Images := ImageList32; //ImageList64;
@@ -234,7 +255,7 @@ begin
     Button.Left := Aux + 20;
     Aux := Aux + 90;
 
-    ArredondarComponente(Button,20);
+    //ArredondarComponente(Button,20);
 
     Lab := TLabel.Create(Panel);
     Lab.Parent := Panel;
@@ -267,7 +288,7 @@ begin
   Panel.Height := 100;
 
   DModule.FModulo.Open;
-  Panel.Width := DModule.FModulo.RecordCount * 90 + 20;     //90 + 20
+  Panel.Width := DModule.FModulo.RecordCount * 90 + 20;
 
   DModule.FModulo.First;
   while not dModule.FModulo.Eof do
@@ -288,8 +309,6 @@ begin
     Button.Left := Aux + 20;
     Aux := Aux + 90;
 
-
-    //TESTE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     ArredondarComponente(Button,20);
 
     Lab := TLabel.Create(Panel);
