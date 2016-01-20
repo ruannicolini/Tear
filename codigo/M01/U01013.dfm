@@ -1,31 +1,32 @@
 inherited F01013: TF01013
   Caption = 'F01013'
-  ClientHeight = 631
-  ClientWidth = 989
-  ExplicitTop = -130
-  ExplicitWidth = 1005
-  ExplicitHeight = 670
+  ClientHeight = 639
+  ClientWidth = 942
+  ExplicitLeft = 8
+  ExplicitTop = -156
+  ExplicitWidth = 958
+  ExplicitHeight = 678
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Width = 989
-    ExplicitWidth = 989
+    Width = 942
+    ExplicitWidth = 942
   end
   inherited PageControl: TPageControl
-    Width = 989
-    Height = 555
+    Width = 942
+    Height = 563
     ActivePage = TbDados
-    ExplicitWidth = 989
+    ExplicitWidth = 942
     ExplicitHeight = 555
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 981
+      ExplicitWidth = 934
       ExplicitHeight = 527
       inherited grDados: TGroupBox
-        Width = 981
-        Height = 527
-        ExplicitWidth = 981
+        Width = 934
+        Height = 535
+        ExplicitLeft = 144
+        ExplicitTop = 3
+        ExplicitWidth = 934
         ExplicitHeight = 527
         inherited ImgSaveWhite: TImage
           Left = 646
@@ -187,6 +188,38 @@ inherited F01013: TF01013
           Caption = 'OPERADOR'
           FocusControl = DBEdit11
         end
+        object Label12: TLabel
+          Left = 38
+          Top = 495
+          Width = 83
+          Height = 13
+          Caption = 'idcronometragem'
+          FocusControl = DBEdit12
+        end
+        object Label13: TLabel
+          Left = 122
+          Top = 495
+          Width = 67
+          Height = 13
+          Caption = 'idTipoRecurso'
+          FocusControl = DBEdit13
+        end
+        object Label14: TLabel
+          Left = 195
+          Top = 495
+          Width = 68
+          Height = 13
+          Caption = 'idtipo_recurso'
+          FocusControl = DBEdit14
+        end
+        object Label15: TLabel
+          Left = 252
+          Top = 495
+          Width = 45
+          Height = 13
+          Caption = 'descricao'
+          FocusControl = DBEdit15
+        end
         object DBEdit1: TDBEdit
           Left = 25
           Top = 33
@@ -199,7 +232,7 @@ inherited F01013: TF01013
         object DBEdit2: TDBEdit
           Left = 25
           Top = 174
-          Width = 137
+          Width = 136
           Height = 21
           DataField = 'ritmo'
           DataSource = DS
@@ -246,6 +279,7 @@ inherited F01013: TF01013
           Top = 79
           Width = 28
           Height = 21
+          Color = 15724527
           DataField = 'idProduto'
           DataSource = DS
           TabOrder = 6
@@ -255,6 +289,7 @@ inherited F01013: TF01013
           Top = 127
           Width = 28
           Height = 21
+          Color = 15724527
           DataField = 'idCronometrista'
           DataSource = DS
           TabOrder = 7
@@ -264,6 +299,7 @@ inherited F01013: TF01013
           Top = 79
           Width = 28
           Height = 21
+          Color = 15724527
           DataField = 'idTecido'
           DataSource = DS
           TabOrder = 8
@@ -273,6 +309,7 @@ inherited F01013: TF01013
           Top = 79
           Width = 28
           Height = 21
+          Color = 15724527
           DataField = 'idOperacao'
           DataSource = DS
           TabOrder = 9
@@ -282,6 +319,7 @@ inherited F01013: TF01013
           Top = 127
           Width = 28
           Height = 21
+          Color = 15724527
           DataField = 'idOperador'
           DataSource = DS
           TabOrder = 10
@@ -439,6 +477,8 @@ inherited F01013: TF01013
           Height = 21
           BevelKind = bkFlat
           BevelOuter = bvNone
+          Color = 15724527
+          ParentBackground = False
           TabOrder = 16
           object DBCheckBox1: TDBCheckBox
             Left = 13
@@ -462,6 +502,8 @@ inherited F01013: TF01013
           Margins.Bottom = 1
           BevelKind = bkFlat
           BevelOuter = bvNone
+          Color = 15724527
+          ParentBackground = False
           TabOrder = 17
           object DBCheckBox2: TDBCheckBox
             Left = 14
@@ -476,15 +518,15 @@ inherited F01013: TF01013
         end
         object PageControl1: TPageControl
           Left = 25
-          Top = 212
+          Top = 216
           Width = 885
-          Height = 285
-          ActivePage = TabSheet1
+          Height = 273
+          ActivePage = TabSheet2
           TabOrder = 18
           object TabSheet1: TTabSheet
             Caption = 'TEMPO'
-            ExplicitWidth = 347
-            ExplicitHeight = 113
+            ExplicitWidth = 337
+            ExplicitHeight = 167
             object GroupBox1: TGroupBox
               Left = 0
               Top = 0
@@ -492,48 +534,181 @@ inherited F01013: TF01013
               Height = 53
               Align = alTop
               TabOrder = 0
-              ExplicitWidth = 347
+              ExplicitWidth = 337
             end
           end
           object TabSheet2: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
-            ExplicitWidth = 347
-            ExplicitHeight = 113
+            ExplicitWidth = 337
+            ExplicitHeight = 167
             object GroupBox2: TGroupBox
               Left = 0
               Top = 0
               Width = 877
               Height = 39
               Align = alTop
-              Caption = 'GroupBox2'
               TabOrder = 0
-              ExplicitWidth = 347
+              ExplicitWidth = 337
+              object EditBeleza1: TEditBeleza
+                Left = 17
+                Top = 9
+                Width = 342
+                Height = 21
+                Color = 15724527
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 0
+                Ativar_Pesquisa = True
+                Ativar_MultiSelecao = False
+                mostrar_Botao = True
+                sql.Strings = (
+                  'select idtipo_recurso, descricao from tipo_RECURSO '
+                  'where descricao like :varDescricao')
+                database = 'balay'
+                campo = 'descricao'
+                Sempre_Mostrar_Janela = False
+                Outro_Edit = Edit1
+                campo_outro_edit = 'idtipo_recurso'
+                CorBorda = clGray
+                NovoLayout = False
+              end
+              object BitBtn1: TBitBtn
+                Left = 359
+                Top = 8
+                Width = 51
+                Height = 23
+                Caption = 'ADD'
+                TabOrder = 1
+                OnClick = BitBtn1Click
+              end
+              object BitBtn2: TBitBtn
+                Left = 409
+                Top = 8
+                Width = 51
+                Height = 23
+                Caption = 'Excluir'
+                TabOrder = 2
+                OnClick = BitBtn2Click
+              end
+            end
+            object DBGridBeleza2: TDBGridBeleza
+              Left = 0
+              Top = 39
+              Width = 877
+              Height = 206
+              Hint = 'Clique no Titulo da Coluna para Ordenar'
+              Align = alClient
+              BorderStyle = bsNone
+              Color = 16382457
+              DataSource = DS_Recurso
+              FixedColor = 16762447
+              GradientEndColor = 16382457
+              GradientStartColor = 16382457
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [dgTitles, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 1
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWhite
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              Cor_2 = 16382457
+              Direcao_Cor2 = dg_Vertical
+              Direcao_Enter = dg_Horiz
+              ClickTituloOrdenar = True
+              MarcarLinhaInteira = False
+              CorLinhaMarcada = 16382457
+              BloquearExportacoes = False
+              Columns = <
+                item
+                  Expanded = False
+                  FieldName = 'idtipo_recurso'
+                  Title.Caption = 'COD'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'descricao'
+                  Title.Caption = 'DESCRI'#199#195'O'
+                  Visible = True
+                end>
             end
           end
+        end
+        object DBEdit12: TDBEdit
+          Left = 38
+          Top = 511
+          Width = 51
+          Height = 21
+          DataField = 'idcronometragem'
+          TabOrder = 19
+        end
+        object DBEdit13: TDBEdit
+          Left = 122
+          Top = 511
+          Width = 55
+          Height = 21
+          DataField = 'idTipoRecurso'
+          TabOrder = 20
+        end
+        object DBEdit14: TDBEdit
+          Left = 195
+          Top = 511
+          Width = 51
+          Height = 21
+          DataField = 'idtipo_recurso'
+          TabOrder = 21
+        end
+        object DBEdit15: TDBEdit
+          Left = 252
+          Top = 511
+          Width = 45
+          Height = 21
+          DataField = 'descricao'
+          TabOrder = 22
+        end
+        object Edit1: TEdit
+          Left = 167
+          Top = 33
+          Width = 121
+          Height = 21
+          ReadOnly = True
+          TabOrder = 23
+          Text = 'Edit1'
+          Visible = False
         end
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 981
+      ExplicitWidth = 934
       ExplicitHeight = 527
       inherited GBFiltros: TGroupBox
-        Width = 981
-        ExplicitWidth = 981
+        Width = 934
+        ExplicitWidth = 934
       end
       inherited DBGridBeleza1: TDBGridBeleza
-        Width = 981
-        Height = 490
+        Width = 934
+        Height = 498
       end
     end
   end
   inherited Panel2: TPanel
-    Width = 989
-    ExplicitWidth = 989
+    Width = 942
+    ExplicitWidth = 942
     inherited BFechar: TSpeedButton
-      Left = 955
+      Left = 908
       ExplicitLeft = 828
     end
   end
@@ -541,7 +716,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00400118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00480118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -1917,7 +2092,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2454,15 +2629,15 @@ inherited F01013: TF01013
   end
   object DataSource2: TDataSource
     DataSet = ClientDataSet2
-    Left = 800
-    Top = 336
+    Left = 872
+    Top = 343
   end
   object ClientDataSet2: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider2'
-    Left = 768
-    Top = 336
+    Left = 840
+    Top = 343
     object ClientDataSet2idProduto: TIntegerField
       FieldName = 'idProduto'
     end
@@ -2479,15 +2654,15 @@ inherited F01013: TF01013
   end
   object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
-    Left = 744
-    Top = 336
+    Left = 816
+    Top = 343
   end
   object FDQuery2: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'SELECT * FROM PRODUTO')
-    Left = 712
-    Top = 336
+    Left = 784
+    Top = 343
     object FDQuery2idProduto: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idProduto'
@@ -2513,49 +2688,49 @@ inherited F01013: TF01013
   end
   object DataSource3: TDataSource
     DataSet = ClientDataSet3
-    Left = 800
-    Top = 392
+    Left = 872
+    Top = 399
   end
   object ClientDataSet3: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider3'
-    Left = 768
-    Top = 392
+    Left = 840
+    Top = 399
   end
   object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
-    Left = 736
-    Top = 392
+    Left = 808
+    Top = 399
   end
   object FDQuery3: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from operacao')
-    Left = 704
-    Top = 392
+    Left = 776
+    Top = 399
   end
   object DataSource4: TDataSource
     DataSet = ClientDataSet4
-    Left = 800
-    Top = 448
+    Left = 872
+    Top = 455
   end
   object DataSource5: TDataSource
     DataSet = ClientDataSet5
-    Left = 800
-    Top = 504
+    Left = 872
+    Top = 511
   end
   object DataSource6: TDataSource
     DataSet = ClientDataSet6
-    Left = 800
-    Top = 560
+    Left = 872
+    Top = 567
   end
   object ClientDataSet4: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider4'
-    Left = 776
-    Top = 448
+    Left = 848
+    Top = 455
     object ClientDataSet4idtecido: TIntegerField
       FieldName = 'idtecido'
     end
@@ -2568,8 +2743,8 @@ inherited F01013: TF01013
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider5'
-    Left = 768
-    Top = 504
+    Left = 840
+    Top = 511
     object ClientDataSet5idoperador: TIntegerField
       FieldName = 'idoperador'
     end
@@ -2585,8 +2760,8 @@ inherited F01013: TF01013
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider6'
-    Left = 768
-    Top = 560
+    Left = 840
+    Top = 567
     object ClientDataSet6idcronometrista: TIntegerField
       FieldName = 'idcronometrista'
     end
@@ -2597,25 +2772,25 @@ inherited F01013: TF01013
   end
   object DataSetProvider4: TDataSetProvider
     DataSet = FDQuery4
-    Left = 744
-    Top = 448
+    Left = 816
+    Top = 455
   end
   object DataSetProvider5: TDataSetProvider
     DataSet = FDQuery5
-    Left = 736
-    Top = 504
+    Left = 808
+    Top = 511
   end
   object DataSetProvider6: TDataSetProvider
     DataSet = FDQuery6
-    Left = 736
-    Top = 560
+    Left = 808
+    Top = 567
   end
   object FDQuery4: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from tecido')
-    Left = 712
-    Top = 448
+    Left = 784
+    Top = 455
     object FDQuery4idtecido: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idtecido'
@@ -2633,8 +2808,8 @@ inherited F01013: TF01013
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from operador')
-    Left = 704
-    Top = 504
+    Left = 776
+    Top = 511
     object FDQuery5idoperador: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idoperador'
@@ -2657,8 +2832,8 @@ inherited F01013: TF01013
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from cronometrista')
-    Left = 704
-    Top = 560
+    Left = 776
+    Top = 567
     object FDQuery6idcronometrista: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idcronometrista'
@@ -2669,6 +2844,85 @@ inherited F01013: TF01013
       AutoGenerateValue = arDefault
       FieldName = 'nome'
       Origin = 'nome'
+      Size = 45
+    end
+  end
+  object DS_Recurso: TDataSource
+    DataSet = CDS_Recurso
+    Left = 896
+    Top = 280
+  end
+  object DSP_Recurso: TDataSetProvider
+    DataSet = FDQ_Recurso
+    Left = 832
+    Top = 280
+  end
+  object CDS_Recurso: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Recurso'
+    AfterPost = CDS_RecursoAfterPost
+    AfterCancel = CDS_RecursoAfterCancel
+    AfterDelete = CDS_RecursoAfterDelete
+    Left = 864
+    Top = 280
+    object CDS_Recursoidcronometragem: TIntegerField
+      FieldName = 'idcronometragem'
+    end
+    object CDS_RecursoidTipoRecurso: TIntegerField
+      FieldName = 'idTipoRecurso'
+    end
+    object CDS_Recursoidtipo_recurso: TIntegerField
+      FieldName = 'idtipo_recurso'
+      ReadOnly = True
+    end
+    object CDS_Recursodescricao: TStringField
+      FieldName = 'descricao'
+      ReadOnly = True
+      Size = 45
+    end
+  end
+  object FDQ_Recurso: TFDQuery
+    ConnectionName = 'balay'
+    SQL.Strings = (
+      
+        'select * from cronometragem_has_tipo_recurso otr'#10'left outer join' +
+        ' tipo_recurso t '#10'on otr.idTipoRecurso = t.idtipo_recurso '#10'where ' +
+        'otr.idCronometragem =:id;')
+    Left = 800
+    Top = 280
+    ParamData = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQ_Recursoidcronometragem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idcronometragem'
+      Origin = 'idcronometragem'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQ_RecursoidTipoRecurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idTipoRecurso'
+      Origin = 'idTipoRecurso'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQ_Recursoidtipo_recurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idtipo_recurso'
+      Origin = 'idtipo_recurso'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQ_Recursodescricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      ReadOnly = True
       Size = 45
     end
   end

@@ -10,7 +10,7 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.ComCtrls, Vcl.Buttons, Vcl.DBCtrls, Vcl.Mask, DBEditBeleza;
+  Vcl.ComCtrls, Vcl.Buttons, Vcl.DBCtrls, Vcl.Mask, DBEditBeleza, EditBeleza;
 
 type
   TF01013 = class(TFBase)
@@ -123,8 +123,41 @@ type
     TabSheet2: TTabSheet;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
+    DBGridBeleza2: TDBGridBeleza;
+    DS_Recurso: TDataSource;
+    DSP_Recurso: TDataSetProvider;
+    CDS_Recurso: TClientDataSet;
+    FDQ_Recurso: TFDQuery;
+    FDQ_Recursoidcronometragem: TIntegerField;
+    FDQ_RecursoidTipoRecurso: TIntegerField;
+    FDQ_Recursoidtipo_recurso: TIntegerField;
+    FDQ_Recursodescricao: TStringField;
+    CDS_Recursoidcronometragem: TIntegerField;
+    CDS_RecursoidTipoRecurso: TIntegerField;
+    CDS_Recursoidtipo_recurso: TIntegerField;
+    CDS_Recursodescricao: TStringField;
+    EditBeleza1: TEditBeleza;
+    Edit1: TEdit;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    Label12: TLabel;
+    DBEdit12: TDBEdit;
+    Label13: TLabel;
+    DBEdit13: TDBEdit;
+    Label14: TLabel;
+    DBEdit14: TDBEdit;
+    Label15: TLabel;
+    DBEdit15: TDBEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
+    procedure BInserirClick(Sender: TObject);
+    procedure BPesquisarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure CDS_RecursoAfterCancel(DataSet: TDataSet);
+    procedure CDS_RecursoAfterDelete(DataSet: TDataSet);
+    procedure CDS_RecursoAfterPost(DataSet: TDataSet);
+    procedure BitBtn2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -141,6 +174,79 @@ implementation
 uses
 uDataModule;
 
+procedure TF01013.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID TIPO RECURSO}
+  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_Recurso.DataSet.Close;
+  DS_Recurso.DataSet.Open;
+end;
+
+procedure TF01013.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+  if trim(EditBeleza1.Text) <> '' then
+    begin
+      {Coloca em Modo de Edição}
+      if not DS_Recurso.DataSet.Active then
+            DS_Recurso.DataSet.Open;
+      DS_Recurso.DataSet.Append;
+      //CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
+      //CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
+      CDS_Recursoidcronometragem.asInteger := ClientDataSet1idcronometragem.value;
+      CDS_RecursoidTipoRecurso.AsInteger := strToInt( Edit1.Text );
+
+      {Salva}
+      DS_Recurso.DataSet.Post;
+
+      {Atualiza grid}
+      FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+      DS_Recurso.DataSet.Close;
+      DS_Recurso.DataSet.Open;
+
+    end
+    else
+       showmessage('preencha o campo');
+
+end;
+
+procedure TF01013.BitBtn2Click(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    CDS_Recurso.Delete;
+  end;
+end;
+
+procedure TF01013.BPesquisarClick(Sender: TObject);
+begin
+  inherited;
+  {DBGRID TIPO RECURSO}
+  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_Recurso.DataSet.Close;
+  DS_Recurso.DataSet.Open;
+end;
+
+procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  CDS_Recurso.CancelUpdates;
+end;
+
+procedure TF01013.CDS_RecursoAfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  CDS_Recurso.ApplyUpdates(-1);
+end;
+
+procedure TF01013.CDS_RecursoAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  CDS_Recurso.ApplyUpdates(-1);
+end;
+
 procedure TF01013.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
@@ -152,6 +258,12 @@ begin
   inherited;
   DBEdit7.Text := '';
   DBEditBeleza1.Text := '';
+end;
+
+procedure TF01013.FormShow(Sender: TObject);
+begin
+  inherited;
+  BPesquisarClick(Sender);
 end;
 
 Initialization

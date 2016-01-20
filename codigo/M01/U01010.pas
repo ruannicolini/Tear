@@ -222,27 +222,27 @@ end;
 procedure TF01010.BitBtn1Click(Sender: TObject);
 begin
     inherited;
-if trim(EditBeleza1.Text) <> '' then
-begin
-  {Coloca em Modo de Edição}
-  if not DS_TR.DataSet.Active then
-        DS_TR.DataSet.Open;
-            DS_TR.DataSet.Append;
-            CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
-            CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
-
-           {Salva}
-            DS_TR.DataSet.Post;
-
-
-            {Atualiza grid}
-            Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-            DS_TR.DataSet.Close;
+    if trim(EditBeleza1.Text) <> '' then
+    begin
+      {Coloca em Modo de Edição}
+      if not DS_TR.DataSet.Active then
             DS_TR.DataSet.Open;
+                DS_TR.DataSet.Append;
+                CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
+                CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
 
-end
-else
-   showmessage('preencha o campo');
+               {Salva}
+                DS_TR.DataSet.Post;
+
+
+                {Atualiza grid}
+                Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+                DS_TR.DataSet.Close;
+                DS_TR.DataSet.Open;
+
+    end
+    else
+       showmessage('preencha o campo');
 end;
 
 procedure TF01010.BLastClick(Sender: TObject);
