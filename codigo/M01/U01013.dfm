@@ -2,8 +2,7 @@ inherited F01013: TF01013
   Caption = 'F01013'
   ClientHeight = 639
   ClientWidth = 942
-  ExplicitLeft = 8
-  ExplicitTop = -156
+  ExplicitTop = -185
   ExplicitWidth = 958
   ExplicitHeight = 678
   PixelsPerInch = 96
@@ -17,17 +16,17 @@ inherited F01013: TF01013
     Height = 563
     ActivePage = TbDados
     ExplicitWidth = 942
-    ExplicitHeight = 555
+    ExplicitHeight = 563
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 934
-      ExplicitHeight = 527
+      ExplicitHeight = 535
       inherited grDados: TGroupBox
         Width = 934
         Height = 535
-        ExplicitLeft = 144
-        ExplicitTop = 3
         ExplicitWidth = 934
-        ExplicitHeight = 527
+        ExplicitHeight = 535
         inherited ImgSaveWhite: TImage
           Left = 646
           Top = 257
@@ -195,6 +194,7 @@ inherited F01013: TF01013
           Height = 13
           Caption = 'idcronometragem'
           FocusControl = DBEdit12
+          Visible = False
         end
         object Label13: TLabel
           Left = 122
@@ -203,6 +203,7 @@ inherited F01013: TF01013
           Height = 13
           Caption = 'idTipoRecurso'
           FocusControl = DBEdit13
+          Visible = False
         end
         object Label14: TLabel
           Left = 195
@@ -211,6 +212,7 @@ inherited F01013: TF01013
           Height = 13
           Caption = 'idtipo_recurso'
           FocusControl = DBEdit14
+          Visible = False
         end
         object Label15: TLabel
           Left = 252
@@ -219,6 +221,7 @@ inherited F01013: TF01013
           Height = 13
           Caption = 'descricao'
           FocusControl = DBEdit15
+          Visible = False
         end
         object DBEdit1: TDBEdit
           Left = 25
@@ -521,27 +524,22 @@ inherited F01013: TF01013
           Top = 216
           Width = 885
           Height = 273
-          ActivePage = TabSheet2
+          ActivePage = TabSheet1
           TabOrder = 18
           object TabSheet1: TTabSheet
             Caption = 'TEMPO'
-            ExplicitWidth = 337
-            ExplicitHeight = 167
             object GroupBox1: TGroupBox
               Left = 0
               Top = 0
               Width = 877
-              Height = 53
+              Height = 89
               Align = alTop
               TabOrder = 0
-              ExplicitWidth = 337
             end
           end
           object TabSheet2: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
-            ExplicitWidth = 337
-            ExplicitHeight = 167
             object GroupBox2: TGroupBox
               Left = 0
               Top = 0
@@ -549,7 +547,6 @@ inherited F01013: TF01013
               Height = 39
               Align = alTop
               TabOrder = 0
-              ExplicitWidth = 337
               object EditBeleza1: TEditBeleza
                 Left = 17
                 Top = 9
@@ -654,6 +651,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'idcronometragem'
           TabOrder = 19
+          Visible = False
         end
         object DBEdit13: TDBEdit
           Left = 122
@@ -662,6 +660,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'idTipoRecurso'
           TabOrder = 20
+          Visible = False
         end
         object DBEdit14: TDBEdit
           Left = 195
@@ -670,6 +669,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'idtipo_recurso'
           TabOrder = 21
+          Visible = False
         end
         object DBEdit15: TDBEdit
           Left = 252
@@ -678,6 +678,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'descricao'
           TabOrder = 22
+          Visible = False
         end
         object Edit1: TEdit
           Left = 167
@@ -692,8 +693,10 @@ inherited F01013: TF01013
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 934
-      ExplicitHeight = 527
+      ExplicitHeight = 535
       inherited GBFiltros: TGroupBox
         Width = 934
         ExplicitWidth = 934
@@ -712,11 +715,19 @@ inherited F01013: TF01013
       ExplicitLeft = 828
     end
   end
+  object Edit2: TEdit [3]
+    Left = 57
+    Top = 361
+    Width = 177
+    Height = 21
+    TabOrder = 3
+    Text = 'Edit2'
+  end
   inherited ImageList1: TImageList
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00480118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00500118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2092,7 +2103,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2925,5 +2936,11 @@ inherited F01013: TF01013
       ReadOnly = True
       Size = 45
     end
+  end
+  object Timer1: TTimer
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 616
+    Top = 360
   end
 end

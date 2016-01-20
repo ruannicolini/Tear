@@ -148,6 +148,8 @@ type
     DBEdit14: TDBEdit;
     Label15: TLabel;
     DBEdit15: TDBEdit;
+    Timer1: TTimer;
+    Edit2: TEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
@@ -158,8 +160,11 @@ type
     procedure CDS_RecursoAfterDelete(DataSet: TDataSet);
     procedure CDS_RecursoAfterPost(DataSet: TDataSet);
     procedure BitBtn2Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
+    Tempo: Integer;
+    function FormataTempo(t: Integer):String;
   public
     { Public declarations }
   end;
@@ -260,10 +265,38 @@ begin
   DBEditBeleza1.Text := '';
 end;
 
+
+function TF01013.FormataTempo(t: Integer): String;
+var
+centesimo :integer;
+segundos :integer;
+minutos :integer;
+teste:String;
+begin
+//
+  centesimo := t mod 10;
+  t := t div 10;
+  segundos  := (t) mod 60;
+  t := t div 60;
+  minutos := (t) mod 60;
+
+  teste := inttostr(minutos)+':'+ inttostr(segundos)+':'+inttostr(centesimo);
+  result :=teste;
+end;
+
 procedure TF01013.FormShow(Sender: TObject);
 begin
   inherited;
   BPesquisarClick(Sender);
+  tempo :=0;
+end;
+
+procedure TF01013.Timer1Timer(Sender: TObject);
+begin
+  inherited;
+  edit2.Text := FormataTempo(tempo);
+  tempo := tempo +1;
+  //edit2.Text := inttostr(tempo);
 end;
 
 Initialization
