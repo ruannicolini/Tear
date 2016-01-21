@@ -544,20 +544,25 @@ inherited F01013: TF01013
                 TabOrder = 0
                 OnClick = btnINICIARClick
               end
-              object BitBtn4: TBitBtn
+              object btnLap: TBitBtn
                 Left = 298
                 Top = 24
                 Width = 75
                 Height = 25
-                Caption = 'ZERAR'
+                Caption = 'LAP'
+                Enabled = False
                 TabOrder = 1
-                OnClick = BitBtn4Click
+                OnClick = btnLapClick
               end
             end
           end
           object TabSheet2: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object GroupBox2: TGroupBox
               Left = 0
               Top = 0
@@ -734,8 +739,8 @@ inherited F01013: TF01013
     end
   end
   object Edit2: TEdit [3]
-    Left = 57
-    Top = 361
+    Left = 67
+    Top = 364
     Width = 177
     Height = 21
     TabOrder = 3
@@ -745,7 +750,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00580118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C005C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2121,7 +2126,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

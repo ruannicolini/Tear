@@ -151,7 +151,7 @@ type
     crono: TTimer;
     Edit2: TEdit;
     btnINICIAR: TBitBtn;
-    BitBtn4: TBitBtn;
+    btnLap: TBitBtn;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
@@ -166,11 +166,13 @@ type
     procedure btnINICIARClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
+    procedure btnLapClick(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;
     fMomento: integer;
     status: boolean;
+    teste: integer;
 
   public
     { Public declarations }
@@ -232,6 +234,27 @@ begin
   end;
 end;
 
+procedure TF01013.btnLapClick(Sender: TObject);
+var
+Ano, Mes, Dia, Hora, Min, Seg, MSeg: Word;
+begin
+  inherited;
+  //
+  if(status = false)then
+  begin
+    //Continuar
+    DecodeTime(Time, Hora, Min, Seg, MSeg);
+    teste := mseg + (seg * 1000) + (min * 60000) + (hora * 3600000);
+    crono.Enabled := true;
+
+  end else
+    if(status = true)then
+    begin
+    //LAP
+
+    end;
+end;
+
 procedure TF01013.BitBtn4Click(Sender: TObject);
 begin
   inherited;
@@ -253,10 +276,14 @@ begin
   inherited;
   if(status = false)then
   begin
+    fTempo := 0;
+    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
     status := true;
     fmomento := GetTickCount;
     crono.Enabled := true;
     btnINICIAR.Caption := 'PARAR';
+    btnLap.Caption := 'LAP';
+    btnLap.Enabled := true;
   end else
   begin
     if(status = true)then
@@ -264,6 +291,7 @@ begin
       status := false;
       crono.Enabled := false;
       btnINICIAR.Caption := 'INICIAR';
+      btnLap.Caption := 'CONTINUAR';
 
     end;
   end;
@@ -316,8 +344,16 @@ end;
 procedure TF01013.cronoTimer(Sender: TObject);
 begin
   inherited;
-  ftempo := (GetTickCount - fmomento) * OneMillisecond;
-  edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+  if(teste > 0)then
+  begin
+    ftempo := ((GetTickCount + teste - fmomento) * OneMillisecond);
+    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+    teste := 0;
+  end else
+  begin
+    ftempo := ((GetTickCount - fmomento) * OneMillisecond);
+    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+  end;
 
 end;
 
