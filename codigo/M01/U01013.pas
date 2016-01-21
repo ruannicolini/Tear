@@ -10,7 +10,7 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.ComCtrls, Vcl.Buttons, Vcl.DBCtrls, Vcl.Mask, DBEditBeleza, EditBeleza;
+  Vcl.ComCtrls, Vcl.Buttons, Vcl.DBCtrls, Vcl.Mask, DBEditBeleza, EditBeleza, DATEUTILS;
 
 type
   TF01013 = class(TFBase)
@@ -148,8 +148,10 @@ type
     DBEdit14: TDBEdit;
     Label15: TLabel;
     DBEdit15: TDBEdit;
-    Timer1: TTimer;
+    crono: TTimer;
     Edit2: TEdit;
+    btnINICIAR: TBitBtn;
+    BitBtn4: TBitBtn;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
@@ -160,11 +162,16 @@ type
     procedure CDS_RecursoAfterDelete(DataSet: TDataSet);
     procedure CDS_RecursoAfterPost(DataSet: TDataSet);
     procedure BitBtn2Click(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+    procedure cronoTimer(Sender: TObject);
+    procedure btnINICIARClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure BitBtn4Click(Sender: TObject);
   private
     { Private declarations }
-    Tempo: Integer;
-    function FormataTempo(t: Integer):String;
+    fTempo: Ttime;
+    fMomento: integer;
+    status: boolean;
+
   public
     { Public declarations }
   end;
@@ -225,6 +232,13 @@ begin
   end;
 end;
 
+procedure TF01013.BitBtn4Click(Sender: TObject);
+begin
+  inherited;
+  fTempo := 0;
+  edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+end;
+
 procedure TF01013.BPesquisarClick(Sender: TObject);
 begin
   inherited;
@@ -232,6 +246,27 @@ begin
   FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
   DS_Recurso.DataSet.Close;
   DS_Recurso.DataSet.Open;
+end;
+
+procedure TF01013.btnINICIARClick(Sender: TObject);
+begin
+  inherited;
+  if(status = false)then
+  begin
+    status := true;
+    fmomento := GetTickCount;
+    crono.Enabled := true;
+    btnINICIAR.Caption := 'PARAR';
+  end else
+  begin
+    if(status = true)then
+    begin
+      status := false;
+      crono.Enabled := false;
+      btnINICIAR.Caption := 'INICIAR';
+
+    end;
+  end;
 end;
 
 procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
@@ -265,38 +300,25 @@ begin
   DBEditBeleza1.Text := '';
 end;
 
-
-function TF01013.FormataTempo(t: Integer): String;
-var
-centesimo :integer;
-segundos :integer;
-minutos :integer;
-teste:String;
+procedure TF01013.FormCreate(Sender: TObject);
 begin
-//
-  centesimo := t mod 10;
-  t := t div 10;
-  segundos  := (t) mod 60;
-  t := t div 60;
-  minutos := (t) mod 60;
-
-  teste := inttostr(minutos)+':'+ inttostr(segundos)+':'+inttostr(centesimo);
-  result :=teste;
+  inherited;
+  status := false;
+  self.DouBleBuffered := True; //evitar o flick do relógio.
 end;
 
 procedure TF01013.FormShow(Sender: TObject);
 begin
   inherited;
   BPesquisarClick(Sender);
-  tempo :=0;
 end;
 
-procedure TF01013.Timer1Timer(Sender: TObject);
+procedure TF01013.cronoTimer(Sender: TObject);
 begin
   inherited;
-  edit2.Text := FormataTempo(tempo);
-  tempo := tempo +1;
-  //edit2.Text := inttostr(tempo);
+  ftempo := (GetTickCount - fmomento) * OneMillisecond;
+  edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+
 end;
 
 Initialization

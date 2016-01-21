@@ -2,7 +2,7 @@ inherited F01013: TF01013
   Caption = 'F01013'
   ClientHeight = 639
   ClientWidth = 942
-  ExplicitTop = -185
+  OnCreate = FormCreate
   ExplicitWidth = 958
   ExplicitHeight = 678
   PixelsPerInch = 96
@@ -535,6 +535,24 @@ inherited F01013: TF01013
               Height = 89
               Align = alTop
               TabOrder = 0
+              object btnINICIAR: TBitBtn
+                Left = 217
+                Top = 24
+                Width = 75
+                Height = 25
+                Caption = 'INICIAR'
+                TabOrder = 0
+                OnClick = btnINICIARClick
+              end
+              object BitBtn4: TBitBtn
+                Left = 298
+                Top = 24
+                Width = 75
+                Height = 25
+                Caption = 'ZERAR'
+                TabOrder = 1
+                OnClick = BitBtn4Click
+              end
             end
           end
           object TabSheet2: TTabSheet
@@ -727,7 +745,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00500118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00580118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2103,7 +2121,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2937,9 +2955,10 @@ inherited F01013: TF01013
       Size = 45
     end
   end
-  object Timer1: TTimer
+  object crono: TTimer
+    Enabled = False
     Interval = 1
-    OnTimer = Timer1Timer
+    OnTimer = cronoTimer
     Left = 616
     Top = 360
   end
