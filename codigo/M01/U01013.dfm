@@ -3,7 +3,8 @@ inherited F01013: TF01013
   ClientHeight = 639
   ClientWidth = 942
   OnCreate = FormCreate
-  ExplicitTop = -138
+  ExplicitLeft = -171
+  ExplicitTop = -263
   ExplicitWidth = 958
   ExplicitHeight = 678
   PixelsPerInch = 96
@@ -555,13 +556,21 @@ inherited F01013: TF01013
                 TabOrder = 1
                 OnClick = btnLapClick
               end
-              object btnContinuar: TBitBtn
-                Left = 379
-                Top = 24
-                Width = 75
-                Height = 25
-                Caption = 'CONTINUAR'
+              object Edit2: TEdit
+                Left = 40
+                Top = 25
+                Width = 177
+                Height = 23
                 TabOrder = 2
+                Text = 'Edit2'
+              end
+              object Edit3: TEdit
+                Left = 379
+                Top = 25
+                Width = 121
+                Height = 23
+                TabOrder = 3
+                Text = 'Edit3'
               end
             end
           end
@@ -743,27 +752,11 @@ inherited F01013: TF01013
       ExplicitLeft = 828
     end
   end
-  object Edit2: TEdit [3]
-    Left = 67
-    Top = 365
-    Width = 177
-    Height = 24
-    TabOrder = 3
-    Text = 'Edit2'
-  end
-  object Edit3: TEdit [4]
-    Left = 544
-    Top = 360
-    Width = 121
-    Height = 21
-    TabOrder = 4
-    Text = 'Edit3'
-  end
   inherited ImageList1: TImageList
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00600118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00640118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2139,7 +2132,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2676,15 +2669,15 @@ inherited F01013: TF01013
   end
   object DataSource2: TDataSource
     DataSet = ClientDataSet2
-    Left = 872
-    Top = 343
+    Left = 888
+    Top = 399
   end
   object ClientDataSet2: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider2'
-    Left = 840
-    Top = 343
+    Left = 856
+    Top = 399
     object ClientDataSet2idProduto: TIntegerField
       FieldName = 'idProduto'
     end
@@ -2701,15 +2694,15 @@ inherited F01013: TF01013
   end
   object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
-    Left = 816
-    Top = 343
+    Left = 826
+    Top = 399
   end
   object FDQuery2: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'SELECT * FROM PRODUTO')
-    Left = 784
-    Top = 343
+    Left = 794
+    Top = 399
     object FDQuery2idProduto: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idProduto'
@@ -2735,49 +2728,49 @@ inherited F01013: TF01013
   end
   object DataSource3: TDataSource
     DataSet = ClientDataSet3
-    Left = 872
-    Top = 399
+    Left = 888
+    Top = 452
   end
   object ClientDataSet3: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider3'
-    Left = 840
-    Top = 399
+    Left = 856
+    Top = 452
   end
   object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
-    Left = 808
-    Top = 399
+    Left = 824
+    Top = 452
   end
   object FDQuery3: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from operacao')
-    Left = 776
-    Top = 399
+    Left = 792
+    Top = 452
   end
   object DataSource4: TDataSource
     DataSet = ClientDataSet4
-    Left = 872
-    Top = 455
+    Left = 888
+    Top = 500
   end
   object DataSource5: TDataSource
     DataSet = ClientDataSet5
-    Left = 872
-    Top = 511
+    Left = 888
+    Top = 543
   end
   object DataSource6: TDataSource
     DataSet = ClientDataSet6
-    Left = 872
-    Top = 567
+    Left = 888
+    Top = 591
   end
   object ClientDataSet4: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider4'
-    Left = 848
-    Top = 455
+    Left = 856
+    Top = 500
     object ClientDataSet4idtecido: TIntegerField
       FieldName = 'idtecido'
     end
@@ -2790,8 +2783,8 @@ inherited F01013: TF01013
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider5'
-    Left = 840
-    Top = 511
+    Left = 856
+    Top = 543
     object ClientDataSet5idoperador: TIntegerField
       FieldName = 'idoperador'
     end
@@ -2807,8 +2800,8 @@ inherited F01013: TF01013
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider6'
-    Left = 840
-    Top = 567
+    Left = 856
+    Top = 591
     object ClientDataSet6idcronometrista: TIntegerField
       FieldName = 'idcronometrista'
     end
@@ -2819,25 +2812,25 @@ inherited F01013: TF01013
   end
   object DataSetProvider4: TDataSetProvider
     DataSet = FDQuery4
-    Left = 816
-    Top = 455
+    Left = 824
+    Top = 500
   end
   object DataSetProvider5: TDataSetProvider
     DataSet = FDQuery5
-    Left = 808
-    Top = 511
+    Left = 824
+    Top = 543
   end
   object DataSetProvider6: TDataSetProvider
     DataSet = FDQuery6
-    Left = 808
-    Top = 567
+    Left = 824
+    Top = 591
   end
   object FDQuery4: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from tecido')
-    Left = 784
-    Top = 455
+    Left = 792
+    Top = 500
     object FDQuery4idtecido: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idtecido'
@@ -2855,8 +2848,8 @@ inherited F01013: TF01013
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from operador')
-    Left = 776
-    Top = 511
+    Left = 792
+    Top = 543
     object FDQuery5idoperador: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idoperador'
@@ -2879,8 +2872,8 @@ inherited F01013: TF01013
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from cronometrista')
-    Left = 776
-    Top = 567
+    Left = 792
+    Top = 591
     object FDQuery6idcronometrista: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idcronometrista'
@@ -2979,5 +2972,77 @@ inherited F01013: TF01013
     OnTimer = cronoTimer
     Left = 704
     Top = 352
+  end
+  object DS_Batida: TDataSource
+    Left = 888
+    Top = 352
+  end
+  object DSP_Batida: TDataSetProvider
+    DataSet = FDQ_Batida
+    Left = 832
+    Top = 352
+  end
+  object CDS_Batida: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Batida'
+    Left = 862
+    Top = 352
+    object CDS_Batidaidbatida: TIntegerField
+      FieldName = 'idbatida'
+    end
+    object CDS_Batidaminutos: TIntegerField
+      FieldName = 'minutos'
+    end
+    object CDS_Batidasegundos: TIntegerField
+      FieldName = 'segundos'
+    end
+    object CDS_Batidamilesimos: TIntegerField
+      FieldName = 'milesimos'
+    end
+    object CDS_Batidautilizar: TBooleanField
+      FieldName = 'utilizar'
+    end
+    object CDS_BatidaidCronometragem: TIntegerField
+      FieldName = 'idCronometragem'
+    end
+  end
+  object FDQ_Batida: TFDQuery
+    ConnectionName = 'balay'
+    SQL.Strings = (
+      'select * from batida')
+    Left = 800
+    Top = 352
+    object FDQ_Batidaidbatida: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idbatida'
+      Origin = 'idbatida'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQ_Batidaminutos: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'minutos'
+      Origin = 'minutos'
+    end
+    object FDQ_Batidasegundos: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'segundos'
+      Origin = 'segundos'
+    end
+    object FDQ_Batidamilesimos: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'milesimos'
+      Origin = 'milesimos'
+    end
+    object FDQ_Batidautilizar: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'utilizar'
+      Origin = 'utilizar'
+    end
+    object FDQ_BatidaidCronometragem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idCronometragem'
+      Origin = 'idCronometragem'
+    end
   end
 end

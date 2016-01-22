@@ -152,8 +152,23 @@ type
     Edit2: TEdit;
     btnINICIAR: TBitBtn;
     btnLap: TBitBtn;
-    btnContinuar: TBitBtn;
     Edit3: TEdit;
+    DS_Batida: TDataSource;
+    DSP_Batida: TDataSetProvider;
+    CDS_Batida: TClientDataSet;
+    FDQ_Batida: TFDQuery;
+    FDQ_Batidaidbatida: TIntegerField;
+    FDQ_Batidaminutos: TIntegerField;
+    FDQ_Batidasegundos: TIntegerField;
+    FDQ_Batidamilesimos: TIntegerField;
+    FDQ_Batidautilizar: TBooleanField;
+    FDQ_BatidaidCronometragem: TIntegerField;
+    CDS_Batidaidbatida: TIntegerField;
+    CDS_Batidaminutos: TIntegerField;
+    CDS_Batidasegundos: TIntegerField;
+    CDS_Batidamilesimos: TIntegerField;
+    CDS_Batidautilizar: TBooleanField;
+    CDS_BatidaidCronometragem: TIntegerField;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
@@ -168,15 +183,17 @@ type
     procedure btnINICIARClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnLapClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
-    fTempoParada: Ttime; //Tempo corrido da parada
-    fMomento: integer; // Momento em que o cronometro iniciou
-    fMomentoParada: integer; // Momento em que a Parada do cronometro iniciou
-    status: boolean;
-    statusParada: boolean;
-    milissegundoAUX: integer;
+    fTempoParada: Ttime; //Tempo que o cronometro fica pausado
+    fMomento: integer; // "Hora" em que o cronometro iniciou
+    fMomentoParada: integer; // "Hora" em que a Parada do cronometro iniciou
+    status: boolean; //controle do botoes de Iniciar/Parar e Lap/Continuar
+    statusParada: boolean; //controle de Parada, quando contar o tempo parado.
+    milissegundoAUX: integer; // milessegundos parados
 
   public
     { Public declarations }
@@ -191,6 +208,12 @@ implementation
 
 uses
 uDataModule;
+
+procedure TF01013.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  crono.Enabled := false;
+end;
 
 procedure TF01013.BInserirClick(Sender: TObject);
 begin
@@ -210,8 +233,6 @@ begin
       if not DS_Recurso.DataSet.Active then
             DS_Recurso.DataSet.Open;
       DS_Recurso.DataSet.Append;
-      //CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
-      //CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
       CDS_Recursoidcronometragem.asInteger := ClientDataSet1idcronometragem.value;
       CDS_RecursoidTipoRecurso.AsInteger := strToInt( Edit1.Text );
 
@@ -223,8 +244,7 @@ begin
       DS_Recurso.DataSet.Close;
       DS_Recurso.DataSet.Open;
 
-    end
-    else
+    end else
        showmessage('preencha o campo');
 
 end;
@@ -245,6 +265,12 @@ begin
   FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
   DS_Recurso.DataSet.Close;
   DS_Recurso.DataSet.Open;
+end;
+
+procedure TF01013.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  crono.Enabled := false;
 end;
 
 procedure TF01013.btnLapClick(Sender: TObject);
@@ -327,7 +353,7 @@ begin
       edit3.Text := 'ENTROU';
 
       //aumenta o tempo em que o cronometro começou para se ter o tempo fiel
-      fmomento := fmomento + (fMomentoParada - fMomento);
+      fmomento := fmomento + milissegundoAUX;
 
       ftempo := ((GetTickCount - fmomento) * OneMillisecond);
       edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
