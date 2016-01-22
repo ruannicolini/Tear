@@ -258,10 +258,11 @@ begin
     //Continuar
     btnLap.Caption := 'LAP';
     statusParada := false;
-    //status := true;
-    //btnINICIAR.Caption := 'PARAR';
-    //btnLap.Caption := 'LAP';
-    //btnLap.Enabled := true;
+
+    status := true;
+    btnINICIAR.Caption := 'PARAR';
+    btnLap.Caption := 'LAP';
+    btnLap.Enabled := true;
 
   end else
     if(status = true)then
@@ -326,9 +327,8 @@ begin
       edit3.Text := 'ENTROU';
 
       //aumenta o tempo em que o cronometro começou para se ter o tempo fiel
-      fmomento := fmomento + (fmomento - fMomentoParada);
+      fmomento := fmomento + (fMomentoParada - fMomento);
 
-      //ftempo := ((GetTickCount - (milissegundoAUX + fmomento)) * OneMillisecond);
       ftempo := ((GetTickCount - fmomento) * OneMillisecond);
       edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
       milissegundoAUX := 0;
