@@ -3,6 +3,7 @@ inherited F01013: TF01013
   ClientHeight = 639
   ClientWidth = 942
   OnCreate = FormCreate
+  ExplicitTop = -138
   ExplicitWidth = 958
   ExplicitHeight = 678
   PixelsPerInch = 96
@@ -532,7 +533,7 @@ inherited F01013: TF01013
               Left = 0
               Top = 0
               Width = 877
-              Height = 89
+              Height = 73
               Align = alTop
               TabOrder = 0
               object btnINICIAR: TBitBtn
@@ -554,15 +555,19 @@ inherited F01013: TF01013
                 TabOrder = 1
                 OnClick = btnLapClick
               end
+              object btnContinuar: TBitBtn
+                Left = 379
+                Top = 24
+                Width = 75
+                Height = 25
+                Caption = 'CONTINUAR'
+                TabOrder = 2
+              end
             end
           end
           object TabSheet2: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object GroupBox2: TGroupBox
               Left = 0
               Top = 0
@@ -740,17 +745,25 @@ inherited F01013: TF01013
   end
   object Edit2: TEdit [3]
     Left = 67
-    Top = 364
+    Top = 365
     Width = 177
-    Height = 21
+    Height = 24
     TabOrder = 3
     Text = 'Edit2'
+  end
+  object Edit3: TEdit [4]
+    Left = 544
+    Top = 360
+    Width = 121
+    Height = 21
+    TabOrder = 4
+    Text = 'Edit3'
   end
   inherited ImageList1: TImageList
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C005C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00600118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2126,7 +2139,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2964,7 +2977,7 @@ inherited F01013: TF01013
     Enabled = False
     Interval = 1
     OnTimer = cronoTimer
-    Left = 616
-    Top = 360
+    Left = 704
+    Top = 352
   end
 end

@@ -152,6 +152,8 @@ type
     Edit2: TEdit;
     btnINICIAR: TBitBtn;
     btnLap: TBitBtn;
+    btnContinuar: TBitBtn;
+    Edit3: TEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
@@ -165,14 +167,16 @@ type
     procedure cronoTimer(Sender: TObject);
     procedure btnINICIARClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure BitBtn4Click(Sender: TObject);
     procedure btnLapClick(Sender: TObject);
   private
     { Private declarations }
-    fTempo: Ttime;
-    fMomento: integer;
+    fTempo: Ttime;  //Tempo corrido do cronometro
+    fTempoParada: Ttime; //Tempo corrido da parada
+    fMomento: integer; // Momento em que o cronometro iniciou
+    fMomentoParada: integer; // Momento em que a Parada do cronometro iniciou
     status: boolean;
-    teste: integer;
+    statusParada: boolean;
+    milissegundoAUX: integer;
 
   public
     { Public declarations }
@@ -234,34 +238,6 @@ begin
   end;
 end;
 
-procedure TF01013.btnLapClick(Sender: TObject);
-var
-Ano, Mes, Dia, Hora, Min, Seg, MSeg: Word;
-begin
-  inherited;
-  //
-  if(status = false)then
-  begin
-    //Continuar
-    DecodeTime(Time, Hora, Min, Seg, MSeg);
-    teste := mseg + (seg * 1000) + (min * 60000) + (hora * 3600000);
-    crono.Enabled := true;
-
-  end else
-    if(status = true)then
-    begin
-    //LAP
-
-    end;
-end;
-
-procedure TF01013.BitBtn4Click(Sender: TObject);
-begin
-  inherited;
-  fTempo := 0;
-  edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
-end;
-
 procedure TF01013.BPesquisarClick(Sender: TObject);
 begin
   inherited;
@@ -271,30 +247,115 @@ begin
   DS_Recurso.DataSet.Open;
 end;
 
+procedure TF01013.btnLapClick(Sender: TObject);
+var
+Ano, Mes, Dia, Hora, Min, Seg, MSeg: Word;
+begin
+  inherited;
+  //
+  if(status = false)then
+  begin
+    //Continuar
+    btnLap.Caption := 'LAP';
+    statusParada := false;
+    //status := true;
+    //btnINICIAR.Caption := 'PARAR';
+    //btnLap.Caption := 'LAP';
+    //btnLap.Enabled := true;
+
+  end else
+    if(status = true)then
+    begin
+    //LAP
+
+    end;
+end;
+
 procedure TF01013.btnINICIARClick(Sender: TObject);
 begin
   inherited;
   if(status = false)then
   begin
+  // CRONOMETRO RODANDO
+    milissegundoAUX := 0;
     fTempo := 0;
     edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+
     status := true;
+    statusParada := false;
     fmomento := GetTickCount;
+    crono.Enabled := false; //Timer
     crono.Enabled := true;
+
     btnINICIAR.Caption := 'PARAR';
     btnLap.Caption := 'LAP';
     btnLap.Enabled := true;
+
   end else
   begin
     if(status = true)then
     begin
+    //CRONOMETRO PARADO
       status := false;
-      crono.Enabled := false;
-      btnINICIAR.Caption := 'INICIAR';
+      statusParada := true;
+
+      fMomentoParada :=  GetTickCount;
+
+      btnINICIAR.Caption := 'NOVO';
       btnLap.Caption := 'CONTINUAR';
+      btnLap.Enabled := true;
 
     end;
   end;
+end;
+
+procedure TF01013.cronoTimer(Sender: TObject);
+var
+  Ano, Mes, Dia, Hora, Min, Seg, MSeg: Word;
+begin
+  inherited;
+  if(statusParada = true)then
+  begin
+    fTempoParada := ((GetTickCount - fMomentoParada) * OneMillisecond);
+    DecodeTime(fTempoParada, Hora, Min, Seg, MSeg);
+    milissegundoAUX := mseg + (seg * 1000) + (min * 60000) + (hora * 3600000);
+    edit3.Text := formatdatetime('hh:nn:ss.zzz', fTempoParada);
+  end else
+    if(milissegundoAUX > 0)then
+    begin
+      edit3.Text := 'ENTROU';
+
+      //aumenta o tempo em que o cronometro começou para se ter o tempo fiel
+      fmomento := fmomento + (fmomento - fMomentoParada);
+
+      //ftempo := ((GetTickCount - (milissegundoAUX + fmomento)) * OneMillisecond);
+      ftempo := ((GetTickCount - fmomento) * OneMillisecond);
+      edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+      milissegundoAUX := 0;
+    end else
+      if(milissegundoAUX = 0)then
+      begin
+        ftempo := ((GetTickCount - fmomento) * OneMillisecond);
+        edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+      end;
+
+
+  {
+  if(milissegundoAUX > 0)then
+  begin
+    ftempo := ((GetTickCount - milissegundoAUX - fmomento) * OneMillisecond);
+    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+    milissegundoAUX := 0;
+  end else
+    if(milissegundoAUX = 0)then
+    begin
+      ftempo := ((GetTickCount - fmomento) * OneMillisecond);
+      edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+    end else
+    begin
+      //
+    end;
+    }
 end;
 
 procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
@@ -339,22 +400,6 @@ procedure TF01013.FormShow(Sender: TObject);
 begin
   inherited;
   BPesquisarClick(Sender);
-end;
-
-procedure TF01013.cronoTimer(Sender: TObject);
-begin
-  inherited;
-  if(teste > 0)then
-  begin
-    ftempo := ((GetTickCount + teste - fmomento) * OneMillisecond);
-    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
-    teste := 0;
-  end else
-  begin
-    ftempo := ((GetTickCount - fmomento) * OneMillisecond);
-    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
-  end;
-
 end;
 
 Initialization
