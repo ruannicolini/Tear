@@ -1,21 +1,20 @@
 inherited F01013: TF01013
   Caption = 'F01013'
-  ClientHeight = 639
-  ClientWidth = 942
+  ClientHeight = 642
+  ClientWidth = 934
   OnCreate = FormCreate
-  ExplicitLeft = -171
-  ExplicitTop = -263
-  ExplicitWidth = 958
-  ExplicitHeight = 678
+  ExplicitTop = -124
+  ExplicitWidth = 950
+  ExplicitHeight = 681
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Width = 942
+    Width = 934
     ExplicitWidth = 942
   end
   inherited PageControl: TPageControl
-    Width = 942
-    Height = 563
+    Width = 934
+    Height = 566
     ActivePage = TbDados
     ExplicitWidth = 942
     ExplicitHeight = 563
@@ -25,8 +24,8 @@ inherited F01013: TF01013
       ExplicitWidth = 934
       ExplicitHeight = 535
       inherited grDados: TGroupBox
-        Width = 934
-        Height = 535
+        Width = 926
+        Height = 538
         ExplicitWidth = 934
         ExplicitHeight = 535
         inherited ImgSaveWhite: TImage
@@ -224,6 +223,46 @@ inherited F01013: TF01013
           Caption = 'descricao'
           FocusControl = DBEdit15
           Visible = False
+        end
+        object Label16: TLabel
+          Left = 324
+          Top = 496
+          Width = 38
+          Height = 13
+          Caption = 'idbatida'
+          FocusControl = DBEdit16
+        end
+        object Label17: TLabel
+          Left = 392
+          Top = 493
+          Width = 37
+          Height = 13
+          Caption = 'minutos'
+          FocusControl = DBEdit17
+        end
+        object Label18: TLabel
+          Left = 455
+          Top = 493
+          Width = 46
+          Height = 13
+          Caption = 'segundos'
+          FocusControl = DBEdit18
+        end
+        object Label19: TLabel
+          Left = 519
+          Top = 493
+          Width = 44
+          Height = 13
+          Caption = 'milesimos'
+          FocusControl = DBEdit19
+        end
+        object Label20: TLabel
+          Left = 583
+          Top = 493
+          Width = 85
+          Height = 13
+          Caption = 'idCronometragem'
+          FocusControl = DBEdit20
         end
         object DBEdit1: TDBEdit
           Left = 25
@@ -560,18 +599,94 @@ inherited F01013: TF01013
                 Left = 40
                 Top = 25
                 Width = 177
-                Height = 23
+                Height = 21
                 TabOrder = 2
-                Text = 'Edit2'
               end
               object Edit3: TEdit
                 Left = 379
                 Top = 25
                 Width = 121
-                Height = 23
+                Height = 21
                 TabOrder = 3
-                Text = 'Edit3'
+                Visible = False
               end
+            end
+            object DBGridBatida: TDBGridBeleza
+              Left = 0
+              Top = 73
+              Width = 877
+              Height = 172
+              Hint = 'Clique no Titulo da Coluna para Ordenar'
+              Align = alClient
+              BorderStyle = bsNone
+              DataSource = DS_Batida
+              FixedColor = 16762447
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 1
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clBlack
+              TitleFont.Height = -13
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              Cor_2 = 16773849
+              Direcao_Cor2 = dg_Vertical
+              Direcao_Enter = dg_Horiz
+              ClickTituloOrdenar = True
+              MarcarLinhaInteira = True
+              CorLinhaMarcada = clSilver
+              BloquearExportacoes = False
+              Columns = <
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'idbatida'
+                  Title.Alignment = taCenter
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'minutos'
+                  Title.Alignment = taCenter
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'segundos'
+                  Title.Alignment = taCenter
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'milesimos'
+                  Title.Alignment = taCenter
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'utilizar'
+                  Title.Alignment = taCenter
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'Descricao'
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Descri'#231#227'o'
+                  Visible = True
+                end>
             end
           end
           object TabSheet2: TTabSheet
@@ -727,6 +842,71 @@ inherited F01013: TF01013
           Text = 'Edit1'
           Visible = False
         end
+        object DBEdit16: TDBEdit
+          Left = 324
+          Top = 509
+          Width = 62
+          Height = 21
+          DataField = 'idbatida'
+          DataSource = DS_Batida
+          TabOrder = 24
+        end
+        object DBEdit17: TDBEdit
+          Left = 392
+          Top = 509
+          Width = 57
+          Height = 21
+          DataField = 'minutos'
+          DataSource = DS_Batida
+          TabOrder = 25
+        end
+        object DBEdit18: TDBEdit
+          Left = 455
+          Top = 509
+          Width = 58
+          Height = 21
+          DataField = 'segundos'
+          DataSource = DS_Batida
+          TabOrder = 26
+        end
+        object DBEdit19: TDBEdit
+          Left = 519
+          Top = 509
+          Width = 58
+          Height = 21
+          DataField = 'milesimos'
+          DataSource = DS_Batida
+          TabOrder = 27
+        end
+        object DBCheckBox3: TDBCheckBox
+          Left = 392
+          Top = 656
+          Width = 97
+          Height = 17
+          Caption = 'utilizar'
+          DataField = 'utilizar'
+          DataSource = DS_Batida
+          TabOrder = 28
+        end
+        object DBCheckBox4: TDBCheckBox
+          Left = 653
+          Top = 512
+          Width = 97
+          Height = 17
+          Caption = 'utilizar'
+          DataField = 'utilizar'
+          DataSource = DS_Batida
+          TabOrder = 29
+        end
+        object DBEdit20: TDBEdit
+          Left = 583
+          Top = 509
+          Width = 50
+          Height = 21
+          DataField = 'idCronometragem'
+          DataSource = DS_Batida
+          TabOrder = 30
+        end
       end
     end
     inherited TbFiltros: TTabSheet
@@ -735,20 +915,20 @@ inherited F01013: TF01013
       ExplicitWidth = 934
       ExplicitHeight = 535
       inherited GBFiltros: TGroupBox
-        Width = 934
+        Width = 926
         ExplicitWidth = 934
       end
       inherited DBGridBeleza1: TDBGridBeleza
-        Width = 934
-        Height = 498
+        Width = 926
+        Height = 501
       end
     end
   end
   inherited Panel2: TPanel
-    Width = 942
+    Width = 934
     ExplicitWidth = 942
     inherited BFechar: TSpeedButton
-      Left = 908
+      Left = 900
       ExplicitLeft = 828
     end
   end
@@ -756,7 +936,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00640118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00680118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2132,7 +2312,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2974,6 +3154,7 @@ inherited F01013: TF01013
     Top = 352
   end
   object DS_Batida: TDataSource
+    DataSet = CDS_Batida
     Left = 888
     Top = 352
   end
@@ -2983,6 +3164,7 @@ inherited F01013: TF01013
     Top = 352
   end
   object CDS_Batida: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'DSP_Batida'
@@ -2990,21 +3172,28 @@ inherited F01013: TF01013
     Top = 352
     object CDS_Batidaidbatida: TIntegerField
       FieldName = 'idbatida'
+      Origin = 'idbatida'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
     object CDS_Batidaminutos: TIntegerField
       FieldName = 'minutos'
+      Origin = 'minutos'
     end
     object CDS_Batidasegundos: TIntegerField
       FieldName = 'segundos'
+      Origin = 'segundos'
     end
     object CDS_Batidamilesimos: TIntegerField
       FieldName = 'milesimos'
+      Origin = 'milesimos'
     end
     object CDS_Batidautilizar: TBooleanField
       FieldName = 'utilizar'
+      Origin = 'utilizar'
     end
     object CDS_BatidaidCronometragem: TIntegerField
       FieldName = 'idCronometragem'
+      Origin = 'idCronometragem'
     end
   end
   object FDQ_Batida: TFDQuery
