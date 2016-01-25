@@ -305,7 +305,6 @@ tempoCronometro :TDateTime;
 r: TDateTime;
 begin
   inherited;
-  //
   if(status = false)then
   begin
     //Continuar
@@ -323,10 +322,24 @@ begin
     //LAP
     DecodeTime(((GetTickCount - fmomento) * OneMillisecond), Hora, Min, Seg, MSeg);
 
-    ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
+    {ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
     + 'Min: ' + inttostr(min) + #13
     + 'Seg: ' + inttostr(seg) + #13
     + 'Milessimos: ' + inttostr(Mseg) + #13);
+    }
+
+    // DataSource Batida
+    if not DS_Batida.DataSet.Active then
+        DS_Batida.DataSet.Open;
+    DS_Batida.DataSet.Append;
+    CDS_Batidaminutos.Value := min;
+    CDS_Batidasegundos.Value := seg;
+    CDS_Batidamilesimos.Value := MSeg;
+    CDS_Batidautilizar.Value := true;
+    DS_Batida.DataSet.Post;
+    DS_Batida.DataSet.Close;
+    DS_Batida.DataSet.Open;
+
 
     end;
 end;

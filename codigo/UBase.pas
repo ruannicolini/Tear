@@ -366,8 +366,6 @@ end;
 procedure TFBase.StatusBotoes(e: integer);
 begin
 //
-
-
   acSalvar.Enabled := e=1;
   BSalvar.Enabled := e=1;
 

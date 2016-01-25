@@ -3,7 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 642
   ClientWidth = 934
   OnCreate = FormCreate
-  ExplicitLeft = -163
   ExplicitTop = -164
   ExplicitWidth = 950
   ExplicitHeight = 681
@@ -676,14 +675,6 @@ inherited F01013: TF01013
                   Expanded = False
                   FieldName = 'utilizar'
                   Title.Alignment = taCenter
-                  Visible = True
-                end
-                item
-                  Alignment = taCenter
-                  Expanded = False
-                  FieldName = 'Descricao'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Descri'#231#227'o'
                   Visible = True
                 end>
             end
