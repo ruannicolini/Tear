@@ -289,6 +289,8 @@ end;
 procedure TF01013.btnLapClick(Sender: TObject);
 var
 Ano, Mes, Dia, Hora, Min, Seg, MSeg: Word;
+tempoCronometro :TDateTime;
+r: TDateTime;
 begin
   inherited;
   //
@@ -307,6 +309,12 @@ begin
     if(status = true)then
     begin
     //LAP
+    DecodeTime(((GetTickCount - fMomentoParada) * OneMillisecond), Hora, Min, Seg, MSeg);
+
+    ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
+    + 'Min: ' + inttostr(min) + #13
+    + 'Seg: ' + inttostr(seg) + #13
+    + 'Milessimos: ' + inttostr(Mseg) + #13);
 
     end;
 end;
@@ -377,24 +385,6 @@ begin
         ftempo := ((GetTickCount - fmomento) * OneMillisecond);
         edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
       end;
-
-
-  {
-  if(milissegundoAUX > 0)then
-  begin
-    ftempo := ((GetTickCount - milissegundoAUX - fmomento) * OneMillisecond);
-    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
-    milissegundoAUX := 0;
-  end else
-    if(milissegundoAUX = 0)then
-    begin
-      ftempo := ((GetTickCount - fmomento) * OneMillisecond);
-      edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
-    end else
-    begin
-      //
-    end;
-    }
 end;
 
 procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
