@@ -157,6 +157,8 @@ type
     DSP_Batida: TDataSetProvider;
     CDS_Batida: TClientDataSet;
     FDQ_Batida: TFDQuery;
+    DBGridBatida: TDBGridBeleza;
+    DBCheckBox3: TDBCheckBox;
     FDQ_Batidaidbatida: TIntegerField;
     FDQ_Batidaminutos: TIntegerField;
     FDQ_Batidasegundos: TIntegerField;
@@ -169,19 +171,6 @@ type
     CDS_Batidamilesimos: TIntegerField;
     CDS_Batidautilizar: TBooleanField;
     CDS_BatidaidCronometragem: TIntegerField;
-    DBGridBatida: TDBGridBeleza;
-    Label16: TLabel;
-    DBEdit16: TDBEdit;
-    Label17: TLabel;
-    DBEdit17: TDBEdit;
-    Label18: TLabel;
-    DBEdit18: TDBEdit;
-    Label19: TLabel;
-    DBEdit19: TDBEdit;
-    DBCheckBox3: TDBCheckBox;
-    DBCheckBox4: TDBCheckBox;
-    Label20: TLabel;
-    DBEdit20: TDBEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
@@ -202,6 +191,12 @@ type
     procedure CDS_BatidaAfterDelete(DataSet: TDataSet);
     procedure CDS_BatidaAfterPost(DataSet: TDataSet);
     procedure CDS_BatidaAfterInsert(DataSet: TDataSet);
+    procedure BFirstClick(Sender: TObject);
+    procedure BPriorClick(Sender: TObject);
+    procedure BNextClick(Sender: TObject);
+    procedure BLastClick(Sender: TObject);
+    procedure DBGridBatidaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -234,6 +229,20 @@ begin
   btnINICIAR.Caption := 'INICIAR';
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
+end;
+
+procedure TF01013.BFirstClick(Sender: TObject);
+begin
+  inherited;
+  //DBGRID TIPO RECURSO
+  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Recurso.DataSet.Close;
+  DS_Recurso.DataSet.Open;
+
+  //DBGrid Batida
+  FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Batida.DataSet.Close;
+  DS_Batida.DataSet.Open;
 end;
 
 procedure TF01013.BInserirClick(Sender: TObject);
@@ -279,13 +288,60 @@ begin
   end;
 end;
 
+procedure TF01013.BLastClick(Sender: TObject);
+begin
+  inherited;
+  //DBGRID TIPO RECURSO
+  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Recurso.DataSet.Close;
+  DS_Recurso.DataSet.Open;
+
+  //DBGrid Batida
+  FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Batida.DataSet.Close;
+  DS_Batida.DataSet.Open;
+end;
+
+procedure TF01013.BNextClick(Sender: TObject);
+begin
+  inherited;
+  //DBGRID TIPO RECURSO
+  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Recurso.DataSet.Close;
+  DS_Recurso.DataSet.Open;
+
+  //DBGrid Batida
+  FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Batida.DataSet.Close;
+  DS_Batida.DataSet.Open;
+end;
+
 procedure TF01013.BPesquisarClick(Sender: TObject);
 begin
   inherited;
-  {DBGRID TIPO RECURSO}
-  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  //DBGRID TIPO RECURSO
+  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
   DS_Recurso.DataSet.Close;
   DS_Recurso.DataSet.Open;
+
+  //DBGrid Batida
+  FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Batida.DataSet.Close;
+  DS_Batida.DataSet.Open;
+end;
+
+procedure TF01013.BPriorClick(Sender: TObject);
+begin
+  inherited;
+  //DBGRID TIPO RECURSO
+  FDQ_Recurso.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Recurso.DataSet.Close;
+  DS_Recurso.DataSet.Open;
+
+  //DBGrid Batida
+  FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Batida.DataSet.Close;
+  DS_Batida.DataSet.Open;
 end;
 
 procedure TF01013.BSalvarClick(Sender: TObject);
@@ -322,21 +378,27 @@ begin
     //LAP
     DecodeTime(((GetTickCount - fmomento) * OneMillisecond), Hora, Min, Seg, MSeg);
 
-    {ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
+    ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
     + 'Min: ' + inttostr(min) + #13
     + 'Seg: ' + inttostr(seg) + #13
     + 'Milessimos: ' + inttostr(Mseg) + #13);
-    }
+
 
     // DataSource Batida
     if not DS_Batida.DataSet.Active then
         DS_Batida.DataSet.Open;
+
     DS_Batida.DataSet.Append;
-    CDS_Batidaminutos.Value := min;
-    CDS_Batidasegundos.Value := seg;
-    CDS_Batidamilesimos.Value := MSeg;
-    CDS_Batidautilizar.Value := true;
+    CDS_Batidaminutos.AsInteger := min;
+    CDS_Batidasegundos.AsInteger := seg;
+    CDS_Batidamilesimos.AsInteger := MSeg;
+    CDS_Batidautilizar.AsBoolean := true;
+    CDS_BatidaidCronometragem.AsInteger := ClientDataSet1idcronometragem.AsInteger;
+
     DS_Batida.DataSet.Post;
+
+    //DBGrid Batida
+    FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
     DS_Batida.DataSet.Close;
     DS_Batida.DataSet.Open;
 
@@ -466,6 +528,20 @@ begin
   inherited;
   DBEdit7.Text := '';
   DBEditBeleza1.Text := '';
+end;
+
+procedure TF01013.DBGridBatidaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if (key = 46) then
+  //Deleta Batida
+  begin
+    if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+        CDS_Batida.Delete;
+     end;
+  end;
 end;
 
 procedure TF01013.FormCreate(Sender: TObject);

@@ -1,11 +1,12 @@
 inherited F01013: TF01013
   Caption = 'F01013'
-  ClientHeight = 642
+  ClientHeight = 650
   ClientWidth = 934
   OnCreate = FormCreate
-  ExplicitTop = -164
+  ExplicitLeft = -163
+  ExplicitTop = -149
   ExplicitWidth = 950
-  ExplicitHeight = 681
+  ExplicitHeight = 689
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
@@ -14,7 +15,7 @@ inherited F01013: TF01013
   end
   inherited PageControl: TPageControl
     Width = 934
-    Height = 566
+    Height = 574
     ActivePage = TbDados
     ExplicitWidth = 934
     ExplicitHeight = 566
@@ -23,7 +24,7 @@ inherited F01013: TF01013
       ExplicitHeight = 538
       inherited grDados: TGroupBox
         Width = 926
-        Height = 538
+        Height = 546
         ExplicitWidth = 926
         ExplicitHeight = 538
         inherited ImgSaveWhite: TImage
@@ -221,46 +222,6 @@ inherited F01013: TF01013
           Caption = 'descricao'
           FocusControl = DBEdit15
           Visible = False
-        end
-        object Label16: TLabel
-          Left = 324
-          Top = 496
-          Width = 38
-          Height = 13
-          Caption = 'idbatida'
-          FocusControl = DBEdit16
-        end
-        object Label17: TLabel
-          Left = 392
-          Top = 493
-          Width = 37
-          Height = 13
-          Caption = 'minutos'
-          FocusControl = DBEdit17
-        end
-        object Label18: TLabel
-          Left = 455
-          Top = 493
-          Width = 46
-          Height = 13
-          Caption = 'segundos'
-          FocusControl = DBEdit18
-        end
-        object Label19: TLabel
-          Left = 519
-          Top = 493
-          Width = 44
-          Height = 13
-          Caption = 'milesimos'
-          FocusControl = DBEdit19
-        end
-        object Label20: TLabel
-          Left = 583
-          Top = 493
-          Width = 85
-          Height = 13
-          Caption = 'idCronometragem'
-          FocusControl = DBEdit20
         end
         object DBEdit1: TDBEdit
           Left = 25
@@ -634,6 +595,7 @@ inherited F01013: TF01013
               TitleFont.Height = -13
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
+              OnKeyDown = DBGridBatidaKeyDown
               Cor_2 = 16773849
               Direcao_Cor2 = dg_Vertical
               Direcao_Enter = dg_Horiz
@@ -647,6 +609,7 @@ inherited F01013: TF01013
                   Expanded = False
                   FieldName = 'idbatida'
                   Title.Alignment = taCenter
+                  Title.Caption = 'COD'
                   Visible = True
                 end
                 item
@@ -654,6 +617,9 @@ inherited F01013: TF01013
                   Expanded = False
                   FieldName = 'minutos'
                   Title.Alignment = taCenter
+                  Title.Caption = 'MINUTOS'
+                  Title.Color = clBlack
+                  Width = 75
                   Visible = True
                 end
                 item
@@ -661,6 +627,8 @@ inherited F01013: TF01013
                   Expanded = False
                   FieldName = 'segundos'
                   Title.Alignment = taCenter
+                  Title.Caption = 'SEGUNDOS'
+                  Width = 75
                   Visible = True
                 end
                 item
@@ -668,6 +636,8 @@ inherited F01013: TF01013
                   Expanded = False
                   FieldName = 'milesimos'
                   Title.Alignment = taCenter
+                  Title.Caption = 'MILES'#205'MOS'
+                  Width = 75
                   Visible = True
                 end
                 item
@@ -675,6 +645,8 @@ inherited F01013: TF01013
                   Expanded = False
                   FieldName = 'utilizar'
                   Title.Alignment = taCenter
+                  Title.Caption = 'UTILIZAR'
+                  Width = 75
                   Visible = True
                 end>
             end
@@ -759,7 +731,7 @@ inherited F01013: TF01013
               ShowHint = True
               TabOrder = 1
               TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clWhite
+              TitleFont.Color = clBlack
               TitleFont.Height = -11
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
@@ -832,42 +804,6 @@ inherited F01013: TF01013
           Text = 'Edit1'
           Visible = False
         end
-        object DBEdit16: TDBEdit
-          Left = 324
-          Top = 509
-          Width = 62
-          Height = 21
-          DataField = 'idbatida'
-          DataSource = DS_Batida
-          TabOrder = 24
-        end
-        object DBEdit17: TDBEdit
-          Left = 392
-          Top = 509
-          Width = 57
-          Height = 21
-          DataField = 'minutos'
-          DataSource = DS_Batida
-          TabOrder = 25
-        end
-        object DBEdit18: TDBEdit
-          Left = 455
-          Top = 509
-          Width = 58
-          Height = 21
-          DataField = 'segundos'
-          DataSource = DS_Batida
-          TabOrder = 26
-        end
-        object DBEdit19: TDBEdit
-          Left = 519
-          Top = 509
-          Width = 58
-          Height = 21
-          DataField = 'milesimos'
-          DataSource = DS_Batida
-          TabOrder = 27
-        end
         object DBCheckBox3: TDBCheckBox
           Left = 392
           Top = 656
@@ -876,26 +812,7 @@ inherited F01013: TF01013
           Caption = 'utilizar'
           DataField = 'utilizar'
           DataSource = DS_Batida
-          TabOrder = 28
-        end
-        object DBCheckBox4: TDBCheckBox
-          Left = 653
-          Top = 512
-          Width = 97
-          Height = 17
-          Caption = 'utilizar'
-          DataField = 'utilizar'
-          DataSource = DS_Batida
-          TabOrder = 29
-        end
-        object DBEdit20: TDBEdit
-          Left = 583
-          Top = 509
-          Width = 50
-          Height = 21
-          DataField = 'idCronometragem'
-          DataSource = DS_Batida
-          TabOrder = 30
+          TabOrder = 24
         end
       end
     end
@@ -908,7 +825,7 @@ inherited F01013: TF01013
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 926
-        Height = 501
+        Height = 509
       end
     end
   end
@@ -3191,9 +3108,16 @@ inherited F01013: TF01013
   object FDQ_Batida: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
-      'select * from batida')
+      'select * from batida where idCronometragem =:id;')
     Left = 800
     Top = 352
+    ParamData = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
     object FDQ_Batidaidbatida: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idbatida'
