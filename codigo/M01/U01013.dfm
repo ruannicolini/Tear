@@ -3,8 +3,7 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 934
   OnCreate = FormCreate
-  ExplicitLeft = -163
-  ExplicitTop = -149
+  ExplicitTop = -183
   ExplicitWidth = 950
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -578,14 +577,17 @@ inherited F01013: TF01013
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
               BorderStyle = bsNone
+              Color = 16382457
               DataSource = DS_Batida
               FixedColor = 16762447
+              GradientEndColor = 16382457
+              GradientStartColor = 16382457
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = []
-              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
               ParentFont = False
               ParentShowHint = False
               ShowHint = True
@@ -596,12 +598,12 @@ inherited F01013: TF01013
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
               OnKeyDown = DBGridBatidaKeyDown
-              Cor_2 = 16773849
+              Cor_2 = 16382457
               Direcao_Cor2 = dg_Vertical
               Direcao_Enter = dg_Horiz
               ClickTituloOrdenar = True
               MarcarLinhaInteira = True
-              CorLinhaMarcada = clSilver
+              CorLinhaMarcada = 16382457
               BloquearExportacoes = False
               Columns = <
                 item
@@ -704,6 +706,7 @@ inherited F01013: TF01013
                 Height = 23
                 Caption = 'Excluir'
                 TabOrder = 2
+                Visible = False
                 OnClick = BitBtn2Click
               end
             end
@@ -725,7 +728,7 @@ inherited F01013: TF01013
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = []
-              Options = [dgTitles, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              Options = [dgTitles, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
               ParentFont = False
               ParentShowHint = False
               ShowHint = True
@@ -735,6 +738,7 @@ inherited F01013: TF01013
               TitleFont.Height = -11
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
+              OnKeyDown = DBGridBeleza2KeyDown
               Cor_2 = 16382457
               Direcao_Cor2 = dg_Vertical
               Direcao_Enter = dg_Horiz
@@ -2037,6 +2041,7 @@ inherited F01013: TF01013
       000000000000}
   end
   inherited DS: TDataSource
+    OnDataChange = DSDataChange
     Left = 792
     Top = 96
   end
