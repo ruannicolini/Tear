@@ -198,6 +198,10 @@ type
     procedure btnLapClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure BCancelarClick(Sender: TObject);
+    procedure CDS_BatidaAfterCancel(DataSet: TDataSet);
+    procedure CDS_BatidaAfterDelete(DataSet: TDataSet);
+    procedure CDS_BatidaAfterPost(DataSet: TDataSet);
+    procedure CDS_BatidaAfterInsert(DataSet: TDataSet);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -226,6 +230,10 @@ procedure TF01013.BCancelarClick(Sender: TObject);
 begin
   inherited;
   crono.Enabled := false;
+  status := false;
+  btnINICIAR.Caption := 'INICIAR';
+  btnLap.Caption := 'LAP';
+  btnLap.Enabled := false;
 end;
 
 procedure TF01013.BInserirClick(Sender: TObject);
@@ -284,6 +292,10 @@ procedure TF01013.BSalvarClick(Sender: TObject);
 begin
   inherited;
   crono.Enabled := false;
+  status := false;
+  btnINICIAR.Caption := 'INICIAR';
+  btnLap.Caption := 'LAP';
+  btnLap.Enabled := false;
 end;
 
 procedure TF01013.btnLapClick(Sender: TObject);
@@ -309,7 +321,7 @@ begin
     if(status = true)then
     begin
     //LAP
-    DecodeTime(((GetTickCount - fMomentoParada) * OneMillisecond), Hora, Min, Seg, MSeg);
+    DecodeTime(((GetTickCount - fmomento) * OneMillisecond), Hora, Min, Seg, MSeg);
 
     ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
     + 'Min: ' + inttostr(min) + #13
@@ -385,6 +397,31 @@ begin
         ftempo := ((GetTickCount - fmomento) * OneMillisecond);
         edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
       end;
+end;
+
+procedure TF01013.CDS_BatidaAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  CDS_Batida.CancelUpdates;
+end;
+
+procedure TF01013.CDS_BatidaAfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  CDS_Batida.ApplyUpdates(-1);
+end;
+
+procedure TF01013.CDS_BatidaAfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  CDS_Batidaidbatida.AsInteger := DModule.buscaProximoParametro('seqBatida');
+
+end;
+
+procedure TF01013.CDS_BatidaAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  CDS_Batida.ApplyUpdates(-1);
 end;
 
 procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);

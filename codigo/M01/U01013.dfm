@@ -3,31 +3,30 @@ inherited F01013: TF01013
   ClientHeight = 642
   ClientWidth = 934
   OnCreate = FormCreate
-  ExplicitTop = -124
+  ExplicitLeft = -163
+  ExplicitTop = -164
   ExplicitWidth = 950
   ExplicitHeight = 681
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
     Width = 934
-    ExplicitWidth = 942
+    ExplicitWidth = 934
   end
   inherited PageControl: TPageControl
     Width = 934
     Height = 566
     ActivePage = TbDados
-    ExplicitWidth = 942
-    ExplicitHeight = 563
+    ExplicitWidth = 934
+    ExplicitHeight = 566
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 934
-      ExplicitHeight = 535
+      ExplicitWidth = 926
+      ExplicitHeight = 538
       inherited grDados: TGroupBox
         Width = 926
         Height = 538
-        ExplicitWidth = 934
-        ExplicitHeight = 535
+        ExplicitWidth = 926
+        ExplicitHeight = 538
         inherited ImgSaveWhite: TImage
           Left = 646
           Top = 257
@@ -569,10 +568,6 @@ inherited F01013: TF01013
           TabOrder = 18
           object TabSheet1: TTabSheet
             Caption = 'TEMPO'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object GroupBox1: TGroupBox
               Left = 0
               Top = 0
@@ -696,10 +691,6 @@ inherited F01013: TF01013
           object TabSheet2: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object GroupBox2: TGroupBox
               Left = 0
               Top = 0
@@ -918,13 +909,11 @@ inherited F01013: TF01013
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 934
-      ExplicitHeight = 535
+      ExplicitWidth = 926
+      ExplicitHeight = 538
       inherited GBFiltros: TGroupBox
         Width = 926
-        ExplicitWidth = 934
+        ExplicitWidth = 926
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 926
@@ -934,7 +923,7 @@ inherited F01013: TF01013
   end
   inherited Panel2: TPanel
     Width = 934
-    ExplicitWidth = 942
+    ExplicitWidth = 934
     inherited BFechar: TSpeedButton
       Left = 900
       ExplicitLeft = 828
@@ -3176,6 +3165,10 @@ inherited F01013: TF01013
     Aggregates = <>
     Params = <>
     ProviderName = 'DSP_Batida'
+    AfterInsert = CDS_BatidaAfterInsert
+    AfterPost = CDS_BatidaAfterPost
+    AfterCancel = CDS_BatidaAfterCancel
+    AfterDelete = CDS_BatidaAfterDelete
     Left = 862
     Top = 352
     object CDS_Batidaidbatida: TIntegerField
