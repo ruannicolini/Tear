@@ -68,13 +68,9 @@ type
     procedure Action2Execute(Sender: TObject);
     procedure acInserirExecute(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
-    procedure BFirstClick(Sender: TObject);
-    procedure BPriorClick(Sender: TObject);
-    procedure BNextClick(Sender: TObject);
-    procedure BLastClick(Sender: TObject);
+    procedure DSDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -188,21 +184,6 @@ begin
   DS_FASE_HAS_GRUPO.DataSet.Open;
 end;
 
-procedure TF01003.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  FDQuery2.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_OPERADORES.DataSet.Close;
-  DS_OPERADORES.DataSet.Open;
-
-  {DBGRID Fase}
-
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_FASE_HAS_GRUPO.DataSet.Close;
-  DS_FASE_HAS_GRUPO.DataSet.Open;
-
-end;
-
 procedure TF01003.BExcluirClick(Sender: TObject);
 begin
   inherited;
@@ -215,18 +196,6 @@ begin
     inherited;
   end else
     ShowMessage('Operadores vinculados a esse grupo. Não é possível excluir.');
-end;
-
-procedure TF01003.BFirstClick(Sender: TObject);
-begin
-  inherited;
-  FDQuery2.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_OPERADORES.DataSet.Close;
-  DS_OPERADORES.DataSet.Open;
-
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_FASE_HAS_GRUPO.DataSet.Close;
-  DS_FASE_HAS_GRUPO.DataSet.Open;
 end;
 
 procedure TF01003.BInserirClick(Sender: TObject);
@@ -274,43 +243,7 @@ begin
      end;
 end;
 
-procedure TF01003.BLastClick(Sender: TObject);
-begin
-  inherited;
-  FDQuery2.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_OPERADORES.DataSet.Close;
-  DS_OPERADORES.DataSet.Open;
-
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_FASE_HAS_GRUPO.DataSet.Close;
-  DS_FASE_HAS_GRUPO.DataSet.Open;
-end;
-
-procedure TF01003.BNextClick(Sender: TObject);
-begin
-  inherited;
-  FDQuery2.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_OPERADORES.DataSet.Close;
-  DS_OPERADORES.DataSet.Open;
-
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_FASE_HAS_GRUPO.DataSet.Close;
-  DS_FASE_HAS_GRUPO.DataSet.Open;
-end;
-
 procedure TF01003.BPesquisarClick(Sender: TObject);
-begin
-  inherited;
-  FDQuery2.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_OPERADORES.DataSet.Close;
-  DS_OPERADORES.DataSet.Open;
-
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
-  DS_FASE_HAS_GRUPO.DataSet.Close;
-  DS_FASE_HAS_GRUPO.DataSet.Open;
-end;
-
-procedure TF01003.BPriorClick(Sender: TObject);
 begin
   inherited;
   FDQuery2.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
@@ -345,6 +278,19 @@ procedure TF01003.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01003.DSDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  FDQuery2.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
+  DS_OPERADORES.DataSet.Close;
+  DS_OPERADORES.DataSet.Open;
+
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
+  DS_FASE_HAS_GRUPO.DataSet.Close;
+  DS_FASE_HAS_GRUPO.DataSet.Open;
+
 end;
 
 Initialization

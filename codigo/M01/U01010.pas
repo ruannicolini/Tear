@@ -81,11 +81,8 @@ type
     procedure BSalvarClick(Sender: TObject);
     procedure BCancelarClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
-    procedure BFirstClick(Sender: TObject);
-    procedure BPriorClick(Sender: TObject);
-    procedure BNextClick(Sender: TObject);
-    procedure BLastClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure DSDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -174,11 +171,6 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit3.Color := CorCamposOnlyRead();
-
-  {DBGRID TIPO RECURSO}
-  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-  DS_TR.DataSet.Close;
-  DS_TR.DataSet.Open;
 end;
 
 procedure TF01010.BExcluirClick(Sender: TObject);
@@ -195,28 +187,15 @@ begin
     ShowMessage('Cronometragem vinculada ao Operador. Não é possível excluir.');
 end;
 
-procedure TF01010.BFirstClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID}
-  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-  DS_TR.DataSet.Close;
-  DS_TR.DataSet.Open;
-end;
-
 procedure TF01010.BInserirClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit3.Color := CorCamposOnlyRead();
 
-  {DBGRID TIPO RECURSO}
-  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-  DS_TR.DataSet.Close;
-  DS_TR.DataSet.Open;
-
   if not DS_TR.DataSet.Active then
         DS_TR.DataSet.Open;
+
 end;
 
 procedure TF01010.BitBtn1Click(Sender: TObject);
@@ -245,34 +224,7 @@ begin
        showmessage('preencha o campo');
 end;
 
-procedure TF01010.BLastClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID}
-  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-  DS_TR.DataSet.Close;
-  DS_TR.DataSet.Open;
-end;
-
-procedure TF01010.BNextClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID}
-  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-  DS_TR.DataSet.Close;
-  DS_TR.DataSet.Open;
-end;
-
 procedure TF01010.BPesquisarClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID}
-  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
-  DS_TR.DataSet.Close;
-  DS_TR.DataSet.Open;
-end;
-
-procedure TF01010.BPriorClick(Sender: TObject);
 begin
   inherited;
   {DBGRID}
@@ -323,6 +275,15 @@ begin
   inherited;
   ClientDataSet1idoperador.AsInteger := DModule.buscaProximoParametro('seqOperador');
 
+end;
+
+procedure TF01010.DSDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  {DBGRID}
+  Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
+  DS_TR.DataSet.Close;
+  DS_TR.DataSet.Open;
 end;
 
 procedure TF01010.FormShow(Sender: TObject);

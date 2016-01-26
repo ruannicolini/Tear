@@ -99,11 +99,8 @@ type
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure BCancelarClick(Sender: TObject);
-    procedure BFirstClick(Sender: TObject);
-    procedure BPriorClick(Sender: TObject);
-    procedure BNextClick(Sender: TObject);
-    procedure BLastClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
+    procedure DSDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -253,25 +250,11 @@ begin
 
 end;
 
-procedure TF01007.BFirstClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-end;
-
 procedure TF01007.BInserirClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit4.Color := CorCamposOnlyRead();
-
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
 
   BitBtn2.Enabled := true;
   BitBtn3.Enabled := true;
@@ -313,10 +296,6 @@ end;
 procedure TF01007.BitBtn2Click(Sender: TObject);
 begin
   inherited;
-  {
-  ShowMessage( IntToStr(DataSource2.DataSet.RecordCount));
-  ShowMessage( IntToStr(ClientDataSet3prioridade.Value));
-  }
   if(ClientDataSet3prioridade.Value > 1)then
   begin
     DataSource2.DataSet.Edit;
@@ -350,34 +329,7 @@ begin
 
 end;
 
-procedure TF01007.BLastClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-end;
-
-procedure TF01007.BNextClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-end;
-
 procedure TF01007.BPesquisarClick(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-end;
-
-procedure TF01007.BPriorClick(Sender: TObject);
 begin
   inherited;
   {DBGRID FASE}
@@ -436,6 +388,16 @@ procedure TF01007.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01007.DSDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  {DBGRID FASE}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+
 end;
 
 Initialization
