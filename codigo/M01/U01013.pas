@@ -171,6 +171,7 @@ type
     CDS_BatidaidCronometragem: TIntegerField;
     ClientDataSet1produto: TStringField;
     DBEditBeleza1: TDBEditBeleza;
+    BImportar: TSpeedButton;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
@@ -194,6 +195,8 @@ type
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure BEditarClick(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -226,6 +229,19 @@ begin
   btnINICIAR.Caption := 'INICIAR';
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
+  BImportar.Enabled := false;
+end;
+
+procedure TF01013.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  BImportar.Enabled := false;
+end;
+
+procedure TF01013.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  BImportar.Enabled := true;
 end;
 
 procedure TF01013.BitBtn1Click(Sender: TObject);
@@ -275,6 +291,7 @@ begin
   btnINICIAR.Caption := 'INICIAR';
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
+  BImportar.Enabled := false;
 end;
 
 procedure TF01013.btnLapClick(Sender: TObject);
@@ -506,6 +523,7 @@ procedure TF01013.FormShow(Sender: TObject);
 begin
   inherited;
   BPesquisarClick(Sender);
+  BImportar.Enabled := false;
 end;
 
 Initialization
