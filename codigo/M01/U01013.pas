@@ -230,18 +230,40 @@ begin
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
   BImportar.Enabled := false;
+
+  DBEdit1.Color := clWindow;
+  DBEdit7.Color := clWindow;
+  DBEdit8.Color := clWindow;
+  DBEdit9.Color := clWindow;
+  DBEdit10.Color := clWindow;
+  DBEdit11.Color := clWindow;
 end;
 
 procedure TF01013.BEditarClick(Sender: TObject);
 begin
   inherited;
   BImportar.Enabled := false;
+
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit7.Color := CorCamposOnlyRead();
+  DBEdit8.Color := CorCamposOnlyRead();
+  DBEdit9.Color := CorCamposOnlyRead();
+  DBEdit10.Color := CorCamposOnlyRead();
+  DBEdit11.Color := CorCamposOnlyRead();
 end;
 
 procedure TF01013.BInserirClick(Sender: TObject);
 begin
   inherited;
   BImportar.Enabled := true;
+
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit7.Color := CorCamposOnlyRead();
+  DBEdit8.Color := CorCamposOnlyRead();
+  DBEdit9.Color := CorCamposOnlyRead();
+  DBEdit10.Color := CorCamposOnlyRead();
+  DBEdit11.Color := CorCamposOnlyRead();
+
 end;
 
 procedure TF01013.BitBtn1Click(Sender: TObject);
@@ -292,6 +314,13 @@ begin
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
   BImportar.Enabled := false;
+
+  DBEdit1.Color := clWindow;
+  DBEdit7.Color := clWindow;
+  DBEdit8.Color := clWindow;
+  DBEdit9.Color := clWindow;
+  DBEdit10.Color := clWindow;
+  DBEdit11.Color := clWindow;
 end;
 
 procedure TF01013.btnLapClick(Sender: TObject);

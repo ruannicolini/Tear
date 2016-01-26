@@ -1,31 +1,32 @@
 inherited F01013: TF01013
   Caption = 'F01013'
   ClientHeight = 650
-  ClientWidth = 934
+  ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitWidth = 950
+  ExplicitTop = -25
+  ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Width = 934
-    ExplicitWidth = 934
+    Width = 1190
+    ExplicitWidth = 1190
   end
   inherited PageControl: TPageControl
-    Width = 934
+    Width = 1190
     Height = 574
     ActivePage = TbDados
-    ExplicitWidth = 934
+    ExplicitWidth = 1190
     ExplicitHeight = 574
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 926
+      ExplicitWidth = 1182
       ExplicitHeight = 546
       inherited grDados: TGroupBox
-        Width = 926
+        Width = 1182
         Height = 546
-        ExplicitWidth = 926
+        ExplicitWidth = 1182
         ExplicitHeight = 546
         inherited ImgSaveWhite: TImage
           Left = 646
@@ -286,6 +287,7 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'idProduto'
           DataSource = DS
+          ReadOnly = True
           TabOrder = 6
         end
         object DBEdit8: TDBEdit
@@ -296,6 +298,7 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'idCronometrista'
           DataSource = DS
+          ReadOnly = True
           TabOrder = 7
         end
         object DBEdit9: TDBEdit
@@ -306,6 +309,7 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'idTecido'
           DataSource = DS
+          ReadOnly = True
           TabOrder = 8
         end
         object DBEdit10: TDBEdit
@@ -316,6 +320,7 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'idOperacao'
           DataSource = DS
+          ReadOnly = True
           TabOrder = 9
         end
         object DBEdit11: TDBEdit
@@ -326,6 +331,7 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'idOperador'
           DataSource = DS
+          ReadOnly = True
           TabOrder = 10
         end
         object DBEditBeleza2: TDBEditBeleza
@@ -507,19 +513,19 @@ inherited F01013: TF01013
               Align = alTop
               TabOrder = 0
               object btnINICIAR: TBitBtn
-                Left = 217
+                Left = 176
                 Top = 24
                 Width = 75
-                Height = 25
+                Height = 28
                 Caption = 'INICIAR'
                 TabOrder = 0
                 OnClick = btnINICIARClick
               end
               object btnLap: TBitBtn
-                Left = 298
+                Left = 257
                 Top = 24
                 Width = 75
-                Height = 25
+                Height = 28
                 Caption = 'LAP'
                 Enabled = False
                 TabOrder = 1
@@ -528,8 +534,17 @@ inherited F01013: TF01013
               object Edit2: TEdit
                 Left = 40
                 Top = 25
-                Width = 177
-                Height = 21
+                Width = 129
+                Height = 27
+                Alignment = taCenter
+                BevelInner = bvNone
+                BevelOuter = bvNone
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -16
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
                 TabOrder = 2
               end
               object Edit3: TEdit
@@ -773,7 +788,7 @@ inherited F01013: TF01013
         object Edit1: TEdit
           Left = 167
           Top = 33
-          Width = 121
+          Width = 143
           Height = 21
           ReadOnly = True
           TabOrder = 22
@@ -824,21 +839,21 @@ inherited F01013: TF01013
     inherited TbFiltros: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 926
+      ExplicitWidth = 1182
       ExplicitHeight = 546
       inherited GBFiltros: TGroupBox
-        Width = 926
-        ExplicitWidth = 926
+        Width = 1182
+        ExplicitWidth = 1182
       end
       inherited DBGridBeleza1: TDBGridBeleza
-        Width = 926
+        Width = 1182
         Height = 509
       end
     end
   end
   inherited Panel2: TPanel
-    Width = 934
-    ExplicitWidth = 934
+    Width = 1190
+    ExplicitWidth = 1190
     inherited BSalvar: TSpeedButton
       Left = 328
       ExplicitLeft = 328
@@ -848,7 +863,7 @@ inherited F01013: TF01013
       ExplicitLeft = 364
     end
     inherited BFechar: TSpeedButton
-      Left = 900
+      Left = 1156
       ExplicitLeft = 828
     end
     object BImportar: TSpeedButton
@@ -916,7 +931,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00700118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00780118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2293,7 +2308,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00C80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

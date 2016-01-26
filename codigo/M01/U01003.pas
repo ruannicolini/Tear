@@ -71,6 +71,9 @@ type
     procedure BExcluirClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
+    procedure BEditarClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -184,6 +187,20 @@ begin
   DS_FASE_HAS_GRUPO.DataSet.Open;
 end;
 
+procedure TF01003.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  Edit1.Color := clWindow;
+end;
+
+procedure TF01003.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  Edit1.Color := CorCamposOnlyRead();
+end;
+
 procedure TF01003.BExcluirClick(Sender: TObject);
 begin
   inherited;
@@ -204,6 +221,8 @@ begin
   ClientDataSet3.Close;
   ClientDataSet2.Close;
   inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  Edit1.Color := CorCamposOnlyRead();
 
 end;
 
@@ -214,8 +233,10 @@ begin
   if not DS_FASE_HAS_GRUPO.DataSet.Active then
         DS_FASE_HAS_GRUPO.DataSet.Open;
 
-  if( not(Edit1.Text = ''))then
+  if trim(Edit1.Text) <> '' then
   begin
+    if(ClientDataSet3.Locate('idfase',Edit1.Text,[]) = false)then
+    begin
           DS_FASE_HAS_GRUPO.DataSet.Append;
           ClientDataSet3idGrupo.asInteger := ClientDataSet1idgrupo.value;
           ClientDataSet3idfase.AsInteger := strToInt( Edit1.Text );
@@ -223,14 +244,18 @@ begin
          {Salva}
           DS_FASE_HAS_GRUPO.DataSet.Post;
 
-
           {Atualiza grid}
           FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
           DS_FASE_HAS_GRUPO.DataSet.Close;
           DS_FASE_HAS_GRUPO.DataSet.Open;
+    end else
+      ShowMessage('Fase já adicionada');
 
   end else
     ShowMessage('Selecione Um Tipo de Recurso');
+
+  Edit1.Text := '';
+  EditBeleza1.Clear;
 
 end;
 
@@ -253,6 +278,13 @@ begin
   FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
   DS_FASE_HAS_GRUPO.DataSet.Close;
   DS_FASE_HAS_GRUPO.DataSet.Open;
+end;
+
+procedure TF01003.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  Edit1.Color := clWindow;
 end;
 
 procedure TF01003.ClientDataSet1AfterInsert(DataSet: TDataSet);

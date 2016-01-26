@@ -206,6 +206,9 @@ begin
       {Coloca em Modo de Edição}
       if not DS_TR.DataSet.Active then
             DS_TR.DataSet.Open;
+
+      if(CDS_TR.Locate('idTipo_Recurso',Edit1.Text,[]) = false)then
+      begin
                 DS_TR.DataSet.Append;
                 CDS_TRidOperador.asInteger := ClientDataSet1idoperador.value;
                 CDS_TRidTipoRecurso.AsInteger := strToInt( Edit1.Text );
@@ -218,10 +221,11 @@ begin
                 Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
                 DS_TR.DataSet.Close;
                 DS_TR.DataSet.Open;
+      end else
+      ShowMessage('Tipo de Recurso já adicionado.');
 
-    end
-    else
-       showmessage('preencha o campo');
+    end else
+       showmessage('Preencha o Campo.');
 end;
 
 procedure TF01010.BPesquisarClick(Sender: TObject);
