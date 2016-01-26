@@ -3,7 +3,8 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 934
   OnCreate = FormCreate
-  ExplicitTop = -183
+  ExplicitLeft = -163
+  ExplicitTop = -47
   ExplicitWidth = 950
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -326,36 +327,6 @@ inherited F01013: TF01013
           DataSource = DS
           TabOrder = 10
         end
-        object DBEditBeleza1: TDBEditBeleza
-          Left = 353
-          Top = 79
-          Width = 256
-          Height = 21
-          Color = 15724527
-          DataField = 'produto'
-          DataSource = DS
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 11
-          OnClick = DBEditBeleza1Click
-          Ativar_Pesquisa = False
-          mostrar_Botao = True
-          sql.Strings = (
-            'select idproduto, descricao '
-            'from produto where descricao'
-            'like :varDescricao')
-          database = 'balay'
-          campo = 'descricao'
-          Sempre_Mostrar_Janela = False
-          Outro_Edit = DBEdit7
-          campo_outro_edit = 'idProduto'
-          CorBorda = clGray
-          NovoLayout = False
-        end
         object DBEditBeleza2: TDBEditBeleza
           Left = 53
           Top = 79
@@ -370,7 +341,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 12
+          TabOrder = 11
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -399,7 +370,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 13
+          TabOrder = 12
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -428,7 +399,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 14
+          TabOrder = 13
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -457,7 +428,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 15
+          TabOrder = 14
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -481,7 +452,7 @@ inherited F01013: TF01013
           BevelOuter = bvNone
           Color = 15724527
           ParentBackground = False
-          TabOrder = 16
+          TabOrder = 15
           object DBCheckBox1: TDBCheckBox
             Left = 13
             Top = 0
@@ -506,7 +477,7 @@ inherited F01013: TF01013
           BevelOuter = bvNone
           Color = 15724527
           ParentBackground = False
-          TabOrder = 17
+          TabOrder = 16
           object DBCheckBox2: TDBCheckBox
             Left = 14
             Top = 0
@@ -524,7 +495,7 @@ inherited F01013: TF01013
           Width = 885
           Height = 273
           ActivePage = TabSheet1
-          TabOrder = 18
+          TabOrder = 17
           object TabSheet1: TTabSheet
             Caption = 'TEMPO'
             object GroupBox1: TGroupBox
@@ -768,7 +739,7 @@ inherited F01013: TF01013
           Width = 51
           Height = 21
           DataField = 'idcronometragem'
-          TabOrder = 19
+          TabOrder = 18
           Visible = False
         end
         object DBEdit13: TDBEdit
@@ -777,7 +748,7 @@ inherited F01013: TF01013
           Width = 55
           Height = 21
           DataField = 'idTipoRecurso'
-          TabOrder = 20
+          TabOrder = 19
           Visible = False
         end
         object DBEdit14: TDBEdit
@@ -786,7 +757,7 @@ inherited F01013: TF01013
           Width = 51
           Height = 21
           DataField = 'idtipo_recurso'
-          TabOrder = 21
+          TabOrder = 20
           Visible = False
         end
         object DBEdit15: TDBEdit
@@ -795,7 +766,7 @@ inherited F01013: TF01013
           Width = 45
           Height = 21
           DataField = 'descricao'
-          TabOrder = 22
+          TabOrder = 21
           Visible = False
         end
         object Edit1: TEdit
@@ -804,7 +775,7 @@ inherited F01013: TF01013
           Width = 121
           Height = 21
           ReadOnly = True
-          TabOrder = 23
+          TabOrder = 22
           Text = 'Edit1'
           Visible = False
         end
@@ -816,7 +787,36 @@ inherited F01013: TF01013
           Caption = 'utilizar'
           DataField = 'utilizar'
           DataSource = DS_Batida
+          TabOrder = 23
+        end
+        object DBEditBeleza1: TDBEditBeleza
+          Left = 352
+          Top = 79
+          Width = 257
+          Height = 21
+          Color = 15724527
+          DataField = 'produto'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 24
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idproduto, descricao '
+            'from produto where descricao'
+            'like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit7
+          campo_outro_edit = 'idProduto'
+          CorBorda = clGray
+          NovoLayout = False
         end
       end
     end
@@ -2087,16 +2087,6 @@ inherited F01013: TF01013
     object ClientDataSet1idOperador: TIntegerField
       FieldName = 'idOperador'
     end
-    object ClientDataSet1produto: TStringField
-      FieldKind = fkLookup
-      FieldName = 'produto'
-      LookupDataSet = ClientDataSet2
-      LookupKeyFields = 'idProduto'
-      LookupResultField = 'descricao'
-      KeyFields = 'idProduto'
-      Size = 50
-      Lookup = True
-    end
     object ClientDataSet1operacao: TStringField
       FieldKind = fkLookup
       FieldName = 'operacao'
@@ -2134,6 +2124,16 @@ inherited F01013: TF01013
       LookupKeyFields = 'idcronometrista'
       LookupResultField = 'nome'
       KeyFields = 'idCronometrista'
+      Size = 50
+      Lookup = True
+    end
+    object ClientDataSet1produto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'produto'
+      LookupDataSet = ClientDataSet2
+      LookupKeyFields = 'idProduto'
+      LookupResultField = 'descricao'
+      KeyFields = 'idProduto'
       Size = 50
       Lookup = True
     end

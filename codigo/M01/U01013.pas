@@ -75,8 +75,6 @@ type
     ClientDataSet2descricao: TStringField;
     ClientDataSet2data: TDateField;
     ClientDataSet2idGrupo: TIntegerField;
-    ClientDataSet1produto: TStringField;
-    DBEditBeleza1: TDBEditBeleza;
     DataSource3: TDataSource;
     ClientDataSet3: TClientDataSet;
     DataSetProvider3: TDataSetProvider;
@@ -171,6 +169,8 @@ type
     CDS_Batidamilesimos: TIntegerField;
     CDS_Batidautilizar: TBooleanField;
     CDS_BatidaidCronometragem: TIntegerField;
+    ClientDataSet1produto: TStringField;
+    DBEditBeleza1: TDBEditBeleza;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
