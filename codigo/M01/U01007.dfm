@@ -2,6 +2,7 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientWidth = 811
   ExplicitWidth = 827
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
@@ -17,7 +18,10 @@ inherited F01007: TF01007
     ActivePage = TbDados
     ExplicitWidth = 811
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
+      ExplicitHeight = 414
       inherited grDados: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -382,7 +386,10 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
+      ExplicitHeight = 414
       inherited GBFiltros: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -451,7 +458,7 @@ inherited F01007: TF01007
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C00F40018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00F80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1717,7 +1724,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2384,5 +2391,9 @@ inherited F01007: TF01007
       ReadOnly = True
       Size = 45
     end
+  end
+  inherited Acoes: TActionList
+    Left = 592
+    Top = 160
   end
 end

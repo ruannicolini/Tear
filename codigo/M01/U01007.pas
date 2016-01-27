@@ -221,9 +221,21 @@ end;
 
 procedure TF01007.Action5Execute(Sender: TObject);
 begin
+  if DS.DataSet.State=dsInsert then
+  begin
+    {ShowMessage('Inserção');}
+    //DELETAR
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'Delete from produto_has_fase WHERE idProduto =:p';
+    DModule.qAux.ParamByName('p').AsString := ClientDataSet1idProduto.AsString;
+    DModule.qAux.execsql;
+  end else
+    if DS.DataSet.State=dsEdit then {ShowMessage('Edição')};
+
+  //Herança
   inherited;
-  if DS.DataSet.State=dsInsert then ShowMessage('Inserção');
-  if DS.DataSet.State=dsEdit then ShowMessage('Editção');
+
+  //Campos ReadyOnly
   DBEdit1.Color := clWindow;
   DBEdit4.Color := clWindow;
 end;
