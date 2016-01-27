@@ -2,7 +2,6 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientWidth = 811
   ExplicitWidth = 827
-  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
@@ -18,10 +17,7 @@ inherited F01007: TF01007
     ActivePage = TbDados
     ExplicitWidth = 811
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 414
       inherited grDados: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -386,10 +382,7 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 414
       inherited GBFiltros: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -458,7 +451,7 @@ inherited F01007: TF01007
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C00E80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00F40018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1654,7 +1647,6 @@ inherited F01007: TF01007
       000000000000}
   end
   inherited DS: TDataSource
-    OnDataChange = DSDataChange
     Left = 608
     Top = 80
   end
@@ -1725,7 +1717,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2260,7 +2252,7 @@ inherited F01007: TF01007
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object FDQuery2: TFDQuery
+  object FDQuery2: TFDQuery [11]
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from grupo_produto')
@@ -2279,12 +2271,12 @@ inherited F01007: TF01007
       Size = 45
     end
   end
-  object DataSetProvider2: TDataSetProvider
+  object DataSetProvider2: TDataSetProvider [12]
     DataSet = FDQuery2
     Left = 704
     Top = 136
   end
-  object ClientDataSet2: TClientDataSet
+  object ClientDataSet2: TClientDataSet [13]
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider2'
@@ -2298,17 +2290,17 @@ inherited F01007: TF01007
       Size = 45
     end
   end
-  object DataSource1: TDataSource
+  object DataSource1: TDataSource [14]
     DataSet = ClientDataSet2
     Left = 760
     Top = 136
   end
-  object DataSource2: TDataSource
+  object DataSource2: TDataSource [15]
     DataSet = ClientDataSet3
     Left = 696
     Top = 456
   end
-  object ClientDataSet3: TClientDataSet
+  object ClientDataSet3: TClientDataSet [16]
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider3'
@@ -2338,12 +2330,12 @@ inherited F01007: TF01007
       Size = 45
     end
   end
-  object DataSetProvider3: TDataSetProvider
+  object DataSetProvider3: TDataSetProvider [17]
     DataSet = FDQuery3
     Left = 632
     Top = 456
   end
-  object FDQuery3: TFDQuery
+  object FDQuery3: TFDQuery [18]
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from produto_has_fase phf '#13#10#10

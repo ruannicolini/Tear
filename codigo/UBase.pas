@@ -76,6 +76,8 @@ type
     BPrior: TSpeedButton;
     BNext: TSpeedButton;
     BLast: TSpeedButton;
+    Acoes: TActionList;
+    Action5: TAction;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
@@ -107,6 +109,7 @@ type
     procedure BNextClick(Sender: TObject);
     procedure BLastClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -200,6 +203,11 @@ end;
 procedure TFBase.Action4Execute(Sender: TObject);
 begin
 DS.DataSet.Next;
+end;
+
+procedure TFBase.Action5Execute(Sender: TObject);
+begin
+//
 end;
 
 procedure TFBase.ArredondarComponente(Componente: TWinControl;
@@ -354,6 +362,7 @@ procedure TFBase.BCancelarClick(Sender: TObject);
 begin
 if (Application.MessageBox('Deseja Cancelar ', 'Cancelar', MB_YESNO + MB_ICONQUESTION )= id_yes) then
     begin
+        action5.Execute;
         ds.DataSet.Cancel;
         DS.OnDataChange(Sender, nil);
     end;

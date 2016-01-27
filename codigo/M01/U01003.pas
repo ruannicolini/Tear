@@ -73,7 +73,7 @@ type
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
-    procedure BCancelarClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -187,9 +187,11 @@ begin
   DS_FASE_HAS_GRUPO.DataSet.Open;
 end;
 
-procedure TF01003.BCancelarClick(Sender: TObject);
+procedure TF01003.Action5Execute(Sender: TObject);
 begin
   inherited;
+  if DS.DataSet.State=dsInsert then ShowMessage('Inserção');
+  if DS.DataSet.State=dsEdit then ShowMessage('Editção');
   DBEdit1.Color := clWindow;
   Edit1.Color := clWindow;
 end;

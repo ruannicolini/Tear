@@ -185,7 +185,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btnLapClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
-    procedure BCancelarClick(Sender: TObject);
     procedure CDS_BatidaAfterCancel(DataSet: TDataSet);
     procedure CDS_BatidaAfterDelete(DataSet: TDataSet);
     procedure CDS_BatidaAfterPost(DataSet: TDataSet);
@@ -197,6 +196,7 @@ type
       Shift: TShiftState);
     procedure BEditarClick(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -221,7 +221,7 @@ implementation
 uses
 uDataModule;
 
-procedure TF01013.BCancelarClick(Sender: TObject);
+procedure TF01013.Action5Execute(Sender: TObject);
 begin
   inherited;
   crono.Enabled := false;

@@ -98,9 +98,9 @@ type
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
-    procedure BCancelarClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -219,9 +219,11 @@ begin
   DataSource2.DataSet.Open;
 end;
 
-procedure TF01007.BCancelarClick(Sender: TObject);
+procedure TF01007.Action5Execute(Sender: TObject);
 begin
   inherited;
+  if DS.DataSet.State=dsInsert then ShowMessage('Inserção');
+  if DS.DataSet.State=dsEdit then ShowMessage('Editção');
   DBEdit1.Color := clWindow;
   DBEdit4.Color := clWindow;
 end;

@@ -32,7 +32,7 @@ type
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
-    procedure BCancelarClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -95,7 +95,7 @@ begin
   DBEdit1.Color := clWindow;
 end;
 
-procedure TF01011.BCancelarClick(Sender: TObject);
+procedure TF01011.Action5Execute(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;

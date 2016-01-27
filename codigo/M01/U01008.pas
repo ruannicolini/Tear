@@ -75,7 +75,7 @@ type
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
-    procedure BCancelarClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -146,7 +146,7 @@ begin
   DBEdit5.Color := clWindow;
 end;
 
-procedure TF01008.BCancelarClick(Sender: TObject);
+procedure TF01008.Action5Execute(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;
