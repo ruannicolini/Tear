@@ -3,6 +3,7 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
+  ExplicitLeft = -16
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -846,6 +847,146 @@ inherited F01013: TF01013
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 1182
         Height = 509
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idcronometragem'
+            Title.Caption = 'COD'
+            Width = 50
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idOperacao'
+            Title.Caption = 'OPERA'#199#195'O'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clBlue
+            Title.Font.Height = -12
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 74
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'operacao'
+            Title.Caption = ' '
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idProduto'
+            Title.Caption = 'PRODUTO'
+            Width = 74
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'produto'
+            Title.Caption = ' '
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idTecido'
+            Title.Caption = ' TECIDO'
+            Width = 74
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'tecido'
+            Title.Caption = ' '
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idOperador'
+            Title.Caption = 'OPERADOR'
+            Width = 74
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'operador'
+            Title.Caption = ' '
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idCronometrista'
+            Title.Caption = ' CRONOMETRISTA'
+            Width = 74
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'cronometrista'
+            Title.Caption = ' '
+            Width = 100
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'tempo_original'
+            Title.Caption = 'T. ORIGINAL'
+            Width = 90
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'tempo_ideal'
+            Title.Caption = 'T. IDEAL'
+            Width = 90
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ritmo'
+            Title.Caption = 'RITMO'
+            Width = 100
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'num_pecas'
+            Title.Caption = 'NUM PE'#199'AS'
+            Width = 100
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'tolerancia'
+            Title.Caption = 'TOLER'#194'NCIA'
+            Width = 100
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'comprimento_prod'
+            Title.Caption = 'COMPRIMENTO'
+            Width = 100
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'num_ocorrencia'
+            Title.Caption = 'OCORR'#202'NCIA'
+            Width = 100
+            Visible = True
+          end>
       end
     end
   end
@@ -929,7 +1070,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00800118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00840118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2129,6 +2270,7 @@ inherited F01013: TF01013
     Top = 96
   end
   inherited ClientDataSet1: TClientDataSet
+    IndexFieldNames = 'idOperacao'
     Left = 760
     Top = 96
     object ClientDataSet1idcronometragem: TIntegerField
@@ -2305,7 +2447,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00D80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
