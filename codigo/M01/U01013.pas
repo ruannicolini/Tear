@@ -223,7 +223,27 @@ uDataModule;
 
 procedure TF01013.Action5Execute(Sender: TObject);
 begin
+    if DS.DataSet.State=dsInsert then
+  begin
+    {ShowMessage('Inserção');}
+    //DELETAR BATIDA
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'Delete from batida where idCronometragem =:p';
+    DModule.qAux.ParamByName('p').AsString := ClientDataSet1idcronometragem.AsString;
+    DModule.qAux.execsql;
+
+    //DELETAR TipoRecurso
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'Delete from cronometragem_has_tipo_recurso where idCronometragem =:p';
+    DModule.qAux.ParamByName('p').AsString := ClientDataSet1idcronometragem.AsString;
+    DModule.qAux.execsql;
+  end else
+    if DS.DataSet.State=dsEdit then {ShowMessage('Edição')};
+
+  //Herança
   inherited;
+
+  //
   crono.Enabled := false;
   status := false;
   btnINICIAR.Caption := 'INICIAR';
