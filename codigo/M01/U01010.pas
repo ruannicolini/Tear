@@ -160,7 +160,20 @@ end;
 
 procedure TF01010.Action5Execute(Sender: TObject);
 begin
+  if DS.DataSet.State=dsInsert then
+  begin
+    {ShowMessage('Inserção');}
+    //DELETAR
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'Delete from operador_has_tipo_recurso where idOperador =:p';
+    DModule.qAux.ParamByName('p').AsString := ClientDataSet1idoperador.AsString;
+    DModule.qAux.execsql;
+  end else
+    if DS.DataSet.State=dsEdit then {ShowMessage('Edição')};
+
+  //Herança
   inherited;
+
   DS_TR.DataSet.Close;
   DBEdit1.Color := clWindow;
   DBEdit3.Color := clWindow;
