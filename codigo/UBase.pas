@@ -106,6 +106,7 @@ type
     procedure BPriorClick(Sender: TObject);
     procedure BNextClick(Sender: TObject);
     procedure BLastClick(Sender: TObject);
+    procedure DSDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -259,6 +260,11 @@ begin
   Result := $00CECBC2;
 end;
 
+procedure TFBase.DSDataChange(Sender: TObject; Field: TField);
+begin
+//
+end;
+
 procedure TFBase.DSStateChange(Sender: TObject);
 begin
     tbFiltros.TabVisible := ds.DataSet.State in [dsBrowse, dsInactive];
@@ -341,6 +347,7 @@ end;
 procedure TFBase.BSalvarClick(Sender: TObject);
 begin
 DS.DataSet.Post;
+DS.OnDataChange(Sender, nil);
 end;
 
 procedure TFBase.BCancelarClick(Sender: TObject);
@@ -348,6 +355,7 @@ begin
 if (Application.MessageBox('Deseja Cancelar ', 'Cancelar', MB_YESNO + MB_ICONQUESTION )= id_yes) then
     begin
         ds.DataSet.Cancel;
+        DS.OnDataChange(Sender, nil);
     end;
 
 end;
