@@ -19,7 +19,6 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Image1: TImage;
-    ImageListWin: TImageList;
     Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;

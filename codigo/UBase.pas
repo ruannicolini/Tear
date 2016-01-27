@@ -15,7 +15,6 @@ uses
 
 type
   TFBase = class(TForm)
-    Panel1: TPanel;
     ImageList1: TImageList;
     DS: TDataSource;
     ClientDataSet1: TClientDataSet;
@@ -27,30 +26,6 @@ type
     TbFiltros: TTabSheet;
     GBFiltros: TGroupBox;
     DBGridBeleza1: TDBGridBeleza;
-    btnInserir: TSpeedButton;
-    ActAcoes: TActionList;
-    acInserir: TAction;
-    acEditar: TAction;
-    acExcluir: TAction;
-    acSalvar: TAction;
-    acCancelar: TAction;
-    acPesquisar: TAction;
-    acImprimir: TAction;
-    acFechar: TAction;
-    btnEditar: TSpeedButton;
-    btnExcluir: TSpeedButton;
-    btnSalvar: TSpeedButton;
-    btnCancelar: TSpeedButton;
-    btnPesquisar: TSpeedButton;
-    btnImpromir: TSpeedButton;
-    btnPrimeiro: TSpeedButton;
-    Action1: TAction;
-    Action2: TAction;
-    Action3: TAction;
-    Action4: TAction;
-    btnAnterior: TSpeedButton;
-    btnProximo: TSpeedButton;
-    btnUltimo: TSpeedButton;
     Panel2: TPanel;
     ImageListBase: TImageList;
     BInserir: TSpeedButton;
@@ -84,17 +59,6 @@ type
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure ClientDataSet1AfterPost(DataSet: TDataSet);
     procedure DSStateChange(Sender: TObject);
-    procedure acInserirExecute(Sender: TObject);
-    procedure acEditarExecute(Sender: TObject);
-    procedure acExcluirExecute(Sender: TObject);
-    procedure acSalvarExecute(Sender: TObject);
-    procedure acCancelarExecute(Sender: TObject);
-    procedure acPesquisarExecute(Sender: TObject);
-    procedure Action1Execute(Sender: TObject);
-    procedure Action2Execute(Sender: TObject);
-    procedure Action4Execute(Sender: TObject);
-    procedure Action3Execute(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure ClientDataSet1BeforeInsert(DataSet: TDataSet);
     procedure ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
     procedure BInserirClick(Sender: TObject);
@@ -110,6 +74,7 @@ type
     procedure BLastClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure Action5Execute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -126,92 +91,12 @@ implementation
 {$R *.dfm}
 
 
-procedure TFBase.acCancelarExecute(Sender: TObject);
-begin
-if (Application.MessageBox('Deseja Cancelar ', 'Cancelar', MB_YESNO + MB_ICONQUESTION )= id_yes) then
-    begin
-        ds.DataSet.Cancel;
-    end;
-end;
-
-procedure TFBase.acEditarExecute(Sender: TObject);
-begin
-if ds.DataSet.Active then
-    begin
-        if not ds.DataSet.IsEmpty then
-        begin
-            ds.DataSet.Edit;
-            PageControl.ActivePageIndex := 0;
-        end else
-            ShowMessage('Não Há Registros para Alteração.');
-    end;
-end;
-
-procedure TFBase.acExcluirExecute(Sender: TObject);
-begin
-if ds.DataSet.Active then
-  begin
-    if not ds.DataSet.IsEmpty then
-    begin
-        if (Application.MessageBox('Deseja Deletar ', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
-        begin
-          ds.DataSet.Delete;
-        end;
-    end
-    else
-        ShowMessage('Não Há registros');
-  end;
-end;
-
-procedure TFBase.acInserirExecute(Sender: TObject);
-begin
-if not ds.DataSet.Active then
-        ds.DataSet.Open;
-
-    PageControl.ActivePageIndex := 0;
-    ds.DataSet.Append;
-
-
-end;
-
-procedure TFBase.acPesquisarExecute(Sender: TObject);
-begin
-DS.DataSet.Close;
-DS.DataSet.Open;
-end;
-
-procedure TFBase.acSalvarExecute(Sender: TObject);
-begin
-DS.DataSet.Post;
-end;
-
-procedure TFBase.Action1Execute(Sender: TObject);
-begin
-DS.DataSet.First;
-end;
-
-procedure TFBase.Action2Execute(Sender: TObject);
-begin
-DS.DataSet.Last;
-end;
-
-procedure TFBase.Action3Execute(Sender: TObject);
-begin
-DS.DataSet.Prior;
-end;
-
-procedure TFBase.Action4Execute(Sender: TObject);
-begin
-DS.DataSet.Next;
-end;
-
 procedure TFBase.Action5Execute(Sender: TObject);
 begin
 //
 end;
 
-procedure TFBase.ArredondarComponente(Componente: TWinControl;
-  const Radius: SmallInt);
+procedure TFBase.ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
 var
   R : TRect;
   Rgn : HRGN;
@@ -286,13 +171,11 @@ end;
 
 procedure TFBase.FormShow(Sender: TObject);
 begin
-  btnPesquisar.Click;
+  BPesquisar.Click;
 end;
 
 procedure TFBase.BInserirClick(Sender: TObject);
 begin
-  //SpeedButton1.Glyph := nil;
-  //ImageListBase.GetBitmap(0, SpeedButton1.Glyph);
   if not ds.DataSet.Active then
         ds.DataSet.Open;
 
@@ -371,8 +254,8 @@ end;
 
 procedure TFBase.BPesquisarClick(Sender: TObject);
 begin
-DS.DataSet.Close;
-DS.DataSet.Open;
+  DS.DataSet.Close;
+  DS.DataSet.Open;
 end;
 
 procedure TFBase.BPriorClick(Sender: TObject);
@@ -383,68 +266,27 @@ end;
 procedure TFBase.StatusBotoes(e: integer);
 begin
 //
-  acSalvar.Enabled := e=1;
   BSalvar.Enabled := e=1;
 
-  acCancelar.Enabled := e=1;
   BCancelar.Enabled := e=1;
 
   //Next Prior Lest Fi
-  Action3.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
-  Action4.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
-  Action1.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
-  Action2.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
-
   BPrior.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
   BNext.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
   BFirst.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
   BLast.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
   BFechar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
 
-  acInserir.Enabled := e=2;
   BInserir.Enabled := e=2;
 
-  acExcluir.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
   BExcluir.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
 
-  acEditar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
   BEditar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
 
-  acEditar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
   BEditar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
 
-  acPesquisar.Enabled := e=2;
   BPesquisar.Enabled := e=2;
-  {
-  if(e = 2)then
-  begin
 
-  //BInserir.Glyph.Assign(nil);
-  //BInserir.Glyph := Image1.Picture.Bitmap;
-  //BInserir.Glyph := ImageListBase.GetBitmap(0, BInserir.Glyph);
-
-  BSalvar.Glyph := nil;
-  ImageListBase.GetBitmap(7, BSalvar.Glyph);
-
-  BCancelar.Glyph := nil;
-  ImageListBase.GetBitmap(9, BCancelar.Glyph);
-  end;
-
-  if(e = 1)then
-  begin
-  BInserir.Glyph := nil;
-  ImageListBase.GetBitmap(1, BInserir.Glyph);
-
-  BPesquisar.Glyph := nil;
-  ImageListBase.GetBitmap(11, BPesquisar.Glyph);
-
-  BEditar.Glyph := nil;
-  ImageListBase.GetBitmap(3, BEditar.Glyph);
-
-  BExcluir.Glyph := nil;
-  ImageListBase.GetBitmap(5, BExcluir.Glyph);
-  end;
-   }
 end;
 
 end.

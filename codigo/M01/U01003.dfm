@@ -6,42 +6,22 @@ inherited F01003: TF01003
   ExplicitHeight = 571
   PixelsPerInch = 96
   TextHeight = 13
-  inherited Panel1: TPanel
-    Width = 820
-    ExplicitWidth = 820
-    inherited btnEditar: TSpeedButton
-      Left = 89
-      ExplicitLeft = 89
-    end
-    inherited btnSalvar: TSpeedButton
-      Left = 264
-      ExplicitLeft = 264
-    end
-    inherited btnPesquisar: TSpeedButton
-      Left = 444
-      ExplicitLeft = 444
-    end
-    inherited btnPrimeiro: TSpeedButton
-      Left = 621
-      ExplicitLeft = 621
-    end
-  end
   inherited PageControl: TPageControl
     Width = 820
-    Height = 456
+    Height = 497
     ActivePage = TbDados
     ExplicitWidth = 820
-    ExplicitHeight = 456
+    ExplicitHeight = 497
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 812
-      ExplicitHeight = 428
+      ExplicitHeight = 469
       inherited grDados: TGroupBox
         Width = 812
-        Height = 428
+        Height = 469
         ExplicitWidth = 812
-        ExplicitHeight = 428
+        ExplicitHeight = 469
         object Label1: TLabel
           Left = 139
           Top = 10
@@ -283,14 +263,14 @@ inherited F01003: TF01003
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 812
-      ExplicitHeight = 428
+      ExplicitHeight = 469
       inherited GBFiltros: TGroupBox
         Width = 812
         ExplicitWidth = 812
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 812
-        Height = 391
+        Height = 432
         Columns = <
           item
             Alignment = taCenter
@@ -326,7 +306,7 @@ inherited F01003: TF01003
     Left = 696
     Top = 192
     Bitmap = {
-      494C01010C002C00000118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00040118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1558,13 +1538,9 @@ inherited F01003: TF01003
       Size = 45
     end
   end
-  inherited ActAcoes: TActionList
-    Left = 732
-    Top = 232
-  end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00740010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

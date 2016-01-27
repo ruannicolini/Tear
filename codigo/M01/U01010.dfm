@@ -6,32 +6,21 @@ inherited F01010: TF01010
   ExplicitHeight = 591
   PixelsPerInch = 96
   TextHeight = 13
-  inherited Panel1: TPanel
-    Width = 813
-    ExplicitWidth = 813
-    inherited btnEditar: TSpeedButton
-      Left = 77
-      Top = -5
-      ExplicitLeft = 77
-      ExplicitTop = -5
-    end
-  end
   inherited PageControl: TPageControl
     Width = 813
-    Height = 476
-    ActivePage = TbDados
+    Height = 517
     ExplicitWidth = 813
-    ExplicitHeight = 476
+    ExplicitHeight = 517
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 805
-      ExplicitHeight = 448
+      ExplicitHeight = 489
       inherited grDados: TGroupBox
         Width = 805
-        Height = 448
+        Height = 489
         ExplicitWidth = 805
-        ExplicitHeight = 448
+        ExplicitHeight = 489
         object Label1: TLabel
           Left = 285
           Top = 32
@@ -343,14 +332,14 @@ inherited F01010: TF01010
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 805
-      ExplicitHeight = 448
+      ExplicitHeight = 489
       inherited GBFiltros: TGroupBox
         Width = 805
         ExplicitWidth = 805
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 805
-        Height = 411
+        Height = 452
         Columns = <
           item
             Alignment = taCenter
@@ -416,7 +405,7 @@ inherited F01010: TF01010
     Left = 440
     Top = 72
     Bitmap = {
-      494C01010C002C00040118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C000C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1666,15 +1655,11 @@ inherited F01010: TF01010
       Origin = 'idGrupo'
     end
   end
-  inherited ActAcoes: TActionList
-    Left = 468
-    Top = 72
-  end
   inherited ImageListBase: TImageList
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010C002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

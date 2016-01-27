@@ -3,30 +3,25 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -16
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
   TextHeight = 13
-  inherited Panel1: TPanel
-    Width = 1190
-    ExplicitWidth = 1190
-  end
   inherited PageControl: TPageControl
     Width = 1190
-    Height = 574
+    Height = 615
     ExplicitWidth = 1190
-    ExplicitHeight = 574
+    ExplicitHeight = 615
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1182
-      ExplicitHeight = 546
+      ExplicitHeight = 587
       inherited grDados: TGroupBox
         Width = 1182
-        Height = 546
+        Height = 587
         ExplicitWidth = 1182
-        ExplicitHeight = 546
+        ExplicitHeight = 587
         inherited ImgSaveWhite: TImage
           Left = 646
           Top = 257
@@ -642,6 +637,10 @@ inherited F01013: TF01013
           object TabSheet2: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object GroupBox2: TGroupBox
               Left = 0
               Top = 0
@@ -839,14 +838,14 @@ inherited F01013: TF01013
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1182
-      ExplicitHeight = 546
+      ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
         Width = 1182
         ExplicitWidth = 1182
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 1182
-        Height = 509
+        Height = 550
         Columns = <
           item
             Alignment = taCenter
@@ -1070,7 +1069,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00840118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C008C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2439,15 +2438,11 @@ inherited F01013: TF01013
       Origin = 'idOperador'
     end
   end
-  inherited ActAcoes: TActionList
-    Left = 884
-    Top = 96
-  end
   inherited ImageListBase: TImageList
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

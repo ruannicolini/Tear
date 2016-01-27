@@ -5,23 +5,14 @@ inherited F01007: TF01007
   ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
-  inherited Panel1: TPanel
-    Width = 811
-    ExplicitWidth = 811
-    inherited btnCancelar: TSpeedButton
-      Left = 343
-      ExplicitLeft = 343
-    end
-  end
   inherited PageControl: TPageControl
     Width = 811
-    ActivePage = TbDados
     ExplicitWidth = 811
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 414
+      ExplicitHeight = 455
       inherited grDados: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -389,7 +380,7 @@ inherited F01007: TF01007
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 414
+      ExplicitHeight = 455
       inherited GBFiltros: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -435,17 +426,6 @@ inherited F01007: TF01007
       end
     end
   end
-  object Edit1: TEdit [2]
-    Left = 28
-    Top = 479
-    Width = 80
-    Height = 21
-    TabStop = False
-    ReadOnly = True
-    TabOrder = 3
-    Text = 'Edit1'
-    Visible = False
-  end
   inherited Panel2: TPanel
     Width = 811
     ExplicitWidth = 811
@@ -454,11 +434,22 @@ inherited F01007: TF01007
       ExplicitLeft = 777
     end
   end
+  object Edit1: TEdit [2]
+    Left = 28
+    Top = 479
+    Width = 80
+    Height = 21
+    TabStop = False
+    ReadOnly = True
+    TabOrder = 2
+    Text = 'Edit1'
+    Visible = False
+  end
   inherited ImageList1: TImageList
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C00FC0018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00040118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1716,15 +1707,11 @@ inherited F01007: TF01007
       Origin = 'idGrupo'
     end
   end
-  inherited ActAcoes: TActionList
-    Left = 772
-    Top = 184
-  end
   inherited ImageListBase: TImageList
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2259,7 +2246,11 @@ inherited F01007: TF01007
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object FDQuery2: TFDQuery [11]
+  inherited Acoes: TActionList
+    Left = 592
+    Top = 160
+  end
+  object FDQuery2: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from grupo_produto')
@@ -2278,12 +2269,12 @@ inherited F01007: TF01007
       Size = 45
     end
   end
-  object DataSetProvider2: TDataSetProvider [12]
+  object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
     Left = 704
     Top = 136
   end
-  object ClientDataSet2: TClientDataSet [13]
+  object ClientDataSet2: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider2'
@@ -2297,17 +2288,17 @@ inherited F01007: TF01007
       Size = 45
     end
   end
-  object DataSource1: TDataSource [14]
+  object DataSource1: TDataSource
     DataSet = ClientDataSet2
     Left = 760
     Top = 136
   end
-  object DataSource2: TDataSource [15]
+  object DataSource2: TDataSource
     DataSet = ClientDataSet3
     Left = 696
     Top = 456
   end
-  object ClientDataSet3: TClientDataSet [16]
+  object ClientDataSet3: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider3'
@@ -2337,12 +2328,12 @@ inherited F01007: TF01007
       Size = 45
     end
   end
-  object DataSetProvider3: TDataSetProvider [17]
+  object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
     Left = 632
     Top = 456
   end
-  object FDQuery3: TFDQuery [18]
+  object FDQuery3: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
       'select * from produto_has_fase phf '#13#10#10
@@ -2391,9 +2382,5 @@ inherited F01007: TF01007
       ReadOnly = True
       Size = 45
     end
-  end
-  inherited Acoes: TActionList
-    Left = 592
-    Top = 160
   end
 end

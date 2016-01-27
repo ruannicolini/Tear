@@ -46,7 +46,7 @@ type
     ClientDataSet3descricao: TStringField;
     EditBeleza1: TEditBeleza;
     BitBtn1: TBitBtn;
-    Panel2: TPanel;
+    //Panel2: TPanel;
     Edit1: TEdit;
     BitBtn2: TBitBtn;
     PageControl1: TPageControl;

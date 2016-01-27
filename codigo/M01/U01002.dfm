@@ -6,23 +6,11 @@ inherited F01002: TF01002
   ExplicitHeight = 554
   PixelsPerInch = 96
   TextHeight = 13
-  inherited Panel1: TPanel
-    Width = 813
-    ExplicitWidth = 813
-    inherited btnExcluir: TSpeedButton
-      Left = 180
-      ExplicitLeft = 180
-    end
-    inherited btnCancelar: TSpeedButton
-      Left = 343
-      ExplicitLeft = 343
-    end
-  end
   inherited PageControl: TPageControl
     Width = 813
-    Height = 439
+    Height = 480
     ExplicitWidth = 813
-    ExplicitHeight = 439
+    ExplicitHeight = 480
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -76,14 +64,14 @@ inherited F01002: TF01002
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 805
-      ExplicitHeight = 411
+      ExplicitHeight = 452
       inherited GBFiltros: TGroupBox
         Width = 805
         ExplicitWidth = 805
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 805
-        Height = 374
+        Height = 415
         Columns = <
           item
             Alignment = taCenter
@@ -113,7 +101,7 @@ inherited F01002: TF01002
   end
   inherited ImageList1: TImageList
     Bitmap = {
-      494C01010C002C00D80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00DC0018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1347,7 +1335,7 @@ inherited F01002: TF01002
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
