@@ -189,9 +189,21 @@ end;
 
 procedure TF01003.Action5Execute(Sender: TObject);
 begin
+  if DS.DataSet.State=dsInsert then
+  begin
+    {ShowMessage('Inserção');}
+    //DELETAR
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'Delete from fase_has_grupo WHERE idgrupo =:p';
+    DModule.qAux.ParamByName('p').AsString := ClientDataSet1idgrupo.AsString;
+    DModule.qAux.execsql;
+  end else
+    if DS.DataSet.State=dsEdit then {ShowMessage('Edição')};
+
+  //Herança
   inherited;
-  if DS.DataSet.State=dsInsert then ShowMessage('Inserção');
-  if DS.DataSet.State=dsEdit then ShowMessage('Editção');
+
+  //Campos ReadyOnly
   DBEdit1.Color := clWindow;
   Edit1.Color := clWindow;
 end;
