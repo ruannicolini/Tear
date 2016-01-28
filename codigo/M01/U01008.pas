@@ -199,6 +199,23 @@ begin
   DBEdit3.Color := clWindow;
   DBEdit4.Color := clWindow;
   DBEdit5.Color := clWindow;
+
+  if trim(DBEdit3.Text) <> '' then
+    begin
+    if trim(DBEdit4.Text) <> '' then
+      begin
+        if trim(DBEdit5.Text) <> '' then
+        begin
+          inherited;
+          DBEdit1.Color := clWindow;
+          DBEdit4.Color := clWindow;
+        end else
+           showmessage('Preencha o Campo Ação');
+      end else
+         showmessage('Preencha o Campo Parte');
+
+    end else
+       showmessage('Preencha o Campo Fase');
 end;
 
 procedure TF01008.ClientDataSet1AfterInsert(DataSet: TDataSet);

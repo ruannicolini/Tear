@@ -122,8 +122,15 @@ end;
 
 procedure TF01002.BSalvarClick(Sender: TObject);
 begin
-  inherited;
-  DBEdit1.Color := clWindow;
+  if trim(DBEdit2.Text) <> '' then
+    begin
+      inherited;
+      DBEdit1.Color := clWindow;
+    end else
+      begin
+       showmessage('Preencha o Campo Descrição');
+       DBEdit2.SetFocus;
+      end;
 end;
 
 procedure TF01002.ClientDataSet1AfterInsert(DataSet: TDataSet);

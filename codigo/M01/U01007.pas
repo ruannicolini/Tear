@@ -356,9 +356,20 @@ end;
 
 procedure TF01007.BSalvarClick(Sender: TObject);
 begin
-  inherited;
-  DBEdit1.Color := clWindow;
-  DBEdit4.Color := clWindow;
+
+
+  if trim(DBEdit4.Text) <> '' then
+    begin
+    if trim(DBEdit2.Text) <> '' then
+      begin
+        inherited;
+        DBEdit1.Color := clWindow;
+        DBEdit4.Color := clWindow;
+      end else
+         showmessage('Preencha o Campo Descrição');
+
+    end else
+       showmessage('Preencha o Campo Grupo');
 end;
 
 procedure TF01007.BtnExcluirTipoRegistroClick(Sender: TObject);

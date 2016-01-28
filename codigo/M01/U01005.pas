@@ -29,6 +29,8 @@ type
     procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -71,6 +73,12 @@ begin
   DBEdit1.Color := CorCamposOnlyRead();
 end;
 
+procedure TF01005.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
 procedure TF01005.BEditarClick(Sender: TObject);
 begin
   inherited;
@@ -96,6 +104,19 @@ procedure TF01005.BInserirClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF01005.BSalvarClick(Sender: TObject);
+begin
+  if trim(DBEdit2.Text) <> '' then
+    begin
+      inherited;
+      DBEdit1.Color := clWindow;
+    end else
+      begin
+       showmessage('Preencha o Campo Descrição');
+       DBEdit2.SetFocus;
+      end;
 end;
 
 procedure TF01005.ClientDataSet1AfterInsert(DataSet: TDataSet);

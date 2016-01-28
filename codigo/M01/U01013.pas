@@ -312,7 +312,7 @@ begin
       ShowMessage('Fase já adicionada');
 
     end else
-       showmessage('preencha o campo');
+       showmessage('Preencha o Campo');
 
 end;
 
