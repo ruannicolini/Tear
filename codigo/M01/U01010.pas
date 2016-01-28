@@ -83,6 +83,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure Action5Execute(Sender: TObject);
+    procedure DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -292,6 +294,20 @@ begin
   inherited;
   ClientDataSet1idoperador.AsInteger := DModule.buscaProximoParametro('seqOperador');
 
+end;
+
+procedure TF01010.DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if (key = 46) then
+  //Deleta Batida
+  begin
+    if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+          CDS_TR.Delete;
+     end;
+  end;
 end;
 
 procedure TF01010.DSDataChange(Sender: TObject; Field: TField);

@@ -101,6 +101,8 @@ type
     procedure BPesquisarClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure Action5Execute(Sender: TObject);
+    procedure DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -402,6 +404,28 @@ procedure TF01007.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01007.DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if (key = 46) then
+  //Deleta Batida
+  begin
+    if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idFase.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+        ClientDataSet3.Delete;
+        while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
+        begin
+          DataSource2.DataSet.Edit;
+          ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+          DataSource2.DataSet.Post;
+          ClientDataSet3.Next;  //vai para o próximo registro
+        end;
+
+     end;
+  end;
 end;
 
 procedure TF01007.DSDataChange(Sender: TObject; Field: TField);

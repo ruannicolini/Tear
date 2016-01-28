@@ -74,6 +74,8 @@ type
     procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure DBGridBeleza3KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -324,6 +326,21 @@ procedure TF01003.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01003.DBGridBeleza3KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if (key = 46) then
+  //Deleta Batida
+  begin
+    if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+          ClientDataSet3.Delete;
+     end;
+  end;
+
 end;
 
 procedure TF01003.DSDataChange(Sender: TObject; Field: TField);
