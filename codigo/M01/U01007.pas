@@ -63,9 +63,6 @@ type
     BitBtn1: TBitBtn;
     BtnExcluirTipoRegistro: TBitBtn;
     Edit1: TEdit;
-    GroupBox2: TGroupBox;
-    BitBtn2: TBitBtn;
-    BitBtn3: TBitBtn;
     Label5: TLabel;
     DBEdit3: TDBEdit;
     Label6: TLabel;
@@ -76,6 +73,10 @@ type
     DBEdit7: TDBEdit;
     Label9: TLabel;
     DBEdit8: TDBEdit;
+    Button1: TButton;
+    ImageList2: TImageList;
+    Button2: TButton;
+    Button3: TButton;
     procedure acInserirExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure acSalvarExecute(Sender: TObject);
@@ -87,13 +88,11 @@ type
     procedure Action3Execute(Sender: TObject);
     procedure Action4Execute(Sender: TObject);
     procedure Action2Execute(Sender: TObject);
-    procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet3AfterDelete(DataSet: TDataSet);
     procedure ClientDataSet3AfterPost(DataSet: TDataSet);
     procedure BtnExcluirTipoRegistroClick(Sender: TObject);
-    procedure BitBtn3Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
@@ -103,6 +102,9 @@ type
     procedure Action5Execute(Sender: TObject);
     procedure DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -132,8 +134,8 @@ begin
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit4.Color := CorCamposOnlyRead();
 
-  BitBtn2.Enabled := true;
-  BitBtn3.Enabled := true;
+  Button1.Enabled := true;
+  Button2.Enabled := true;
 end;
 
 procedure TF01007.acExcluirExecute(Sender: TObject);
@@ -162,8 +164,8 @@ begin
   DataSource2.DataSet.Close;
   DataSource2.DataSet.Open;
 
-  BitBtn2.Enabled := true;
-  BitBtn3.Enabled := true;
+  Button1.Enabled := true;
+  Button2.Enabled := true;
 
 end;
 procedure TF01007.acPesquisarExecute(Sender: TObject);
@@ -248,8 +250,8 @@ begin
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit4.Color := CorCamposOnlyRead();
 
-  BitBtn2.Enabled := true;
-  BitBtn3.Enabled := true;
+  Button1.Enabled := true;
+  Button2.Enabled := true;
 end;
 
 procedure TF01007.BExcluirClick(Sender: TObject);
@@ -272,8 +274,8 @@ begin
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit4.Color := CorCamposOnlyRead();
 
-  BitBtn2.Enabled := true;
-  BitBtn3.Enabled := true;
+  Button1.Enabled := true;
+  Button2.Enabled := true;
 end;
 
 procedure TF01007.BitBtn1Click(Sender: TObject);
@@ -309,42 +311,6 @@ begin
     ShowMessage('Selecione uma fase.');
 end;
 
-procedure TF01007.BitBtn2Click(Sender: TObject);
-begin
-  inherited;
-  if(ClientDataSet3prioridade.Value > 1)then
-  begin
-    DataSource2.DataSet.Edit;
-    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-    DataSource2.DataSet.Post;
-    ClientDataSet3.Prior;
-    DataSource2.DataSet.Edit;
-    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
-    DataSource2.DataSet.Post;
-    DataSource2.DataSet.Refresh;
-  end;
-
-
-end;
-
-procedure TF01007.BitBtn3Click(Sender: TObject);
-begin
-  inherited;
-
-  if(ClientDataSet3prioridade.Value < DataSource2.DataSet.RecordCount)then
-  begin
-    DataSource2.DataSet.Edit;
-    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
-    DataSource2.DataSet.Post;
-    ClientDataSet3.Next;
-    DataSource2.DataSet.Edit;
-    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-    DataSource2.DataSet.Post;
-    DataSource2.DataSet.Refresh;
-  end;
-
-end;
-
 procedure TF01007.BPesquisarClick(Sender: TObject);
 begin
   inherited;
@@ -356,8 +322,6 @@ end;
 
 procedure TF01007.BSalvarClick(Sender: TObject);
 begin
-
-
   if trim(DBEdit4.Text) <> '' then
     begin
     if trim(DBEdit2.Text) <> '' then
@@ -389,6 +353,72 @@ begin
       end;
 
      end;
+end;
+
+procedure TF01007.Button1Click(Sender: TObject);
+begin
+  inherited;
+  if(ClientDataSet3prioridade.Value > 1)then
+  begin
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+    DataSource2.DataSet.Post;
+    ClientDataSet3.Prior;
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
+    DataSource2.DataSet.Post;
+    DataSource2.DataSet.Refresh;
+  end;
+end;
+
+procedure TF01007.Button2Click(Sender: TObject);
+begin
+  inherited;
+    if(ClientDataSet3prioridade.Value < DataSource2.DataSet.RecordCount)then
+  begin
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
+    DataSource2.DataSet.Post;
+    ClientDataSet3.Next;
+    DataSource2.DataSet.Edit;
+    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+    DataSource2.DataSet.Post;
+    DataSource2.DataSet.Refresh;
+  end;
+end;
+
+procedure TF01007.Button3Click(Sender: TObject);
+begin
+  inherited;
+  if trim(EditBeleza1.Text) <> '' then
+  begin
+    if not DataSource2.DataSet.Active then
+          DataSource2.DataSet.Open;
+
+    if(ClientDataSet3.Locate('idfase',Edit1.Text,[]) = false)then
+    begin
+
+      {Modo de inserção}
+      DataSource2.DataSet.Append;
+      {Stribuição dos dados}
+      ClientDataSet3prioridade.Value := DataSource2.DataSet.RecordCount + 1;
+      ClientDataSet3idProduto.Value := ClientDataSet1idProduto.AsInteger;
+      ClientDataSet3idFase.Value := StrToInt(Edit1.Text);
+
+      {Salva}
+      DataSource2.DataSet.Post;
+
+      {Atualiza DBGRID FASE}
+      FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+      DataSource2.DataSet.Close;
+      DataSource2.DataSet.Open;
+
+      Edit1.Text :='';
+    end else
+      ShowMessage('Fase já adicionada');
+  end else
+    ShowMessage('Selecione uma fase.');
+
 end;
 
 procedure TF01007.ClientDataSet1AfterInsert(DataSet: TDataSet);
