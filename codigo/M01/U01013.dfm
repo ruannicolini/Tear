@@ -3,7 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitTop = -90
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -11,7 +10,6 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
-    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
@@ -225,6 +223,7 @@ inherited F01013: TF01013
           Top = 33
           Width = 136
           Height = 21
+          TabStop = False
           DataField = 'idcronometragem'
           DataSource = DS
           ReadOnly = True
@@ -237,7 +236,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'ritmo'
           DataSource = DS
-          TabOrder = 1
+          TabOrder = 8
         end
         object DBEdit3: TDBEdit
           Left = 174
@@ -246,7 +245,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'num_pecas'
           DataSource = DS
-          TabOrder = 2
+          TabOrder = 9
         end
         object DBEdit4: TDBEdit
           Left = 324
@@ -255,7 +254,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'tolerancia'
           DataSource = DS
-          TabOrder = 3
+          TabOrder = 10
         end
         object DBEdit5: TDBEdit
           Left = 625
@@ -264,7 +263,7 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'comprimento_prod'
           DataSource = DS
-          TabOrder = 4
+          TabOrder = 12
         end
         object DBEdit6: TDBEdit
           Left = 473
@@ -273,62 +272,67 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'num_ocorrencia'
           DataSource = DS
-          TabOrder = 5
+          TabOrder = 11
         end
         object DBEdit7: TDBEdit
           Left = 325
           Top = 79
           Width = 28
           Height = 21
+          TabStop = False
           Color = 15724527
           DataField = 'idProduto'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 6
+          TabOrder = 13
         end
         object DBEdit8: TDBEdit
           Left = 324
           Top = 127
           Width = 28
           Height = 21
+          TabStop = False
           Color = 15724527
           DataField = 'idCronometrista'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 7
+          TabOrder = 14
         end
         object DBEdit9: TDBEdit
           Left = 625
           Top = 79
           Width = 28
           Height = 21
+          TabStop = False
           Color = 15724527
           DataField = 'idTecido'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 8
+          TabOrder = 15
         end
         object DBEdit10: TDBEdit
           Left = 25
           Top = 79
           Width = 28
           Height = 21
+          TabStop = False
           Color = 15724527
           DataField = 'idOperacao'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 16
         end
         object DBEdit11: TDBEdit
           Left = 25
           Top = 127
           Width = 28
           Height = 21
+          TabStop = False
           Color = 15724527
           DataField = 'idOperador'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 10
+          TabOrder = 17
         end
         object DBEditBeleza2: TDBEditBeleza
           Left = 53
@@ -344,7 +348,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 11
+          TabOrder = 1
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -373,7 +377,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 12
+          TabOrder = 3
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -402,7 +406,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 13
+          TabOrder = 4
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -431,7 +435,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 14
+          TabOrder = 5
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -455,7 +459,7 @@ inherited F01013: TF01013
           BevelOuter = bvNone
           Color = 15724527
           ParentBackground = False
-          TabOrder = 15
+          TabOrder = 6
           object DBCheckBox1: TDBCheckBox
             Left = 13
             Top = 0
@@ -480,7 +484,7 @@ inherited F01013: TF01013
           BevelOuter = bvNone
           Color = 15724527
           ParentBackground = False
-          TabOrder = 16
+          TabOrder = 7
           object DBCheckBox2: TDBCheckBox
             Left = 14
             Top = 0
@@ -497,8 +501,9 @@ inherited F01013: TF01013
           Top = 216
           Width = 885
           Height = 273
-          ActivePage = TabSheet2
-          TabOrder = 17
+          ActivePage = TabSheet1
+          TabOrder = 18
+          TabStop = False
           object TabSheet1: TTabSheet
             Caption = 'TEMPO'
             object GroupBox1: TGroupBox
@@ -526,6 +531,7 @@ inherited F01013: TF01013
                 Enabled = False
                 TabOrder = 1
                 OnClick = btnLapClick
+                OnKeyDown = btnLapKeyDown
               end
               object Edit2: TEdit
                 Left = 40
@@ -751,7 +757,7 @@ inherited F01013: TF01013
           Width = 51
           Height = 21
           DataField = 'idcronometragem'
-          TabOrder = 18
+          TabOrder = 19
           Visible = False
         end
         object DBEdit13: TDBEdit
@@ -760,7 +766,7 @@ inherited F01013: TF01013
           Width = 55
           Height = 21
           DataField = 'idTipoRecurso'
-          TabOrder = 19
+          TabOrder = 20
           Visible = False
         end
         object DBEdit14: TDBEdit
@@ -769,7 +775,7 @@ inherited F01013: TF01013
           Width = 51
           Height = 21
           DataField = 'idtipo_recurso'
-          TabOrder = 20
+          TabOrder = 21
           Visible = False
         end
         object DBEdit15: TDBEdit
@@ -778,7 +784,7 @@ inherited F01013: TF01013
           Width = 45
           Height = 21
           DataField = 'descricao'
-          TabOrder = 21
+          TabOrder = 22
           Visible = False
         end
         object Edit1: TEdit
@@ -787,7 +793,7 @@ inherited F01013: TF01013
           Width = 143
           Height = 21
           ReadOnly = True
-          TabOrder = 22
+          TabOrder = 23
           Text = 'Edit1'
           Visible = False
         end
@@ -799,7 +805,7 @@ inherited F01013: TF01013
           Caption = 'utilizar'
           DataField = 'utilizar'
           DataSource = DS_Batida
-          TabOrder = 23
+          TabOrder = 24
         end
         object DBEditBeleza1: TDBEditBeleza
           Left = 352
@@ -815,7 +821,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 24
+          TabOrder = 2
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -1067,7 +1073,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00980118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C009C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2440,7 +2446,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00F00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00F40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

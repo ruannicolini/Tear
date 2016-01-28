@@ -2,6 +2,7 @@ inherited F01010: TF01010
   Caption = 'F01010'
   ClientHeight = 552
   ClientWidth = 813
+  ExplicitTop = -34
   ExplicitWidth = 829
   ExplicitHeight = 591
   PixelsPerInch = 96
@@ -9,6 +10,7 @@ inherited F01010: TF01010
   inherited PageControl: TPageControl
     Width = 813
     Height = 517
+    ActivePage = TbDados
     ExplicitWidth = 813
     ExplicitHeight = 517
     inherited TbDados: TTabSheet
@@ -211,6 +213,7 @@ inherited F01010: TF01010
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 9
+          TabStop = False
           object Recursos: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
@@ -229,7 +232,7 @@ inherited F01010: TF01010
                 Align = alCustom
                 Anchors = [akTop, akRight, akBottom]
                 Caption = 'ADD'
-                TabOrder = 0
+                TabOrder = 1
                 OnClick = BitBtn1Click
               end
               object BtnExcluirTipoRegistro: TBitBtn
@@ -240,7 +243,7 @@ inherited F01010: TF01010
                 Align = alCustom
                 Anchors = [akTop, akRight, akBottom]
                 Caption = 'Excluir'
-                TabOrder = 1
+                TabOrder = 2
                 OnClick = BtnExcluirTipoRegistroClick
               end
               object EditBeleza1: TEditBeleza
@@ -257,7 +260,7 @@ inherited F01010: TF01010
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
-                TabOrder = 2
+                TabOrder = 0
                 Ativar_Pesquisa = True
                 Ativar_MultiSelecao = False
                 mostrar_Botao = True
@@ -279,6 +282,7 @@ inherited F01010: TF01010
               Width = 203
               Height = 182
               Hint = 'Clique no Titulo da Coluna para Ordenar'
+              TabStop = False
               Align = alClient
               BorderStyle = bsNone
               Color = 16382457
@@ -406,7 +410,7 @@ inherited F01010: TF01010
     Left = 440
     Top = 72
     Bitmap = {
-      494C01010C002C00140118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00180118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1660,7 +1664,7 @@ inherited F01010: TF01010
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -97,6 +97,7 @@ inherited F01007: TF01007
           Top = 32
           Width = 119
           Height = 21
+          TabStop = False
           DataField = 'idProduto'
           DataSource = DS
           ReadOnly = True
@@ -112,17 +113,18 @@ inherited F01007: TF01007
           CharCase = ecUpperCase
           DataField = 'descricao'
           DataSource = DS
-          TabOrder = 1
+          TabOrder = 3
         end
         object DBEdit4: TDBEdit
           Left = 402
           Top = 75
           Width = 35
           Height = 21
+          TabStop = False
           DataField = 'idGrupo'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 2
+          TabOrder = 4
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
           Left = 270
@@ -134,7 +136,7 @@ inherited F01007: TF01007
           DataSource = DS
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 3
+          TabOrder = 1
           Formato_Data = 'dd/mm/yy'
         end
         object DBEditBeleza1: TDBEditBeleza
@@ -152,7 +154,7 @@ inherited F01007: TF01007
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 2
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -176,6 +178,7 @@ inherited F01007: TF01007
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 5
+          TabStop = False
           object TabSheet1: TTabSheet
             Caption = 'Fases'
             object GroupBox1: TGroupBox
@@ -193,7 +196,7 @@ inherited F01007: TF01007
                 Align = alCustom
                 Anchors = [akTop, akRight, akBottom]
                 Caption = 'ADD'
-                TabOrder = 0
+                TabOrder = 1
                 OnClick = BitBtn1Click
               end
               object BtnExcluirTipoRegistro: TBitBtn
@@ -204,7 +207,7 @@ inherited F01007: TF01007
                 Align = alCustom
                 Anchors = [akTop, akRight, akBottom]
                 Caption = 'Excluir'
-                TabOrder = 1
+                TabOrder = 2
                 OnClick = BtnExcluirTipoRegistroClick
               end
               object EditBeleza1: TEditBeleza
@@ -221,7 +224,7 @@ inherited F01007: TF01007
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
-                TabOrder = 2
+                TabOrder = 0
                 Ativar_Pesquisa = True
                 Ativar_MultiSelecao = False
                 mostrar_Botao = True
@@ -274,6 +277,7 @@ inherited F01007: TF01007
               Width = 226
               Height = 165
               Hint = 'Clique no Titulo da Coluna para Ordenar'
+              TabStop = False
               Align = alClient
               BorderStyle = bsNone
               DataSource = DataSource2
@@ -450,7 +454,7 @@ inherited F01007: TF01007
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C00100118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00140118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1712,7 +1716,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00D40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

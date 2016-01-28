@@ -9,7 +9,6 @@ inherited F01006: TF01006
   inherited PageControl: TPageControl
     Width = 812
     Height = 474
-    ActivePage = TbDados
     ExplicitWidth = 812
     ExplicitHeight = 474
     inherited TbDados: TTabSheet
@@ -59,6 +58,7 @@ inherited F01006: TF01006
           Top = 32
           Width = 65
           Height = 21
+          TabStop = False
           DataField = 'idRecurso'
           DataSource = DS
           ReadOnly = True
@@ -89,10 +89,11 @@ inherited F01006: TF01006
           Top = 152
           Width = 36
           Height = 21
+          TabStop = False
           DataField = 'idTipoRecurso'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 3
+          TabOrder = 4
         end
         object DBEditBeleza1: TDBEditBeleza
           Left = 74
@@ -108,7 +109,7 @@ inherited F01006: TF01006
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 3
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -192,7 +193,7 @@ inherited F01006: TF01006
     Left = 400
     Top = 256
     Bitmap = {
-      494C01010C002C00E00018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00E40018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1452,7 +1453,7 @@ inherited F01006: TF01006
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

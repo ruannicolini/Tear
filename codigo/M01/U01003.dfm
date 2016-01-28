@@ -2,6 +2,7 @@ inherited F01003: TF01003
   Caption = 'F01003'
   ClientHeight = 532
   ClientWidth = 820
+  ExplicitTop = -71
   ExplicitWidth = 836
   ExplicitHeight = 571
   PixelsPerInch = 96
@@ -9,6 +10,7 @@ inherited F01003: TF01003
   inherited PageControl: TPageControl
     Width = 820
     Height = 497
+    ActivePage = TbDados
     ExplicitWidth = 820
     ExplicitHeight = 497
     inherited TbDados: TTabSheet
@@ -49,7 +51,7 @@ inherited F01003: TF01003
           DataField = 'idgrupo'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 1
+          TabOrder = 0
         end
         object DBEdit2: TDBEdit
           Left = 139
@@ -61,7 +63,7 @@ inherited F01003: TF01003
           CharCase = ecUpperCase
           DataField = 'descricao'
           DataSource = DS
-          TabOrder = 0
+          TabOrder = 1
         end
         object PageControl1: TPageControl
           Left = 139
@@ -72,6 +74,7 @@ inherited F01003: TF01003
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 2
+          TabStop = False
           object Operadores: TTabSheet
             Caption = 'Operadores'
             object DBGridBeleza2: TDBGridBeleza
@@ -136,6 +139,7 @@ inherited F01003: TF01003
               Width = 494
               Height = 218
               Hint = 'Clique no Titulo da Coluna para Ordenar'
+              TabStop = False
               Align = alClient
               BorderStyle = bsNone
               Color = 16382457
@@ -152,7 +156,7 @@ inherited F01003: TF01003
               ParentFont = False
               ParentShowHint = False
               ShowHint = True
-              TabOrder = 0
+              TabOrder = 1
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clBackground
               TitleFont.Height = -11
@@ -189,7 +193,7 @@ inherited F01003: TF01003
               Width = 494
               Height = 59
               Align = alTop
-              TabOrder = 1
+              TabOrder = 0
               DesignSize = (
                 494
                 59)
@@ -211,7 +215,7 @@ inherited F01003: TF01003
                 Height = 23
                 Anchors = [akTop, akRight, akBottom]
                 Caption = 'ADD'
-                TabOrder = 1
+                TabOrder = 2
                 OnClick = BitBtn1Click
               end
               object BitBtn2: TBitBtn
@@ -222,7 +226,7 @@ inherited F01003: TF01003
                 Align = alCustom
                 Anchors = [akTop, akRight, akBottom]
                 Caption = 'Excluir'
-                TabOrder = 2
+                TabOrder = 3
                 OnClick = BitBtn2Click
               end
               object EditBeleza1: TEditBeleza
@@ -239,7 +243,7 @@ inherited F01003: TF01003
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
-                TabOrder = 3
+                TabOrder = 1
                 Ativar_Pesquisa = True
                 Ativar_MultiSelecao = False
                 mostrar_Botao = True
@@ -306,7 +310,7 @@ inherited F01003: TF01003
     Left = 696
     Top = 192
     Bitmap = {
-      494C01010C002C000C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00100118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1540,7 +1544,7 @@ inherited F01003: TF01003
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

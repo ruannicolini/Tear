@@ -197,6 +197,7 @@ type
     procedure BEditarClick(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure btnLapKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -367,10 +368,11 @@ begin
     //LAP
     DecodeTime(((GetTickCount - fmomento) * OneMillisecond), Hora, Min, Seg, MSeg);
 
-    ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
+    {ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
     + 'Min: ' + inttostr(min) + #13
     + 'Seg: ' + inttostr(seg) + #13
     + 'Milessimos: ' + inttostr(Mseg) + #13);
+    }
 
     // DataSource Batida
     if not DS_Batida.DataSet.Active then
@@ -392,6 +394,18 @@ begin
 
 
     end;
+end;
+
+procedure TF01013.btnLapKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  //
+  if (key = 13) then
+  //click
+  begin
+    btnLap.Click;
+  end;
 end;
 
 procedure TF01013.btnINICIARClick(Sender: TObject);
@@ -430,6 +444,7 @@ begin
 
     end;
   end;
+  btnLap.SetFocus;
 end;
 
 procedure TF01013.cronoTimer(Sender: TObject);
