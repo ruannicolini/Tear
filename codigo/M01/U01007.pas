@@ -76,7 +76,6 @@ type
     Button1: TButton;
     ImageList2: TImageList;
     Button2: TButton;
-    Button3: TButton;
     procedure acInserirExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure acSalvarExecute(Sender: TObject);
@@ -241,7 +240,7 @@ begin
 
   //Campos ReadyOnly
   DBEdit1.Color := clWindow;
-  DBEdit4.Color := clWindow;
+  DBEdit4.Color := $00EFEFEF;
 end;
 
 procedure TF01007.BEditarClick(Sender: TObject);
@@ -328,7 +327,7 @@ begin
       begin
         inherited;
         DBEdit1.Color := clWindow;
-        DBEdit4.Color := clWindow;
+        DBEdit4.Color := $00EFEFEF;
       end else
          showmessage('Preencha o Campo Descrição');
 

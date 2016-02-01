@@ -2,7 +2,6 @@ inherited F01003: TF01003
   Caption = 'F01003'
   ClientHeight = 532
   ClientWidth = 820
-  ExplicitTop = -71
   ExplicitWidth = 836
   ExplicitHeight = 571
   PixelsPerInch = 96
@@ -10,7 +9,6 @@ inherited F01003: TF01003
   inherited PageControl: TPageControl
     Width = 820
     Height = 497
-    ActivePage = TbDados
     ExplicitWidth = 820
     ExplicitHeight = 497
     inherited TbDados: TTabSheet
@@ -207,6 +205,7 @@ inherited F01003: TF01003
                 Color = 15724527
                 ReadOnly = True
                 TabOrder = 0
+                Visible = False
               end
               object BitBtn1: TBitBtn
                 Left = 289
@@ -230,9 +229,9 @@ inherited F01003: TF01003
                 OnClick = BitBtn2Click
               end
               object EditBeleza1: TEditBeleza
-                Left = 97
+                Left = 88
                 Top = 19
-                Width = 188
+                Width = 197
                 Height = 21
                 Align = alCustom
                 Anchors = [akLeft, akTop, akRight, akBottom]
@@ -310,7 +309,7 @@ inherited F01003: TF01003
     Left = 696
     Top = 192
     Bitmap = {
-      494C01010C002C00100118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00140118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1544,7 +1543,7 @@ inherited F01003: TF01003
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

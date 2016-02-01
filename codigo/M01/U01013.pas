@@ -253,11 +253,11 @@ begin
   BImportar.Enabled := false;
 
   DBEdit1.Color := clWindow;
-  DBEdit7.Color := clWindow;
-  DBEdit8.Color := clWindow;
-  DBEdit9.Color := clWindow;
-  DBEdit10.Color := clWindow;
-  DBEdit11.Color := clWindow;
+  DBEdit7.Color := $00EFEFEF;
+  DBEdit8.Color := $00EFEFEF;
+  DBEdit9.Color := $00EFEFEF;
+  DBEdit10.Color := $00EFEFEF;
+  DBEdit11.Color := $00EFEFEF;
 end;
 
 procedure TF01013.BEditarClick(Sender: TObject);
@@ -337,11 +337,11 @@ begin
   BImportar.Enabled := false;
 
   DBEdit1.Color := clWindow;
-  DBEdit7.Color := clWindow;
-  DBEdit8.Color := clWindow;
-  DBEdit9.Color := clWindow;
-  DBEdit10.Color := clWindow;
-  DBEdit11.Color := clWindow;
+  DBEdit7.Color := $00EFEFEF;
+  DBEdit8.Color := $00EFEFEF;
+  DBEdit9.Color := $00EFEFEF;
+  DBEdit10.Color := $00EFEFEF;
+  DBEdit11.Color := $00EFEFEF;
 end;
 
 procedure TF01013.btnLapClick(Sender: TObject);

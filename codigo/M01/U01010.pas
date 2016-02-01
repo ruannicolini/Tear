@@ -178,7 +178,7 @@ begin
 
   DS_TR.DataSet.Close;
   DBEdit1.Color := clWindow;
-  DBEdit3.Color := clWindow;
+  DBEdit3.Color := $00EFEFEF;
 end;
 
 procedure TF01010.BEditarClick(Sender: TObject);
@@ -260,7 +260,7 @@ begin
     begin
       inherited;
       DBEdit1.Color := clWindow;
-      DBEdit3.Color := clWindow;
+      DBEdit3.Color := $00EFEFEF;
       DS_TR.DataSet.Close;
     end else
       showmessage('Preencha o Campo Grupo');
