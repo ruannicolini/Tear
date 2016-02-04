@@ -27,15 +27,6 @@ type
     Label3: TLabel;
     DBEdit3: TDBEdit;
     DBEditBeleza1: TDBEditBeleza;
-    FDQuery2: TFDQuery;
-    DataSetProvider2: TDataSetProvider;
-    ClientDataSet2: TClientDataSet;
-    DataSource1: TDataSource;
-    FDQuery2idgrupo: TIntegerField;
-    FDQuery2descricao: TStringField;
-    ClientDataSet2idgrupo: TIntegerField;
-    ClientDataSet2descricao: TStringField;
-    ClientDataSet1grupo: TStringField;
     EditBeleza1: TEditBeleza;
     Query_TR: TFDQuery;
     CDS_TR: TClientDataSet;
@@ -64,6 +55,8 @@ type
     PageControl1: TPageControl;
     Recursos: TTabSheet;
     GroupBox1: TGroupBox;
+    FDQuery1grupo: TStringField;
+    ClientDataSet1grupo: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure acEditarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);

@@ -1,6 +1,8 @@
 inherited F01007: TF01007
   Caption = 'F01007'
   ClientWidth = 811
+  ExplicitLeft = -40
+  ExplicitTop = -38
   ExplicitWidth = 827
   ExplicitHeight = 557
   PixelsPerInch = 96
@@ -454,7 +456,7 @@ inherited F01007: TF01007
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C001C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00200118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1661,23 +1663,21 @@ inherited F01007: TF01007
     end
     object ClientDataSet1descricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object ClientDataSet1data: TDateField
       FieldName = 'data'
+      ProviderFlags = [pfInUpdate]
     end
     object ClientDataSet1idGrupo: TIntegerField
       FieldName = 'idGrupo'
+      ProviderFlags = [pfInUpdate]
     end
     object ClientDataSet1grupo: TStringField
-      FieldKind = fkLookup
       FieldName = 'grupo'
-      LookupDataSet = ClientDataSet2
-      LookupKeyFields = 'idgrupo_Produto'
-      LookupResultField = 'descricao'
-      KeyFields = 'idGrupo'
-      Size = 50
-      Lookup = True
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -1686,7 +1686,9 @@ inherited F01007: TF01007
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      'select * from produto')
+      
+        'select prod.*, '#10'gp.descricao as grupo '#10'from produto prod'#10'left ou' +
+        'ter join grupo_produto gp on prod.idgrupo = gp.idgrupo_produto;')
     Left = 528
     Top = 80
     object FDQuery1idProduto: TIntegerField
@@ -1699,24 +1701,34 @@ inherited F01007: TF01007
       AutoGenerateValue = arDefault
       FieldName = 'descricao'
       Origin = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object FDQuery1data: TDateField
       AutoGenerateValue = arDefault
       FieldName = 'data'
       Origin = '`data`'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idGrupo: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idGrupo'
       Origin = 'idGrupo'
+      ProviderFlags = [pfInUpdate]
+    end
+    object FDQuery1grupo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'grupo'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2255,49 +2267,6 @@ inherited F01007: TF01007
     Left = 592
     Top = 160
   end
-  object FDQuery2: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from grupo_produto')
-    Left = 680
-    Top = 136
-    object FDQuery2idgrupo_Produto: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idgrupo_Produto'
-      Origin = 'idgrupo_Produto'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery2descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSetProvider2: TDataSetProvider
-    DataSet = FDQuery2
-    Left = 704
-    Top = 136
-  end
-  object ClientDataSet2: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider2'
-    Left = 736
-    Top = 136
-    object ClientDataSet2idgrupo_Produto: TIntegerField
-      FieldName = 'idgrupo_Produto'
-    end
-    object ClientDataSet2descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSource1: TDataSource
-    DataSet = ClientDataSet2
-    Left = 760
-    Top = 136
-  end
   object DataSource2: TDataSource
     DataSet = ClientDataSet3
     Left = 696
@@ -2392,7 +2361,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 299
     Bitmap = {
-      494C010103000800540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

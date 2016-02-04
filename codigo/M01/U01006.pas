@@ -22,14 +22,6 @@ type
     ClientDataSet1patrimonio: TIntegerField;
     ClientDataSet1descricao: TStringField;
     ClientDataSet1idTipoRecurso: TIntegerField;
-    FDQuery2: TFDQuery;
-    DataSetProvider2: TDataSetProvider;
-    ClientDataSet2: TClientDataSet;
-    DataSource1: TDataSource;
-    FDQuery2idtipo_recurso: TIntegerField;
-    FDQuery2descricao: TStringField;
-    ClientDataSet2idtipo_recurso: TIntegerField;
-    ClientDataSet2descricao: TStringField;
     ClientDataSet1recurso: TStringField;
     Label1: TLabel;
     DBEdit1: TDBEdit;
@@ -40,6 +32,8 @@ type
     Label4: TLabel;
     DBEdit4: TDBEdit;
     DBEditBeleza1: TDBEditBeleza;
+    FDQuery1trecurso: TStringField;
+    ClientDataSet1trecurso: TStringField;
     procedure acInserirExecute(Sender: TObject);
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
@@ -99,7 +93,7 @@ procedure TF01006.Action5Execute(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;
-  DBEdit4.Color := clWindow;
+  DBEdit4.Color := $00EFEFEF;
 end;
 
 procedure TF01006.BEditarClick(Sender: TObject);

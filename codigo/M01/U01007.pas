@@ -15,14 +15,6 @@ uses
 
 type
   TF01007 = class(TFBase)
-    FDQuery2: TFDQuery;
-    DataSetProvider2: TDataSetProvider;
-    ClientDataSet2: TClientDataSet;
-    DataSource1: TDataSource;
-    FDQuery2idgrupo_Produto: TIntegerField;
-    FDQuery2descricao: TStringField;
-    ClientDataSet2idgrupo_Produto: TIntegerField;
-    ClientDataSet2descricao: TStringField;
     FDQuery1idProduto: TIntegerField;
     FDQuery1descricao: TStringField;
     FDQuery1data: TDateField;
@@ -31,7 +23,6 @@ type
     ClientDataSet1descricao: TStringField;
     ClientDataSet1data: TDateField;
     ClientDataSet1idGrupo: TIntegerField;
-    ClientDataSet1grupo: TStringField;
     Label1: TLabel;
     DBEdit1: TDBEdit;
     Label2: TLabel;
@@ -76,6 +67,8 @@ type
     Button1: TButton;
     ImageList2: TImageList;
     Button2: TButton;
+    FDQuery1grupo: TStringField;
+    ClientDataSet1grupo: TStringField;
     procedure acInserirExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure acSalvarExecute(Sender: TObject);

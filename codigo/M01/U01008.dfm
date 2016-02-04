@@ -304,7 +304,7 @@ inherited F01008: TF01008
     Left = 584
     Top = 312
     Bitmap = {
-      494C01010C002C00D80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00E80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1511,46 +1511,35 @@ inherited F01008: TF01008
     end
     object ClientDataSet1descricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object ClientDataSet1idAcao: TIntegerField
       FieldName = 'idAcao'
+      ProviderFlags = [pfInUpdate]
     end
     object ClientDataSet1idParte: TIntegerField
       FieldName = 'idParte'
+      ProviderFlags = [pfInUpdate]
     end
     object ClientDataSet1idFase: TIntegerField
       FieldName = 'idFase'
-    end
-    object ClientDataSet1acao: TStringField
-      FieldKind = fkLookup
-      FieldName = 'acao'
-      LookupDataSet = ClientDataSet2
-      LookupKeyFields = 'idacao'
-      LookupResultField = 'descricao'
-      KeyFields = 'idAcao'
-      Size = 30
-      Lookup = True
+      ProviderFlags = [pfInUpdate]
     end
     object ClientDataSet1parte: TStringField
-      FieldKind = fkLookup
       FieldName = 'parte'
-      LookupDataSet = ClientDataSet3
-      LookupKeyFields = 'idparte'
-      LookupResultField = 'descricao'
-      KeyFields = 'idParte'
-      Size = 30
-      Lookup = True
+      ProviderFlags = []
+      Size = 45
     end
     object ClientDataSet1fase: TStringField
-      FieldKind = fkLookup
       FieldName = 'fase'
-      LookupDataSet = ClientDataSet4
-      LookupKeyFields = 'idfase'
-      LookupResultField = 'descricao'
-      KeyFields = 'idFase'
-      Size = 30
-      Lookup = True
+      ProviderFlags = []
+      Size = 45
+    end
+    object ClientDataSet1acao: TStringField
+      FieldName = 'acao'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -1559,7 +1548,14 @@ inherited F01008: TF01008
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      'select * from operacao')
+      'select op.*, '#10
+      'p.descricao as parte, '#10
+      'f.descricao as fase, '#13#10#10
+      'a.descricao as acao  '#13#10#10
+      'from operacao op'#10' '
+      'left outer join parte p on p.idparte = op.idparte '#10
+      'left outer join fase f on f.idfase = op.idfase '#10
+      'left outer join acao a on a.idAcao = op.idAcao'#10)
     Left = 424
     Top = 80
     object FDQuery1idoperacao: TIntegerField
@@ -1572,27 +1568,52 @@ inherited F01008: TF01008
       AutoGenerateValue = arDefault
       FieldName = 'descricao'
       Origin = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object FDQuery1idAcao: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idAcao'
       Origin = 'idAcao'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idParte: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idParte'
       Origin = 'idParte'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idFase: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idFase'
       Origin = 'idFase'
+      ProviderFlags = [pfInUpdate]
+    end
+    object FDQuery1parte: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'parte'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery1fase: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'fase'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery1acao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'acao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2127,133 +2148,8 @@ inherited F01008: TF01008
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object FDQuery2: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from acao')
-    Left = 416
-    Top = 143
-    object FDQuery2idacao: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idacao'
-      Origin = 'idacao'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery2descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object FDQuery3: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from parte')
-    Left = 416
-    Top = 199
-    object FDQuery3idparte: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idparte'
-      Origin = 'idparte'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery3descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object FDQuery4: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from fase')
-    Left = 416
-    Top = 255
-    object FDQuery4idfase: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idfase'
-      Origin = 'idfase'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery4descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSetProvider2: TDataSetProvider
-    DataSet = FDQuery2
+  inherited Acoes: TActionList
     Left = 488
-    Top = 143
-  end
-  object DataSetProvider3: TDataSetProvider
-    DataSet = FDQuery3
-    Left = 488
-    Top = 199
-  end
-  object DataSetProvider4: TDataSetProvider
-    DataSet = FDQuery4
-    Left = 488
-    Top = 255
-  end
-  object ClientDataSet2: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider2'
-    Left = 568
-    Top = 143
-    object ClientDataSet2idacao: TIntegerField
-      FieldName = 'idacao'
-    end
-    object ClientDataSet2descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-  end
-  object ClientDataSet3: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider3'
-    Left = 576
-    Top = 199
-    object ClientDataSet3idparte: TIntegerField
-      FieldName = 'idparte'
-    end
-    object ClientDataSet3descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-  end
-  object ClientDataSet4: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider4'
-    Left = 568
-    Top = 255
-    object ClientDataSet4idfase: TIntegerField
-      FieldName = 'idfase'
-    end
-    object ClientDataSet4descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-  end
-  object DS_ACAO: TDataSource
-    DataSet = ClientDataSet2
-    Left = 640
-    Top = 143
-  end
-  object DS_PARTE: TDataSource
-    DataSet = ClientDataSet3
-    Left = 640
-    Top = 199
-  end
-  object DS_FASE: TDataSource
-    DataSet = ClientDataSet4
-    Left = 640
-    Top = 255
+    Top = 152
   end
 end

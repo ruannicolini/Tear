@@ -98,6 +98,7 @@ begin
   TButton(sender).Width := TButton(sender).Width + 10;
   TButton(sender).Left := TButton(sender).Left - 5;
   TButton(sender).Top := TButton(sender).Top - 5;
+
 end;
 
 procedure TFPrincipal.CriarForm(Tela, Desc : String);
@@ -254,7 +255,7 @@ begin
     Button.Left := Aux + 20;
     Aux := Aux + 90;
 
-    //ArredondarComponente(Button,20);
+    ArredondarComponente(Button,20);
 
     Lab := TLabel.Create(Panel);
     Lab.Parent := Panel;

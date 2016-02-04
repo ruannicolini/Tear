@@ -10,7 +10,6 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
-    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
@@ -340,8 +339,9 @@ inherited F01013: TF01013
           Top = 79
           Width = 257
           Height = 21
+          AutoSize = False
           Color = 15724527
-          DataField = 'Operacao'
+          DataField = 'operacao'
           DataSource = DS
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -1074,7 +1074,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00A40118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00B00118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2317,54 +2317,24 @@ inherited F01013: TF01013
       FieldName = 'idOperador'
     end
     object ClientDataSet1operacao: TStringField
-      FieldKind = fkLookup
       FieldName = 'operacao'
-      LookupDataSet = ClientDataSet3
-      LookupKeyFields = 'idoperacao'
-      LookupResultField = 'descricao'
-      KeyFields = 'idOperacao'
-      Size = 50
-      Lookup = True
-    end
-    object ClientDataSet1tecido: TStringField
-      FieldKind = fkLookup
-      FieldName = 'tecido'
-      LookupDataSet = ClientDataSet4
-      LookupKeyFields = 'idtecido'
-      LookupResultField = 'descricao'
-      KeyFields = 'idTecido'
-      Size = 50
-      Lookup = True
-    end
-    object ClientDataSet1operador: TStringField
-      FieldKind = fkLookup
-      FieldName = 'operador'
-      LookupDataSet = ClientDataSet5
-      LookupKeyFields = 'idoperador'
-      LookupResultField = 'nome'
-      KeyFields = 'idOperador'
-      Size = 50
-      Lookup = True
-    end
-    object ClientDataSet1cronometrista: TStringField
-      FieldKind = fkLookup
-      FieldName = 'cronometrista'
-      LookupDataSet = ClientDataSet6
-      LookupKeyFields = 'idcronometrista'
-      LookupResultField = 'nome'
-      KeyFields = 'idCronometrista'
-      Size = 50
-      Lookup = True
+      Size = 45
     end
     object ClientDataSet1produto: TStringField
-      FieldKind = fkLookup
       FieldName = 'produto'
-      LookupDataSet = ClientDataSet2
-      LookupKeyFields = 'idProduto'
-      LookupResultField = 'descricao'
-      KeyFields = 'idProduto'
-      Size = 50
-      Lookup = True
+      Size = 45
+    end
+    object ClientDataSet1tecido: TStringField
+      FieldName = 'tecido'
+      Size = 45
+    end
+    object ClientDataSet1operador: TStringField
+      FieldName = 'operador'
+      Size = 45
+    end
+    object ClientDataSet1cronometrista: TStringField
+      FieldName = 'cronometrista'
+      Size = 45
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -2373,7 +2343,15 @@ inherited F01013: TF01013
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      'select * from cronometragem')
+      
+        'select cr.*, '#10'o.descricao as operacao, '#10'p.descricao as produto, ' +
+        #10't.descricao as tecido,  '#10'op.nome as operador,'#10'cron.nome as cron' +
+        'ometrista   '#10'from cronometragem cr '#10'left outer join operacao o o' +
+        'n o.idoperacao = cr.idoperacao '#10'left outer join produto p on p.i' +
+        'dProduto = cr.idproduto '#10'left outer join tecido t on t.idTecido ' +
+        '= cr.idtecido'#10'left outer join operador op on op.idOperador = cr.' +
+        'idOperador '#10'left outer join cronometrista cron on cron.idCronome' +
+        'trista = cron.idCronometrista')
     Left = 704
     Top = 96
     object FDQuery1idcronometragem: TIntegerField
@@ -2386,68 +2364,119 @@ inherited F01013: TF01013
       AutoGenerateValue = arDefault
       FieldName = 'tempo_original'
       Origin = 'tempo_original'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1tempo_ideal: TBooleanField
       AutoGenerateValue = arDefault
       FieldName = 'tempo_ideal'
       Origin = 'tempo_ideal'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1ritmo: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'ritmo'
       Origin = 'ritmo'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1num_pecas: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'num_pecas'
       Origin = 'num_pecas'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1tolerancia: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'tolerancia'
       Origin = 'tolerancia'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1comprimento_prod: TSingleField
       AutoGenerateValue = arDefault
       FieldName = 'comprimento_prod'
       Origin = 'comprimento_prod'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1num_ocorrencia: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'num_ocorrencia'
       Origin = 'num_ocorrencia'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idProduto: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idProduto'
       Origin = 'idProduto'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idCronometrista: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idCronometrista'
       Origin = 'idCronometrista'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idTecido: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idTecido'
       Origin = 'idTecido'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idOperacao: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idOperacao'
       Origin = 'idOperacao'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1idOperador: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idOperador'
       Origin = 'idOperador'
+      ProviderFlags = [pfInUpdate]
+    end
+    object FDQuery1operacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'operacao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery1produto: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'produto'
+      Origin = 'descricao'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQuery1tecido: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tecido'
+      Origin = 'descricao'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQuery1operador: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'operador'
+      Origin = 'nome'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQuery1cronometrista: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'cronometrista'
+      Origin = 'nome'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2981,226 +3010,6 @@ inherited F01013: TF01013
       E067E067FE17FE17E047E047FFA3FFA3E00FE00FFFC3FFC3E01FE01FFFE7FFE7
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
-  end
-  object DataSource2: TDataSource
-    DataSet = ClientDataSet2
-    Left = 888
-    Top = 399
-  end
-  object ClientDataSet2: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider2'
-    Left = 856
-    Top = 399
-    object ClientDataSet2idProduto: TIntegerField
-      FieldName = 'idProduto'
-    end
-    object ClientDataSet2descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-    object ClientDataSet2data: TDateField
-      FieldName = 'data'
-    end
-    object ClientDataSet2idGrupo: TIntegerField
-      FieldName = 'idGrupo'
-    end
-  end
-  object DataSetProvider2: TDataSetProvider
-    DataSet = FDQuery2
-    Left = 826
-    Top = 399
-  end
-  object FDQuery2: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'SELECT * FROM PRODUTO')
-    Left = 794
-    Top = 399
-    object FDQuery2idProduto: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idProduto'
-      Origin = 'idProduto'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery2descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-    object FDQuery2data: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'data'
-      Origin = '`data`'
-    end
-    object FDQuery2idGrupo: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idGrupo'
-      Origin = 'idGrupo'
-    end
-  end
-  object DataSource3: TDataSource
-    DataSet = ClientDataSet3
-    Left = 888
-    Top = 452
-  end
-  object ClientDataSet3: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider3'
-    Left = 856
-    Top = 452
-  end
-  object DataSetProvider3: TDataSetProvider
-    DataSet = FDQuery3
-    Left = 824
-    Top = 452
-  end
-  object FDQuery3: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from operacao')
-    Left = 792
-    Top = 452
-  end
-  object DataSource4: TDataSource
-    DataSet = ClientDataSet4
-    Left = 888
-    Top = 500
-  end
-  object DataSource5: TDataSource
-    DataSet = ClientDataSet5
-    Left = 888
-    Top = 543
-  end
-  object DataSource6: TDataSource
-    DataSet = ClientDataSet6
-    Left = 888
-    Top = 591
-  end
-  object ClientDataSet4: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider4'
-    Left = 856
-    Top = 500
-    object ClientDataSet4idtecido: TIntegerField
-      FieldName = 'idtecido'
-    end
-    object ClientDataSet4descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-  end
-  object ClientDataSet5: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider5'
-    Left = 856
-    Top = 543
-    object ClientDataSet5idoperador: TIntegerField
-      FieldName = 'idoperador'
-    end
-    object ClientDataSet5nome: TStringField
-      FieldName = 'nome'
-      Size = 45
-    end
-    object ClientDataSet5idGrupo: TIntegerField
-      FieldName = 'idGrupo'
-    end
-  end
-  object ClientDataSet6: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider6'
-    Left = 856
-    Top = 591
-    object ClientDataSet6idcronometrista: TIntegerField
-      FieldName = 'idcronometrista'
-    end
-    object ClientDataSet6nome: TStringField
-      FieldName = 'nome'
-      Size = 45
-    end
-  end
-  object DataSetProvider4: TDataSetProvider
-    DataSet = FDQuery4
-    Left = 824
-    Top = 500
-  end
-  object DataSetProvider5: TDataSetProvider
-    DataSet = FDQuery5
-    Left = 824
-    Top = 543
-  end
-  object DataSetProvider6: TDataSetProvider
-    DataSet = FDQuery6
-    Left = 824
-    Top = 591
-  end
-  object FDQuery4: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from tecido')
-    Left = 792
-    Top = 500
-    object FDQuery4idtecido: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idtecido'
-      Origin = 'idtecido'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery4descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object FDQuery5: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from operador')
-    Left = 792
-    Top = 543
-    object FDQuery5idoperador: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idoperador'
-      Origin = 'idoperador'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery5nome: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'nome'
-      Origin = 'nome'
-      Size = 45
-    end
-    object FDQuery5idGrupo: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idGrupo'
-      Origin = 'idGrupo'
-    end
-  end
-  object FDQuery6: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from cronometrista')
-    Left = 792
-    Top = 591
-    object FDQuery6idcronometrista: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idcronometrista'
-      Origin = 'idcronometrista'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery6nome: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'nome'
-      Origin = 'nome'
-      Size = 45
-    end
   end
   object DS_Recurso: TDataSource
     DataSet = CDS_Recurso

@@ -2,6 +2,7 @@ inherited F01010: TF01010
   Caption = 'F01010'
   ClientHeight = 552
   ClientWidth = 813
+  ExplicitLeft = -42
   ExplicitWidth = 829
   ExplicitHeight = 591
   PixelsPerInch = 96
@@ -409,7 +410,7 @@ inherited F01010: TF01010
     Left = 440
     Top = 72
     Bitmap = {
-      494C01010C002C00200118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00240118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1622,14 +1623,8 @@ inherited F01010: TF01010
       FieldName = 'idGrupo'
     end
     object ClientDataSet1grupo: TStringField
-      FieldKind = fkLookup
       FieldName = 'grupo'
-      LookupDataSet = ClientDataSet2
-      LookupKeyFields = 'idgrupo'
-      LookupResultField = 'descricao'
-      KeyFields = 'idGrupo'
-      Size = 30
-      Lookup = True
+      Size = 45
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -1638,7 +1633,9 @@ inherited F01010: TF01010
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      'select * from operador')
+      
+        'select op.*, g.descricao as grupo from operador op'#10'left outer jo' +
+        'in grupo g on g.idgrupo = op.idgrupo;')
     Left = 664
     Top = 80
     object FDQuery1idoperador: TIntegerField
@@ -1651,19 +1648,28 @@ inherited F01010: TF01010
       AutoGenerateValue = arDefault
       FieldName = 'nome'
       Origin = 'nome'
+      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object FDQuery1idGrupo: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idGrupo'
       Origin = 'idGrupo'
+      ProviderFlags = [pfInUpdate]
+    end
+    object FDQuery1grupo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'grupo'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010C002C00C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2201,49 +2207,6 @@ inherited F01010: TF01010
   inherited Acoes: TActionList
     Left = 552
     Top = 232
-  end
-  object FDQuery2: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from grupo')
-    Left = 656
-    Top = 136
-    object FDQuery2idgrupo: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idgrupo'
-      Origin = 'idgrupo'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery2descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSetProvider2: TDataSetProvider
-    DataSet = FDQuery2
-    Left = 688
-    Top = 136
-  end
-  object ClientDataSet2: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider2'
-    Left = 720
-    Top = 136
-    object ClientDataSet2idgrupo: TIntegerField
-      FieldName = 'idgrupo'
-    end
-    object ClientDataSet2descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSource1: TDataSource
-    DataSet = ClientDataSet2
-    Left = 752
-    Top = 136
   end
   object Query_TR: TFDQuery
     ConnectionName = 'balay'

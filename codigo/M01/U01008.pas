@@ -24,34 +24,7 @@ type
     ClientDataSet1idAcao: TIntegerField;
     ClientDataSet1idParte: TIntegerField;
     ClientDataSet1idFase: TIntegerField;
-    FDQuery2: TFDQuery;
-    FDQuery3: TFDQuery;
-    FDQuery4: TFDQuery;
-    DataSetProvider2: TDataSetProvider;
-    DataSetProvider3: TDataSetProvider;
-    DataSetProvider4: TDataSetProvider;
-    ClientDataSet2: TClientDataSet;
-    ClientDataSet3: TClientDataSet;
-    ClientDataSet4: TClientDataSet;
-    DS_ACAO: TDataSource;
-    DS_PARTE: TDataSource;
-    DS_FASE: TDataSource;
     GroupBox1: TGroupBox;
-    FDQuery2idacao: TIntegerField;
-    FDQuery2descricao: TStringField;
-    FDQuery3idparte: TIntegerField;
-    FDQuery3descricao: TStringField;
-    FDQuery4idfase: TIntegerField;
-    FDQuery4descricao: TStringField;
-    ClientDataSet2idacao: TIntegerField;
-    ClientDataSet2descricao: TStringField;
-    ClientDataSet4idfase: TIntegerField;
-    ClientDataSet4descricao: TStringField;
-    ClientDataSet3idparte: TIntegerField;
-    ClientDataSet3descricao: TStringField;
-    ClientDataSet1acao: TStringField;
-    ClientDataSet1parte: TStringField;
-    ClientDataSet1fase: TStringField;
     Label1: TLabel;
     DBEdit1: TDBEdit;
     Label2: TLabel;
@@ -65,17 +38,18 @@ type
     DBEditBeleza3: TDBEditBeleza;
     DBEditBeleza2: TDBEditBeleza;
     DBEditBeleza1: TDBEditBeleza;
-    procedure acInserirExecute(Sender: TObject);
-    procedure acEditarExecute(Sender: TObject);
-    procedure acSalvarExecute(Sender: TObject);
-    procedure acCancelarExecute(Sender: TObject);
+    FDQuery1parte: TStringField;
+    FDQuery1fase: TStringField;
+    FDQuery1acao: TStringField;
+    ClientDataSet1parte: TStringField;
+    ClientDataSet1fase: TStringField;
+    ClientDataSet1acao: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure acExcluirExecute(Sender: TObject);
-    procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -92,59 +66,6 @@ implementation
 uses
 uDataModule;
 
-procedure TF01008.acCancelarExecute(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := clWindow;
-
-  DBEdit3.Color := clWindow;
-  DBEdit4.Color := clWindow;
-  DBEdit5.Color := clWindow;
-end;
-
-procedure TF01008.acEditarExecute(Sender: TObject);
-begin
-  inherited;
-  PageControl.ActivePageIndex := 0;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-  DBEdit5.Color := CorCamposOnlyRead();
-end;
-
-procedure TF01008.acExcluirExecute(Sender: TObject);
-begin
-  DModule.qAux.Close;
-  DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idOperacao =:idCrono';
-  DModule.qAux.ParamByName('idCrono').AsInteger:= (ClientDataSet1idoperacao.AsInteger);
-  DModule.qAux.Open;
-  if(DModule.qAux.IsEmpty)then
-  begin
-    inherited;
-  end else
-    ShowMessage('Cronometragem vinculada a esta Operação. Não é possível excluir.');
-
-end;
-
-procedure TF01008.acInserirExecute(Sender: TObject);
-begin
-  inherited;
-  PageControl.ActivePageIndex := 0;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-  DBEdit5.Color := CorCamposOnlyRead();
-end;
-
-procedure TF01008.acSalvarExecute(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := clWindow;
-
-  DBEdit3.Color := clWindow;
-  DBEdit4.Color := clWindow;
-  DBEdit5.Color := clWindow;
-end;
 
 procedure TF01008.Action5Execute(Sender: TObject);
 begin
@@ -154,6 +75,12 @@ begin
   DBEdit3.Color := clWindow;
   DBEdit4.Color := clWindow;
   DBEdit5.Color := clWindow;
+end;
+
+procedure TF01008.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  //
 end;
 
 procedure TF01008.BEditarClick(Sender: TObject);
@@ -181,21 +108,9 @@ begin
 
 end;
 
-procedure TF01008.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  PageControl.ActivePageIndex := 0;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-  DBEdit5.Color := CorCamposOnlyRead();
-end;
-
 procedure TF01008.BSalvarClick(Sender: TObject);
 begin
-  inherited;
   DBEdit1.Color := clWindow;
-
   DBEdit3.Color := clWindow;
   DBEdit4.Color := clWindow;
   DBEdit5.Color := clWindow;

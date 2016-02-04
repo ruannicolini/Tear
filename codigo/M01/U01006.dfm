@@ -2,6 +2,7 @@ inherited F01006: TF01006
   Caption = 'F01006'
   ClientHeight = 509
   ClientWidth = 812
+  ExplicitTop = -25
   ExplicitWidth = 828
   ExplicitHeight = 548
   PixelsPerInch = 96
@@ -90,18 +91,19 @@ inherited F01006: TF01006
           Width = 36
           Height = 21
           TabStop = False
+          Color = 15724527
           DataField = 'idTipoRecurso'
           DataSource = DS
           ReadOnly = True
           TabOrder = 4
         end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 74
+          Left = 68
           Top = 152
-          Width = 435
+          Width = 441
           Height = 21
           Color = 15724527
-          DataField = 'recurso'
+          DataField = 'trecurso'
           DataSource = DS
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -190,10 +192,9 @@ inherited F01006: TF01006
     end
   end
   inherited ImageList1: TImageList
-    Left = 400
-    Top = 256
+    Left = 392
     Bitmap = {
-      494C01010C002C00E80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00F00018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1400,23 +1401,31 @@ inherited F01006: TF01006
     end
     object ClientDataSet1patrimonio: TIntegerField
       FieldName = 'patrimonio'
+      ProviderFlags = [pfInUpdate]
     end
     object ClientDataSet1descricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object ClientDataSet1idTipoRecurso: TIntegerField
       FieldName = 'idTipoRecurso'
+      ProviderFlags = [pfInUpdate]
     end
     object ClientDataSet1recurso: TStringField
       FieldKind = fkLookup
       FieldName = 'recurso'
-      LookupDataSet = ClientDataSet2
       LookupKeyFields = 'idtipo_recurso'
       LookupResultField = 'descricao'
       KeyFields = 'idTipoRecurso'
+      ProviderFlags = [pfInUpdate]
       Size = 50
       Lookup = True
+    end
+    object ClientDataSet1trecurso: TStringField
+      FieldName = 'trecurso'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -1425,7 +1434,10 @@ inherited F01006: TF01006
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      'select * from recurso')
+      
+        'select rec.*, '#10'tr.descricao as trecurso '#10'from recurso rec'#10'left o' +
+        'uter join tipo_recurso tr on tr.idtipo_recurso = rec.idtiporecur' +
+        'so;')
     Left = 224
     Top = 72
     object FDQuery1idRecurso: TIntegerField
@@ -1438,22 +1450,32 @@ inherited F01006: TF01006
       AutoGenerateValue = arDefault
       FieldName = 'patrimonio'
       Origin = 'patrimonio'
+      ProviderFlags = [pfInUpdate]
     end
     object FDQuery1descricao: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'descricao'
       Origin = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object FDQuery1idTipoRecurso: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idTipoRecurso'
       Origin = 'idTipoRecurso'
+      ProviderFlags = [pfInUpdate]
+    end
+    object FDQuery1trecurso: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'trecurso'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1988,47 +2010,7 @@ inherited F01006: TF01006
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object FDQuery2: TFDQuery
-    ConnectionName = 'balay'
-    SQL.Strings = (
-      'select * from tipo_recurso')
-    Left = 224
-    Top = 192
-    object FDQuery2idtipo_recurso: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idtipo_recurso'
-      Origin = 'idtipo_recurso'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery2descricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSetProvider2: TDataSetProvider
-    DataSet = FDQuery2
-    Left = 296
-    Top = 192
-  end
-  object ClientDataSet2: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider2'
-    Left = 368
-    Top = 192
-    object ClientDataSet2idtipo_recurso: TIntegerField
-      FieldName = 'idtipo_recurso'
-    end
-    object ClientDataSet2descricao: TStringField
-      FieldName = 'descricao'
-      Size = 45
-    end
-  end
-  object DataSource1: TDataSource
-    DataSet = ClientDataSet2
-    Left = 440
-    Top = 192
+  inherited Acoes: TActionList
+    Left = 344
   end
 end

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="M01"/>
+    <File Path="M01\U01001.pas"/>
+    <File Path="M01\U01001.dfm"/>
+    <File Path="M01\U01002.pas"/>
+    <File Path="M01\U01002.dfm"/>
+    <File Path="M01\U01003.pas"/>
+    <File Path="M01\U01003.dfm"/>
+    <File Path="M01\U01004.pas"/>
+    <File Path="M01\U01004.dfm"/>
+    <File Path="M01\U01005.pas"/>
+    <File Path="M01\U01005.dfm"/>
+    <File Path="M01\U01006.pas"/>
+    <File Path="M01\U01006.dfm"/>
+    <File Path="M01\U01007.pas"/>
+    <File Path="M01\U01007.dfm"/>
+    <File Path="M01\U01008.pas"/>
+    <File Path="M01\U01008.dfm"/>
+    <File Path="M01\U01009.pas"/>
+    <File Path="M01\U01009.dfm"/>
+    <File Path="M01\U01010.pas"/>
+    <File Path="M01\U01010.dfm"/>
+    <File Path="M01\U01011.pas"/>
+    <File Path="M01\U01011.dfm"/>
+    <File Path="M01\U01012.pas"/>
+    <File Path="M01\U01012.dfm"/>
+    <File Path="M01\U01013.pas"/>
+    <File Path="M01\U01013.dfm"/>
+    <File Path="M03"/>
+    <File Path="M03\U03001.pas"/>
+    <File Path="M03\U03001.dfm"/>
+    <File Path="M03\U03002.pas"/>
+    <File Path="M03\U03002.dfm"/>
+    <File Path="UBase.pas"/>
+    <File Path="UBase.dfm"/>
+    <File Path="uDataModule.pas"/>
+    <File Path="uDataModule.dfm"/>
+    <File Path="uPrincipal.pas"/>
+    <File Path="uPrincipal.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>
