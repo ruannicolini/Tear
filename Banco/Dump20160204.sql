@@ -35,7 +35,7 @@ CREATE TABLE `acao` (
 
 LOCK TABLES `acao` WRITE;
 /*!40000 ALTER TABLE `acao` DISABLE KEYS */;
-INSERT INTO `acao` VALUES (2,'AÇÃO TESTE 2'),(9,'ação 9'),(10,'ação 10');
+INSERT INTO `acao` VALUES (2,'AÇÃO TESTE 2'),(9,'ação 9'),(10,'ação 10'),(20,'TESTE 20 T');
 /*!40000 ALTER TABLE `acao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `batida` (
 
 LOCK TABLES `batida` WRITE;
 /*!40000 ALTER TABLE `batida` DISABLE KEYS */;
-INSERT INTO `batida` VALUES (41,0,4,1,1,34),(42,0,5,0,1,34),(43,0,2,2,1,34),(44,0,3,0,1,35),(45,0,2,3,1,35),(46,0,1,6,1,35),(47,0,4,0,1,35),(48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(66,0,9,875,1,114),(67,0,50,797,1,114),(68,1,0,250,1,114),(69,1,59,781,1,114),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125);
+INSERT INTO `batida` VALUES (41,0,4,1,1,34),(42,0,5,0,1,34),(43,0,2,2,1,34),(44,0,3,0,1,35),(45,0,2,3,1,35),(46,0,1,6,1,35),(47,0,4,0,1,35),(48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(66,0,9,875,1,114),(67,0,50,797,1,114),(68,1,0,250,1,114),(69,1,59,781,1,114),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(80,0,1,875,1,127),(81,0,6,125,1,127),(82,0,8,625,1,127),(85,0,5,328,1,142),(86,0,4,735,1,142),(87,0,3,156,1,142),(88,0,0,906,1,142),(89,0,4,625,1,142),(90,0,4,563,1,142),(91,0,4,718,1,142);
 /*!40000 ALTER TABLE `batida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,9 +98,31 @@ CREATE TABLE `cronometragem` (
 
 LOCK TABLES `cronometragem` WRITE;
 /*!40000 ALTER TABLE `cronometragem` DISABLE KEYS */;
-INSERT INTO `cronometragem` VALUES (34,0,0,1,2,4,3,6,7,1,1,9,34),(35,0,0,1,2,4,3,6,7,1,1,9,1),(114,1,0,1,2,3,5,4,8,1,2,5,1);
+INSERT INTO `cronometragem` VALUES (34,0,0,1,2,4,3,6,7,1,1,9,34),(35,0,0,1,2,4,3,6,7,1,1,9,1),(114,1,0,1,2,3,5,4,8,1,2,5,1),(127,1,0,1,2,4,6,5,7,6,1,5,44),(134,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9,NULL);
 /*!40000 ALTER TABLE `cronometragem` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRIGGER_Cronometragem_delete 
+AFTER DELETE ON Cronometragem for each row
+BEGIN
+	-- Exclui cronometragem_has_tipo_recurso
+	DELETE FROM cronometragem_has_tipo_recurso WHERE cronometragem_has_tipo_recurso.idCronometragem = old.idCronometragem;
+    -- Exclui Batida
+    DELETE FROM batida WHERE batida.idCronometragem = old.idCronometragem;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `cronometragem_has_tipo_recurso`
@@ -122,7 +144,7 @@ CREATE TABLE `cronometragem_has_tipo_recurso` (
 
 LOCK TABLES `cronometragem_has_tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` DISABLE KEYS */;
-INSERT INTO `cronometragem_has_tipo_recurso` VALUES (34,1),(34,3),(34,6),(35,2),(35,3),(35,5),(46,2),(117,3),(125,2),(125,4);
+INSERT INTO `cronometragem_has_tipo_recurso` VALUES (34,1),(34,3),(34,6),(35,2),(35,3),(35,5),(46,2),(117,3),(125,2),(125,4),(127,3);
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,6 +266,25 @@ LOCK TABLES `grupo` WRITE;
 INSERT INTO `grupo` VALUES (1,'grupo 1'),(8,'Test *');
 /*!40000 ALTER TABLE `grupo` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRIGGER_Grupo_delete 
+AFTER DELETE ON Grupo for each row
+BEGIN
+	DELETE FROM fase_has_grupo WHERE fase_has_grupo.idGrupo = old.idGrupo;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `grupo_produto`
@@ -345,7 +386,7 @@ CREATE TABLE `operacao` (
 
 LOCK TABLES `operacao` WRITE;
 /*!40000 ALTER TABLE `operacao` DISABLE KEYS */;
-INSERT INTO `operacao` VALUES (5,'TESTE OPERAÇÃO',2,2,5),(9,'TESTE OPERAÇÃO 9',2,1,1);
+INSERT INTO `operacao` VALUES (5,'TESTE OPERAÇÃO',2,2,5),(9,'TESTE OPERAÇÃO 9',2,1,1),(21,NULL,10,2,6),(22,'1',9,2,6),(23,NULL,NULL,NULL,NULL),(24,NULL,10,2,5),(25,NULL,20,2,7),(26,'TESTE 26',10,2,8);
 /*!40000 ALTER TABLE `operacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,9 +411,28 @@ CREATE TABLE `operador` (
 
 LOCK TABLES `operador` WRITE;
 /*!40000 ALTER TABLE `operador` DISABLE KEYS */;
-INSERT INTO `operador` VALUES (1,'operador 1',1),(34,'operador 34',1),(44,'OPERADOR 44',1),(45,'teste 45',1),(52,'Operador 52',1);
+INSERT INTO `operador` VALUES (1,'operador 1',1),(34,'operador 34',1),(44,'OPERADOR 44',1),(45,'teste 45',1),(52,'Operador 52',1),(68,'TESTE',8);
 /*!40000 ALTER TABLE `operador` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRIGGER_Operador_delete 
+AFTER DELETE ON Operador for each row
+BEGIN
+	DELETE FROM operador_has_tipo_recurso WHERE operador_has_tipo_recurso.idOperador = old.idOperador;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `operador_has_tipo_recurso`
@@ -394,7 +454,7 @@ CREATE TABLE `operador_has_tipo_recurso` (
 
 LOCK TABLES `operador_has_tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `operador_has_tipo_recurso` DISABLE KEYS */;
-INSERT INTO `operador_has_tipo_recurso` VALUES (44,1),(45,1),(60,1),(1,3),(44,3),(52,3),(1,4),(1,5),(45,5),(34,6),(44,6),(45,6);
+INSERT INTO `operador_has_tipo_recurso` VALUES (44,1),(45,1),(60,1),(1,3),(44,3),(52,3),(68,3),(1,4),(1,5),(45,5),(34,6),(44,6),(45,6);
 /*!40000 ALTER TABLE `operador_has_tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,7 +479,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,20),('seqBatida',NULL,80),('seqCelula',NULL,17),('seqCronometragem',NULL,127),('seqCronometrista',NULL,8),('seqFase',NULL,15),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,21),('seqOperador',NULL,64),('seqParte',NULL,6),('seqProduto',NULL,63),('seqRecurso',NULL,17),('seqTecido',NULL,6),('seqTipoRecurso',NULL,13);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,92),('seqCelula',NULL,20),('seqCronometragem',NULL,143),('seqCronometrista',NULL,8),('seqFase',NULL,15),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,28),('seqOperador',NULL,69),('seqParte',NULL,6),('seqProduto',NULL,77),('seqRecurso',NULL,18),('seqTecido',NULL,6),('seqTipoRecurso',NULL,13);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,33 +529,33 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',1),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',3),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3);
+INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',1),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',3),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3),(63,'TESTE 8','2016-02-04',8),(71,'TESTE 4','2016-02-18',4);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `produto_has_fase`
+-- Table structure for table `produto_has_operacao`
 --
 
-DROP TABLE IF EXISTS `produto_has_fase`;
+DROP TABLE IF EXISTS `produto_has_operacao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `produto_has_fase` (
+CREATE TABLE `produto_has_operacao` (
   `idProduto` int(11) NOT NULL,
-  `idFase` int(11) NOT NULL,
+  `idOperacao` int(11) NOT NULL,
   `prioridade` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idProduto`,`idFase`)
+  PRIMARY KEY (`idProduto`,`idOperacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `produto_has_fase`
+-- Dumping data for table `produto_has_operacao`
 --
 
-LOCK TABLES `produto_has_fase` WRITE;
-/*!40000 ALTER TABLE `produto_has_fase` DISABLE KEYS */;
-INSERT INTO `produto_has_fase` VALUES (7,1,1),(7,5,2),(7,7,3),(7,8,4),(52,1,1),(53,1,1),(54,1,2),(54,5,3),(54,6,1),(56,5,1),(56,7,2),(57,1,2),(57,7,1);
-/*!40000 ALTER TABLE `produto_has_fase` ENABLE KEYS */;
+LOCK TABLES `produto_has_operacao` WRITE;
+/*!40000 ALTER TABLE `produto_has_operacao` DISABLE KEYS */;
+INSERT INTO `produto_has_operacao` VALUES (7,1,1),(7,5,2),(7,7,3),(7,8,4),(52,1,1),(53,1,1),(54,1,2),(54,5,3),(54,6,1),(56,5,1),(56,7,2),(57,1,2),(57,7,1),(63,6,2),(63,7,1),(71,5,2),(71,26,0);
+/*!40000 ALTER TABLE `produto_has_operacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -520,7 +580,7 @@ CREATE TABLE `recurso` (
 
 LOCK TABLES `recurso` WRITE;
 /*!40000 ALTER TABLE `recurso` DISABLE KEYS */;
-INSERT INTO `recurso` VALUES (2,123456789,'MAQUINA 1 - TESTE DE RECURSO -',2),(3,987654321,'MAQUINA 2 - TESTE DE RECURSO -',2),(8,0,'teste 8',4);
+INSERT INTO `recurso` VALUES (2,123456789,'MAQUINA 1 - TESTE DE RECURSO -',2),(3,987654321,'MAQUINA 2 - TESTE DE RECURSO -',2),(8,0,'teste 8',4),(17,71,'TESTE 17',3);
 /*!40000 ALTER TABLE `recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -571,6 +631,14 @@ LOCK TABLES `tipo_recurso` WRITE;
 INSERT INTO `tipo_recurso` VALUES (1,'TIPO RECURSO TESTE 1'),(2,'TIPO RECURSO TESTE 2'),(3,'TIPO RECURSO TESTE 3'),(4,'TIPO RECURSO TESTE 4'),(5,'TIPO RECURSO TESTE 5'),(6,'TIPO RECURSO TESTE 6');
 /*!40000 ALTER TABLE `tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'balay'
+--
+
+--
+-- Dumping routines for database 'balay'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -581,4 +649,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-27 21:16:59
+-- Dump completed on 2016-02-04 11:16:16
