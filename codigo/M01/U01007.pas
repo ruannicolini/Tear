@@ -42,7 +42,7 @@ type
     FDQuery3: TFDQuery;
     EditBeleza1: TEditBeleza;
     BitBtn1: TBitBtn;
-    BtnExcluirTipoRegistro: TBitBtn;
+    BtnExcluirOperacao: TBitBtn;
     Edit1: TEdit;
     Label7: TLabel;
     Label8: TLabel;
@@ -73,7 +73,7 @@ type
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet3AfterDelete(DataSet: TDataSet);
     procedure ClientDataSet3AfterPost(DataSet: TDataSet);
-    procedure BtnExcluirTipoRegistroClick(Sender: TObject);
+    procedure BtnExcluirOperacaoClick(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
@@ -214,7 +214,7 @@ begin
        showmessage('Preencha o Campo Grupo');
 end;
 
-procedure TF01007.BtnExcluirTipoRegistroClick(Sender: TObject);
+procedure TF01007.BtnExcluirOperacaoClick(Sender: TObject);
 var
 x: integer;
 begin
@@ -224,10 +224,11 @@ begin
       ClientDataSet3.Delete;
       while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
       begin
-        DataSource2.DataSet.Edit;
-        ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-        DataSource2.DataSet.Post;
-        ClientDataSet3.Next;  //vai para o próximo registro
+          DataSource2.DataSet.Edit;
+          if ClientDataSet3prioridade.Value <> 1 then
+            ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+          DataSource2.DataSet.Post;
+          ClientDataSet3.Next;  //vai para o próximo registro
       end;
 
      end;

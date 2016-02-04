@@ -2,7 +2,6 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 522
   ClientWidth = 811
-  ExplicitTop = 1
   ExplicitWidth = 827
   ExplicitHeight = 561
   PixelsPerInch = 96
@@ -10,17 +9,17 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 487
+    ActivePage = TbDados
     ExplicitWidth = 811
+    ExplicitHeight = 487
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 455
+      ExplicitHeight = 459
       inherited grDados: TGroupBox
         Width = 803
         Height = 459
-        ExplicitLeft = -120
-        ExplicitTop = -18
         ExplicitWidth = 803
         ExplicitHeight = 459
         object Label1: TLabel
@@ -129,14 +128,13 @@ inherited F01007: TF01007
           Left = 270
           Top = 119
           Width = 226
-          Height = 25
+          Height = 21
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           CharCase = ecUpperCase
           DataField = 'descricao'
           DataSource = DS
           TabOrder = 3
-          ExplicitHeight = 21
         end
         object DBEdit4: TDBEdit
           Left = 402
@@ -167,7 +165,7 @@ inherited F01007: TF01007
           Left = 436
           Top = 75
           Width = 60
-          Height = 25
+          Height = 21
           Anchors = [akLeft, akTop, akRight, akBottom]
           Color = 15724527
           DataField = 'grupo'
@@ -192,7 +190,6 @@ inherited F01007: TF01007
           campo_outro_edit = 'idgrupo_Produto'
           CorBorda = clGray
           NovoLayout = False
-          ExplicitHeight = 21
         end
         object PageControl1: TPageControl
           Left = 270
@@ -204,10 +201,8 @@ inherited F01007: TF01007
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 5
           TabStop = False
-          ExplicitHeight = 247
           object TabSheet1: TTabSheet
             Caption = 'Opera'#231#245'es'
-            ExplicitHeight = 219
             object GroupBox1: TGroupBox
               Left = 0
               Top = 0
@@ -232,7 +227,7 @@ inherited F01007: TF01007
                 TabOrder = 1
                 OnClick = BitBtn1Click
               end
-              object BtnExcluirTipoRegistro: TBitBtn
+              object BtnExcluirOperacao: TBitBtn
                 Left = 114
                 Top = 14
                 Width = 50
@@ -241,7 +236,7 @@ inherited F01007: TF01007
                 Anchors = [akTop, akRight, akBottom]
                 Caption = 'Excluir'
                 TabOrder = 2
-                OnClick = BtnExcluirTipoRegistroClick
+                OnClick = BtnExcluirOperacaoClick
               end
               object EditBeleza1: TEditBeleza
                 Left = 49
@@ -399,7 +394,7 @@ inherited F01007: TF01007
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 455
+      ExplicitHeight = 459
       inherited GBFiltros: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -469,7 +464,7 @@ inherited F01007: TF01007
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C00240118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00280118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1741,7 +1736,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2362,7 +2357,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C0101030008005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
