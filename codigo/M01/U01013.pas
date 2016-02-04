@@ -167,6 +167,7 @@ type
     fTempoParada: Ttime; //Tempo que o cronometro fica pausado
     fMomento: integer; // "Hora" em que o cronometro iniciou
     fMomentoParada: integer; // "Hora" em que a Parada do cronometro iniciou
+    fMomentoUltimoLap: integer;
     status: boolean; //controle do botoes de Iniciar/Parar e Lap/Continuar
     statusParada: boolean; //controle de Parada, quando contar o tempo parado.
     milissegundoAUX: integer; // milessegundos parados
@@ -328,11 +329,19 @@ begin
     btnLap.Caption := 'LAP';
     btnLap.Enabled := true;
 
+    //Parte do calculo do Tempo Parcial
+    fMomentoUltimoLap := GetTickCount;
+
   end else
     if(status = true)then
     begin
-    //LAP
-    DecodeTime(((GetTickCount - fmomento) * OneMillisecond), Hora, Min, Seg, MSeg);
+    //LAP Tempo total do cronometro
+    //DecodeTime(((GetTickCount - fmomento) * OneMillisecond), Hora, Min, Seg, MSeg);
+
+    //LAP Tempo Parcial
+    DecodeTime(((GetTickCount - fMomentoUltimoLap) * OneMillisecond), Hora, Min, Seg, MSeg);
+    //Parte do calculo do Tempo Parcial
+    fMomentoUltimoLap := GetTickCount;
 
     {ShowMessage(' Tempo -> Hora: ' + inttostr(hora) + #13
     + 'Min: ' + inttostr(min) + #13
@@ -394,6 +403,9 @@ begin
     btnLap.Caption := 'LAP';
     btnLap.Enabled := true;
 
+    ///Parte do calculo do Tempo Parcial
+      fMomentoUltimoLap := GetTickCount;
+
   end else
   begin
     if(status = true)then
@@ -407,6 +419,9 @@ begin
       btnINICIAR.Caption := 'NOVO';
       btnLap.Caption := 'CONTINUAR';
       btnLap.Enabled := true;
+
+      ///Parte do calculo do Tempo Parcial
+      fMomentoUltimoLap := GetTickCount;
 
     end;
   end;
