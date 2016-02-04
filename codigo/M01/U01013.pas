@@ -171,9 +171,12 @@ type
     status: boolean; //controle do botoes de Iniciar/Parar e Lap/Continuar
     statusParada: boolean; //controle de Parada, quando contar o tempo parado.
     milissegundoAUX: integer; // milessegundos parados
+    ParIdProduto : integer;
+    ParIdOperacao : integer;
 
   public
     { Public declarations }
+    constructor Create(AOwner : TComponent; pParm1, pParm2 : integer);
   end;
 
 var
@@ -185,6 +188,15 @@ implementation
 
 uses
 uDataModule;
+
+constructor TF01013.Create(AOwner: TComponent; pParm1, pParm2: integer);
+begin
+  // No cado do Form ser chamado do cadastro de Produto, ele recebe o IdProduto e o Id Operacao
+  inherited Create(AOwner);
+  ParIdProduto := pParm1;
+  ParIdOperacao := pParm2;
+
+end;
 
 procedure TF01013.Action5Execute(Sender: TObject);
 begin

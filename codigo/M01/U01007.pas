@@ -85,6 +85,7 @@ type
       Shift: TShiftState);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure DBGridBeleza2DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -99,7 +100,7 @@ implementation
 {$R *.dfm}
 
 uses
-uDataModule;
+uDataModule, U01013;
 
 procedure TF01007.Action5Execute(Sender: TObject);
 begin
@@ -290,6 +291,19 @@ procedure TF01007.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01007.DBGridBeleza2DblClick(Sender: TObject);
+begin
+  inherited;
+
+  // Chama a Tela de Cronometragem e mostra os tempo Referentes as operação selecionada
+  With TF01013.Create(self, ClientDataSet1idProduto.asinteger, ClientDataSet3idOperacao.value) do
+  Begin
+    ShowModal;
+    Free;
+  End;
+
 end;
 
 procedure TF01007.DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;

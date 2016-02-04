@@ -143,7 +143,7 @@ inherited F01013: TF01013
           FocusControl = DBEdit6
         end
         object Label7: TLabel
-          Left = 326
+          Left = 25
           Top = 63
           Width = 49
           Height = 13
@@ -167,7 +167,7 @@ inherited F01013: TF01013
           FocusControl = DBEdit9
         end
         object Label10: TLabel
-          Left = 25
+          Left = 324
           Top = 63
           Width = 56
           Height = 13
@@ -275,7 +275,7 @@ inherited F01013: TF01013
           TabOrder = 11
         end
         object DBEdit7: TDBEdit
-          Left = 325
+          Left = 24
           Top = 79
           Width = 28
           Height = 21
@@ -311,7 +311,7 @@ inherited F01013: TF01013
           TabOrder = 15
         end
         object DBEdit10: TDBEdit
-          Left = 25
+          Left = 324
           Top = 79
           Width = 28
           Height = 21
@@ -335,7 +335,7 @@ inherited F01013: TF01013
           TabOrder = 17
         end
         object DBEditBeleza2: TDBEditBeleza
-          Left = 53
+          Left = 352
           Top = 79
           Width = 257
           Height = 21
@@ -809,9 +809,9 @@ inherited F01013: TF01013
           TabOrder = 24
         end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 352
+          Left = 51
           Top = 79
-          Width = 257
+          Width = 259
           Height = 21
           Color = 15724527
           DataField = 'produto'
@@ -1074,7 +1074,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00B40118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00B80118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2476,7 +2476,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C000C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
