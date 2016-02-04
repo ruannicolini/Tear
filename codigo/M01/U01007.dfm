@@ -1,14 +1,15 @@
 inherited F01007: TF01007
   Caption = 'F01007'
+  ClientHeight = 522
   ClientWidth = 811
-  ExplicitLeft = -40
-  ExplicitTop = -38
+  ExplicitTop = 1
   ExplicitWidth = 827
-  ExplicitHeight = 557
+  ExplicitHeight = 561
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     Width = 811
+    Height = 487
     ExplicitWidth = 811
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
@@ -17,7 +18,11 @@ inherited F01007: TF01007
       ExplicitHeight = 455
       inherited grDados: TGroupBox
         Width = 803
+        Height = 459
+        ExplicitLeft = -120
+        ExplicitTop = -18
         ExplicitWidth = 803
+        ExplicitHeight = 459
         object Label1: TLabel
           Left = 270
           Top = 16
@@ -49,31 +54,12 @@ inherited F01007: TF01007
           Caption = 'GRUPO'
           FocusControl = DBEdit4
         end
-        object Label5: TLabel
-          Left = 106
-          Top = 363
-          Width = 46
-          Height = 13
-          Caption = 'idProduto'
-          FocusControl = DBEdit3
-          Visible = False
-        end
-        object Label6: TLabel
-          Left = 178
-          Top = 363
-          Width = 31
-          Height = 13
-          Caption = 'idFase'
-          FocusControl = DBEdit5
-          Visible = False
-        end
         object Label7: TLabel
           Left = 274
           Top = 363
           Width = 48
           Height = 13
           Caption = 'prioridade'
-          FocusControl = DBEdit6
           Visible = False
         end
         object Label8: TLabel
@@ -82,7 +68,6 @@ inherited F01007: TF01007
           Width = 41
           Height = 13
           Caption = 'idfase_1'
-          FocusControl = DBEdit7
           Visible = False
         end
         object Label9: TLabel
@@ -91,7 +76,42 @@ inherited F01007: TF01007
           Width = 45
           Height = 13
           Caption = 'descricao'
-          FocusControl = DBEdit8
+          Visible = False
+        end
+        object Label5: TLabel
+          Left = 24
+          Top = 16
+          Width = 46
+          Height = 13
+          Caption = 'idProduto'
+          FocusControl = DBEdit3
+          Visible = False
+        end
+        object Label6: TLabel
+          Left = 24
+          Top = 56
+          Width = 55
+          Height = 13
+          Caption = 'idOperacao'
+          FocusControl = DBEdit5
+          Visible = False
+        end
+        object Label10: TLabel
+          Left = 24
+          Top = 96
+          Width = 48
+          Height = 13
+          Caption = 'prioridade'
+          FocusControl = DBEdit6
+          Visible = False
+        end
+        object Label11: TLabel
+          Left = 24
+          Top = 136
+          Width = 45
+          Height = 13
+          Caption = 'descricao'
+          FocusControl = DBEdit7
           Visible = False
         end
         object DBEdit1: TDBEdit
@@ -109,13 +129,14 @@ inherited F01007: TF01007
           Left = 270
           Top = 119
           Width = 226
-          Height = 21
+          Height = 25
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           CharCase = ecUpperCase
           DataField = 'descricao'
           DataSource = DS
           TabOrder = 3
+          ExplicitHeight = 21
         end
         object DBEdit4: TDBEdit
           Left = 402
@@ -146,7 +167,7 @@ inherited F01007: TF01007
           Left = 436
           Top = 75
           Width = 60
-          Height = 21
+          Height = 25
           Anchors = [akLeft, akTop, akRight, akBottom]
           Color = 15724527
           DataField = 'grupo'
@@ -171,19 +192,22 @@ inherited F01007: TF01007
           campo_outro_edit = 'idgrupo_Produto'
           CorBorda = clGray
           NovoLayout = False
+          ExplicitHeight = 21
         end
         object PageControl1: TPageControl
           Left = 270
           Top = 158
           Width = 234
-          Height = 247
+          Height = 251
           ActivePage = TabSheet1
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 5
           TabStop = False
+          ExplicitHeight = 247
           object TabSheet1: TTabSheet
-            Caption = 'Fases'
+            Caption = 'Opera'#231#245'es'
+            ExplicitHeight = 219
             object GroupBox1: TGroupBox
               Left = 0
               Top = 0
@@ -238,13 +262,13 @@ inherited F01007: TF01007
                 Ativar_MultiSelecao = False
                 mostrar_Botao = True
                 sql.Strings = (
-                  'select idfase, descricao from fase '
+                  'select idOPERACAO, descricao from OPERACAO '
                   'where descricao like :varDescricao')
                 database = 'balay'
                 campo = 'descricao'
                 Sempre_Mostrar_Janela = False
                 Outro_Edit = Edit1
-                campo_outro_edit = 'idfase'
+                campo_outro_edit = 'idOperacao'
                 CorBorda = clGray
                 NovoLayout = False
               end
@@ -277,7 +301,7 @@ inherited F01007: TF01007
               Left = 0
               Top = 54
               Width = 226
-              Height = 165
+              Height = 169
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               TabStop = False
               Align = alClient
@@ -310,31 +334,29 @@ inherited F01007: TF01007
               Columns = <
                 item
                   Expanded = False
-                  FieldName = 'idfase_1'
+                  FieldName = 'idOperacao'
                   Title.Caption = 'COD'
                   Visible = True
                 end
                 item
                   Expanded = False
                   FieldName = 'descricao'
-                  Title.Caption = 'FASE'
-                  Width = 216
+                  Title.Caption = 'DESCRI'#199#195'O'
                   Visible = True
                 end
                 item
                   Expanded = False
                   FieldName = 'prioridade'
                   Title.Caption = 'PRIORIDADE'
-                  Width = 98
                   Visible = True
                 end>
             end
           end
         end
         object DBEdit3: TDBEdit
-          Left = 106
-          Top = 379
-          Width = 71
+          Left = 24
+          Top = 32
+          Width = 134
           Height = 21
           DataField = 'idProduto'
           DataSource = DataSource2
@@ -342,19 +364,19 @@ inherited F01007: TF01007
           Visible = False
         end
         object DBEdit5: TDBEdit
-          Left = 178
-          Top = 379
-          Width = 95
+          Left = 24
+          Top = 72
+          Width = 134
           Height = 21
-          DataField = 'idFase'
+          DataField = 'idOperacao'
           DataSource = DataSource2
           TabOrder = 7
           Visible = False
         end
         object DBEdit6: TDBEdit
-          Left = 274
-          Top = 379
-          Width = 92
+          Left = 24
+          Top = 112
+          Width = 134
           Height = 21
           DataField = 'prioridade'
           DataSource = DataSource2
@@ -362,23 +384,13 @@ inherited F01007: TF01007
           Visible = False
         end
         object DBEdit7: TDBEdit
-          Left = 367
-          Top = 379
-          Width = 82
-          Height = 21
-          DataField = 'idfase_1'
-          DataSource = DataSource2
-          TabOrder = 9
-          Visible = False
-        end
-        object DBEdit8: TDBEdit
-          Left = 448
-          Top = 379
-          Width = 108
+          Left = 24
+          Top = 152
+          Width = 134
           Height = 21
           DataField = 'descricao'
           DataSource = DataSource2
-          TabOrder = 10
+          TabOrder = 9
           Visible = False
         end
       end
@@ -394,6 +406,7 @@ inherited F01007: TF01007
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 803
+        Height = 422
         Columns = <
           item
             Alignment = taCenter
@@ -456,7 +469,7 @@ inherited F01007: TF01007
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C00200118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00240118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1728,7 +1741,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2270,7 +2283,7 @@ inherited F01007: TF01007
   object DataSource2: TDataSource
     DataSet = ClientDataSet3
     Left = 696
-    Top = 456
+    Top = 400
   end
   object ClientDataSet3: TClientDataSet
     Aggregates = <>
@@ -2280,21 +2293,17 @@ inherited F01007: TF01007
     AfterCancel = ClientDataSet3AfterCancel
     AfterDelete = ClientDataSet3AfterDelete
     Left = 664
-    Top = 456
+    Top = 400
     object ClientDataSet3idProduto: TIntegerField
       FieldName = 'idProduto'
       Required = True
     end
-    object ClientDataSet3idFase: TIntegerField
-      FieldName = 'idFase'
+    object ClientDataSet3idOperacao: TIntegerField
+      FieldName = 'idOperacao'
       Required = True
     end
     object ClientDataSet3prioridade: TIntegerField
       FieldName = 'prioridade'
-    end
-    object ClientDataSet3idfase_1: TIntegerField
-      FieldName = 'idfase_1'
-      ReadOnly = True
     end
     object ClientDataSet3descricao: TStringField
       FieldName = 'descricao'
@@ -2305,18 +2314,17 @@ inherited F01007: TF01007
   object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
     Left = 632
-    Top = 456
+    Top = 400
   end
   object FDQuery3: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
-      'select * from produto_has_fase phf '#13#10#10
-      'left outer join fase f'#10' '
-      'on phf.idfase = f.idfase'#10' '
-      'where phf.idProduto =:id'
-      'order by (prioridade);'#10)
+      
+        'select phf.*, f.descricao from produto_has_operacao phf '#10#10'left o' +
+        'uter join operacao f on phf.idoperacao = f.idoperacao '#10#10'where ph' +
+        'f.idProduto =:id '#10'order by (prioridade);')
     Left = 600
-    Top = 456
+    Top = 400
     ParamData = <
       item
         Name = 'ID'
@@ -2330,9 +2338,9 @@ inherited F01007: TF01007
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object FDQuery3idFase: TIntegerField
-      FieldName = 'idFase'
-      Origin = 'idFase'
+    object FDQuery3idOperacao: TIntegerField
+      FieldName = 'idOperacao'
+      Origin = 'idOperacao'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
@@ -2340,13 +2348,6 @@ inherited F01007: TF01007
       AutoGenerateValue = arDefault
       FieldName = 'prioridade'
       Origin = 'prioridade'
-    end
-    object FDQuery3idfase_1: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idfase_1'
-      Origin = 'idfase'
-      ProviderFlags = []
-      ReadOnly = True
     end
     object FDQuery3descricao: TStringField
       AutoGenerateValue = arDefault
@@ -2359,9 +2360,9 @@ inherited F01007: TF01007
   end
   object ImageList2: TImageList
     Left = 676
-    Top = 299
+    Top = 185
     Bitmap = {
-      494C010103000800580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101030008005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

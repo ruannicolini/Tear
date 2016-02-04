@@ -94,11 +94,11 @@ end;
 
 procedure TFPrincipal.AumentarBotao(Sender: TObject);
 begin
-  TButton(sender).Height := TButton(sender).Height + 10;
+  {TButton(sender).Height := TButton(sender).Height + 10;
   TButton(sender).Width := TButton(sender).Width + 10;
   TButton(sender).Left := TButton(sender).Left - 5;
   TButton(sender).Top := TButton(sender).Top - 5;
-
+  }
 end;
 
 procedure TFPrincipal.CriarForm(Tela, Desc : String);
@@ -145,10 +145,11 @@ end;
 
 procedure TFPrincipal.DiminuirBotao(Sender: TObject);
 begin
-  TButton(sender).Height := TButton(sender).Height - 10;
+  {TButton(sender).Height := TButton(sender).Height - 10;
   TButton(sender).Width := TButton(sender).Width - 10;
   TButton(sender).Left := TButton(sender).Left + 5;
   TButton(sender).Top := TButton(sender).Top + 5;
+  }
 end;
 
 function TFPrincipal.fncAlturaBarraTarefas: Integer;

@@ -40,46 +40,35 @@ type
     ClientDataSet3: TClientDataSet;
     DataSetProvider3: TDataSetProvider;
     FDQuery3: TFDQuery;
-    FDQuery3idProduto: TIntegerField;
-    FDQuery3idFase: TIntegerField;
-    FDQuery3prioridade: TIntegerField;
-    FDQuery3idfase_1: TIntegerField;
-    FDQuery3descricao: TStringField;
-    ClientDataSet3idProduto: TIntegerField;
-    ClientDataSet3idFase: TIntegerField;
-    ClientDataSet3prioridade: TIntegerField;
-    ClientDataSet3idfase_1: TIntegerField;
-    ClientDataSet3descricao: TStringField;
     EditBeleza1: TEditBeleza;
     BitBtn1: TBitBtn;
     BtnExcluirTipoRegistro: TBitBtn;
     Edit1: TEdit;
-    Label5: TLabel;
-    DBEdit3: TDBEdit;
-    Label6: TLabel;
-    DBEdit5: TDBEdit;
     Label7: TLabel;
-    DBEdit6: TDBEdit;
     Label8: TLabel;
-    DBEdit7: TDBEdit;
     Label9: TLabel;
-    DBEdit8: TDBEdit;
     Button1: TButton;
     ImageList2: TImageList;
     Button2: TButton;
     FDQuery1grupo: TStringField;
     ClientDataSet1grupo: TStringField;
-    procedure acInserirExecute(Sender: TObject);
-    procedure acEditarExecute(Sender: TObject);
-    procedure acSalvarExecute(Sender: TObject);
-    procedure acCancelarExecute(Sender: TObject);
+    FDQuery3idProduto: TIntegerField;
+    FDQuery3idOperacao: TIntegerField;
+    FDQuery3prioridade: TIntegerField;
+    FDQuery3descricao: TStringField;
+    ClientDataSet3idProduto: TIntegerField;
+    ClientDataSet3idOperacao: TIntegerField;
+    ClientDataSet3prioridade: TIntegerField;
+    ClientDataSet3descricao: TStringField;
+    Label5: TLabel;
+    DBEdit3: TDBEdit;
+    Label6: TLabel;
+    DBEdit5: TDBEdit;
+    Label10: TLabel;
+    DBEdit6: TDBEdit;
+    Label11: TLabel;
+    DBEdit7: TDBEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure acExcluirExecute(Sender: TObject);
-    procedure acPesquisarExecute(Sender: TObject);
-    procedure Action1Execute(Sender: TObject);
-    procedure Action3Execute(Sender: TObject);
-    procedure Action4Execute(Sender: TObject);
-    procedure Action2Execute(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet3AfterDelete(DataSet: TDataSet);
@@ -96,7 +85,6 @@ type
       Shift: TShiftState);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -113,108 +101,6 @@ implementation
 uses
 uDataModule;
 
-procedure TF01007.acCancelarExecute(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := clWindow;
-  DBEdit4.Color := clWindow;
-end;
-
-procedure TF01007.acEditarExecute(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-
-  Button1.Enabled := true;
-  Button2.Enabled := true;
-end;
-
-procedure TF01007.acExcluirExecute(Sender: TObject);
-begin
-  DModule.qAux.Close;
-  DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idProduto =:idProd';
-  DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
-  DModule.qAux.Open;
-  if(DModule.qAux.IsEmpty)then
-  begin
-    inherited;
-  end else
-    ShowMessage('Cronometragem vinculada a este Produto. Não é possível excluir.');
-
-
-end;
-
-procedure TF01007.acInserirExecute(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-
-  Button1.Enabled := true;
-  Button2.Enabled := true;
-
-end;
-procedure TF01007.acPesquisarExecute(Sender: TObject);
-begin
-  inherited;
-
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-
-end;
-
-Procedure TF01007.acSalvarExecute(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := clWindow;
-  DBEdit4.Color := clWindow;
-end;
-
-procedure TF01007.Action1Execute(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-
-end;
-
-procedure TF01007.Action2Execute(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-end;
-
-Procedure TF01007.Action3Execute(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-end;
-
-procedure TF01007.Action4Execute(Sender: TObject);
-begin
-  inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
-end;
-
 procedure TF01007.Action5Execute(Sender: TObject);
 begin
   if DS.DataSet.State=dsInsert then
@@ -222,7 +108,7 @@ begin
     {ShowMessage('Inserção');}
     //DELETAR
     DModule.qAux.Close;
-    DModule.qAux.SQL.Text := 'Delete from produto_has_fase WHERE idProduto =:p';
+    DModule.qAux.SQL.Text := 'Delete from produto_has_OPERACAO WHERE idProduto =:p';
     DModule.qAux.ParamByName('p').AsString := ClientDataSet1idProduto.AsString;
     DModule.qAux.execsql;
   end else
@@ -265,9 +151,9 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit4.Color := CorCamposOnlyRead();
-
   Button1.Enabled := true;
   Button2.Enabled := true;
+  DataSource2.DataSet.Close;
 end;
 
 procedure TF01007.BitBtn1Click(Sender: TObject);
@@ -278,7 +164,7 @@ begin
     if not DataSource2.DataSet.Active then
           DataSource2.DataSet.Open;
 
-    if(ClientDataSet3.Locate('idfase',Edit1.Text,[]) = false)then
+    if(ClientDataSet3.Locate('idOperacao',Edit1.Text,[]) = false)then
     begin
 
       {Modo de inserção}
@@ -286,7 +172,7 @@ begin
       {Stribuição dos dados}
       ClientDataSet3prioridade.Value := DataSource2.DataSet.RecordCount + 1;
       ClientDataSet3idProduto.Value := ClientDataSet1idProduto.AsInteger;
-      ClientDataSet3idFase.Value := StrToInt(Edit1.Text);
+      ClientDataSet3idOperacao.Value := StrToInt(Edit1.Text);
 
       {Salva}
       DataSource2.DataSet.Post;
@@ -333,7 +219,7 @@ var
 x: integer;
 begin
   inherited;
-  if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idFase.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idOperacao.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
      begin
       ClientDataSet3.Delete;
       while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
@@ -379,40 +265,6 @@ begin
   end;
 end;
 
-procedure TF01007.Button3Click(Sender: TObject);
-begin
-  inherited;
-  if trim(EditBeleza1.Text) <> '' then
-  begin
-    if not DataSource2.DataSet.Active then
-          DataSource2.DataSet.Open;
-
-    if(ClientDataSet3.Locate('idfase',Edit1.Text,[]) = false)then
-    begin
-
-      {Modo de inserção}
-      DataSource2.DataSet.Append;
-      {Stribuição dos dados}
-      ClientDataSet3prioridade.Value := DataSource2.DataSet.RecordCount + 1;
-      ClientDataSet3idProduto.Value := ClientDataSet1idProduto.AsInteger;
-      ClientDataSet3idFase.Value := StrToInt(Edit1.Text);
-
-      {Salva}
-      DataSource2.DataSet.Post;
-
-      {Atualiza DBGRID FASE}
-      FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-      DataSource2.DataSet.Close;
-      DataSource2.DataSet.Open;
-
-      Edit1.Text :='';
-    end else
-      ShowMessage('Fase já adicionada');
-  end else
-    ShowMessage('Selecione uma fase.');
-
-end;
-
 procedure TF01007.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
@@ -446,7 +298,7 @@ begin
   if (key = 46) then
   //Deleta Batida
   begin
-    if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idFase.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idOperacao.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
      begin
         ClientDataSet3.Delete;
         while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
