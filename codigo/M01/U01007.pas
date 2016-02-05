@@ -296,7 +296,6 @@ end;
 procedure TF01007.DBGridBeleza2DblClick(Sender: TObject);
 begin
   inherited;
-
   // Chama a Tela de Cronometragem e mostra os tempo Referentes as operação selecionada
   With TF01013.Create(self, ClientDataSet1idProduto.asinteger, ClientDataSet3idOperacao.value) do
   Begin

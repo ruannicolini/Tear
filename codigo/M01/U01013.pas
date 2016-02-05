@@ -195,7 +195,11 @@ begin
   inherited Create(AOwner);
   ParIdProduto := pParm1;
   ParIdOperacao := pParm2;
-
+  ClientDataSet1.Filtered := false;
+  ClientDataSet1.Filter := 'idProduto = ' + IntToStr(ParIdProduto) + ' and idOperacao = ' + IntToStr(ParIdOperacao);
+  ClientDataSet1.Filtered := true;
+  Width := 957;
+  Height := 610;
 end;
 
 procedure TF01013.Action5Execute(Sender: TObject);
@@ -579,7 +583,7 @@ end;
 procedure TF01013.FormShow(Sender: TObject);
 begin
   inherited;
-  BPesquisarClick(Sender);
+  //BPesquisarClick(Sender);
   BImportar.Enabled := false;
 end;
 
