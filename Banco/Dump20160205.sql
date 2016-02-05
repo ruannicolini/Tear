@@ -63,7 +63,7 @@ CREATE TABLE `batida` (
 
 LOCK TABLES `batida` WRITE;
 /*!40000 ALTER TABLE `batida` DISABLE KEYS */;
-INSERT INTO `batida` VALUES (41,0,4,1,1,34),(42,0,5,0,1,34),(43,0,2,2,1,34),(44,0,3,0,1,35),(45,0,2,3,1,35),(46,0,1,6,1,35),(47,0,4,0,1,35),(48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(66,0,9,875,1,114),(67,0,50,797,1,114),(68,1,0,250,1,114),(69,1,59,781,1,114),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(80,0,1,875,1,127),(81,0,6,125,1,127),(82,0,8,625,1,127),(85,0,5,328,1,142),(86,0,4,735,1,142),(87,0,3,156,1,142),(88,0,0,906,1,142),(89,0,4,625,1,142),(90,0,4,563,1,142),(91,0,4,718,1,142);
+INSERT INTO `batida` VALUES (41,0,4,1,1,34),(42,0,5,0,1,34),(43,0,2,2,1,34),(44,0,3,0,1,35),(45,0,2,3,1,35),(46,0,1,6,1,35),(47,0,4,0,1,35),(48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(66,0,9,875,1,114),(67,0,50,797,1,114),(68,1,0,250,1,114),(69,1,59,781,1,114),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(80,0,1,875,1,127),(81,0,6,125,1,127),(82,0,8,625,1,127);
 /*!40000 ALTER TABLE `batida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,9 +180,11 @@ DROP TABLE IF EXISTS `dependencia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dependencia` (
-  `idDependencia` int(11) NOT NULL DEFAULT '0',
-  `idOperacao` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idDependencia`,`idOperacao`)
+  `idProdutoOperacao` int(11) NOT NULL,
+  `idOperacaoOperacao` int(11) NOT NULL,
+  `idProdutoDependencia` int(11) NOT NULL,
+  `idOperacaoDependencia` int(11) NOT NULL,
+  PRIMARY KEY (`idProdutoOperacao`,`idOperacaoOperacao`,`idProdutoDependencia`,`idOperacaoDependencia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -192,6 +194,7 @@ CREATE TABLE `dependencia` (
 
 LOCK TABLES `dependencia` WRITE;
 /*!40000 ALTER TABLE `dependencia` DISABLE KEYS */;
+INSERT INTO `dependencia` VALUES (7,26,7,22);
 /*!40000 ALTER TABLE `dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -479,7 +482,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,92),('seqCelula',NULL,20),('seqCronometragem',NULL,143),('seqCronometrista',NULL,8),('seqFase',NULL,15),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,28),('seqOperador',NULL,69),('seqParte',NULL,6),('seqProduto',NULL,77),('seqRecurso',NULL,18),('seqTecido',NULL,6),('seqTipoRecurso',NULL,13);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,94),('seqCelula',NULL,21),('seqCronometragem',NULL,147),('seqCronometrista',NULL,8),('seqFase',NULL,15),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,28),('seqOperador',NULL,69),('seqParte',NULL,6),('seqProduto',NULL,80),('seqRecurso',NULL,18),('seqTecido',NULL,6),('seqTipoRecurso',NULL,13);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -554,7 +557,7 @@ CREATE TABLE `produto_has_operacao` (
 
 LOCK TABLES `produto_has_operacao` WRITE;
 /*!40000 ALTER TABLE `produto_has_operacao` DISABLE KEYS */;
-INSERT INTO `produto_has_operacao` VALUES (7,1,1),(7,5,2),(7,7,3),(7,8,4),(52,1,1),(53,1,1),(54,1,2),(54,5,3),(54,6,1),(56,5,1),(56,7,2),(57,1,2),(57,7,1),(63,6,2),(63,7,1),(71,5,2),(71,26,0);
+INSERT INTO `produto_has_operacao` VALUES (7,5,2),(7,22,2),(52,1,1),(53,1,1),(54,1,2),(54,5,3),(54,6,1),(56,9,1),(57,1,2),(57,7,1),(63,7,0),(71,5,2),(71,26,0),(77,5,1);
 /*!40000 ALTER TABLE `produto_has_operacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -649,4 +652,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-04 11:16:16
+-- Dump completed on 2016-02-05 18:57:25

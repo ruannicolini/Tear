@@ -118,6 +118,7 @@ type
     procedure ClientDataSet2AfterDelete(DataSet: TDataSet);
     procedure ClientDataSet2AfterPost(DataSet: TDataSet);
     procedure DataSource3DataChange(Sender: TObject; Field: TField);
+    procedure Button5Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -324,7 +325,8 @@ begin
       DataSource2.DataSet.Post;
 
       {Atualiza DBGRID Dependencia}
-      FDQuery2.ParamByName('id').Value:=(ClientDataSet3idOperacao.AsInteger);
+      FDQuery2.ParamByName('idoo').Value:=(ClientDataSet3idOperacao.AsInteger);
+      FDQuery2.ParamByName('idpo').Value:=(ClientDataSet1idProduto.AsInteger);
       DataSource2.DataSet.Close;
       DataSource2.DataSet.Open;
 
@@ -333,6 +335,16 @@ begin
       ShowMessage('Operação já adicionada');
   end else
     ShowMessage('Selecione uma Operação.');
+
+end;
+
+procedure TF01007.Button5Click(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja Apagar Dependência '+ IntToStr(ClientDataSet2idOperacaoDependencia.AsInteger)+ ' - ' + ClientDataSet2descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+      ClientDataSet2.Delete;
+     end;
 
 end;
 

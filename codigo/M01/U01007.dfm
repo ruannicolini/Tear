@@ -2,7 +2,6 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 522
   ClientWidth = 811
-  ExplicitTop = -146
   ExplicitWidth = 827
   ExplicitHeight = 561
   PixelsPerInch = 96
@@ -10,7 +9,6 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 487
-    ActivePage = TbDados
     ExplicitWidth = 811
     ExplicitHeight = 487
     inherited TbDados: TTabSheet
@@ -472,6 +470,7 @@ inherited F01007: TF01007
               Anchors = [akRight, akBottom]
               Caption = '-'
               TabOrder = 1
+              OnClick = Button5Click
             end
             object EditBeleza2: TEditBeleza
               Left = 76
@@ -2507,7 +2506,7 @@ inherited F01007: TF01007
   object DataSource3: TDataSource
     DataSet = ClientDataSet3
     OnDataChange = DataSource3DataChange
-    Left = 672
+    Left = 648
     Top = 296
   end
   object ClientDataSet3: TClientDataSet
@@ -2517,7 +2516,7 @@ inherited F01007: TF01007
     AfterPost = ClientDataSet3AfterPost
     AfterCancel = ClientDataSet3AfterCancel
     AfterDelete = ClientDataSet3AfterDelete
-    Left = 640
+    Left = 616
     Top = 296
     object ClientDataSet3idProduto: TIntegerField
       FieldName = 'idProduto'
@@ -2538,7 +2537,7 @@ inherited F01007: TF01007
   end
   object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
-    Left = 608
+    Left = 584
     Top = 296
   end
   object FDQuery3: TFDQuery
@@ -2548,7 +2547,7 @@ inherited F01007: TF01007
         'select phf.*, f.descricao from produto_has_operacao phf '#10#10'left o' +
         'uter join operacao f on phf.idoperacao = f.idoperacao '#10#10'where ph' +
         'f.idProduto =:id '#10'order by (prioridade);')
-    Left = 576
+    Left = 552
     Top = 296
     ParamData = <
       item
@@ -2734,8 +2733,8 @@ inherited F01007: TF01007
       'on f.idoperacao = phf.idOperacaoDependencia'#10' '
       'where phf.idProdutoOperacao =:idpo'
       ' and phf.idOperacaoOperacao =:idoo ;')
-    Left = 572
-    Top = 355
+    Left = 556
+    Top = 395
     ParamData = <
       item
         Name = 'IDPO'
@@ -2782,8 +2781,8 @@ inherited F01007: TF01007
   end
   object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
-    Left = 604
-    Top = 355
+    Left = 588
+    Top = 395
   end
   object ClientDataSet2: TClientDataSet
     Aggregates = <>
@@ -2792,8 +2791,8 @@ inherited F01007: TF01007
     AfterPost = ClientDataSet2AfterPost
     AfterCancel = ClientDataSet2AfterCancel
     AfterDelete = ClientDataSet2AfterDelete
-    Left = 636
-    Top = 355
+    Left = 620
+    Top = 395
     object ClientDataSet2idProdutoOperacao: TIntegerField
       FieldName = 'idProdutoOperacao'
       Required = True
@@ -2819,7 +2818,7 @@ inherited F01007: TF01007
   end
   object DataSource2: TDataSource
     DataSet = ClientDataSet2
-    Left = 668
-    Top = 355
+    Left = 652
+    Top = 395
   end
 end
