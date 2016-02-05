@@ -3012,8 +3012,8 @@ inherited F01013: TF01013
       000000000000}
   end
   inherited Acoes: TActionList
-    Left = 576
-    Top = 72
+    Left = 672
+    Top = 48
   end
   object DS_Recurso: TDataSource
     DataSet = CDS_Recurso

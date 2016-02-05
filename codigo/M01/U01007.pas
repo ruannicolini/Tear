@@ -32,11 +32,9 @@ type
     DBEdit4: TDBEdit;
     DBEditBeleza1: TDBEditBeleza;
     DBEdit_Calendario1: TDBEdit_Calendario;
-    PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
     GroupBox1: TGroupBox;
     DBGridBeleza2: TDBGridBeleza;
-    DataSource2: TDataSource;
+    DataSource3: TDataSource;
     ClientDataSet3: TClientDataSet;
     DataSetProvider3: TDataSetProvider;
     FDQuery3: TFDQuery;
@@ -44,9 +42,6 @@ type
     BitBtn1: TBitBtn;
     BtnExcluirOperacao: TBitBtn;
     Edit1: TEdit;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
     Button1: TButton;
     ImageList2: TImageList;
     Button2: TButton;
@@ -68,6 +63,38 @@ type
     DBEdit6: TDBEdit;
     Label11: TLabel;
     DBEdit7: TDBEdit;
+    GroupBoxOperacoes: TGroupBox;
+    GroupBoxDependencias: TGroupBox;
+    GroupBox2: TGroupBox;
+    DBGridBeleza3: TDBGridBeleza;
+    Button4: TButton;
+    Button5: TButton;
+    EditBeleza2: TEditBeleza;
+    FDQuery2: TFDQuery;
+    DataSetProvider2: TDataSetProvider;
+    ClientDataSet2: TClientDataSet;
+    DataSource2: TDataSource;
+    Edit2: TEdit;
+    FDQuery2idProdutoOperacao: TIntegerField;
+    FDQuery2idOperacaoOperacao: TIntegerField;
+    FDQuery2idProdutoDependencia: TIntegerField;
+    FDQuery2idOperacaoDependencia: TIntegerField;
+    FDQuery2descricao: TStringField;
+    Label7: TLabel;
+    DBEdit8: TDBEdit;
+    Label8: TLabel;
+    DBEdit9: TDBEdit;
+    Label9: TLabel;
+    DBEdit10: TDBEdit;
+    Label12: TLabel;
+    DBEdit11: TDBEdit;
+    Label13: TLabel;
+    DBEdit12: TDBEdit;
+    ClientDataSet2idProdutoOperacao: TIntegerField;
+    ClientDataSet2idOperacaoOperacao: TIntegerField;
+    ClientDataSet2idProdutoDependencia: TIntegerField;
+    ClientDataSet2idOperacaoDependencia: TIntegerField;
+    ClientDataSet2descricao: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
@@ -86,6 +113,11 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure DBGridBeleza2DblClick(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure ClientDataSet2AfterCancel(DataSet: TDataSet);
+    procedure ClientDataSet2AfterDelete(DataSet: TDataSet);
+    procedure ClientDataSet2AfterPost(DataSet: TDataSet);
+    procedure DataSource3DataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -154,7 +186,7 @@ begin
   DBEdit4.Color := CorCamposOnlyRead();
   Button1.Enabled := true;
   Button2.Enabled := true;
-  DataSource2.DataSet.Close;
+  DataSource3.DataSet.Close;
 end;
 
 procedure TF01007.BitBtn1Click(Sender: TObject);
@@ -162,26 +194,26 @@ begin
   inherited;
   if trim(EditBeleza1.Text) <> '' then
   begin
-    if not DataSource2.DataSet.Active then
-          DataSource2.DataSet.Open;
+    if not DataSource3.DataSet.Active then
+          DataSource3.DataSet.Open;
 
     if(ClientDataSet3.Locate('idOperacao',Edit1.Text,[]) = false)then
     begin
 
       {Modo de inserção}
-      DataSource2.DataSet.Append;
+      DataSource3.DataSet.Append;
       {Stribuição dos dados}
-      ClientDataSet3prioridade.Value := DataSource2.DataSet.RecordCount + 1;
+      ClientDataSet3prioridade.Value := DataSource3.DataSet.RecordCount + 1;
       ClientDataSet3idProduto.Value := ClientDataSet1idProduto.AsInteger;
       ClientDataSet3idOperacao.Value := StrToInt(Edit1.Text);
 
       {Salva}
-      DataSource2.DataSet.Post;
+      DataSource3.DataSet.Post;
 
       {Atualiza DBGRID FASE}
       FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-      DataSource2.DataSet.Close;
-      DataSource2.DataSet.Open;
+      DataSource3.DataSet.Close;
+      DataSource3.DataSet.Open;
 
       Edit1.Text :='';
     end else
@@ -195,8 +227,8 @@ begin
   inherited;
   {DBGRID FASE}
   FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
+  DataSource3.DataSet.Close;
+  DataSource3.DataSet.Open;
 end;
 
 procedure TF01007.BSalvarClick(Sender: TObject);
@@ -225,10 +257,10 @@ begin
       ClientDataSet3.Delete;
       while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
       begin
-          DataSource2.DataSet.Edit;
+          DataSource3.DataSet.Edit;
           if ClientDataSet3prioridade.Value <> 1 then
             ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-          DataSource2.DataSet.Post;
+          DataSource3.DataSet.Post;
           ClientDataSet3.Next;  //vai para o próximo registro
       end;
 
@@ -240,31 +272,68 @@ begin
   inherited;
   if(ClientDataSet3prioridade.Value > 1)then
   begin
-    DataSource2.DataSet.Edit;
+    DataSource3.DataSet.Edit;
     ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-    DataSource2.DataSet.Post;
+    DataSource3.DataSet.Post;
     ClientDataSet3.Prior;
-    DataSource2.DataSet.Edit;
+    DataSource3.DataSet.Edit;
     ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
-    DataSource2.DataSet.Post;
-    DataSource2.DataSet.Refresh;
+    DataSource3.DataSet.Post;
+    DataSource3.DataSet.Refresh;
   end;
 end;
 
 procedure TF01007.Button2Click(Sender: TObject);
 begin
   inherited;
-    if(ClientDataSet3prioridade.Value < DataSource2.DataSet.RecordCount)then
+    if(ClientDataSet3prioridade.Value < DataSource3.DataSet.RecordCount)then
   begin
-    DataSource2.DataSet.Edit;
+    DataSource3.DataSet.Edit;
     ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
-    DataSource2.DataSet.Post;
+    DataSource3.DataSet.Post;
     ClientDataSet3.Next;
-    DataSource2.DataSet.Edit;
+    DataSource3.DataSet.Edit;
     ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-    DataSource2.DataSet.Post;
-    DataSource2.DataSet.Refresh;
+    DataSource3.DataSet.Post;
+    DataSource3.DataSet.Refresh;
   end;
+end;
+
+procedure TF01007.Button4Click(Sender: TObject);
+begin
+  inherited;
+
+  if trim(EditBeleza2.Text) <> '' then
+  begin
+    if not DataSource2.DataSet.Active then
+          DataSource2.DataSet.Open;
+
+    if(ClientDataSet2.Locate('idOperacaoDependencia',Edit2.Text,[]) = false)then
+    begin
+      {Modo de inserção}
+      DataSource2.DataSet.Append;
+
+      {Atribuição dos dados}
+      ClientDataSet2idProdutoDependencia.Value := ClientDataSet1idProduto.AsInteger;
+      ClientDataSet2idProdutoOperacao.Value := ClientDataSet1idProduto.AsInteger;
+
+      ClientDataSet2idOperacaoDependencia.Value := StrToInt(Edit2.Text);
+      ClientDataSet2idOperacaoOperacao.Value := ClientDataSet3idOperacao.AsInteger;
+
+      {Salva}
+      DataSource2.DataSet.Post;
+
+      {Atualiza DBGRID Dependencia}
+      FDQuery2.ParamByName('id').Value:=(ClientDataSet3idOperacao.AsInteger);
+      DataSource2.DataSet.Close;
+      DataSource2.DataSet.Open;
+
+      Edit2.Text :='';
+    end else
+      ShowMessage('Operação já adicionada');
+  end else
+    ShowMessage('Selecione uma Operação.');
+
 end;
 
 procedure TF01007.ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -272,6 +341,24 @@ begin
   inherited;
   ClientDataSet1idProduto.AsInteger := DModule.buscaProximoParametro('seqProduto');
 
+end;
+
+procedure TF01007.ClientDataSet2AfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet2.CancelUpdates;
+end;
+
+procedure TF01007.ClientDataSet2AfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet2.ApplyUpdates(-1);
+end;
+
+procedure TF01007.ClientDataSet2AfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet2.ApplyUpdates(-1);
 end;
 
 procedure TF01007.ClientDataSet3AfterCancel(DataSet: TDataSet);
@@ -291,6 +378,16 @@ procedure TF01007.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01007.DataSource3DataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  {Atualiza DBGRID Dependencia}
+  FDQuery2.ParamByName('idoo').Value:=(ClientDataSet3idOperacao.AsInteger);
+  FDQuery2.ParamByName('idpo').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
 end;
 
 procedure TF01007.DBGridBeleza2DblClick(Sender: TObject);
@@ -317,9 +414,9 @@ begin
         ClientDataSet3.Delete;
         while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
         begin
-          DataSource2.DataSet.Edit;
+          DataSource3.DataSet.Edit;
           ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-          DataSource2.DataSet.Post;
+          DataSource3.DataSet.Post;
           ClientDataSet3.Next;  //vai para o próximo registro
         end;
 
@@ -330,10 +427,10 @@ end;
 procedure TF01007.DSDataChange(Sender: TObject; Field: TField);
 begin
   inherited;
-  {DBGRID FASE}
+  {DBGRID Operações}
   FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
+  DataSource3.DataSet.Close;
+  DataSource3.DataSet.Open;
 
 end;
 
