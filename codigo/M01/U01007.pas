@@ -188,6 +188,7 @@ begin
   Button1.Enabled := true;
   Button2.Enabled := true;
   DataSource3.DataSet.Close;
+  DataSource2.DataSet.Close;
 end;
 
 procedure TF01007.BitBtn1Click(Sender: TObject);
@@ -253,19 +254,33 @@ var
 x: integer;
 begin
   inherited;
-  if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idOperacao.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-     begin
-      ClientDataSet3.Delete;
-      while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
-      begin
-          DataSource3.DataSet.Edit;
-          if ClientDataSet3prioridade.Value <> 1 then
-            ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-          DataSource3.DataSet.Post;
-          ClientDataSet3.Next;  //vai para o próximo registro
-      end;
 
-     end;
+     DModule.qAux.Close;
+     DModule.qAux.SQL.Text := 'select d.*, op.descricao from dependencia d left outer join operacao op on op.idOperacao = d.idOperacaoOperacao where d.idProdutoOperacao =:idPO and idProdutoDependencia =:idPD and idOperacaoDependencia =:idOD';
+     DModule.qAux.ParamByName('idPO').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+     DModule.qAux.ParamByName('idPD').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+     DModule.qAux.ParamByName('idOD').AsInteger:= (ClientDataSet3idOperacao.AsInteger);
+     DModule.qAux.Open;
+     if(DModule.qAux.IsEmpty)then
+     begin
+         if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idOperacao.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+         begin
+          ClientDataSet3.Delete;
+          while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
+            begin
+                DataSource3.DataSet.Edit;
+                if ClientDataSet3prioridade.Value <> 1 then
+                  ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+                DataSource3.DataSet.Post;
+                ClientDataSet3.Next;  //vai para o próximo registro
+            end;
+
+         end;
+
+     end else
+       ShowMessage('Não é possível excluir.' +#13+'Esta Operação vinculada a outra Operação (' +
+       DModule.qAux.FieldByName('idOperacaoOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
+
 end;
 
 procedure TF01007.Button1Click(Sender: TObject);

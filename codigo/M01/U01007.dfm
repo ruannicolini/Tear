@@ -9,6 +9,7 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 487
+    ActivePage = TbDados
     ExplicitWidth = 811
     ExplicitHeight = 487
     inherited TbDados: TTabSheet
@@ -19,8 +20,6 @@ inherited F01007: TF01007
       inherited grDados: TGroupBox
         Width = 803
         Height = 459
-        ExplicitLeft = -40
-        ExplicitTop = -3
         ExplicitWidth = 803
         ExplicitHeight = 459
         object Label1: TLabel
@@ -339,9 +338,6 @@ inherited F01007: TF01007
             DoubleBuffered = False
             ParentDoubleBuffered = False
             TabOrder = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 226
             object BitBtn1: TBitBtn
               Left = 98
               Top = 14
@@ -410,7 +406,6 @@ inherited F01007: TF01007
               Images = ImageList2
               TabOrder = 3
               OnClick = Button1Click
-              ExplicitLeft = 200
             end
             object Button2: TButton
               Left = 194
@@ -423,7 +418,6 @@ inherited F01007: TF01007
               Images = ImageList2
               TabOrder = 4
               OnClick = Button2Click
-              ExplicitLeft = 200
             end
           end
         end
@@ -449,7 +443,6 @@ inherited F01007: TF01007
             Height = 31
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 15
             object Button4: TButton
               Left = 102
               Top = 4
@@ -682,7 +675,7 @@ inherited F01007: TF01007
   inherited Panel2: TPanel
     Width = 811
     TabOrder = 2
-    ExplicitWidth = 226
+    ExplicitWidth = 811
     inherited BFechar: TSpeedButton
       Left = 777
       ExplicitLeft = 777
@@ -692,7 +685,7 @@ inherited F01007: TF01007
     Left = 744
     Top = 184
     Bitmap = {
-      494C01010C002C00380118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C003C0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1964,7 +1957,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010C002C00F80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2586,7 +2579,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800700010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800740010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
