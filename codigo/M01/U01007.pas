@@ -265,15 +265,22 @@ begin
      begin
          if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idOperacao.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
          begin
-          ClientDataSet3.Delete;
-          while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
+            if(DataSource3.DataSet.RecNo = ClientDataSet3.RecordCount) then
+            //Faz se for o ultimo registro do dataSet
             begin
-                DataSource3.DataSet.Edit;
-                if ClientDataSet3prioridade.Value <> 1 then
-                  ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-                DataSource3.DataSet.Post;
-                ClientDataSet3.Next;  //vai para o próximo registro
+              ClientDataSet3.Delete;
+            end else
+            begin
+                ClientDataSet3.Delete;
+                while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
+                  begin
+                      DataSource3.DataSet.Edit;
+                      ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+                      DataSource3.DataSet.Post;
+                      ClientDataSet3.Next;  //vai para o próximo registro
+                  end;
             end;
+
 
          end;
 
@@ -291,10 +298,12 @@ begin
     DataSource3.DataSet.Edit;
     ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
     DataSource3.DataSet.Post;
+
     ClientDataSet3.Prior;
     DataSource3.DataSet.Edit;
     ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
     DataSource3.DataSet.Post;
+
     DataSource3.DataSet.Refresh;
   end;
 end;
@@ -303,16 +312,16 @@ procedure TF01007.Button2Click(Sender: TObject);
 begin
   inherited;
     if(ClientDataSet3prioridade.Value < DataSource3.DataSet.RecordCount)then
-  begin
-    DataSource3.DataSet.Edit;
-    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
-    DataSource3.DataSet.Post;
-    ClientDataSet3.Next;
-    DataSource3.DataSet.Edit;
-    ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-    DataSource3.DataSet.Post;
-    DataSource3.DataSet.Refresh;
-  end;
+    begin
+      DataSource3.DataSet.Edit;
+      ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger +1;
+      DataSource3.DataSet.Post;
+      ClientDataSet3.Next;
+      DataSource3.DataSet.Edit;
+      ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
+      DataSource3.DataSet.Post;
+      DataSource3.DataSet.Refresh;
+    end;
 end;
 
 procedure TF01007.Button4Click(Sender: TObject);
