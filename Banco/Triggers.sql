@@ -31,3 +31,13 @@ BEGIN
     DELETE FROM batida WHERE batida.idCronometragem = old.idCronometragem;
 END //
 DELIMITER ;
+
+
+-- Excluiu produto_has_operacao do Grupo excluído
+DELIMITER //
+CREATE TRIGGER TRIGGER_Produto_has_Operacao_delete 
+AFTER DELETE ON produto_has_operacao for each row
+BEGIN
+	DELETE FROM dependencia WHERE dependencia.idOperacaoOperacao = old.idOperacao;
+END //
+DELIMITER ;
