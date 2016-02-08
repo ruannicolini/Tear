@@ -3,7 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -56
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -14,8 +13,6 @@ inherited F01013: TF01013
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited grDados: TGroupBox
@@ -1073,6 +1070,8 @@ inherited F01013: TF01013
       Top = 2
       Width = 33
       Height = 31
+      Hint = 'Reutilizar Tempo'
+      HelpType = htKeyword
       Flat = True
       Glyph.Data = {
         76060000424D7606000000000000360400002800000018000000180000000100
@@ -1127,6 +1126,9 @@ inherited F01013: TF01013
         5E5E5E5E5E5EFFFFAF5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5EFFAF
         5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5EAF5E5E5E5E5E5E5E5E5E
         5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E}
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = BReutilizarClick
     end
   end
   inherited ImageList1: TImageList

@@ -162,6 +162,7 @@ type
     procedure BInserirClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure btnLapKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure BReutilizarClick(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -205,7 +206,7 @@ end;
 
 procedure TF01013.Action5Execute(Sender: TObject);
 begin
-    if DS.DataSet.State=dsInsert then
+  if DS.DataSet.State=dsInsert then
   begin
     {ShowMessage('Inserção');}
     //DELETAR BATIDA
@@ -232,6 +233,7 @@ begin
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
   BImportar.Enabled := false;
+  BReutilizar.Enabled := true;
 
   DBEdit1.Color := clWindow;
   DBEdit7.Color := $00EFEFEF;
@@ -245,7 +247,7 @@ procedure TF01013.BEditarClick(Sender: TObject);
 begin
   inherited;
   BImportar.Enabled := false;
-
+  BReutilizar.Enabled := false;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit7.Color := CorCamposOnlyRead();
   DBEdit8.Color := CorCamposOnlyRead();
@@ -258,6 +260,7 @@ procedure TF01013.BInserirClick(Sender: TObject);
 begin
   inherited;
   BImportar.Enabled := true;
+  BReutilizar.Enabled := false;
 
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit7.Color := CorCamposOnlyRead();
@@ -310,6 +313,67 @@ begin
   end;
 end;
 
+procedure TF01013.BReutilizarClick(Sender: TObject);
+var
+vetor: array of integer;
+matriz: array of array of integer;
+i : integer;
+begin
+  inherited;
+
+  //Pega as Batidas da cronometragem selecionada
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
+  DModule.qAux.ParamByName('idCro').AsInteger:= (ClientDataSet1idcronometragem.AsInteger);
+  DModule.qAux.Open;
+  DModule.qAux.first;
+
+  //Declaração do tamanho da Matriz de tempo
+  SetLength(matriz, DModule.qAux.RecordCount);
+  for i := 0 to DModule.qAux.RecordCount do
+  begin
+    SetLength(matriz[i], 3);
+  end;
+
+  //Atribuição dos valores na matriz
+  i := 0;
+  while not DModule.qAux.eof do
+  begin
+    matriz[i][0] := StrToInt(DModule.qAux.FieldByName('minutos').AsString);
+    matriz[i][1] := StrToInt(DModule.qAux.FieldByName('segundos').AsString);
+    matriz[i][2] := StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+    i := i +1;
+    DModule.qAux.next;
+  end;
+
+  // Salva Batidas no novo Registro da Cronometragem
+  {if not ds.DataSet.Active then
+        ds.DataSet.Open;
+  PageControl.ActivePageIndex := 0;
+  ds.DataSet.Append;
+  }
+  BInserirClick(Sender);
+  for i := 0 to (Length(matriz)-1) do
+  begin
+    // DataSource Batida
+    CDS_Batida.Open;
+    CDS_Batida.Append;
+    CDS_Batidaminutos.AsInteger := matriz[i][0];
+    CDS_Batidasegundos.AsInteger := matriz[i][1];
+    CDS_Batidamilesimos.AsInteger := matriz[i][2];
+    CDS_Batidautilizar.AsBoolean := true;
+    CDS_BatidaidCronometragem.AsInteger := ClientDataSet1idcronometragem.AsInteger;
+    CDS_Batida.Post;
+
+  end;
+
+  //DBGrid Batida
+  FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
+  DS_Batida.DataSet.Close;
+  DS_Batida.DataSet.Open;
+
+end;
+
 procedure TF01013.BSalvarClick(Sender: TObject);
 begin
   inherited;
@@ -319,6 +383,7 @@ begin
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
   BImportar.Enabled := false;
+  BReutilizar.Enabled := true;
 
   DBEdit1.Color := clWindow;
   DBEdit7.Color := $00EFEFEF;
