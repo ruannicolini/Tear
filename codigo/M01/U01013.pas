@@ -135,6 +135,7 @@ type
     ClientDataSet1operador: TStringField;
     FDQuery1cronometrista: TStringField;
     ClientDataSet1cronometrista: TStringField;
+    BReutilizar: TSpeedButton;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
