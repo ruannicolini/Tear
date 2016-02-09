@@ -26,6 +26,7 @@ type
     Panel7: TPanel;
     Panel8: TPanel;
     PageScroller: TPageScroller;
+    ImageList32Selected: TImageList;
     procedure FormShow(Sender: TObject);
     procedure MouseEnterComponente(Sender: TObject);
     procedure MouseLeaveComponente(Sender: TObject);
@@ -37,6 +38,7 @@ type
     procedure AumentarBotao(Sender: TObject);
     procedure DiminuirBotao(Sender: TObject);
     function fncAlturaBarraTarefas: Integer;
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,19 +59,22 @@ uses uDataModule, UBase;
 procedure TFPrincipal.AbrirTela(Sender: TObject);
 var
   Tela, Desc : String;
+  X,Y: Integer;
+  MyImage: TImage;
 begin
   DModule.qAux.SQL.Text := 'SELECT * FROM INTERFACE WHERE IDINTERFACE = :ID';
   DModule.qAux.ParamByName('ID').AsInteger := TButton(Sender).Tag;
   DModule.qAux.Open;
 
   AumentarBotao(Sender);
-  TButton(Sender).Enabled := False;
+  TButton(Sender).Images := ImageList32Selected;
 
   Tela := 'F' + DModule.qAux.Fields[5].AsString;
   Desc := DModule.qAux.Fields[3].AsString;
   CriarForm(Tela, Desc);
 
   DiminuirBotao(Sender);
+  TButton(Sender).Images := ImageList32;
   TButton(Sender).Enabled := True;
 end;
 
@@ -78,11 +83,11 @@ var
   R : TRect;
   Rgn : HRGN;
 begin
-
   with Componente do
   begin
     R := ClientRect;
     Rgn := CreateRoundRectRgn(R.Left +2, R.Top+2, R.Right-2, R.Bottom-2, Radius, Radius);
+
     //Perform(EM_GETRECT, 0, lParam(@R));
     //InflateRect(R, -5, -5);
     //Perform(EM_SETRECTNP, 0, lParam(@R));
@@ -99,6 +104,11 @@ begin
   TButton(sender).Left := TButton(sender).Left - 5;
   TButton(sender).Top := TButton(sender).Top - 5;
   }
+end;
+
+procedure TFPrincipal.Button1Click(Sender: TObject);
+begin
+  Image1.Canvas.Arc(15, 20, 100, 100, 100, 100, 100, 100);
 end;
 
 procedure TFPrincipal.CriarForm(Tela, Desc : String);

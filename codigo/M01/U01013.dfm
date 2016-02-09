@@ -13,6 +13,8 @@ inherited F01013: TF01013
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited grDados: TGroupBox
@@ -509,12 +511,15 @@ inherited F01013: TF01013
               Left = 0
               Top = 0
               Width = 877
-              Height = 73
+              Height = 57
               Align = alTop
+              Color = 16382457
+              ParentBackground = False
+              ParentColor = False
               TabOrder = 0
               object btnINICIAR: TBitBtn
                 Left = 176
-                Top = 24
+                Top = 14
                 Width = 75
                 Height = 28
                 Caption = 'INICIAR'
@@ -523,7 +528,7 @@ inherited F01013: TF01013
               end
               object btnLap: TBitBtn
                 Left = 257
-                Top = 24
+                Top = 14
                 Width = 75
                 Height = 28
                 Caption = 'LAP'
@@ -534,7 +539,7 @@ inherited F01013: TF01013
               end
               object Edit2: TEdit
                 Left = 40
-                Top = 25
+                Top = 15
                 Width = 129
                 Height = 27
                 Alignment = taCenter
@@ -550,7 +555,7 @@ inherited F01013: TF01013
               end
               object Edit3: TEdit
                 Left = 379
-                Top = 25
+                Top = 15
                 Width = 121
                 Height = 21
                 TabOrder = 3
@@ -559,9 +564,9 @@ inherited F01013: TF01013
             end
             object DBGridBatida: TDBGridBeleza
               Left = 0
-              Top = 73
+              Top = 57
               Width = 877
-              Height = 172
+              Height = 188
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
               BorderStyle = bsNone
@@ -838,6 +843,8 @@ inherited F01013: TF01013
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
@@ -1135,7 +1142,7 @@ inherited F01013: TF01013
     Left = 856
     Top = 96
     Bitmap = {
-      494C01010F002C00C80118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F002C00CC0118001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000FCFCFC07EAEAEA3ACECECE8AB8B8B8CAABABABEEA7A7
@@ -2537,7 +2544,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010C002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
