@@ -1,10 +1,17 @@
 inherited F03002: TF03002
   Caption = 'F03002'
   OnCreate = FormCreate
+  ExplicitWidth = 834
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
+    ActivePage = TbDados
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
       inherited grDados: TGroupBox
         object Label1: TLabel
           Left = 16
@@ -65,18 +72,24 @@ inherited F03002: TF03002
           Width = 781
           Height = 209
           Columns = <>
-          LargeImages = FPrincipal.ImageList32
+          LargeImages = FPrincipal.ImageList64
           TabOrder = 3
           OnSelectItem = ListViewSelectItem
         end
       end
+    end
+    inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
     end
   end
   inherited ImageList1: TImageList
     Left = 664
     Top = 144
     Bitmap = {
-      494C01010C002C00C00018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00C80018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1317,13 +1330,9 @@ inherited F03002: TF03002
       Origin = 'icone'
     end
   end
-  inherited ActAcoes: TActionList
-    Left = 724
-    Top = 144
-  end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

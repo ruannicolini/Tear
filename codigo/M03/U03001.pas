@@ -14,18 +14,6 @@ uses
 
 type
   TF03001 = class(TFBase)
-    FDQuery1idinterface: TFDAutoIncField;
-    FDQuery1idmodulo: TIntegerField;
-    FDQuery1idgrupo: TIntegerField;
-    FDQuery1descricao: TStringField;
-    FDQuery1icone: TIntegerField;
-    FDQuery1tela: TStringField;
-    ClientDataSet1idinterface: TAutoIncField;
-    ClientDataSet1idmodulo: TIntegerField;
-    ClientDataSet1idgrupo: TIntegerField;
-    ClientDataSet1descricao: TStringField;
-    ClientDataSet1icone: TIntegerField;
-    ClientDataSet1tela: TStringField;
     Label1: TLabel;
     Label2: TLabel;
     DBEdit1: TDBEdit;
@@ -37,18 +25,23 @@ type
     DBEditIcone: TDBEdit;
     Label7: TLabel;
     DBEdit6: TDBEdit;
-    FModulo: TFDQuery;
-    DataSetModulo: TDataSetProvider;
-    ClientDataSetModulo: TClientDataSet;
-    DataSource1: TDataSource;
-    FModuloidmodulo: TFDAutoIncField;
-    FModulodescricao: TStringField;
-    ClientDataSetModuloidmodulo: TAutoIncField;
-    ClientDataSetModulodescricao: TStringField;
-    ClientDataSet1modulo: TStringField;
     ListView: TListView;
     Label4: TLabel;
     DBEditBeleza1: TDBEditBeleza;
+    FDQuery1idinterface: TFDAutoIncField;
+    FDQuery1idmodulo: TIntegerField;
+    FDQuery1idgrupo: TIntegerField;
+    FDQuery1descricao: TStringField;
+    FDQuery1icone: TIntegerField;
+    FDQuery1tela: TStringField;
+    FDQuery1modulo: TStringField;
+    ClientDataSet1idinterface: TAutoIncField;
+    ClientDataSet1idmodulo: TIntegerField;
+    ClientDataSet1idgrupo: TIntegerField;
+    ClientDataSet1descricao: TStringField;
+    ClientDataSet1icone: TIntegerField;
+    ClientDataSet1tela: TStringField;
+    ClientDataSet1modulo: TStringField;
 
     procedure ListViewSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
