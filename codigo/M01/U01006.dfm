@@ -2,7 +2,6 @@ inherited F01006: TF01006
   Caption = 'F01006'
   ClientHeight = 509
   ClientWidth = 812
-  ExplicitTop = -25
   ExplicitWidth = 828
   ExplicitHeight = 548
   PixelsPerInch = 96
@@ -194,7 +193,7 @@ inherited F01006: TF01006
   inherited ImageList1: TImageList
     Left = 392
     Bitmap = {
-      494C01010C002C00F00018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00F40018001800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000006000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1412,16 +1411,6 @@ inherited F01006: TF01006
       FieldName = 'idTipoRecurso'
       ProviderFlags = [pfInUpdate]
     end
-    object ClientDataSet1recurso: TStringField
-      FieldKind = fkLookup
-      FieldName = 'recurso'
-      LookupKeyFields = 'idtipo_recurso'
-      LookupResultField = 'descricao'
-      KeyFields = 'idTipoRecurso'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-      Lookup = True
-    end
     object ClientDataSet1trecurso: TStringField
       FieldName = 'trecurso'
       ProviderFlags = []
@@ -1475,7 +1464,7 @@ inherited F01006: TF01006
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

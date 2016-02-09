@@ -22,7 +22,6 @@ type
     ClientDataSet1patrimonio: TIntegerField;
     ClientDataSet1descricao: TStringField;
     ClientDataSet1idTipoRecurso: TIntegerField;
-    ClientDataSet1recurso: TStringField;
     Label1: TLabel;
     DBEdit1: TDBEdit;
     Label2: TLabel;
