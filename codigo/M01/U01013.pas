@@ -640,35 +640,19 @@ begin
   DModule.qAux.Open;
   DModule.qAux.first;
 
-  //Declaração do tamanho da Matriz de tempo
-  SetLength(matriz, DModule.qAux.RecordCount);
-  for i := 0 to DModule.qAux.RecordCount do
-  begin
-    SetLength(matriz[i], 3);
-  end;
-
-  //Atribuição dos valores na matriz
+  //Contagem dos valores
   i := 0;
   while not DModule.qAux.eof do
   begin
-    matriz[i][0] := StrToInt(DModule.qAux.FieldByName('minutos').AsString);
-    matriz[i][1] := StrToInt(DModule.qAux.FieldByName('segundos').AsString);
-    matriz[i][2] := StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+    mil := StrToInt(DModule.qAux.FieldByName('minutos').AsString) * 60000;
+    seg := StrToInt(DModule.qAux.FieldByName('segundos').AsString) * 1000;
+    min := StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+    fTempoCronometr := fTempoCronometr + ((mil + seg + min) * OneMillisecond);
     i := i +1;
     DModule.qAux.next;
   end;
-
-  // Lê Batidas do Registro da Cronometragem
-  for i := 0 to (Length(matriz)-1) do
-  begin
-    mil := matriz[i][2];
-    seg := (matriz[i][1] * 1000);
-    min := (matriz[i][0] * 60000);
-    //ShowMessage('Min: ' + inttoStr(min) + ' Seg: ' + inttoStr(seg) + 'Mil: '+ inttoStr(mil));
-    fTempoCronometr := fTempoCronometr + ((mil + seg + min) * OneMillisecond);
-  end;
   edit2.Text := formatdatetime('hh:nn:ss.zzz',  fTempoCronometr);
-   }
+
   //DBGrid Batida
   FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
   DS_Batida.DataSet.Close;
