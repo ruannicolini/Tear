@@ -202,6 +202,7 @@ begin
   ClientDataSet1.Filtered := true;
   Width := 957;
   Height := 610;
+  PageControl.ActivePageIndex := 0;
 end;
 
 procedure TF01013.Action5Execute(Sender: TObject);
