@@ -53,6 +53,7 @@ type
     BLast: TSpeedButton;
     Acoes: TActionList;
     Action5: TAction;
+    BtnLimparFiltros: TButton;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
@@ -75,6 +76,7 @@ type
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure Action5Execute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -101,14 +103,14 @@ var
   R : TRect;
   Rgn : HRGN;
 begin
-
   with Componente do
   begin
     R := ClientRect;
     Rgn := CreateRoundRectRgn(R.Left +2, R.Top+2, R.Right-2, R.Bottom-2, Radius, Radius);
-    Perform(EM_GETRECT, 0, lParam(@R));
-    InflateRect(R, -5, -5);
-    Perform(EM_SETRECTNP, 0, lParam(@R));
+
+    //Perform(EM_GETRECT, 0, lParam(@R));
+    //InflateRect(R, -5, -5);
+    //Perform(EM_SETRECTNP, 0, lParam(@R));
     SetWindowRgn(Handle, Rgn, True);
     Invalidate;
   end;
@@ -172,6 +174,7 @@ end;
 procedure TFBase.FormShow(Sender: TObject);
 begin
   BPesquisar.Click;
+  ArredondarComponente(BtnLimparFiltros, 60);
 end;
 
 procedure TFBase.BInserirClick(Sender: TObject);
@@ -239,6 +242,12 @@ procedure TFBase.BSalvarClick(Sender: TObject);
 begin
 DS.DataSet.Post;
 DS.OnDataChange(Sender, nil);
+end;
+
+procedure TFBase.BtnLimparFiltrosClick(Sender: TObject);
+begin
+//
+  ClientDataSet1.Filtered := false;
 end;
 
 procedure TFBase.BCancelarClick(Sender: TObject);
