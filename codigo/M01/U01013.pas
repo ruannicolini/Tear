@@ -259,6 +259,8 @@ end;
 
 procedure TF01013.BInserirClick(Sender: TObject);
 begin
+  edit2.Text := formatdatetime('hh:nn:ss.zzz',  0);
+  CDS_Batida.Close;
   inherited;
   BImportar.Enabled := true;
   BReutilizar.Enabled := false;
@@ -316,7 +318,6 @@ end;
 
 procedure TF01013.BReutilizarClick(Sender: TObject);
 var
-vetor: array of integer;
 matriz: array of array of integer;
 i : integer;
 begin
@@ -348,11 +349,6 @@ begin
   end;
 
   // Salva Batidas no novo Registro da Cronometragem
-  {if not ds.DataSet.Active then
-        ds.DataSet.Open;
-  PageControl.ActivePageIndex := 0;
-  ds.DataSet.Append;
-  }
   BInserirClick(Sender);
   for i := 0 to (Length(matriz)-1) do
   begin
@@ -626,6 +622,10 @@ begin
 end;
 
 procedure TF01013.DSDataChange(Sender: TObject; Field: TField);
+var
+matriz: array of array of integer;
+i, hor, min, seg, mil : integer;
+fTempoCronometr: TTime;
 begin
   inherited;
   //DBGRID TIPO RECURSO
@@ -633,6 +633,42 @@ begin
   DS_Recurso.DataSet.Close;
   DS_Recurso.DataSet.Open;
 
+  //Pega as Batidas da cronometragem selecionada
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
+  DModule.qAux.ParamByName('idCro').AsInteger:= (ClientDataSet1idcronometragem.AsInteger);
+  DModule.qAux.Open;
+  DModule.qAux.first;
+
+  //Declaração do tamanho da Matriz de tempo
+  SetLength(matriz, DModule.qAux.RecordCount);
+  for i := 0 to DModule.qAux.RecordCount do
+  begin
+    SetLength(matriz[i], 3);
+  end;
+
+  //Atribuição dos valores na matriz
+  i := 0;
+  while not DModule.qAux.eof do
+  begin
+    matriz[i][0] := StrToInt(DModule.qAux.FieldByName('minutos').AsString);
+    matriz[i][1] := StrToInt(DModule.qAux.FieldByName('segundos').AsString);
+    matriz[i][2] := StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+    i := i +1;
+    DModule.qAux.next;
+  end;
+
+  // Lê Batidas do Registro da Cronometragem
+  for i := 0 to (Length(matriz)-1) do
+  begin
+    mil := matriz[i][2];
+    seg := (matriz[i][1] * 1000);
+    min := (matriz[i][0] * 60000);
+    //ShowMessage('Min: ' + inttoStr(min) + ' Seg: ' + inttoStr(seg) + 'Mil: '+ inttoStr(mil));
+    fTempoCronometr := fTempoCronometr + ((mil + seg + min) * OneMillisecond);
+  end;
+  edit2.Text := formatdatetime('hh:nn:ss.zzz',  fTempoCronometr);
+   }
   //DBGrid Batida
   FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
   DS_Batida.DataSet.Close;
