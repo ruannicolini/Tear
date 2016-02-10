@@ -15,7 +15,6 @@ uses
 
 type
   TFBase = class(TForm)
-    ImageList1: TImageList;
     DS: TDataSource;
     ClientDataSet1: TClientDataSet;
     DataSetProvider1: TDataSetProvider;

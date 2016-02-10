@@ -261,10 +261,9 @@ procedure TF01013.BInserirClick(Sender: TObject);
 begin
   edit2.Text := formatdatetime('hh:nn:ss.zzz',  0);
   CDS_Batida.Close;
-  inherited;
-  BImportar.Enabled := true;
   BReutilizar.Enabled := false;
-
+  BImportar.Enabled := true;
+  inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit7.Color := CorCamposOnlyRead();
   DBEdit8.Color := CorCamposOnlyRead();
