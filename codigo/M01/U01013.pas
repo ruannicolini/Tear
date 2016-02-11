@@ -136,6 +136,10 @@ type
     FDQuery1cronometrista: TStringField;
     ClientDataSet1cronometrista: TStringField;
     BReutilizar: TSpeedButton;
+    EditBeleza2: TEditBeleza;
+    Edit4: TEdit;
+    chkProduto: TCheckBox;
+    PchkProduto: TPanel;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);

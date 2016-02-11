@@ -12,6 +12,8 @@ inherited F01009: TF01009
     ExplicitWidth = 815
     ExplicitHeight = 481
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 453
       inherited grDados: TGroupBox
@@ -59,6 +61,8 @@ inherited F01009: TF01009
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 453
       inherited GBFiltros: TGroupBox
@@ -122,7 +126,7 @@ inherited F01009: TF01009
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

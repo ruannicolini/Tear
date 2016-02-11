@@ -9,6 +9,7 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 487
+    ActivePage = TbDados
     ExplicitWidth = 811
     ExplicitHeight = 487
     inherited TbDados: TTabSheet
@@ -23,7 +24,7 @@ inherited F01007: TF01007
         ExplicitHeight = 459
         object Label1: TLabel
           Left = 270
-          Top = 16
+          Top = 14
           Width = 22
           Height = 13
           Caption = 'COD'
@@ -31,7 +32,7 @@ inherited F01007: TF01007
         end
         object Label2: TLabel
           Left = 270
-          Top = 103
+          Top = 101
           Width = 59
           Height = 13
           Caption = 'DESCRI'#199#195'O'
@@ -39,14 +40,14 @@ inherited F01007: TF01007
         end
         object Label3: TLabel
           Left = 270
-          Top = 59
+          Top = 57
           Width = 27
           Height = 13
           Caption = 'DATA'
         end
         object Label4: TLabel
           Left = 402
-          Top = 59
+          Top = 57
           Width = 35
           Height = 13
           Caption = 'GRUPO'
@@ -135,7 +136,7 @@ inherited F01007: TF01007
         end
         object DBEdit1: TDBEdit
           Left = 270
-          Top = 32
+          Top = 30
           Width = 119
           Height = 21
           TabStop = False
@@ -146,7 +147,7 @@ inherited F01007: TF01007
         end
         object DBEdit2: TDBEdit
           Left = 270
-          Top = 119
+          Top = 117
           Width = 232
           Height = 21
           Align = alCustom
@@ -158,7 +159,7 @@ inherited F01007: TF01007
         end
         object DBEdit4: TDBEdit
           Left = 402
-          Top = 75
+          Top = 73
           Width = 35
           Height = 21
           TabStop = False
@@ -170,7 +171,7 @@ inherited F01007: TF01007
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
           Left = 270
-          Top = 75
+          Top = 73
           Width = 120
           Height = 21
           Hint = 'Duplo Clique para Buscar a data de hoje!'
@@ -183,7 +184,7 @@ inherited F01007: TF01007
         end
         object DBEditBeleza1: TDBEditBeleza
           Left = 436
-          Top = 75
+          Top = 73
           Width = 66
           Height = 21
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -253,7 +254,7 @@ inherited F01007: TF01007
         end
         object GroupBoxOperacoes: TGroupBox
           Left = 270
-          Top = 149
+          Top = 147
           Width = 232
           Height = 138
           Align = alCustom
@@ -422,7 +423,7 @@ inherited F01007: TF01007
         end
         object GroupBoxDependencias: TGroupBox
           Left = 270
-          Top = 308
+          Top = 306
           Width = 232
           Height = 124
           Align = alCustom
@@ -503,6 +504,7 @@ inherited F01007: TF01007
             Hint = 'Clique no Titulo da Coluna para Ordenar'
             Align = alClient
             BorderStyle = bsNone
+            Color = 16382457
             DataSource = DataSource2
             FixedColor = 16762447
             Font.Charset = DEFAULT_CHARSET
@@ -510,7 +512,7 @@ inherited F01007: TF01007
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = []
-            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
             ParentFont = False
             ParentShowHint = False
             ShowHint = True
@@ -520,12 +522,12 @@ inherited F01007: TF01007
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
-            Cor_2 = 16773849
+            Cor_2 = 16382457
             Direcao_Cor2 = dg_Vertical
             Direcao_Enter = dg_Horiz
             ClickTituloOrdenar = True
             MarcarLinhaInteira = False
-            CorLinhaMarcada = clSilver
+            CorLinhaMarcada = 16382457
             BloquearExportacoes = False
             Columns = <
               item
@@ -761,7 +763,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1383,7 +1385,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

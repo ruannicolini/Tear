@@ -12,6 +12,8 @@ inherited F01010: TF01010
     ExplicitWidth = 813
     ExplicitHeight = 517
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 805
       ExplicitHeight = 489
       inherited grDados: TGroupBox
@@ -214,10 +216,6 @@ inherited F01010: TF01010
           object Recursos: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object GroupBox1: TGroupBox
               Left = 0
               Top = 0
@@ -335,6 +333,8 @@ inherited F01010: TF01010
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 805
       ExplicitHeight = 489
       inherited GBFiltros: TGroupBox
@@ -469,7 +469,7 @@ inherited F01010: TF01010
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010D002C00D80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

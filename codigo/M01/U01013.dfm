@@ -3,7 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -419
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -14,6 +13,8 @@ inherited F01013: TF01013
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited grDados: TGroupBox
@@ -501,7 +502,7 @@ inherited F01013: TF01013
           Top = 216
           Width = 885
           Height = 273
-          ActivePage = TabSheet1
+          ActivePage = TabSheet2
           TabOrder = 18
           TabStop = False
           object TabSheet1: TTabSheet
@@ -842,19 +843,88 @@ inherited F01013: TF01013
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
         Width = 1182
+        Height = 73
+        Color = clBtnFace
         ExplicitWidth = 1182
+        ExplicitHeight = 73
         inherited BtnLimparFiltros: TButton
           Left = 1131
+          Top = 24
           ExplicitLeft = 1131
+          ExplicitTop = 20
+        end
+        object PchkProduto: TPanel
+          Left = 491
+          Top = 22
+          Width = 26
+          Height = 21
+          BevelInner = bvLowered
+          Color = 15724527
+          ParentBackground = False
+          TabOrder = 1
+          Visible = False
+        end
+        object Edit4: TEdit
+          Left = 14
+          Top = 30
+          Width = 25
+          Height = 21
+          Color = 15724527
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object EditBeleza2: TEditBeleza
+          Left = 38
+          Top = 30
+          Width = 198
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idproduto, descricao from produto '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = True
+          Outro_Edit = Edit4
+          campo_outro_edit = 'idProduto'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object chkProduto: TCheckBox
+          Left = 14
+          Top = 12
+          Width = 222
+          Height = 17
+          Caption = 'PRODUTO'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
         end
       end
       inherited DBGridBeleza1: TDBGridBeleza
+        Top = 73
         Width = 1182
-        Height = 550
+        Height = 514
         Columns = <
           item
             Alignment = taCenter
@@ -1145,7 +1215,7 @@ inherited F01013: TF01013
   end
   inherited ClientDataSet1: TClientDataSet
     IndexFieldNames = 'idOperacao'
-    Left = 760
+    Left = 752
     Top = 96
     object ClientDataSet1idcronometragem: TIntegerField
       FieldName = 'idcronometragem'
@@ -1346,7 +1416,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010D002C00480110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00540110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
