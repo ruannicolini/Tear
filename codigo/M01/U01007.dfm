@@ -12,6 +12,8 @@ inherited F01007: TF01007
     ExplicitWidth = 811
     ExplicitHeight = 487
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 459
       inherited grDados: TGroupBox
@@ -251,7 +253,7 @@ inherited F01007: TF01007
         end
         object GroupBoxOperacoes: TGroupBox
           Left = 270
-          Top = 158
+          Top = 149
           Width = 232
           Height = 138
           Align = alCustom
@@ -420,7 +422,7 @@ inherited F01007: TF01007
         end
         object GroupBoxDependencias: TGroupBox
           Left = 270
-          Top = 317
+          Top = 308
           Width = 232
           Height = 124
           Align = alCustom
@@ -608,6 +610,8 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 459
       inherited GBFiltros: TGroupBox
@@ -757,7 +761,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1379,7 +1383,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C0101030008008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
