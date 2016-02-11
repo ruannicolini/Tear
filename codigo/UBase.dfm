@@ -777,35 +777,48 @@ object FBase: TFBase
         Left = 0
         Top = 0
         Width = 810
-        Height = 37
+        Height = 38
         Align = alTop
-        Color = 16382457
+        Color = clWhite
         ParentBackground = False
         ParentColor = False
         TabOrder = 0
-        object BtnLimparFiltros: TButton
-          Left = 760
-          Top = 6
-          Width = 45
-          Height = 25
+        object Panel1: TPanel
+          Left = 3
+          Top = 3
+          Width = 801
+          Height = 31
           Align = alCustom
-          Anchors = [akRight]
-          ImageAlignment = iaCenter
-          ImageIndex = 12
-          Images = ImageListBase
+          Anchors = [akLeft, akTop, akRight]
+          BevelOuter = bvNone
+          ParentBackground = False
           TabOrder = 0
-          OnClick = BtnLimparFiltrosClick
+          object BtnLimparFiltros: TButton
+            Left = 756
+            Top = 5
+            Width = 45
+            Height = 25
+            Align = alCustom
+            Anchors = [akRight]
+            ImageAlignment = iaCenter
+            ImageIndex = 12
+            Images = ImageListBase
+            TabOrder = 0
+            OnClick = BtnLimparFiltrosClick
+            ExplicitLeft = 695
+            ExplicitTop = 3
+          end
         end
       end
       object DBGridBeleza1: TDBGridBeleza
         Left = 0
-        Top = 37
+        Top = 38
         Width = 810
-        Height = 418
+        Height = 417
         Hint = 'Clique no Titulo da Coluna para Ordenar'
         Align = alClient
         BorderStyle = bsNone
-        Color = 16382457
+        Color = clBtnFace
         DataSource = DS
         FixedColor = 16762447
         GradientEndColor = 16382457
@@ -826,11 +839,11 @@ object FBase: TFBase
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = [fsBold]
         Cor_2 = 16382457
-        Direcao_Cor2 = dg_Vertical
+        Direcao_Cor2 = dg_Horiz
         Direcao_Enter = dg_Horiz
         ClickTituloOrdenar = True
         MarcarLinhaInteira = True
-        CorLinhaMarcada = 16382457
+        CorLinhaMarcada = 15854564
         BloquearExportacoes = False
       end
     end
@@ -1553,7 +1566,7 @@ object FBase: TFBase
     Left = 448
     Top = 248
     Bitmap = {
-      494C01010D002C00CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

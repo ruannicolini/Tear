@@ -53,6 +53,7 @@ type
     Acoes: TActionList;
     Action5: TAction;
     BtnLimparFiltros: TButton;
+    Panel1: TPanel;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
