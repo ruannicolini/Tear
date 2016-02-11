@@ -3,7 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -419
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -846,53 +845,53 @@ inherited F01013: TF01013
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
         Width = 1182
-        Height = 61
+        Height = 37
         ExplicitWidth = 1182
-        ExplicitHeight = 61
+        ExplicitHeight = 37
         inherited Panel1: TPanel
           Width = 1175
-          Height = 54
           ExplicitWidth = 1175
-          ExplicitHeight = 54
           inherited BtnLimparFiltros: TButton
             Left = 1122
-            Top = 14
+            Top = 2
             Height = 28
             ExplicitLeft = 1122
-            ExplicitTop = 14
+            ExplicitTop = 8
             ExplicitHeight = 28
           end
+          object Edit4: TEdit
+            Left = 295
+            Top = 7
+            Width = 25
+            Height = 21
+            Color = 15724527
+            ReadOnly = True
+            TabOrder = 1
+            Visible = False
+          end
           object chkProduto: TCheckBox
-            Left = 14
-            Top = 5
-            Width = 222
+            Left = 17
+            Top = 9
+            Width = 181
             Height = 17
             Caption = 'PRODUTO'
             Color = clBtnFace
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
-            Font.Name = 'Tahoma'
+            Font.Name = 'Century Gothic'
             Font.Style = []
             ParentColor = False
             ParentFont = False
-            TabOrder = 1
-          end
-          object Edit4: TEdit
-            Left = 14
-            Top = 22
-            Width = 25
-            Height = 21
-            Color = 15724527
-            ReadOnly = True
             TabOrder = 2
+            Visible = False
           end
-          object EditBeleza2: TEditBeleza
-            Left = 38
-            Top = 22
-            Width = 198
+          object DBEditBeleza7: TDBEditBeleza
+            Left = 89
+            Top = 11
+            Width = 200
             Height = 21
-            Color = 15724527
+            Color = 16382457
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -900,37 +899,19 @@ inherited F01013: TF01013
             Font.Style = []
             ParentFont = False
             TabOrder = 3
+            Visible = False
             Ativar_Pesquisa = True
-            Ativar_MultiSelecao = False
-            mostrar_Botao = True
-            sql.Strings = (
-              'select idproduto, descricao from produto '
-              'where descricao like :varDescricao')
-            database = 'balay'
-            campo = 'descricao'
-            Sempre_Mostrar_Janela = True
-            Outro_Edit = Edit4
-            campo_outro_edit = 'idProduto'
+            mostrar_Botao = False
+            Sempre_Mostrar_Janela = False
             CorBorda = clGray
             NovoLayout = False
           end
         end
-        object PchkProduto: TPanel
-          Left = 491
-          Top = 22
-          Width = 26
-          Height = 21
-          BevelInner = bvLowered
-          Color = 15724527
-          ParentBackground = False
-          TabOrder = 1
-          Visible = False
-        end
       end
       inherited DBGridBeleza1: TDBGridBeleza
-        Top = 61
+        Top = 37
         Width = 1182
-        Height = 526
+        Height = 550
         Columns = <
           item
             Alignment = taCenter
@@ -989,34 +970,6 @@ inherited F01013: TF01013
             Visible = True
           end
           item
-            Expanded = False
-            FieldName = 'idCronometrista'
-            Title.Caption = ' '
-            Width = 74
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'cronometrista'
-            Title.Caption = 'CRONOMET.'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'idOperador'
-            Title.Caption = ' '
-            Width = 74
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'operador'
-            Title.Caption = 'OPERADOR'
-            Width = 100
-            Visible = True
-          end
-          item
             Alignment = taCenter
             Expanded = False
             FieldName = 'tempo_original'
@@ -1053,6 +1006,34 @@ inherited F01013: TF01013
             Expanded = False
             FieldName = 'tolerancia'
             Title.Caption = 'TOLER'#194'NCIA'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idCronometrista'
+            Title.Caption = ' '
+            Width = 74
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'cronometrista'
+            Title.Caption = 'CRONOMET.'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idOperador'
+            Title.Caption = ' '
+            Width = 74
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'operador'
+            Title.Caption = 'OPERADOR'
             Width = 100
             Visible = True
           end
@@ -1423,7 +1404,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010D002C00580110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C005C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
