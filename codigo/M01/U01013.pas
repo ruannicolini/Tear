@@ -10,7 +10,8 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.ComCtrls, Vcl.Buttons, Vcl.DBCtrls, Vcl.Mask, DBEditBeleza, EditBeleza, DATEUTILS;
+  Vcl.ComCtrls, Vcl.Buttons, Vcl.DBCtrls, Vcl.Mask, DBEditBeleza, EditBeleza, DATEUTILS,
+  DBSQLEditBeleza;
 
 type
   TF01013 = class(TFBase)
@@ -138,7 +139,10 @@ type
     BReutilizar: TSpeedButton;
     Edit4: TEdit;
     chkProduto: TCheckBox;
-    DBEditBeleza7: TDBEditBeleza;
+    ChkOperacao: TCheckBox;
+    Edit5: TEdit;
+    EditBeleza2: TEditBeleza;
+    EditBeleza3: TEditBeleza;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
@@ -166,6 +170,7 @@ type
     procedure Action5Execute(Sender: TObject);
     procedure btnLapKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BReutilizarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -462,6 +467,37 @@ begin
   begin
     btnLap.Click;
   end;
+end;
+
+procedure TF01013.BtnLimparFiltrosClick(Sender: TObject);
+var
+cont : integer;
+  i: Integer;
+  vetor: array[1..2] of Integer;
+begin
+  inherited;
+  {ClientDataSet1.Filtered := false;
+
+  cont := 0;
+  if(chkProduto.Checked = true)then
+    cont := cont + 1;
+    vetor[0] := 1;
+  if(ChkOperacao.Checked = true)then
+    cont := cont +1;
+    vetor[]
+
+  for i := 0 to cont do
+  begin
+    if(i >0)then
+      ClientDataSet1.Filter := ClientDataSet1.Filter + ' and ';
+    if(chkProduto.Checked = true)then
+    begin
+      //ClientDataSet1.Filter := 'idProduto = ' + IntToStr(Edit4.Text);
+    end;
+  end;
+  ClientDataSet1.Filtered := true;
+  }
+
 end;
 
 procedure TF01013.btnINICIARClick(Sender: TObject);

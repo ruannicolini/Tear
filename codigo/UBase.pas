@@ -56,6 +56,7 @@ type
     Panel1: TPanel;
     PanelFiltros: TPanel;
     ActionMostrarFiltros: TAction;
+    btnFiltrar: TButton;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
@@ -189,6 +190,7 @@ end;
 procedure TFBase.FormShow(Sender: TObject);
 begin
   BPesquisar.Click;
+  ArredondarComponente(btnFiltrar, 60);
   ArredondarComponente(BtnLimparFiltros, 60);
 end;
 
