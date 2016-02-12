@@ -775,7 +775,7 @@ object FBase: TFBase
       ImageIndex = 1
       object GBFiltros: TGroupBox
         Left = 0
-        Top = 0
+        Top = 73
         Width = 810
         Height = 38
         Align = alTop
@@ -783,6 +783,7 @@ object FBase: TFBase
         ParentBackground = False
         ParentColor = False
         TabOrder = 0
+        ExplicitTop = 0
         object Panel1: TPanel
           Left = 3
           Top = 3
@@ -805,16 +806,14 @@ object FBase: TFBase
             Images = ImageListBase
             TabOrder = 0
             OnClick = BtnLimparFiltrosClick
-            ExplicitLeft = 695
-            ExplicitTop = 3
           end
         end
       end
       object DBGridBeleza1: TDBGridBeleza
         Left = 0
-        Top = 38
+        Top = 111
         Width = 810
-        Height = 417
+        Height = 344
         Hint = 'Clique no Titulo da Coluna para Ordenar'
         Align = alClient
         BorderStyle = bsNone
@@ -845,6 +844,16 @@ object FBase: TFBase
         MarcarLinhaInteira = True
         CorLinhaMarcada = 15854564
         BloquearExportacoes = False
+      end
+      object PanelFiltros: TPanel
+        Left = 0
+        Top = 0
+        Width = 810
+        Height = 73
+        Align = alTop
+        ParentBackground = False
+        TabOrder = 2
+        Visible = False
       end
     end
   end
@@ -1566,7 +1575,7 @@ object FBase: TFBase
     Left = 448
     Top = 248
     Bitmap = {
-      494C01010D002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00D40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -2106,7 +2115,13 @@ object FBase: TFBase
     Top = 248
     object Action5: TAction
       Caption = 'acCancelar'
+      ShortCut = 27
       OnExecute = Action5Execute
+    end
+    object ActionMostrarFiltros: TAction
+      Caption = 'MostrarFiltros'
+      ShortCut = 117
+      OnExecute = ActionMostrarFiltrosExecute
     end
   end
 end

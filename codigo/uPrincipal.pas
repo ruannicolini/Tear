@@ -38,7 +38,6 @@ type
     procedure AumentarBotao(Sender: TObject);
     procedure DiminuirBotao(Sender: TObject);
     function fncAlturaBarraTarefas: Integer;
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -104,11 +103,6 @@ begin
   TButton(sender).Left := TButton(sender).Left - 5;
   TButton(sender).Top := TButton(sender).Top - 5;
   }
-end;
-
-procedure TFPrincipal.Button1Click(Sender: TObject);
-begin
-  Image1.Canvas.Arc(15, 20, 100, 100, 100, 100, 100, 100);
 end;
 
 procedure TFPrincipal.CriarForm(Tela, Desc : String);

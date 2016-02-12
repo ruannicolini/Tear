@@ -500,7 +500,7 @@ inherited F01013: TF01013
           Top = 216
           Width = 885
           Height = 273
-          ActivePage = TabSheet2
+          ActivePage = TabSheet1
           TabOrder = 18
           TabStop = False
           object TabSheet1: TTabSheet
@@ -844,74 +844,31 @@ inherited F01013: TF01013
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
+        Top = 67
         Width = 1182
-        Height = 37
+        Height = 35
+        ExplicitTop = 73
         ExplicitWidth = 1182
-        ExplicitHeight = 37
+        ExplicitHeight = 35
         inherited Panel1: TPanel
           Width = 1175
+          Height = 29
           ExplicitWidth = 1175
+          ExplicitHeight = 29
           inherited BtnLimparFiltros: TButton
             Left = 1122
-            Top = 2
+            Top = 1
             Height = 28
             ExplicitLeft = 1122
-            ExplicitTop = 8
+            ExplicitTop = 1
             ExplicitHeight = 28
-          end
-          object Edit4: TEdit
-            Left = 295
-            Top = 7
-            Width = 25
-            Height = 21
-            Color = 15724527
-            ReadOnly = True
-            TabOrder = 1
-            Visible = False
-          end
-          object chkProduto: TCheckBox
-            Left = 17
-            Top = 9
-            Width = 181
-            Height = 17
-            Caption = 'PRODUTO'
-            Color = clBtnFace
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Century Gothic'
-            Font.Style = []
-            ParentColor = False
-            ParentFont = False
-            TabOrder = 2
-            Visible = False
-          end
-          object DBEditBeleza7: TDBEditBeleza
-            Left = 89
-            Top = 11
-            Width = 200
-            Height = 21
-            Color = 16382457
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 3
-            Visible = False
-            Ativar_Pesquisa = True
-            mostrar_Botao = False
-            Sempre_Mostrar_Janela = False
-            CorBorda = clGray
-            NovoLayout = False
           end
         end
       end
       inherited DBGridBeleza1: TDBGridBeleza
-        Top = 37
+        Top = 102
         Width = 1182
-        Height = 550
+        Height = 485
         Columns = <
           item
             Alignment = taCenter
@@ -1053,6 +1010,58 @@ inherited F01013: TF01013
             Width = 100
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        Width = 1182
+        Height = 67
+        Color = clBtnFace
+        ExplicitWidth = 1182
+        ExplicitHeight = 67
+        object chkProduto: TCheckBox
+          Left = 17
+          Top = 9
+          Width = 181
+          Height = 17
+          Caption = 'PRODUTO'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Century Gothic'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+          TabOrder = 0
+        end
+        object DBEditBeleza7: TDBEditBeleza
+          Left = 17
+          Top = 27
+          Width = 200
+          Height = 21
+          Color = 16382457
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          Ativar_Pesquisa = True
+          mostrar_Botao = False
+          Sempre_Mostrar_Janela = False
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object Edit4: TEdit
+          Left = 216
+          Top = 27
+          Width = 25
+          Height = 21
+          Color = 15724527
+          ReadOnly = True
+          TabOrder = 2
+          Visible = False
+        end
       end
     end
   end
@@ -1404,7 +1413,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 96
     Bitmap = {
-      494C01010D002C005C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00640110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

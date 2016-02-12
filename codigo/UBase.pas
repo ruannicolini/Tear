@@ -54,6 +54,8 @@ type
     Action5: TAction;
     BtnLimparFiltros: TButton;
     Panel1: TPanel;
+    PanelFiltros: TPanel;
+    ActionMostrarFiltros: TAction;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
@@ -77,6 +79,7 @@ type
     procedure Action5Execute(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure ActionMostrarFiltrosExecute(Sender: TObject);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -96,6 +99,18 @@ implementation
 procedure TFBase.Action5Execute(Sender: TObject);
 begin
 //
+end;
+
+procedure TFBase.ActionMostrarFiltrosExecute(Sender: TObject);
+begin
+  if(PanelFiltros.Visible = true) then
+  begin
+       PanelFiltros.Visible := false;
+  end else
+  begin
+    PanelFiltros.Visible := true;
+  end;
+
 end;
 
 procedure TFBase.ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
