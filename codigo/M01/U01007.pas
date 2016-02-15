@@ -119,6 +119,8 @@ type
     procedure ClientDataSet2AfterPost(DataSet: TDataSet);
     procedure DataSource3DataChange(Sender: TObject; Field: TField);
     procedure Button5Click(Sender: TObject);
+    procedure EditBeleza2ButtonClick(Sender: TObject;
+      var query_result: TFDQuery);
   private
     { Private declarations }
   public
@@ -468,6 +470,14 @@ begin
   DataSource3.DataSet.Close;
   DataSource3.DataSet.Open;
 
+end;
+
+procedure TF01007.EditBeleza2ButtonClick(Sender: TObject;
+  var query_result: TFDQuery);
+begin
+  inherited;
+  //
+  query_result.ParamByName('x').Value := (ClientDataSet1idProduto.AsInteger);
 end;
 
 Initialization

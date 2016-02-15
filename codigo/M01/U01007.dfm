@@ -2,6 +2,7 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 522
   ClientWidth = 811
+  ExplicitTop = -65
   ExplicitWidth = 827
   ExplicitHeight = 561
   PixelsPerInch = 96
@@ -486,7 +487,9 @@ inherited F01007: TF01007
               mostrar_Botao = True
               sql.Strings = (
                 'select idOPERACAO, descricao from OPERACAO '
-                'where descricao like :varDescricao')
+                
+                  'where descricao like :varDescricao and idOperacao in (select dis' +
+                  'tinct idOperacao from produto_has_operacao where idproduto =:x)')
               database = 'balay'
               campo = 'descricao'
               Sempre_Mostrar_Janela = False
@@ -494,6 +497,7 @@ inherited F01007: TF01007
               campo_outro_edit = 'idOperacao'
               CorBorda = clGray
               NovoLayout = False
+              OnButtonClick = EditBeleza2ButtonClick
             end
           end
           object DBGridBeleza3: TDBGridBeleza
@@ -619,14 +623,16 @@ inherited F01007: TF01007
       inherited GBFiltros: TGroupBox
         Width = 803
         ExplicitWidth = 803
-        inherited BtnLimparFiltros: TButton
-          Left = 755
-          ExplicitLeft = 755
+        inherited Panel1: TPanel
+          inherited BtnLimparFiltros: TButton
+            Left = 755
+            ExplicitLeft = 755
+          end
         end
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 803
-        Height = 422
+        Height = 348
         Columns = <
           item
             Alignment = taCenter
@@ -663,6 +669,14 @@ inherited F01007: TF01007
             Width = 820
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        Width = 803
+        ExplicitWidth = 803
+        inherited btnFiltrar: TButton
+          Left = 752
+          ExplicitLeft = 752
+        end
       end
     end
   end
@@ -763,7 +777,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C002C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1385,7 +1399,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
