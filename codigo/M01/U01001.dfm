@@ -2,7 +2,7 @@ inherited F01001: TF01001
   Caption = 'F01001'
   ClientHeight = 501
   ClientWidth = 815
-  ExplicitLeft = 8
+  ExplicitLeft = -27
   ExplicitWidth = 831
   ExplicitHeight = 540
   PixelsPerInch = 96
@@ -64,7 +64,6 @@ inherited F01001: TF01001
       ExplicitHeight = 438
       inherited GBFiltros: TGroupBox
         Width = 807
-        ExplicitTop = 73
         ExplicitWidth = 807
       end
       inherited DBGridBeleza1: TDBGridBeleza
@@ -92,6 +91,7 @@ inherited F01001: TF01001
         ExplicitWidth = 807
         inherited btnFiltrar: TButton
           Left = 756
+          OnClick = btnFiltrarClick
           ExplicitLeft = 756
         end
       end
@@ -136,7 +136,7 @@ inherited F01001: TF01001
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00C80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

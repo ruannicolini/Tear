@@ -33,6 +33,7 @@ type
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -131,6 +132,14 @@ begin
        showmessage('Preencha o Campo Descrição');
        DBEdit2.SetFocus;
       end;
+end;
+
+procedure TF01001.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  ClientDataSet1.Filtered := false;
+  //ClientDataSet1.Filter := 'descricao like %' + IntToStr(ParIdProduto) +'%';
+  ClientDataSet1.Filtered := true;
 end;
 
 procedure TF01001.ClientDataSet1AfterInsert(DataSet: TDataSet);
