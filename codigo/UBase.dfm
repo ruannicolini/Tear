@@ -12,6 +12,7 @@ object FBase: TFBase
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -783,7 +784,6 @@ object FBase: TFBase
         ParentBackground = False
         ParentColor = False
         TabOrder = 0
-        ExplicitTop = 0
         object Panel1: TPanel
           Left = 3
           Top = 3
@@ -1588,7 +1588,7 @@ object FBase: TFBase
     Left = 448
     Top = 248
     Bitmap = {
-      494C01010E002C00E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -2,6 +2,7 @@ inherited F01002: TF01002
   Caption = 'F01002'
   ClientHeight = 515
   ClientWidth = 813
+  ExplicitLeft = 8
   ExplicitWidth = 829
   ExplicitHeight = 554
   PixelsPerInch = 96
@@ -63,11 +64,12 @@ inherited F01002: TF01002
       ExplicitHeight = 452
       inherited GBFiltros: TGroupBox
         Width = 805
+        ExplicitTop = 73
         ExplicitWidth = 805
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 805
-        Height = 415
+        Height = 341
         Columns = <
           item
             Alignment = taCenter
@@ -81,9 +83,17 @@ inherited F01002: TF01002
             Expanded = False
             FieldName = 'nome'
             Title.Caption = 'NOME'
-            Width = 736
+            Width = 1258
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        Width = 805
+        ExplicitWidth = 805
+        inherited btnFiltrar: TButton
+          Left = 754
+          ExplicitLeft = 754
+        end
       end
     end
   end
@@ -134,7 +144,7 @@ inherited F01002: TF01002
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -339,7 +339,7 @@ begin
 
   //Declaração do tamanho da Matriz de tempo
   SetLength(matriz, DModule.qAux.RecordCount);
-  for i := 0 to DModule.qAux.RecordCount do
+  for i := 0 to (DModule.qAux.RecordCount -1) do
   begin
     SetLength(matriz[i], 3);
   end;
@@ -375,6 +375,9 @@ begin
   FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
   DS_Batida.DataSet.Close;
   DS_Batida.DataSet.Open;
+
+  //Mostra tempo certo no cronometro
+  DS.OnDataChange(Sender, nil);
 
 end;
 
@@ -641,6 +644,7 @@ begin
     if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
      begin
         CDS_Batida.Delete;
+        DS.OnDataChange(Sender, nil);
      end;
   end;
 end;

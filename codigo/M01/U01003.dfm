@@ -2,6 +2,7 @@ inherited F01003: TF01003
   Caption = 'F01003'
   ClientHeight = 532
   ClientWidth = 820
+  ExplicitLeft = 8
   ExplicitWidth = 836
   ExplicitHeight = 571
   PixelsPerInch = 96
@@ -73,10 +74,6 @@ inherited F01003: TF01003
           TabStop = False
           object Operadores: TTabSheet
             Caption = 'Operadores'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object DBGridBeleza2: TDBGridBeleza
               Left = 0
               Top = 0
@@ -133,10 +130,6 @@ inherited F01003: TF01003
           object Fases: TTabSheet
             Caption = 'Fases'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object DBGridBeleza3: TDBGridBeleza
               Left = 0
               Top = 59
@@ -273,11 +266,12 @@ inherited F01003: TF01003
       ExplicitHeight = 469
       inherited GBFiltros: TGroupBox
         Width = 812
+        ExplicitTop = 73
         ExplicitWidth = 812
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 812
-        Height = 432
+        Height = 358
         Columns = <
           item
             Alignment = taCenter
@@ -291,9 +285,17 @@ inherited F01003: TF01003
             Expanded = False
             FieldName = 'descricao'
             Title.Caption = 'DESCRI'#199#195'O'
-            Width = 738
+            Width = 1258
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        Width = 812
+        ExplicitWidth = 812
+        inherited btnFiltrar: TButton
+          Left = 761
+          ExplicitLeft = 761
+        end
       end
     end
   end
@@ -348,7 +350,7 @@ inherited F01003: TF01003
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

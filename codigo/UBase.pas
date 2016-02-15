@@ -81,6 +81,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure ActionMostrarFiltrosExecute(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -185,6 +186,11 @@ begin
       StatusBotoes(1)
     else
       StatusBotoes(2);
+end;
+
+procedure TFBase.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action5.Execute;
 end;
 
 procedure TFBase.FormShow(Sender: TObject);
