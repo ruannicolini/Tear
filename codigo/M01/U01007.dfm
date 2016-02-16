@@ -2,7 +2,6 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 525
   ClientWidth = 811
-  ExplicitTop = -149
   ExplicitWidth = 827
   ExplicitHeight = 564
   PixelsPerInch = 96
@@ -10,7 +9,6 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 490
-    ActivePage = TbDados
     ExplicitWidth = 811
     ExplicitHeight = 487
     inherited TbDados: TTabSheet
@@ -21,8 +19,9 @@ inherited F01007: TF01007
       inherited grDados: TGroupBox
         Width = 803
         Height = 462
+        ExplicitLeft = 2
         ExplicitWidth = 803
-        ExplicitHeight = 459
+        ExplicitHeight = 462
         object Label1: TLabel
           Left = 270
           Top = 14
@@ -450,11 +449,20 @@ inherited F01007: TF01007
           Text = 'Edit2'
           Visible = False
         end
+        object Edit1: TEdit
+          Left = 188
+          Top = 239
+          Width = 80
+          Height = 21
+          TabStop = False
+          ReadOnly = True
+          TabOrder = 8
+          Text = 'Edit1'
+          Visible = False
+        end
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 459
       inherited GBFiltros: TGroupBox
@@ -517,20 +525,8 @@ inherited F01007: TF01007
       end
     end
   end
-  object Edit1: TEdit [1]
-    Left = 188
-    Top = 239
-    Width = 80
-    Height = 21
-    TabStop = False
-    ReadOnly = True
-    TabOrder = 1
-    Text = 'Edit1'
-    Visible = False
-  end
   inherited Panel2: TPanel
     Width = 811
-    TabOrder = 2
     ExplicitWidth = 811
     inherited BFechar: TSpeedButton
       Left = 777

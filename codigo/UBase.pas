@@ -195,7 +195,6 @@ end;
 
 procedure TFBase.FormShow(Sender: TObject);
 begin
-  BPesquisar.Click;
   ArredondarComponente(btnFiltrar, 60);
   ArredondarComponente(BtnLimparFiltros, 60);
 end;

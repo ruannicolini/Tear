@@ -143,6 +143,12 @@ type
     Edit5: TEdit;
     EditBeleza2: TEditBeleza;
     EditBeleza3: TEditBeleza;
+    FDQuery1tempoPadraoFinal: TSingleField;
+    ClientDataSet1tempoPadraoFinal: TSingleField;
+    Label16: TLabel;
+    DBEdit16: TDBEdit;
+    BitBtn3: TBitBtn;
+    Edit6: TEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
@@ -171,6 +177,10 @@ type
     procedure btnLapKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BReutilizarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure DBEdit16Change(Sender: TObject);
+    procedure ClientDataSet1toleranciaChange(Sender: TField);
+    procedure ClientDataSet1ritmoChange(Sender: TField);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -183,6 +193,7 @@ type
     milissegundoAUX: integer; // milessegundos parados
     ParIdProduto : integer;
     ParIdOperacao : integer;
+    procedure CalculaTempoPadraoFinal();
 
   public
     { Public declarations }
@@ -208,6 +219,7 @@ begin
   ClientDataSet1.Filtered := false;
   ClientDataSet1.Filter := 'idProduto = ' + IntToStr(ParIdProduto) + ' and idOperacao = ' + IntToStr(ParIdOperacao);
   ClientDataSet1.Filtered := true;
+  BPesquisar.Click;
   Width := 957;
   Height := 610;
   PageControl.ActivePageIndex := 0;
@@ -250,6 +262,7 @@ begin
   DBEdit9.Color := $00EFEFEF;
   DBEdit10.Color := $00EFEFEF;
   DBEdit11.Color := $00EFEFEF;
+  Edit6.Color := clWindow;
 end;
 
 procedure TF01013.BEditarClick(Sender: TObject);
@@ -263,6 +276,7 @@ begin
   DBEdit9.Color := CorCamposOnlyRead();
   DBEdit10.Color := CorCamposOnlyRead();
   DBEdit11.Color := CorCamposOnlyRead();
+  Edit6.Color := CorCamposOnlyRead();
 end;
 
 procedure TF01013.BInserirClick(Sender: TObject);
@@ -278,7 +292,7 @@ begin
   DBEdit9.Color := CorCamposOnlyRead();
   DBEdit10.Color := CorCamposOnlyRead();
   DBEdit11.Color := CorCamposOnlyRead();
-
+  Edit6.Color := CorCamposOnlyRead();
   DBCheckBox1.Checked := false;
   DBCheckBox2.Checked := false;
 
@@ -321,6 +335,12 @@ begin
   begin
     CDS_Recurso.Delete;
   end;
+end;
+
+procedure TF01013.BitBtn3Click(Sender: TObject);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
 end;
 
 procedure TF01013.BReutilizarClick(Sender: TObject);
@@ -398,6 +418,7 @@ begin
   DBEdit9.Color := $00EFEFEF;
   DBEdit10.Color := $00EFEFEF;
   DBEdit11.Color := $00EFEFEF;
+  Edit6.Color := clWindow;
 end;
 
 procedure TF01013.btnLapClick(Sender: TObject);
@@ -456,6 +477,8 @@ begin
     DS_Batida.DataSet.Close;
     DS_Batida.DataSet.Open;
 
+    //Recalcula o TPF
+    CalculaTempoPadraoFinal;
 
     end;
 end;
@@ -578,6 +601,46 @@ begin
       end;
 end;
 
+procedure TF01013.CalculaTempoPadraoFinal;
+var
+i, hor, min, seg, mil, soma : integer;
+tempoMedio, tempoPadrao, tempoPadraoFinal: double;
+fTPF: Ttime;
+begin
+  //Obtenção dos dados
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
+    DModule.qAux.ParamByName('idCro').AsInteger:= (ClientDataSet1idcronometragem.AsInteger);
+    DModule.qAux.Open;
+    DModule.qAux.first;
+    //Contagem dos valores
+    i := 0;
+    min := 0;
+    seg := 0;
+    mil := 0;
+    while not DModule.qAux.eof do
+    begin
+      min := min + DModule.qAux.FieldByName('minutos').AsInteger * 60000;
+      seg := seg + StrToInt(DModule.qAux.FieldByName('segundos').AsString) * 1000;
+      mil := mil + StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+      i := i +1;
+      DModule.qAux.next;
+    end;
+    soma := min + seg + mil;
+
+  //TempoMedio = (SomatórioTempo/NumeroBatidas)/NumerodePeças
+    tempoMedio := (soma/i)/ClientDataSet1num_pecas.AsInteger;
+
+  //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
+    tempoPadrao := tempoMedio * (1+(1-(ClientDataSet1ritmo.AsInteger/100)));
+
+  //TempoPadraoFinal = TempoPadrao * (Tolerancia/100)
+  tempoPadraoFinal := tempoPadrao * (ClientDataSet1tolerancia.AsInteger/100);
+
+  ClientDataSet1tempoPadraoFinal.value := tempoPadraoFinal;
+
+end;
+
 procedure TF01013.CDS_BatidaAfterCancel(DataSet: TDataSet);
 begin
   inherited;
@@ -625,6 +688,27 @@ procedure TF01013.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idcronometragem.AsInteger := DModule.buscaProximoParametro('seqCronometragem');
+end;
+
+procedure TF01013.ClientDataSet1ritmoChange(Sender: TField);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
+end;
+
+procedure TF01013.ClientDataSet1toleranciaChange(Sender: TField);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
+end;
+
+procedure TF01013.DBEdit16Change(Sender: TObject);
+var
+fTPF: tTime;
+begin
+  inherited;
+  fTPF := ClientDataSet1tempoPadraoFinal.AsFloat * OneMillisecond;
+  Edit6.Text := formatdatetime('hh:nn:ss.zzz',  fTPF);
 end;
 
 procedure TF01013.DBEditBeleza1Click(Sender: TObject);
@@ -686,9 +770,10 @@ begin
   i := 0;
   while not DModule.qAux.eof do
   begin
-    mil := StrToInt(DModule.qAux.FieldByName('minutos').AsString) * 60000;
+    //Converte Todos para milésimos
+    min := StrToInt(DModule.qAux.FieldByName('minutos').AsString) * 60000;
     seg := StrToInt(DModule.qAux.FieldByName('segundos').AsString) * 1000;
-    min := StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+    mil := StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
     fTempoCronometr := fTempoCronometr + ((mil + seg + min) * OneMillisecond);
     i := i +1;
     DModule.qAux.next;

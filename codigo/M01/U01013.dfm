@@ -3,6 +3,8 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
+  ExplicitLeft = -196
+  ExplicitTop = -27
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -10,9 +12,12 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
+    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited grDados: TGroupBox
@@ -103,9 +108,9 @@ inherited F01013: TF01013
         object Label2: TLabel
           Left = 25
           Top = 160
-          Width = 33
+          Width = 55
           Height = 13
-          Caption = 'RITMO'
+          Caption = 'RITMO (%)'
           FocusControl = DBEdit2
         end
         object Label3: TLabel
@@ -119,9 +124,9 @@ inherited F01013: TF01013
         object Label4: TLabel
           Left = 324
           Top = 160
-          Width = 64
+          Width = 86
           Height = 13
-          Caption = 'TOLER'#194'NCIA'
+          Caption = 'TOLER'#194'NCIA (%)'
           FocusControl = DBEdit4
         end
         object Label5: TLabel
@@ -215,6 +220,14 @@ inherited F01013: TF01013
           Caption = 'descricao'
           FocusControl = DBEdit15
           Visible = False
+        end
+        object Label16: TLabel
+          Left = 776
+          Top = 160
+          Width = 111
+          Height = 13
+          Caption = 'TEMPO PADR'#195'O FINAL'
+          FocusControl = DBEdit16
         end
         object DBEdit1: TDBEdit
           Left = 25
@@ -839,9 +852,41 @@ inherited F01013: TF01013
           CorBorda = clGray
           NovoLayout = False
         end
+        object DBEdit16: TDBEdit
+          Left = 916
+          Top = 174
+          Width = 136
+          Height = 21
+          DataField = 'tempoPadraoFinal'
+          DataSource = DS
+          ReadOnly = True
+          TabOrder = 25
+          Visible = False
+          OnChange = DBEdit16Change
+        end
+        object BitBtn3: TBitBtn
+          Left = 456
+          Top = 16
+          Width = 75
+          Height = 25
+          Caption = 'BitBtn3'
+          TabOrder = 26
+          OnClick = BitBtn3Click
+        end
+        object Edit6: TEdit
+          Left = 773
+          Top = 174
+          Width = 137
+          Height = 21
+          Alignment = taCenter
+          ReadOnly = True
+          TabOrder = 27
+        end
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
@@ -1276,12 +1321,12 @@ inherited F01013: TF01013
   end
   inherited DS: TDataSource
     Left = 792
-    Top = 96
+    Top = 80
   end
   inherited ClientDataSet1: TClientDataSet
     IndexFieldNames = 'idOperacao'
     Left = 752
-    Top = 96
+    Top = 80
     object ClientDataSet1idcronometragem: TIntegerField
       FieldName = 'idcronometragem'
     end
@@ -1293,12 +1338,14 @@ inherited F01013: TF01013
     end
     object ClientDataSet1ritmo: TIntegerField
       FieldName = 'ritmo'
+      OnChange = ClientDataSet1ritmoChange
     end
     object ClientDataSet1num_pecas: TIntegerField
       FieldName = 'num_pecas'
     end
     object ClientDataSet1tolerancia: TIntegerField
       FieldName = 'tolerancia'
+      OnChange = ClientDataSet1toleranciaChange
     end
     object ClientDataSet1comprimento_prod: TSingleField
       FieldName = 'comprimento_prod'
@@ -1341,10 +1388,13 @@ inherited F01013: TF01013
       FieldName = 'cronometrista'
       Size = 45
     end
+    object ClientDataSet1tempoPadraoFinal: TSingleField
+      FieldName = 'tempoPadraoFinal'
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 728
-    Top = 96
+    Top = 80
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
@@ -1358,7 +1408,7 @@ inherited F01013: TF01013
         'perador '#10'left outer join cronometrista cron on cron.idCronometri' +
         'sta = cr.idCronometrista;')
     Left = 704
-    Top = 96
+    Top = 80
     object FDQuery1idcronometragem: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idcronometragem'
@@ -1476,12 +1526,17 @@ inherited F01013: TF01013
       ReadOnly = True
       Size = 45
     end
+    object FDQuery1tempoPadraoFinal: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoPadraoFinal'
+      Origin = 'tempoPadraoFinal'
+    end
   end
   inherited ImageListBase: TImageList
     Left = 824
-    Top = 96
+    Top = 80
     Bitmap = {
-      494C01010E002C00940110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C009C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -2018,7 +2073,7 @@ inherited F01013: TF01013
   end
   inherited Acoes: TActionList
     Left = 672
-    Top = 96
+    Top = 80
   end
   object DS_Recurso: TDataSource
     DataSet = CDS_Recurso
