@@ -10,16 +10,15 @@ inherited F01007: TF01007
     Width = 811
     Height = 490
     ExplicitWidth = 811
-    ExplicitHeight = 487
+    ExplicitHeight = 490
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 459
+      ExplicitHeight = 462
       inherited grDados: TGroupBox
         Width = 803
         Height = 462
-        ExplicitLeft = 2
         ExplicitWidth = 803
         ExplicitHeight = 462
         object Label1: TLabel
@@ -68,14 +67,13 @@ inherited F01007: TF01007
           Left = 270
           Top = 117
           Width = 232
-          Height = 24
+          Height = 21
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           CharCase = ecUpperCase
           DataField = 'descricao'
           DataSource = DS
           TabOrder = 3
-          ExplicitHeight = 21
         end
         object DBEdit4: TDBEdit
           Left = 402
@@ -106,7 +104,7 @@ inherited F01007: TF01007
           Left = 436
           Top = 73
           Width = 66
-          Height = 24
+          Height = 21
           Anchors = [akLeft, akTop, akRight]
           Color = 15724527
           DataField = 'grupo'
@@ -150,7 +148,6 @@ inherited F01007: TF01007
           Padding.Bottom = 4
           ParentFont = False
           TabOrder = 5
-          ExplicitHeight = 138
           object DBGridBeleza2: TDBGridBeleza
             Left = 6
             Top = 72
@@ -200,9 +197,19 @@ inherited F01007: TF01007
                 Visible = True
               end
               item
+                Alignment = taCenter
                 Expanded = False
                 FieldName = 'prioridade'
+                Title.Alignment = taCenter
                 Title.Caption = 'PRIORIDADE'
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'tempoPadraoFinal'
+                Title.Alignment = taCenter
+                Title.Caption = 'TPF'
                 Visible = True
               end>
           end
@@ -317,7 +324,6 @@ inherited F01007: TF01007
           Font.Style = []
           ParentFont = False
           TabOrder = 6
-          ExplicitTop = 306
           object GroupBox2: TGroupBox
             Left = 2
             Top = 18
@@ -463,8 +469,10 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
-      ExplicitHeight = 459
+      ExplicitHeight = 462
       inherited GBFiltros: TGroupBox
         Width = 803
         ExplicitWidth = 803
@@ -610,7 +618,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C00340110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00380110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1211,6 +1219,10 @@ inherited F01007: TF01007
       FieldName = 'descricao'
       Size = 45
     end
+    object ClientDataSet3tempoPadraoFinal: TSingleField
+      FieldName = 'tempoPadraoFinal'
+      ProviderFlags = []
+    end
   end
   object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
@@ -1311,12 +1323,18 @@ inherited F01007: TF01007
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery3tempoPadraoFinal: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoPadraoFinal'
+      Origin = 'tempoPadraoFinal'
+      ProviderFlags = []
+    end
   end
   object ImageList2: TImageList
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

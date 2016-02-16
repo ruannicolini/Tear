@@ -108,6 +108,7 @@ begin
   if(PanelFiltros.Visible = true) then
   begin
        PanelFiltros.Visible := false;
+       BtnLimparFiltros.Click;
   end else
   begin
     PanelFiltros.Visible := true;

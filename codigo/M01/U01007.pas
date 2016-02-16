@@ -97,6 +97,8 @@ type
     ClientDataSet2idCronometragemDependencia: TIntegerField;
     ClientDataSet2idOperacao: TIntegerField;
     ClientDataSet2descricao: TStringField;
+    FDQuery3tempoPadraoFinal: TSingleField;
+    ClientDataSet3tempoPadraoFinal: TSingleField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);

@@ -2,7 +2,7 @@ inherited F01002: TF01002
   Caption = 'F01002'
   ClientHeight = 515
   ClientWidth = 813
-  ExplicitLeft = 8
+  ExplicitLeft = -42
   ExplicitWidth = 829
   ExplicitHeight = 554
   PixelsPerInch = 96
@@ -64,7 +64,6 @@ inherited F01002: TF01002
       ExplicitHeight = 452
       inherited GBFiltros: TGroupBox
         Width = 805
-        ExplicitTop = 73
         ExplicitWidth = 805
       end
       inherited DBGridBeleza1: TDBGridBeleza
@@ -90,9 +89,24 @@ inherited F01002: TF01002
       inherited PanelFiltros: TPanel
         Width = 805
         ExplicitWidth = 805
+        object Label3: TLabel [0]
+          Left = 11
+          Top = 13
+          Width = 87
+          Height = 13
+          Caption = 'CRONOMETRISTA'
+        end
         inherited btnFiltrar: TButton
           Left = 754
+          OnClick = btnFiltrarClick
           ExplicitLeft = 754
+        end
+        object Edit1: TEdit
+          Left = 11
+          Top = 32
+          Width = 202
+          Height = 21
+          TabOrder = 1
         end
       end
     end
@@ -144,7 +158,7 @@ inherited F01002: TF01002
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -22,6 +22,8 @@ type
     DBEdit1: TDBEdit;
     Label2: TLabel;
     DBEdit2: TDBEdit;
+    Edit1: TEdit;
+    Label3: TLabel;
     procedure acInserirExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -34,6 +36,8 @@ type
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure BPesquisarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -121,6 +125,12 @@ begin
   DBEdit1.Color := CorCamposOnlyRead();
 end;
 
+procedure TF01001.BPesquisarClick(Sender: TObject);
+begin
+  inherited;
+  //FDQuery1.SQL.Text := 'select * from acao';
+end;
+
 procedure TF01001.BSalvarClick(Sender: TObject);
 begin
   if trim(DBEdit2.Text) <> '' then
@@ -137,9 +147,19 @@ end;
 procedure TF01001.btnFiltrarClick(Sender: TObject);
 begin
   inherited;
-  ClientDataSet1.Filtered := false;
-  //ClientDataSet1.Filter := 'descricao like %' + IntToStr(ParIdProduto) +'%';
-  ClientDataSet1.Filtered := true;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select * from acao where descricao like "%' + Edit1.Text +'%"';
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF01001.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select * from acao';
+  FDQuery1.Open;
+  BPesquisar.Click;
 end;
 
 procedure TF01001.ClientDataSet1AfterInsert(DataSet: TDataSet);

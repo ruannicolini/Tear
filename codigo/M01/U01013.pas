@@ -147,7 +147,6 @@ type
     ClientDataSet1tempoPadraoFinal: TSingleField;
     Label16: TLabel;
     DBEdit16: TDBEdit;
-    BitBtn3: TBitBtn;
     Edit6: TEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -177,10 +176,10 @@ type
     procedure btnLapKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BReutilizarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
-    procedure BitBtn3Click(Sender: TObject);
-    procedure DBEdit16Change(Sender: TObject);
     procedure ClientDataSet1toleranciaChange(Sender: TField);
     procedure ClientDataSet1ritmoChange(Sender: TField);
+    procedure ClientDataSet1num_pecasChange(Sender: TField);
+    procedure DBEdit16Change(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -335,12 +334,6 @@ begin
   begin
     CDS_Recurso.Delete;
   end;
-end;
-
-procedure TF01013.BitBtn3Click(Sender: TObject);
-begin
-  inherited;
-  CalculaTempoPadraoFinal;
 end;
 
 procedure TF01013.BReutilizarClick(Sender: TObject);
@@ -628,16 +621,19 @@ begin
     end;
     soma := min + seg + mil;
 
-  //TempoMedio = (SomatórioTempo/NumeroBatidas)/NumerodePeças
-    tempoMedio := (soma/i)/ClientDataSet1num_pecas.AsInteger;
+    if((i > 0) and ( ClientDataSet1num_pecas.AsInteger > 0))then
+    begin
+      //TempoMedio = (SomatórioTempo/NumeroBatidas)/NumerodePeças
+        tempoMedio := (soma/i)/ClientDataSet1num_pecas.AsInteger;
 
-  //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
-    tempoPadrao := tempoMedio * (1+(1-(ClientDataSet1ritmo.AsInteger/100)));
+      //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
+        tempoPadrao := tempoMedio * (1+(1-(ClientDataSet1ritmo.AsInteger/100)));
 
-  //TempoPadraoFinal = TempoPadrao * (Tolerancia/100)
-  tempoPadraoFinal := tempoPadrao * (ClientDataSet1tolerancia.AsInteger/100);
+      //TempoPadraoFinal = TempoPadrao * (Tolerancia/100)
+        tempoPadraoFinal := tempoPadrao * (ClientDataSet1tolerancia.AsInteger/100);
 
-  ClientDataSet1tempoPadraoFinal.value := tempoPadraoFinal;
+        ClientDataSet1tempoPadraoFinal.value := tempoPadraoFinal;
+    end;
 
 end;
 
@@ -690,6 +686,12 @@ begin
   ClientDataSet1idcronometragem.AsInteger := DModule.buscaProximoParametro('seqCronometragem');
 end;
 
+procedure TF01013.ClientDataSet1num_pecasChange(Sender: TField);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
+end;
+
 procedure TF01013.ClientDataSet1ritmoChange(Sender: TField);
 begin
   inherited;
@@ -704,7 +706,7 @@ end;
 
 procedure TF01013.DBEdit16Change(Sender: TObject);
 var
-fTPF: tTime;
+fTPF: TTime;
 begin
   inherited;
   fTPF := ClientDataSet1tempoPadraoFinal.AsFloat * OneMillisecond;
@@ -729,6 +731,7 @@ begin
      begin
         CDS_Batida.Delete;
         DS.OnDataChange(Sender, nil);
+        CalculaTempoPadraoFinal;
      end;
   end;
 end;

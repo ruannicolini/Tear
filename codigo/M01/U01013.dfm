@@ -3,8 +3,7 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -196
-  ExplicitTop = -27
+  ExplicitLeft = -19
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -12,7 +11,6 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
-    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
@@ -864,15 +862,6 @@ inherited F01013: TF01013
           Visible = False
           OnChange = DBEdit16Change
         end
-        object BitBtn3: TBitBtn
-          Left = 456
-          Top = 16
-          Width = 75
-          Height = 25
-          Caption = 'BitBtn3'
-          TabOrder = 26
-          OnClick = BitBtn3Click
-        end
         object Edit6: TEdit
           Left = 773
           Top = 174
@@ -880,7 +869,7 @@ inherited F01013: TF01013
           Height = 21
           Alignment = taCenter
           ReadOnly = True
-          TabOrder = 27
+          TabOrder = 26
         end
       end
     end
@@ -1342,6 +1331,7 @@ inherited F01013: TF01013
     end
     object ClientDataSet1num_pecas: TIntegerField
       FieldName = 'num_pecas'
+      OnChange = ClientDataSet1num_pecasChange
     end
     object ClientDataSet1tolerancia: TIntegerField
       FieldName = 'tolerancia'

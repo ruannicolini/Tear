@@ -2,7 +2,8 @@ inherited F01003: TF01003
   Caption = 'F01003'
   ClientHeight = 532
   ClientWidth = 820
-  ExplicitLeft = 8
+  ExplicitLeft = -42
+  ExplicitTop = -16
   ExplicitWidth = 836
   ExplicitHeight = 571
   PixelsPerInch = 96
@@ -13,6 +14,8 @@ inherited F01003: TF01003
     ExplicitWidth = 820
     ExplicitHeight = 497
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 812
       ExplicitHeight = 469
       inherited grDados: TGroupBox
@@ -262,11 +265,12 @@ inherited F01003: TF01003
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 812
       ExplicitHeight = 469
       inherited GBFiltros: TGroupBox
         Width = 812
-        ExplicitTop = 73
         ExplicitWidth = 812
       end
       inherited DBGridBeleza1: TDBGridBeleza
@@ -292,9 +296,24 @@ inherited F01003: TF01003
       inherited PanelFiltros: TPanel
         Width = 812
         ExplicitWidth = 812
+        object Label3: TLabel [0]
+          Left = 14
+          Top = 17
+          Width = 122
+          Height = 13
+          Caption = 'GRUPO DE OPERADORES'
+        end
         inherited btnFiltrar: TButton
           Left = 761
+          OnClick = btnFiltrarClick
           ExplicitLeft = 761
+        end
+        object Edit2: TEdit
+          Left = 13
+          Top = 33
+          Width = 236
+          Height = 21
+          TabOrder = 1
         end
       end
     end
@@ -350,7 +369,7 @@ inherited F01003: TF01003
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

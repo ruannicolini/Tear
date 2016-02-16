@@ -53,6 +53,8 @@ type
     Operadores: TTabSheet;
     Fases: TTabSheet;
     GroupBox1: TGroupBox;
+    Edit2: TEdit;
+    Label3: TLabel;
     procedure acEditarExecute(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
@@ -76,6 +78,8 @@ type
     procedure Action5Execute(Sender: TObject);
     procedure DBGridBeleza3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -303,7 +307,25 @@ begin
   Edit1.Color := clWindow;
 end;
 
-procedure TF01003.ClientDataSet1AfterInsert(DataSet: TDataSet);
+procedure TF01003.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select * from grupo where descricao like "%' + Edit2.Text +'%"';
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF01003.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select * from grupo';
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+Procedure TF01003.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idgrupo.AsInteger := DModule.buscaProximoParametro('seqCelula');
