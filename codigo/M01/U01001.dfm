@@ -2,7 +2,6 @@ inherited F01001: TF01001
   Caption = 'F01001'
   ClientHeight = 501
   ClientWidth = 815
-  ExplicitLeft = -44
   ExplicitWidth = 831
   ExplicitHeight = 540
   PixelsPerInch = 96
@@ -108,7 +107,7 @@ inherited F01001: TF01001
         object Edit1: TEdit
           Left = 11
           Top = 32
-          Width = 171
+          Width = 238
           Height = 21
           TabOrder = 1
         end

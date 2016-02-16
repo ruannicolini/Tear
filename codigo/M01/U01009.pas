@@ -22,6 +22,8 @@ type
     DBEdit1: TDBEdit;
     Label2: TLabel;
     DBEdit2: TDBEdit;
+    Edit1: TEdit;
+    Label3: TLabel;
     procedure acInserirExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -33,6 +35,8 @@ type
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -129,6 +133,24 @@ begin
       DBEdit1.Color := clWindow;
     end else
       showmessage('Preencha o Campo Descrição');
+end;
+
+procedure TF01009.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select * from GRUPO_PRODUTO where descricao like "%' + Edit1.Text +'%"';
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF01009.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select * from GRUPO_PRODUTO';
+  FDQuery1.Open;
+  BPesquisar.Click;
 end;
 
 procedure TF01009.ClientDataSet1AfterInsert(DataSet: TDataSet);

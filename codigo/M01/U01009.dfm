@@ -71,7 +71,7 @@ inherited F01009: TF01009
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 807
-        Height = 416
+        Height = 342
         Columns = <
           item
             Alignment = taCenter
@@ -88,6 +88,29 @@ inherited F01009: TF01009
             Width = 1250
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        Width = 807
+        ExplicitWidth = 807
+        object Label3: TLabel [0]
+          Left = 13
+          Top = 16
+          Width = 109
+          Height = 13
+          Caption = 'GRUPO DE PRODUTOS'
+        end
+        inherited btnFiltrar: TButton
+          Left = 756
+          OnClick = btnFiltrarClick
+          ExplicitLeft = 756
+        end
+        object Edit1: TEdit
+          Left = 12
+          Top = 32
+          Width = 235
+          Height = 21
+          TabOrder = 1
+        end
       end
     end
   end
@@ -126,7 +149,7 @@ inherited F01009: TF01009
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -1,9 +1,15 @@
 inherited F01005: TF01005
   Caption = 'F01005'
+  ExplicitWidth = 834
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
       inherited grDados: TGroupBox
         object Label1: TLabel
           Left = 24
@@ -44,6 +50,10 @@ inherited F01005: TF01005
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
       inherited DBGridBeleza1: TDBGridBeleza
         Columns = <
           item
@@ -60,6 +70,25 @@ inherited F01005: TF01005
             Width = 1250
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        object Label3: TLabel [0]
+          Left = 14
+          Top = 18
+          Width = 38
+          Height = 13
+          Caption = 'TECIDO'
+        end
+        inherited btnFiltrar: TButton
+          OnClick = btnFiltrarClick
+        end
+        object Edit1: TEdit
+          Left = 13
+          Top = 33
+          Width = 241
+          Height = 21
+          TabOrder = 1
+        end
       end
     end
   end
@@ -90,7 +119,7 @@ inherited F01005: TF01005
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -343,7 +343,7 @@ inherited F01010: TF01010
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 805
-        Height = 452
+        Height = 378
         Columns = <
           item
             Alignment = taCenter
@@ -374,6 +374,14 @@ inherited F01010: TF01010
             Width = 900
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        Width = 805
+        ExplicitWidth = 805
+        inherited btnFiltrar: TButton
+          Left = 754
+          ExplicitLeft = 754
+        end
       end
     end
   end
@@ -469,7 +477,7 @@ inherited F01010: TF01010
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010D002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

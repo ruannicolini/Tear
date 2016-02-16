@@ -12,6 +12,8 @@ inherited F01004: TF01004
     ExplicitWidth = 811
     ExplicitHeight = 475
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 447
       inherited grDados: TGroupBox
@@ -58,6 +60,8 @@ inherited F01004: TF01004
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 447
       inherited GBFiltros: TGroupBox
@@ -66,7 +70,7 @@ inherited F01004: TF01004
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 803
-        Height = 410
+        Height = 336
         Columns = <
           item
             Alignment = taCenter
@@ -82,6 +86,29 @@ inherited F01004: TF01004
             Width = 1250
             Visible = True
           end>
+      end
+      inherited PanelFiltros: TPanel
+        Width = 803
+        ExplicitWidth = 803
+        object Label3: TLabel [0]
+          Left = 13
+          Top = 17
+          Width = 91
+          Height = 13
+          Caption = 'TIPO DE RECURSO'
+        end
+        inherited btnFiltrar: TButton
+          Left = 752
+          OnClick = btnFiltrarClick
+          ExplicitLeft = 752
+        end
+        object Edit1: TEdit
+          Left = 12
+          Top = 33
+          Width = 213
+          Height = 21
+          TabOrder = 1
+        end
       end
     end
   end
@@ -124,7 +151,7 @@ inherited F01004: TF01004
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
