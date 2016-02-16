@@ -47,53 +47,55 @@ type
     Button2: TButton;
     FDQuery1grupo: TStringField;
     ClientDataSet1grupo: TStringField;
-    FDQuery3idProduto: TIntegerField;
-    FDQuery3idOperacao: TIntegerField;
-    FDQuery3prioridade: TIntegerField;
-    FDQuery3descricao: TStringField;
-    ClientDataSet3idProduto: TIntegerField;
-    ClientDataSet3idOperacao: TIntegerField;
-    ClientDataSet3prioridade: TIntegerField;
-    ClientDataSet3descricao: TStringField;
-    Label5: TLabel;
-    DBEdit3: TDBEdit;
-    Label6: TLabel;
-    DBEdit5: TDBEdit;
-    Label10: TLabel;
-    DBEdit6: TDBEdit;
-    Label11: TLabel;
-    DBEdit7: TDBEdit;
     GroupBoxOperacoes: TGroupBox;
     GroupBoxDependencias: TGroupBox;
     GroupBox2: TGroupBox;
     DBGridBeleza3: TDBGridBeleza;
     Button4: TButton;
-    Button5: TButton;
+    btnExcluirDependencia: TButton;
     EditBeleza2: TEditBeleza;
     FDQuery2: TFDQuery;
     DataSetProvider2: TDataSetProvider;
     ClientDataSet2: TClientDataSet;
     DataSource2: TDataSource;
     Edit2: TEdit;
-    FDQuery2idProdutoOperacao: TIntegerField;
-    FDQuery2idOperacaoOperacao: TIntegerField;
-    FDQuery2idProdutoDependencia: TIntegerField;
-    FDQuery2idOperacaoDependencia: TIntegerField;
+    FDQuery3idcronometragem: TIntegerField;
+    FDQuery3tempo_original: TBooleanField;
+    FDQuery3tempo_ideal: TBooleanField;
+    FDQuery3ritmo: TIntegerField;
+    FDQuery3num_pecas: TIntegerField;
+    FDQuery3tolerancia: TIntegerField;
+    FDQuery3comprimento_prod: TSingleField;
+    FDQuery3num_ocorrencia: TIntegerField;
+    FDQuery3idProduto: TIntegerField;
+    FDQuery3idCronometrista: TIntegerField;
+    FDQuery3idTecido: TIntegerField;
+    FDQuery3idOperacao: TIntegerField;
+    FDQuery3idOperador: TIntegerField;
+    FDQuery3prioridade: TIntegerField;
+    FDQuery3descricao: TStringField;
+    ClientDataSet3idcronometragem: TIntegerField;
+    ClientDataSet3tempo_original: TBooleanField;
+    ClientDataSet3tempo_ideal: TBooleanField;
+    ClientDataSet3ritmo: TIntegerField;
+    ClientDataSet3num_pecas: TIntegerField;
+    ClientDataSet3tolerancia: TIntegerField;
+    ClientDataSet3comprimento_prod: TSingleField;
+    ClientDataSet3num_ocorrencia: TIntegerField;
+    ClientDataSet3idProduto: TIntegerField;
+    ClientDataSet3idCronometrista: TIntegerField;
+    ClientDataSet3idTecido: TIntegerField;
+    ClientDataSet3idOperacao: TIntegerField;
+    ClientDataSet3idOperador: TIntegerField;
+    ClientDataSet3prioridade: TIntegerField;
+    ClientDataSet3descricao: TStringField;
+    FDQuery2idCronometragem: TIntegerField;
+    FDQuery2idCronometragemDependencia: TIntegerField;
+    FDQuery2idOperacao: TIntegerField;
     FDQuery2descricao: TStringField;
-    Label7: TLabel;
-    DBEdit8: TDBEdit;
-    Label8: TLabel;
-    DBEdit9: TDBEdit;
-    Label9: TLabel;
-    DBEdit10: TDBEdit;
-    Label12: TLabel;
-    DBEdit11: TDBEdit;
-    Label13: TLabel;
-    DBEdit12: TDBEdit;
-    ClientDataSet2idProdutoOperacao: TIntegerField;
-    ClientDataSet2idOperacaoOperacao: TIntegerField;
-    ClientDataSet2idProdutoDependencia: TIntegerField;
-    ClientDataSet2idOperacaoDependencia: TIntegerField;
+    ClientDataSet2idCronometragem: TIntegerField;
+    ClientDataSet2idCronometragemDependencia: TIntegerField;
+    ClientDataSet2idOperacao: TIntegerField;
     ClientDataSet2descricao: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
@@ -118,9 +120,12 @@ type
     procedure ClientDataSet2AfterDelete(DataSet: TDataSet);
     procedure ClientDataSet2AfterPost(DataSet: TDataSet);
     procedure DataSource3DataChange(Sender: TObject; Field: TField);
-    procedure Button5Click(Sender: TObject);
+    procedure btnExcluirDependenciaClick(Sender: TObject);
     procedure EditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
+    procedure ClientDataSet3AfterInsert(DataSet: TDataSet);
+    procedure DBGridBeleza3KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -214,7 +219,7 @@ begin
       {Salva}
       DataSource3.DataSet.Post;
 
-      {Atualiza DBGRID FASE}
+      {Atualiza DBGRID Operacao}
       FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
       DataSource3.DataSet.Close;
       DataSource3.DataSet.Open;
@@ -255,13 +260,10 @@ procedure TF01007.BtnExcluirOperacaoClick(Sender: TObject);
 var
 x: integer;
 begin
-  inherited;
-
+     inherited;
      DModule.qAux.Close;
-     DModule.qAux.SQL.Text := 'select d.*, op.descricao from dependencia d left outer join operacao op on op.idOperacao = d.idOperacaoOperacao where d.idProdutoOperacao =:idPO and idProdutoDependencia =:idPD and idOperacaoDependencia =:idOD';
-     DModule.qAux.ParamByName('idPO').AsInteger:= (ClientDataSet1idProduto.AsInteger);
-     DModule.qAux.ParamByName('idPD').AsInteger:= (ClientDataSet1idProduto.AsInteger);
-     DModule.qAux.ParamByName('idOD').AsInteger:= (ClientDataSet3idOperacao.AsInteger);
+     DModule.qAux.SQL.Text := 'select d.*, cron.idOperacao, op.descricao from dependencia d left outer join Cronometragem cron on cron.idCronometragem = d.idCronometragem left outer join operacao op on op.idOperacao = cron.idOperacao where d.idcronometragemDependencia =:idCD;';
+     DModule.qAux.ParamByName('idCD').AsInteger:= (ClientDataSet3idcronometragem.AsInteger);
      DModule.qAux.Open;
      if(DModule.qAux.IsEmpty)then
      begin
@@ -288,7 +290,7 @@ begin
 
      end else
        ShowMessage('Não é possível excluir.' +#13+'Esta Operação vinculada a outra Operação (' +
-       DModule.qAux.FieldByName('idOperacaoOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
+       DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
 
 end;
 
@@ -335,24 +337,29 @@ begin
     if not DataSource2.DataSet.Active then
           DataSource2.DataSet.Open;
 
-    if(ClientDataSet2.Locate('idOperacaoDependencia',Edit2.Text,[]) = false)then
+    if(ClientDataSet2.Locate('idCronometragemDependencia',Edit2.Text,[]) = false)then
     begin
       {Modo de inserção}
       DataSource2.DataSet.Append;
 
       {Atribuição dos dados}
-      ClientDataSet2idProdutoDependencia.Value := ClientDataSet1idProduto.AsInteger;
-      ClientDataSet2idProdutoOperacao.Value := ClientDataSet1idProduto.AsInteger;
+      //
+      DModule.qAux.Close;
+      DModule.qAux.SQL.Text := 'select * from cronometragem where idproduto =:idProd and idOperacao =:idOp';
+      DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+      DModule.qAux.ParamByName('idOp').AsInteger:= StrToInt(Edit2.Text);
+      DModule.qAux.Open;
+      DModule.qAux.first;
 
-      ClientDataSet2idOperacaoDependencia.Value := StrToInt(Edit2.Text);
-      ClientDataSet2idOperacaoOperacao.Value := ClientDataSet3idOperacao.AsInteger;
+      ClientDataSet2idCronometragem.Value := ClientDataSet3idcronometragem.AsInteger;
+      ClientDataSet2idCronometragemDependencia.Value := DModule.qAux.FieldByName('idCronometragem').AsInteger;
 
       {Salva}
       DataSource2.DataSet.Post;
 
       {Atualiza DBGRID Dependencia}
-      FDQuery2.ParamByName('idoo').Value:=(ClientDataSet3idOperacao.AsInteger);
-      FDQuery2.ParamByName('idpo').Value:=(ClientDataSet1idProduto.AsInteger);
+      FDQuery2.ParamByName('idOp').Value:=(ClientDataSet3idOperacao.AsInteger);
+      FDQuery2.ParamByName('idProd').Value:=(ClientDataSet1idProduto.AsInteger);
       DataSource2.DataSet.Close;
       DataSource2.DataSet.Open;
 
@@ -364,10 +371,10 @@ begin
 
 end;
 
-procedure TF01007.Button5Click(Sender: TObject);
+procedure TF01007.btnExcluirDependenciaClick(Sender: TObject);
 begin
   inherited;
-  if MessageDlg('Deseja Apagar Dependência '+ IntToStr(ClientDataSet2idOperacaoDependencia.AsInteger)+ ' - ' + ClientDataSet2descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  if MessageDlg('Deseja Apagar Dependência '+ IntToStr(ClientDataSet2idOperacao.AsInteger)+ ' - ' + ClientDataSet2descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
      begin
       ClientDataSet2.Delete;
      end;
@@ -412,6 +419,12 @@ begin
   ClientDataSet3.ApplyUpdates(-1);
 end;
 
+procedure TF01007.ClientDataSet3AfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet3idcronometragem.AsInteger := DModule.buscaProximoParametro('seqCronometragem');
+end;
+
 procedure TF01007.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
@@ -421,11 +434,12 @@ end;
 procedure TF01007.DataSource3DataChange(Sender: TObject; Field: TField);
 begin
   inherited;
-  {Atualiza DBGRID Dependencia}
-  FDQuery2.ParamByName('idoo').Value:=(ClientDataSet3idOperacao.AsInteger);
-  FDQuery2.ParamByName('idpo').Value:=(ClientDataSet1idProduto.AsInteger);
+  //Atualiza DBGRID Dependencia}
+  FDQuery2.ParamByName('idOp').Value:=(ClientDataSet3idOperacao.AsInteger);
+  FDQuery2.ParamByName('idProd').Value:=(ClientDataSet1idProduto.AsInteger);
   DataSource2.DataSet.Close;
   DataSource2.DataSet.Open;
+
 end;
 
 procedure TF01007.DBGridBeleza2DblClick(Sender: TObject);
@@ -445,21 +459,18 @@ procedure TF01007.DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
 begin
   inherited;
   if (key = 46) then
-  //Deleta Batida
-  begin
-    if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet3idOperacao.AsInteger)+ ' - ' + ClientDataSet3descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-     begin
-        ClientDataSet3.Delete;
-        while not ClientDataSet3.Eof do //enquanto existir registros dentro do dataset..
-        begin
-          DataSource3.DataSet.Edit;
-          ClientDataSet3prioridade.Value := ClientDataSet3prioridade.AsInteger -1;
-          DataSource3.DataSet.Post;
-          ClientDataSet3.Next;  //vai para o próximo registro
-        end;
+    //Deleta
+    BtnExcluirOperacao.Click;
 
-     end;
-  end;
+end;
+
+procedure TF01007.DBGridBeleza3KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+    if (key = 46) then
+    //Deleta
+    btnExcluirDependencia.Click;
 end;
 
 procedure TF01007.DSDataChange(Sender: TObject; Field: TField);

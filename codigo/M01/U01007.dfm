@@ -1,15 +1,15 @@
 inherited F01007: TF01007
   Caption = 'F01007'
-  ClientHeight = 522
+  ClientHeight = 525
   ClientWidth = 811
-  ExplicitTop = -65
+  ExplicitTop = -149
   ExplicitWidth = 827
-  ExplicitHeight = 561
+  ExplicitHeight = 564
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     Width = 811
-    Height = 487
+    Height = 490
     ActivePage = TbDados
     ExplicitWidth = 811
     ExplicitHeight = 487
@@ -20,7 +20,7 @@ inherited F01007: TF01007
       ExplicitHeight = 459
       inherited grDados: TGroupBox
         Width = 803
-        Height = 459
+        Height = 462
         ExplicitWidth = 803
         ExplicitHeight = 459
         object Label1: TLabel
@@ -54,87 +54,6 @@ inherited F01007: TF01007
           Caption = 'GRUPO'
           FocusControl = DBEdit4
         end
-        object Label5: TLabel
-          Left = 24
-          Top = 16
-          Width = 46
-          Height = 13
-          Caption = 'idProduto'
-          FocusControl = DBEdit3
-          Visible = False
-        end
-        object Label6: TLabel
-          Left = 24
-          Top = 56
-          Width = 55
-          Height = 13
-          Caption = 'idOperacao'
-          FocusControl = DBEdit5
-          Visible = False
-        end
-        object Label10: TLabel
-          Left = 24
-          Top = 96
-          Width = 48
-          Height = 13
-          Caption = 'prioridade'
-          FocusControl = DBEdit6
-          Visible = False
-        end
-        object Label11: TLabel
-          Left = 24
-          Top = 136
-          Width = 45
-          Height = 13
-          Caption = 'descricao'
-          FocusControl = DBEdit7
-          Visible = False
-        end
-        object Label7: TLabel
-          Left = 24
-          Top = 181
-          Width = 93
-          Height = 13
-          Caption = 'idProdutoOperacao'
-          FocusControl = DBEdit8
-          Visible = False
-        end
-        object Label8: TLabel
-          Left = 24
-          Top = 221
-          Width = 102
-          Height = 13
-          Caption = 'idOperacaoOperacao'
-          FocusControl = DBEdit9
-          Visible = False
-        end
-        object Label9: TLabel
-          Left = 24
-          Top = 261
-          Width = 108
-          Height = 13
-          Caption = 'idProdutoDependencia'
-          FocusControl = DBEdit10
-          Visible = False
-        end
-        object Label12: TLabel
-          Left = 24
-          Top = 301
-          Width = 117
-          Height = 13
-          Caption = 'idOperacaoDependencia'
-          FocusControl = DBEdit11
-          Visible = False
-        end
-        object Label13: TLabel
-          Left = 24
-          Top = 341
-          Width = 45
-          Height = 13
-          Caption = 'descricao'
-          FocusControl = DBEdit12
-          Visible = False
-        end
         object DBEdit1: TDBEdit
           Left = 270
           Top = 30
@@ -150,13 +69,14 @@ inherited F01007: TF01007
           Left = 270
           Top = 117
           Width = 232
-          Height = 21
+          Height = 24
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           CharCase = ecUpperCase
           DataField = 'descricao'
           DataSource = DS
           TabOrder = 3
+          ExplicitHeight = 21
         end
         object DBEdit4: TDBEdit
           Left = 402
@@ -187,8 +107,8 @@ inherited F01007: TF01007
           Left = 436
           Top = 73
           Width = 66
-          Height = 21
-          Anchors = [akLeft, akTop, akRight, akBottom]
+          Height = 24
+          Anchors = [akLeft, akTop, akRight]
           Color = 15724527
           DataField = 'grupo'
           DataSource = DS
@@ -213,51 +133,11 @@ inherited F01007: TF01007
           CorBorda = clGray
           NovoLayout = False
         end
-        object DBEdit3: TDBEdit
-          Left = 24
-          Top = 32
-          Width = 134
-          Height = 21
-          DataField = 'idProduto'
-          DataSource = DataSource3
-          TabOrder = 5
-          Visible = False
-        end
-        object DBEdit5: TDBEdit
-          Left = 24
-          Top = 72
-          Width = 134
-          Height = 21
-          DataField = 'idOperacao'
-          DataSource = DataSource3
-          TabOrder = 6
-          Visible = False
-        end
-        object DBEdit6: TDBEdit
-          Left = 24
-          Top = 112
-          Width = 134
-          Height = 21
-          DataField = 'prioridade'
-          DataSource = DataSource3
-          TabOrder = 7
-          Visible = False
-        end
-        object DBEdit7: TDBEdit
-          Left = 24
-          Top = 152
-          Width = 134
-          Height = 21
-          DataField = 'descricao'
-          DataSource = DataSource3
-          TabOrder = 8
-          Visible = False
-        end
         object GroupBoxOperacoes: TGroupBox
           Left = 270
           Top = 147
           Width = 232
-          Height = 138
+          Height = 141
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'OPERA'#199#213'ES'
@@ -270,12 +150,13 @@ inherited F01007: TF01007
           Padding.Right = 4
           Padding.Bottom = 4
           ParentFont = False
-          TabOrder = 9
+          TabOrder = 5
+          ExplicitHeight = 138
           object DBGridBeleza2: TDBGridBeleza
             Left = 6
             Top = 72
             Width = 220
-            Height = 60
+            Height = 63
             Hint = 'Clique no Titulo da Coluna para Ordenar'
             TabStop = False
             Align = alClient
@@ -424,11 +305,11 @@ inherited F01007: TF01007
         end
         object GroupBoxDependencias: TGroupBox
           Left = 270
-          Top = 306
+          Top = 308
           Width = 232
           Height = 124
           Align = alCustom
-          Anchors = [akLeft, akRight]
+          Anchors = [akLeft, akRight, akBottom]
           Caption = 'DEPEND'#202'NCIAS'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -436,7 +317,8 @@ inherited F01007: TF01007
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 10
+          TabOrder = 6
+          ExplicitTop = 306
           object GroupBox2: TGroupBox
             Left = 2
             Top = 18
@@ -455,7 +337,7 @@ inherited F01007: TF01007
               TabOrder = 0
               OnClick = Button4Click
             end
-            object Button5: TButton
+            object btnExcluirDependencia: TButton
               Left = 128
               Top = 4
               Width = 27
@@ -464,7 +346,7 @@ inherited F01007: TF01007
               Anchors = [akRight, akBottom]
               Caption = '-'
               TabOrder = 1
-              OnClick = Button5Click
+              OnClick = btnExcluirDependenciaClick
             end
             object EditBeleza2: TEditBeleza
               Left = 76
@@ -489,7 +371,7 @@ inherited F01007: TF01007
                 'select idOPERACAO, descricao from OPERACAO '
                 
                   'where descricao like :varDescricao and idOperacao in (select dis' +
-                  'tinct idOperacao from produto_has_operacao where idproduto =:x)')
+                  'tinct idOperacao from cronometragem where idproduto =:x)')
               database = 'balay'
               campo = 'descricao'
               Sempre_Mostrar_Janela = False
@@ -526,6 +408,7 @@ inherited F01007: TF01007
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
+            OnKeyDown = DBGridBeleza3KeyDown
             Cor_2 = 16382457
             Direcao_Cor2 = dg_Vertical
             Direcao_Enter = dg_Horiz
@@ -535,9 +418,8 @@ inherited F01007: TF01007
             BloquearExportacoes = False
             Columns = <
               item
-                Alignment = taCenter
                 Expanded = False
-                FieldName = 'idOperacaoDependencia'
+                FieldName = 'idOperacao'
                 Title.Caption = 'COD'
                 Title.Font.Charset = DEFAULT_CHARSET
                 Title.Font.Color = clBlack
@@ -549,7 +431,7 @@ inherited F01007: TF01007
               item
                 Expanded = False
                 FieldName = 'descricao'
-                Title.Caption = 'Opera'#231#227'o'
+                Title.Caption = 'DESCRI'#199#195'O'
                 Title.Font.Charset = DEFAULT_CHARSET
                 Title.Font.Color = clBlack
                 Title.Font.Height = -11
@@ -560,57 +442,12 @@ inherited F01007: TF01007
           end
         end
         object Edit2: TEdit
-          Left = 24
-          Top = 393
+          Left = 186
+          Top = 328
           Width = 80
           Height = 21
-          TabOrder = 11
+          TabOrder = 7
           Text = 'Edit2'
-          Visible = False
-        end
-        object DBEdit8: TDBEdit
-          Left = 24
-          Top = 197
-          Width = 134
-          Height = 21
-          DataField = 'idProdutoOperacao'
-          TabOrder = 12
-          Visible = False
-        end
-        object DBEdit9: TDBEdit
-          Left = 24
-          Top = 237
-          Width = 134
-          Height = 21
-          DataField = 'idOperacaoOperacao'
-          TabOrder = 13
-          Visible = False
-        end
-        object DBEdit10: TDBEdit
-          Left = 24
-          Top = 277
-          Width = 134
-          Height = 21
-          DataField = 'idProdutoDependencia'
-          TabOrder = 14
-          Visible = False
-        end
-        object DBEdit11: TDBEdit
-          Left = 24
-          Top = 317
-          Width = 134
-          Height = 21
-          DataField = 'idOperacaoDependencia'
-          TabOrder = 15
-          Visible = False
-        end
-        object DBEdit12: TDBEdit
-          Left = 24
-          Top = 357
-          Width = 134
-          Height = 21
-          DataField = 'descricao'
-          TabOrder = 16
           Visible = False
         end
       end
@@ -632,7 +469,7 @@ inherited F01007: TF01007
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 803
-        Height = 348
+        Height = 351
         Columns = <
           item
             Alignment = taCenter
@@ -681,8 +518,8 @@ inherited F01007: TF01007
     end
   end
   object Edit1: TEdit [1]
-    Left = 28
-    Top = 479
+    Left = 188
+    Top = 239
     Width = 80
     Height = 21
     TabStop = False
@@ -777,7 +614,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C002C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00340110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1326,25 +1163,56 @@ inherited F01007: TF01007
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider3'
+    AfterInsert = ClientDataSet3AfterInsert
     AfterPost = ClientDataSet3AfterPost
     AfterCancel = ClientDataSet3AfterCancel
     AfterDelete = ClientDataSet3AfterDelete
     Left = 616
     Top = 296
+    object ClientDataSet3idcronometragem: TIntegerField
+      FieldName = 'idcronometragem'
+    end
+    object ClientDataSet3tempo_original: TBooleanField
+      FieldName = 'tempo_original'
+    end
+    object ClientDataSet3tempo_ideal: TBooleanField
+      FieldName = 'tempo_ideal'
+    end
+    object ClientDataSet3ritmo: TIntegerField
+      FieldName = 'ritmo'
+    end
+    object ClientDataSet3num_pecas: TIntegerField
+      FieldName = 'num_pecas'
+    end
+    object ClientDataSet3tolerancia: TIntegerField
+      FieldName = 'tolerancia'
+    end
+    object ClientDataSet3comprimento_prod: TSingleField
+      FieldName = 'comprimento_prod'
+    end
+    object ClientDataSet3num_ocorrencia: TIntegerField
+      FieldName = 'num_ocorrencia'
+    end
     object ClientDataSet3idProduto: TIntegerField
       FieldName = 'idProduto'
-      Required = True
+    end
+    object ClientDataSet3idCronometrista: TIntegerField
+      FieldName = 'idCronometrista'
+    end
+    object ClientDataSet3idTecido: TIntegerField
+      FieldName = 'idTecido'
     end
     object ClientDataSet3idOperacao: TIntegerField
       FieldName = 'idOperacao'
-      Required = True
+    end
+    object ClientDataSet3idOperador: TIntegerField
+      FieldName = 'idOperador'
     end
     object ClientDataSet3prioridade: TIntegerField
       FieldName = 'prioridade'
     end
     object ClientDataSet3descricao: TStringField
       FieldName = 'descricao'
-      ReadOnly = True
       Size = 45
     end
   end
@@ -1357,9 +1225,9 @@ inherited F01007: TF01007
     ConnectionName = 'balay'
     SQL.Strings = (
       
-        'select phf.*, f.descricao from produto_has_operacao phf '#10#10'left o' +
-        'uter join operacao f on phf.idoperacao = f.idoperacao '#10#10'where ph' +
-        'f.idProduto =:id '#10'order by (prioridade);')
+        'select phf.*, f.descricao from cronometragem phf '#10'left outer joi' +
+        'n operacao f on phf.idoperacao = f.idoperacao '#10'where phf.idProdu' +
+        'to =:id '#10'order by (prioridade);')
     Left = 552
     Top = 296
     ParamData = <
@@ -1369,17 +1237,71 @@ inherited F01007: TF01007
         ParamType = ptInput
         Value = Null
       end>
+    object FDQuery3idcronometragem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idcronometragem'
+      Origin = 'idcronometragem'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQuery3tempo_original: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempo_original'
+      Origin = 'tempo_original'
+    end
+    object FDQuery3tempo_ideal: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempo_ideal'
+      Origin = 'tempo_ideal'
+    end
+    object FDQuery3ritmo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ritmo'
+      Origin = 'ritmo'
+    end
+    object FDQuery3num_pecas: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'num_pecas'
+      Origin = 'num_pecas'
+    end
+    object FDQuery3tolerancia: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'tolerancia'
+      Origin = 'tolerancia'
+    end
+    object FDQuery3comprimento_prod: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'comprimento_prod'
+      Origin = 'comprimento_prod'
+    end
+    object FDQuery3num_ocorrencia: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'num_ocorrencia'
+      Origin = 'num_ocorrencia'
+    end
     object FDQuery3idProduto: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'idProduto'
       Origin = 'idProduto'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+    end
+    object FDQuery3idCronometrista: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idCronometrista'
+      Origin = 'idCronometrista'
+    end
+    object FDQuery3idTecido: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idTecido'
+      Origin = 'idTecido'
     end
     object FDQuery3idOperacao: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'idOperacao'
       Origin = 'idOperacao'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+    end
+    object FDQuery3idOperador: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOperador'
+      Origin = 'idOperador'
     end
     object FDQuery3prioridade: TIntegerField
       AutoGenerateValue = arDefault
@@ -1391,7 +1313,6 @@ inherited F01007: TF01007
       FieldName = 'descricao'
       Origin = 'descricao'
       ProviderFlags = []
-      ReadOnly = True
       Size = 45
     end
   end
@@ -1399,7 +1320,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
@@ -1541,47 +1462,46 @@ inherited F01007: TF01007
   object FDQuery2: TFDQuery
     ConnectionName = 'balay'
     SQL.Strings = (
-      'select phf.*, f.descricao from dependencia phf '#10
-      'left outer join operacao f '
-      'on f.idoperacao = phf.idOperacaoDependencia'#10' '
-      'where phf.idProdutoOperacao =:idpo'
-      ' and phf.idOperacaoOperacao =:idoo ;')
+      'select dep.*, d.idOperacao, op.descricao from dependencia dep '#10
+      
+        'left outer join cronometragem c on dep.idCronometragem = c.idCro' +
+        'nometragem '#13#10#10
+      
+        'left outer join cronometragem d on dep.idCronometragemDependenci' +
+        'a = d.idCronometragem '#10
+      'left outer join operacao op on op.idOperacao = d.idOperacao '#13#10#10
+      'where d.idProduto =:idProd and c.idOperacao =:idOp;')
     Left = 556
     Top = 395
     ParamData = <
       item
-        Name = 'IDPO'
+        Name = 'IDPROD'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
-        Name = 'IDOO'
+        Name = 'IDOP'
         DataType = ftInteger
         ParamType = ptInput
       end>
-    object FDQuery2idProdutoOperacao: TIntegerField
-      FieldName = 'idProdutoOperacao'
-      Origin = 'idProdutoOperacao'
+    object FDQuery2idCronometragem: TIntegerField
+      FieldName = 'idCronometragem'
+      Origin = 'idCronometragem'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object FDQuery2idOperacaoOperacao: TIntegerField
-      FieldName = 'idOperacaoOperacao'
-      Origin = 'idOperacaoOperacao'
+    object FDQuery2idCronometragemDependencia: TIntegerField
+      FieldName = 'idCronometragemDependencia'
+      Origin = 'idCronometragemDependencia'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object FDQuery2idProdutoDependencia: TIntegerField
-      FieldName = 'idProdutoDependencia'
-      Origin = 'idProdutoDependencia'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object FDQuery2idOperacaoDependencia: TIntegerField
-      FieldName = 'idOperacaoDependencia'
-      Origin = 'idOperacaoDependencia'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+    object FDQuery2idOperacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOperacao'
+      Origin = 'idOperacao'
+      ProviderFlags = []
     end
     object FDQuery2descricao: TStringField
       AutoGenerateValue = arDefault
@@ -1606,26 +1526,20 @@ inherited F01007: TF01007
     AfterDelete = ClientDataSet2AfterDelete
     Left = 620
     Top = 395
-    object ClientDataSet2idProdutoOperacao: TIntegerField
-      FieldName = 'idProdutoOperacao'
+    object ClientDataSet2idCronometragem: TIntegerField
+      FieldName = 'idCronometragem'
       Required = True
     end
-    object ClientDataSet2idOperacaoOperacao: TIntegerField
-      FieldName = 'idOperacaoOperacao'
+    object ClientDataSet2idCronometragemDependencia: TIntegerField
+      FieldName = 'idCronometragemDependencia'
       Required = True
     end
-    object ClientDataSet2idProdutoDependencia: TIntegerField
-      FieldName = 'idProdutoDependencia'
-      Required = True
-    end
-    object ClientDataSet2idOperacaoDependencia: TIntegerField
-      FieldName = 'idOperacaoDependencia'
-      Required = True
+    object ClientDataSet2idOperacao: TIntegerField
+      FieldName = 'idOperacao'
     end
     object ClientDataSet2descricao: TStringField
       FieldName = 'descricao'
       ProviderFlags = []
-      ReadOnly = True
       Size = 45
     end
   end
