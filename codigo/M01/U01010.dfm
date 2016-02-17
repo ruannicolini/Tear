@@ -2,6 +2,7 @@ inherited F01010: TF01010
   Caption = 'F01010'
   ClientHeight = 552
   ClientWidth = 813
+  ExplicitLeft = -42
   ExplicitWidth = 829
   ExplicitHeight = 591
   PixelsPerInch = 96
@@ -340,6 +341,14 @@ inherited F01010: TF01010
       inherited GBFiltros: TGroupBox
         Width = 805
         ExplicitWidth = 805
+        inherited Panel1: TPanel
+          inherited BtnLimparFiltros: TButton
+            Left = 751
+            Top = 4
+            ExplicitLeft = 751
+            ExplicitTop = 4
+          end
+        end
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 805
@@ -380,7 +389,112 @@ inherited F01010: TF01010
         ExplicitWidth = 805
         inherited btnFiltrar: TButton
           Left = 754
+          OnClick = btnFiltrarClick
           ExplicitLeft = 754
+        end
+        object chkNome: TCheckBox
+          Left = 16
+          Top = 16
+          Width = 97
+          Height = 17
+          Caption = 'NOME'
+          TabOrder = 1
+        end
+        object chkTipoRecurso: TCheckBox
+          Left = 230
+          Top = 16
+          Width = 97
+          Height = 17
+          Caption = 'RECURSOS'
+          TabOrder = 2
+        end
+        object chkGrupo: TCheckBox
+          Left = 446
+          Top = 16
+          Width = 198
+          Height = 17
+          Caption = 'GRUPO DE OPERADORES'
+          TabOrder = 3
+        end
+        object EditBeleza2: TEditBeleza
+          Left = 444
+          Top = 35
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idgrupo, descricao from grupo '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = chkGrupo
+          Outro_Edit = Edit4
+          campo_outro_edit = 'idGrupo'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object EditBeleza3: TEditBeleza
+          Left = 230
+          Top = 35
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 5
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idtipo_recurso, descricao from tipo_recurso '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = chkTipoRecurso
+          Outro_Edit = Edit3
+          campo_outro_edit = 'idTipo_recurso'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object Edit2: TEdit
+          Left = 16
+          Top = 35
+          Width = 200
+          Height = 21
+          TabOrder = 6
+          OnChange = Edit2Change
+        end
+        object Edit3: TEdit
+          Left = 312
+          Top = 8
+          Width = 47
+          Height = 21
+          TabOrder = 7
+          Visible = False
+        end
+        object Edit4: TEdit
+          Left = 568
+          Top = 8
+          Width = 41
+          Height = 21
+          TabOrder = 8
+          Visible = False
         end
       end
     end
@@ -477,7 +591,7 @@ inherited F01010: TF01010
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010D002C00E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

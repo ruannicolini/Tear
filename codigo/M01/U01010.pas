@@ -57,6 +57,14 @@ type
     GroupBox1: TGroupBox;
     FDQuery1grupo: TStringField;
     ClientDataSet1grupo: TStringField;
+    chkNome: TCheckBox;
+    chkTipoRecurso: TCheckBox;
+    chkGrupo: TCheckBox;
+    EditBeleza2: TEditBeleza;
+    EditBeleza3: TEditBeleza;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure acEditarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
@@ -73,11 +81,13 @@ type
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure Action5Execute(Sender: TObject);
     procedure DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure Edit2Change(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -273,6 +283,34 @@ begin
      end;
 end;
 
+procedure TF01010.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select op.*, g.descricao as grupo from operador op ';
+  FDQuery1.SQL.add('left outer join grupo g on g.idgrupo = op.idgrupo where 1=1');
+
+  if(chkNome.Checked = true)then
+    FDQuery1.SQL.Add(' and op.nome like "%' + Edit2.Text +'%"');
+  if(chkTipoRecurso.Checked = true)then
+    FDQuery1.SQL.Add(' and idtipo_recurso = ' + Edit3.Text);
+  if(chkGrupo.Checked = true)then
+    FDQuery1.SQL.Add(' and g.idgrupo = ' + Edit4.Text);
+
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF01010.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+    FDQuery1.SQL.Text := 'select op.*, g.descricao as grupo from operador op ';
+  FDQuery1.SQL.add('left outer join grupo g on g.idgrupo = op.idgrupo');
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
 procedure TF01010.CDS_TRAfterCancel(DataSet: TDataSet);
 begin
   inherited;
@@ -321,10 +359,14 @@ begin
   DS_TR.DataSet.Open;
 end;
 
-procedure TF01010.FormShow(Sender: TObject);
+procedure TF01010.Edit2Change(Sender: TObject);
 begin
   inherited;
-  BPesquisarClick(Sender);
+    if((edit2.Text = '')or (edit2.Text = ' '))then
+  begin
+    chkNome.Checked := false;
+  end else
+    chkNome.Checked := true;
 end;
 
 Initialization

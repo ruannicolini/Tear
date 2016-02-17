@@ -311,7 +311,7 @@ begin
   FDQuery1.SQL.add('left outer join grupo_produto gp on prod.idgrupo = gp.idgrupo_produto where 1=1 ');
 
   if(chkDescricao.Checked = true)then
-    FDQuery1.SQL.Add(' and descricao like "%' + Edit3.Text +'%"');
+    FDQuery1.SQL.Add(' and prod.descricao like "%' + Edit3.Text +'%"');
   if(ChkGrupo.Checked = true)then
     FDQuery1.SQL.Add(' and idgrupo_produto = ' + Edit4.Text);
 

@@ -155,7 +155,7 @@ begin
   if(ChKPatrimonio.Checked = true)then
     FDQuery1.SQL.Add(' and patrimonio = ' + Edit1.Text);
   if(chkDescricao.Checked = true)then
-    FDQuery1.SQL.Add(' and descricao like "%' + Edit1.Text +'%"');
+    FDQuery1.SQL.Add(' and rec.descricao like "%' + Edit2.Text +'%"');
   if(ChkTipoRecurso.Checked = true)then
     FDQuery1.SQL.Add(' and idtipo_recurso = ' + Edit3.Text);
 
@@ -182,7 +182,7 @@ end;
 procedure TF01006.Edit1Change(Sender: TObject);
 begin
   inherited;
-  if((edit1.Text = '')or (edit2.Text = ' '))then
+  if((edit1.Text = '')or (edit1.Text = ' '))then
   begin
     ChKPatrimonio.Checked := false;
   end else
