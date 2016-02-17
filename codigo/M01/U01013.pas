@@ -436,7 +436,7 @@ begin
                                 inherited;
                                 crono.Enabled := false;
                                 status := false;
-                                btnINICIAR.Caption := 'INICIAR';
+                                btnINICIAR.Caption := 'NOVO';
                                 btnLap.Caption := 'LAP';
                                 btnLap.Enabled := false;
                                 BImportar.Enabled := false;
@@ -589,23 +589,36 @@ begin
   inherited;
   if(status = false)then
   begin
-  // CRONOMETRO RODANDO
-    milissegundoAUX := 0;
-    fTempo := 0;
-    edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
+      if(btnINICIAR.Caption = 'NOVO')then
+      begin
+        //Exclui Batidas anteriores
+         while( not(CDS_Batida.IsEmpty)) do
+         begin
+            CDS_Batida.Delete;
+         end;
+         btnINICIAR.Caption := 'INICIAR';
+         edit2.Text := '00:00:00.000';
+      end else
+      begin
+          // CRONOMETRO RODANDO
+          milissegundoAUX := 0;
+          fTempo := 0;
+          edit2.Text := formatdatetime('hh:nn:ss.zzz', fTempo);
 
-    status := true;
-    statusParada := false;
-    fmomento := GetTickCount;
-    crono.Enabled := false; //Timer
-    crono.Enabled := true;
+          status := true;
+          statusParada := false;
+          fmomento := GetTickCount;
+          crono.Enabled := false; //Timer
+          crono.Enabled := true;
 
-    btnINICIAR.Caption := 'PARAR';
-    btnLap.Caption := 'LAP';
-    btnLap.Enabled := true;
+          btnINICIAR.Caption := 'PARAR';
+          btnLap.Caption := 'LAP';
+          btnLap.Enabled := true;
 
-    ///Parte do calculo do Tempo Parcial
-      fMomentoUltimoLap := GetTickCount;
+          ///Parte do calculo do Tempo Parcial
+            fMomentoUltimoLap := GetTickCount;
+            btnLap.SetFocus;
+      end;
 
   end else
   begin
@@ -624,9 +637,11 @@ begin
       ///Parte do calculo do Tempo Parcial
       fMomentoUltimoLap := GetTickCount;
 
+      btnLap.SetFocus;
+
     end;
   end;
-  btnLap.SetFocus;
+
 end;
 
 procedure TF01013.cronoTimer(Sender: TObject);
@@ -789,7 +804,7 @@ procedure TF01013.DBGridBatidaKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   inherited;
-  if (key = 46) then
+  {if (key = 46) then
   //Deleta Batida
   begin
     if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
@@ -799,6 +814,7 @@ begin
         CalculaTempoPadraoFinal;
      end;
   end;
+  }
 end;
 
 procedure TF01013.DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
