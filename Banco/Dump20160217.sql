@@ -63,7 +63,7 @@ CREATE TABLE `batida` (
 
 LOCK TABLES `batida` WRITE;
 /*!40000 ALTER TABLE `batida` DISABLE KEYS */;
-INSERT INTO `batida` VALUES (48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(100,0,0,610,1,153),(101,0,2,156,1,153),(102,0,2,516,1,153),(110,1,2,3,1,153),(127,0,11,266,1,167),(128,0,12,531,1,167),(129,0,12,922,1,167),(130,0,1,593,1,167),(135,0,1,328,1,153),(136,0,2,688,1,153),(137,0,2,812,1,153),(138,0,4,406,1,153),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188);
+INSERT INTO `batida` VALUES (48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(100,0,0,610,1,153),(101,0,2,156,1,153),(102,0,2,516,1,153),(110,1,2,3,1,153),(127,0,11,266,1,167),(128,0,12,531,1,167),(129,0,12,922,1,167),(130,0,1,593,1,167),(135,0,1,328,1,153),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188),(173,0,2,141,1,195),(174,0,8,812,1,195),(175,0,6,484,1,195),(176,0,3,47,1,195),(177,0,8,422,1,195),(179,0,2,266,1,195);
 /*!40000 ALTER TABLE `batida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,6 +88,8 @@ CREATE TABLE `cronometragem` (
   `idTecido` int(11) DEFAULT NULL,
   `idOperacao` int(11) DEFAULT NULL,
   `idOperador` int(11) DEFAULT NULL,
+  `prioridade` int(11) DEFAULT NULL,
+  `tempoPadraoFinal` float DEFAULT '0',
   PRIMARY KEY (`idcronometragem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -98,7 +100,7 @@ CREATE TABLE `cronometragem` (
 
 LOCK TABLES `cronometragem` WRITE;
 /*!40000 ALTER TABLE `cronometragem` DISABLE KEYS */;
-INSERT INTO `cronometragem` VALUES (153,1,1,1,2,3,5,4,8,1,2,5,45),(167,1,1,5,4,3,1,2,43,8,2,26,52);
+INSERT INTO `cronometragem` VALUES (153,1,1,80,1,10,5,4,8,1,2,5,45,NULL,1213.65),(167,1,1,5,4,3,1,2,43,8,2,26,52,NULL,NULL),(191,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,26,NULL,1,NULL),(192,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,9,NULL,2,NULL),(194,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,5,NULL,3,NULL),(195,1,1,80,1,10,90,1,7,NULL,NULL,28,NULL,4,697.48);
 /*!40000 ALTER TABLE `cronometragem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -144,7 +146,7 @@ CREATE TABLE `cronometragem_has_tipo_recurso` (
 
 LOCK TABLES `cronometragem_has_tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` DISABLE KEYS */;
-INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4);
+INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4),(153,3);
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,11 +182,9 @@ DROP TABLE IF EXISTS `dependencia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dependencia` (
-  `idProdutoOperacao` int(11) NOT NULL,
-  `idOperacaoOperacao` int(11) NOT NULL,
-  `idProdutoDependencia` int(11) NOT NULL,
-  `idOperacaoDependencia` int(11) NOT NULL,
-  PRIMARY KEY (`idProdutoOperacao`,`idOperacaoOperacao`,`idProdutoDependencia`,`idOperacaoDependencia`)
+  `idCronometragem` int(11) NOT NULL,
+  `idCronometragemDependencia` int(11) NOT NULL,
+  PRIMARY KEY (`idCronometragem`,`idCronometragemDependencia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -194,7 +194,7 @@ CREATE TABLE `dependencia` (
 
 LOCK TABLES `dependencia` WRITE;
 /*!40000 ALTER TABLE `dependencia` DISABLE KEYS */;
-INSERT INTO `dependencia` VALUES (71,26,71,5);
+INSERT INTO `dependencia` VALUES (191,192);
 /*!40000 ALTER TABLE `dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,7 +482,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,172),('seqCelula',NULL,21),('seqCronometragem',NULL,191),('seqCronometrista',NULL,9),('seqFase',NULL,15),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,30),('seqOperador',NULL,69),('seqParte',NULL,6),('seqProduto',NULL,88),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoRecurso',NULL,14);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,181),('seqCelula',NULL,21),('seqCronometragem',NULL,197),('seqCronometrista',NULL,9),('seqFase',NULL,15),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,30),('seqOperador',NULL,69),('seqParte',NULL,6),('seqProduto',NULL,88),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoRecurso',NULL,14);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -535,50 +535,6 @@ LOCK TABLES `produto` WRITE;
 INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',1),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',4),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3),(63,'TESTE 8','2016-02-04',8),(71,'TESTE 4','2016-02-18',4);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `produto_has_operacao`
---
-
-DROP TABLE IF EXISTS `produto_has_operacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `produto_has_operacao` (
-  `idProduto` int(11) NOT NULL,
-  `idOperacao` int(11) NOT NULL,
-  `prioridade` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idProduto`,`idOperacao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `produto_has_operacao`
---
-
-LOCK TABLES `produto_has_operacao` WRITE;
-/*!40000 ALTER TABLE `produto_has_operacao` DISABLE KEYS */;
-INSERT INTO `produto_has_operacao` VALUES (7,5,1),(7,28,2),(8,5,1),(43,5,2),(43,26,1),(52,1,1),(53,1,1),(54,1,2),(54,5,3),(54,6,1),(56,9,1),(57,1,2),(57,7,1),(63,7,0),(71,5,2),(71,26,0),(77,5,1),(84,5,-665),(84,26,2),(85,5,2),(85,9,3),(85,26,2),(86,5,3),(86,9,4),(86,26,2);
-/*!40000 ALTER TABLE `produto_has_operacao` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRIGGER_Produto_has_Operacao_delete 
-AFTER DELETE ON produto_has_operacao for each row
-BEGIN
-	DELETE FROM dependencia WHERE dependencia.idOperacaoOperacao = old.idOperacao;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `recurso`
@@ -671,4 +627,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-15 14:58:34
+-- Dump completed on 2016-02-17 11:11:21

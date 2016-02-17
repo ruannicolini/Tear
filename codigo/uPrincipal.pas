@@ -85,8 +85,8 @@ begin
   with Componente do
   begin
     R := ClientRect;
-    Rgn := CreateRoundRectRgn(R.Left +2, R.Top+2, R.Right-2, R.Bottom-2, Radius, Radius);
-
+    //Rgn := CreateRoundRectRgn(R.Left +2, R.Top+2, R.Right-2, R.Bottom-2, Radius, Radius);
+    Rgn := CreateRoundRectRgn(R.Left +3, R.Top+3, R.Right-2, R.Bottom-2, Radius, Radius);
     //Perform(EM_GETRECT, 0, lParam(@R));
     //InflateRect(R, -5, -5);
     //Perform(EM_SETRECTNP, 0, lParam(@R));
