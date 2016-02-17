@@ -9,7 +9,6 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 490
-    ActivePage = TbDados
     ExplicitWidth = 811
     ExplicitHeight = 490
     inherited TbDados: TTabSheet
@@ -529,7 +528,68 @@ inherited F01007: TF01007
         ExplicitWidth = 803
         inherited btnFiltrar: TButton
           Left = 752
+          OnClick = btnFiltrarClick
           ExplicitLeft = 752
+        end
+        object chkDescricao: TCheckBox
+          Left = 10
+          Top = 14
+          Width = 97
+          Height = 17
+          Caption = 'DESCRI'#199#195'O'
+          TabOrder = 1
+        end
+        object ChkGrupo: TCheckBox
+          Left = 236
+          Top = 14
+          Width = 97
+          Height = 17
+          Caption = 'GRUPO'
+          TabOrder = 2
+        end
+        object Edit3: TEdit
+          Left = 10
+          Top = 32
+          Width = 200
+          Height = 21
+          TabOrder = 3
+          OnChange = Edit3Change
+        end
+        object EditBeleza3: TEditBeleza
+          Left = 236
+          Top = 32
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idgrupo_produto, descricao from grupo_produto '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = ChkGrupo
+          Outro_Edit = Edit4
+          campo_outro_edit = 'idGrupo_produto'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object Edit4: TEdit
+          Left = 439
+          Top = 32
+          Width = 33
+          Height = 21
+          TabOrder = 5
+          Visible = False
         end
       end
     end
@@ -619,7 +679,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C003C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00400110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1335,7 +1395,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

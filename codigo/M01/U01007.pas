@@ -99,6 +99,11 @@ type
     ClientDataSet2descricao: TStringField;
     FDQuery3tempoPadraoFinal: TSingleField;
     ClientDataSet3tempoPadraoFinal: TSingleField;
+    chkDescricao: TCheckBox;
+    ChkGrupo: TCheckBox;
+    Edit3: TEdit;
+    EditBeleza3: TEditBeleza;
+    Edit4: TEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
@@ -128,6 +133,8 @@ type
     procedure ClientDataSet3AfterInsert(DataSet: TDataSet);
     procedure DBGridBeleza3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure Edit3Change(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -294,6 +301,22 @@ begin
        ShowMessage('Não é possível excluir.' +#13+'Esta Operação vinculada a outra Operação (' +
        DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
 
+end;
+
+procedure TF01007.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select prod.*, gp.descricao as grupo from produto prod ';
+  FDQuery1.SQL.add('left outer join grupo_produto gp on prod.idgrupo = gp.idgrupo_produto where 1=1 ');
+
+  if(chkDescricao.Checked = true)then
+    FDQuery1.SQL.Add(' and descricao like "%' + Edit3.Text +'%"');
+  if(ChkGrupo.Checked = true)then
+    FDQuery1.SQL.Add(' and idgrupo_produto = ' + Edit4.Text);
+
+  FDQuery1.Open;
+  BPesquisar.Click;
 end;
 
 procedure TF01007.Button1Click(Sender: TObject);
@@ -483,6 +506,16 @@ begin
   DataSource3.DataSet.Close;
   DataSource3.DataSet.Open;
 
+end;
+
+procedure TF01007.Edit3Change(Sender: TObject);
+begin
+  inherited;
+  if((edit3.Text = '')or (edit3.Text = ' '))then
+  begin
+    chkDescricao.Checked := false;
+  end else
+    chkDescricao.Checked := true;
 end;
 
 procedure TF01007.EditBeleza2ButtonClick(Sender: TObject;

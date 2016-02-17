@@ -10,7 +10,7 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza, EditBeleza;
 
 type
   TF01008 = class(TFBase)
@@ -44,12 +44,26 @@ type
     ClientDataSet1parte: TStringField;
     ClientDataSet1fase: TStringField;
     ClientDataSet1acao: TStringField;
+    chkAcao: TCheckBox;
+    chkParte: TCheckBox;
+    chkFase: TCheckBox;
+    EditBeleza1: TEditBeleza;
+    ActionList1: TActionList;
+    Action1: TAction;
+    Action2: TAction;
+    EditBeleza2: TEditBeleza;
+    EditBeleza3: TEditBeleza;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure BCancelarClick(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -138,6 +152,38 @@ begin
 
     end else
        showmessage('Preencha o Campo Fase');
+end;
+
+procedure TF01008.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select op.*, p.descricao as parte, f.descricao as fase, a.descricao as acao from operacao op ';
+  FDQuery1.SQL.add(' left outer join parte p on p.idparte = op.idparte');
+  FDQuery1.SQL.add(' left outer join fase f on f.idfase = op.idfase');
+  FDQuery1.SQL.add(' left outer join acao a on a.idAcao = op.idAcao where 1=1');
+
+  if(chkAcao.Checked = true)then
+    FDQuery1.SQL.Add(' and op.idacao = ' + Edit1.Text);
+  if(chkParte.Checked = true)then
+    FDQuery1.SQL.Add(' and op.idparte = ' + Edit2.Text);
+  if(chkFase.Checked = true)then
+    FDQuery1.SQL.Add(' and op.idfase = ' + Edit3.Text);
+
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF01008.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select op.*, p.descricao as parte, f.descricao as fase, a.descricao as acao from operacao op ';
+  FDQuery1.SQL.add(' left outer join parte p on p.idparte = op.idparte');
+  FDQuery1.SQL.add(' left outer join fase f on f.idfase = op.idfase');
+  FDQuery1.SQL.add(' left outer join acao a on a.idAcao = op.idAcao');
+  FDQuery1.Open;
+  BPesquisar.Click;
 end;
 
 procedure TF01008.ClientDataSet1AfterInsert(DataSet: TDataSet);

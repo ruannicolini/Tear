@@ -145,22 +145,21 @@ inherited F01006: TF01006
             Expanded = False
             FieldName = 'idRecurso'
             Title.Caption = 'COD'
-            Width = 43
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'patrimonio'
+            Title.Caption = 'PATRIMONIO'
+            Width = 121
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'descricao'
             Title.Caption = 'DESCRI'#199#195'O'
-            Width = 300
-            Visible = True
-          end
-          item
-            Alignment = taLeftJustify
-            Expanded = False
-            FieldName = 'patrimonio'
-            Title.Caption = 'PATRIM'#212'NIO'
-            Width = 141
+            Width = 184
             Visible = True
           end
           item
@@ -169,14 +168,13 @@ inherited F01006: TF01006
             FieldName = 'idTipoRecurso'
             Title.Alignment = taCenter
             Title.Caption = 'ID'
-            Width = 51
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'recurso'
-            Title.Caption = 'RECURSO'
-            Width = 780
+            FieldName = 'trecurso'
+            Title.Caption = 'TIPO RECURSO'
+            Width = 875
             Visible = True
           end>
       end
@@ -185,7 +183,85 @@ inherited F01006: TF01006
         ExplicitWidth = 804
         inherited btnFiltrar: TButton
           Left = 753
+          OnClick = btnFiltrarClick
           ExplicitLeft = 753
+        end
+        object ChKPatrimonio: TCheckBox
+          Left = 16
+          Top = 16
+          Width = 200
+          Height = 17
+          Caption = 'PATRIM'#212'NIO'
+          TabOrder = 1
+        end
+        object chkDescricao: TCheckBox
+          Left = 257
+          Top = 16
+          Width = 200
+          Height = 17
+          Caption = 'DESCRI'#199#195'O'
+          TabOrder = 2
+        end
+        object ChkTipoRecurso: TCheckBox
+          Left = 498
+          Top = 16
+          Width = 200
+          Height = 17
+          Caption = 'TIPO DE RECURSO'
+          TabOrder = 3
+        end
+        object Edit1: TEdit
+          Left = 16
+          Top = 34
+          Width = 200
+          Height = 21
+          NumbersOnly = True
+          TabOrder = 4
+          OnChange = Edit1Change
+        end
+        object Edit2: TEdit
+          Left = 257
+          Top = 34
+          Width = 200
+          Height = 21
+          TabOrder = 5
+          OnChange = Edit2Change
+        end
+        object EditBeleza1: TEditBeleza
+          Left = 498
+          Top = 34
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 6
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idtipo_recurso, descricao from tipo_recurso '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = ChkTipoRecurso
+          Outro_Edit = Edit3
+          campo_outro_edit = 'idtipo_recurso'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object Edit3: TEdit
+          Left = 698
+          Top = 34
+          Width = 31
+          Height = 21
+          TabOrder = 7
+          Visible = False
         end
       end
     end
@@ -199,12 +275,12 @@ inherited F01006: TF01006
     end
   end
   inherited DS: TDataSource
-    Left = 440
-    Top = 72
+    Left = 752
+    Top = 248
   end
   inherited ClientDataSet1: TClientDataSet
-    Left = 384
-    Top = 72
+    Left = 696
+    Top = 248
     object ClientDataSet1idRecurso: TIntegerField
       FieldName = 'idRecurso'
     end
@@ -214,7 +290,6 @@ inherited F01006: TF01006
     end
     object ClientDataSet1descricao: TStringField
       FieldName = 'descricao'
-      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object ClientDataSet1idTipoRecurso: TIntegerField
@@ -228,8 +303,8 @@ inherited F01006: TF01006
     end
   end
   inherited DataSetProvider1: TDataSetProvider
-    Left = 296
-    Top = 72
+    Left = 608
+    Top = 248
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
@@ -237,8 +312,8 @@ inherited F01006: TF01006
         'select rec.*, '#10'tr.descricao as trecurso '#10'from recurso rec'#10'left o' +
         'uter join tipo_recurso tr on tr.idtipo_recurso = rec.idtiporecur' +
         'so;')
-    Left = 224
-    Top = 72
+    Left = 536
+    Top = 248
     object FDQuery1idRecurso: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idRecurso'
@@ -255,7 +330,6 @@ inherited F01006: TF01006
       AutoGenerateValue = arDefault
       FieldName = 'descricao'
       Origin = 'descricao'
-      ProviderFlags = [pfInUpdate]
       Size = 45
     end
     object FDQuery1idTipoRecurso: TIntegerField
@@ -274,7 +348,7 @@ inherited F01006: TF01006
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00C80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

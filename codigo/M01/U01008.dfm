@@ -229,6 +229,14 @@ inherited F01008: TF01008
       inherited GBFiltros: TGroupBox
         Width = 807
         ExplicitWidth = 807
+        inherited Panel1: TPanel
+          inherited BtnLimparFiltros: TButton
+            Left = 753
+            Top = 4
+            ExplicitLeft = 753
+            ExplicitTop = 4
+          end
+        end
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 807
@@ -295,7 +303,140 @@ inherited F01008: TF01008
         ExplicitWidth = 807
         inherited btnFiltrar: TButton
           Left = 756
+          OnClick = btnFiltrarClick
           ExplicitLeft = 756
+        end
+        object chkAcao: TCheckBox
+          Left = 15
+          Top = 16
+          Width = 97
+          Height = 17
+          Caption = 'A'#199#195'O'
+          TabOrder = 1
+        end
+        object chkParte: TCheckBox
+          Left = 250
+          Top = 16
+          Width = 97
+          Height = 17
+          Caption = 'PARTE'
+          TabOrder = 2
+        end
+        object chkFase: TCheckBox
+          Left = 487
+          Top = 17
+          Width = 97
+          Height = 17
+          Caption = 'FASE'
+          TabOrder = 3
+        end
+        object EditBeleza1: TEditBeleza
+          Left = 15
+          Top = 39
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idacao, descricao from acao '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = chkAcao
+          Outro_Edit = Edit1
+          campo_outro_edit = 'idAcao'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object EditBeleza2: TEditBeleza
+          Left = 250
+          Top = 39
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 5
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idparte, descricao from parte '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = chkParte
+          Outro_Edit = Edit2
+          campo_outro_edit = 'idparte'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object EditBeleza3: TEditBeleza
+          Left = 487
+          Top = 39
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 6
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idfase, descricao from fase '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = chkFase
+          Outro_Edit = Edit3
+          campo_outro_edit = 'idFase'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object Edit1: TEdit
+          Left = 215
+          Top = 39
+          Width = 35
+          Height = 21
+          TabOrder = 7
+          Visible = False
+        end
+        object Edit2: TEdit
+          Left = 451
+          Top = 39
+          Width = 35
+          Height = 21
+          TabOrder = 8
+          Visible = False
+        end
+        object Edit3: TEdit
+          Left = 688
+          Top = 39
+          Width = 35
+          Height = 21
+          TabOrder = 9
+          Visible = False
         end
       end
     end
@@ -309,12 +450,12 @@ inherited F01008: TF01008
     end
   end
   inherited DS: TDataSource
-    Left = 640
-    Top = 80
+    Left = 744
+    Top = 248
   end
   inherited ClientDataSet1: TClientDataSet
-    Left = 584
-    Top = 80
+    Left = 688
+    Top = 248
     object ClientDataSet1idoperacao: TIntegerField
       FieldName = 'idoperacao'
     end
@@ -352,8 +493,8 @@ inherited F01008: TF01008
     end
   end
   inherited DataSetProvider1: TDataSetProvider
-    Left = 496
-    Top = 80
+    Left = 600
+    Top = 248
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
@@ -365,8 +506,8 @@ inherited F01008: TF01008
       'left outer join parte p on p.idparte = op.idparte '#10
       'left outer join fase f on f.idfase = op.idfase '#10
       'left outer join acao a on a.idAcao = op.idAcao'#10)
-    Left = 424
-    Top = 80
+    Left = 528
+    Top = 248
     object FDQuery1idoperacao: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idoperacao'
@@ -422,7 +563,7 @@ inherited F01008: TF01008
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00D80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -958,7 +1099,21 @@ inherited F01008: TF01008
       000000000000}
   end
   inherited Acoes: TActionList
-    Left = 488
-    Top = 152
+    Left = 448
+    Top = 320
+  end
+  object ActionList1: TActionList
+    Left = 520
+    Top = 320
+    object Action1: TAction
+      Caption = 'acCancelar'
+      ShortCut = 27
+      OnExecute = Action5Execute
+    end
+    object Action2: TAction
+      Caption = 'MostrarFiltros'
+      ShortCut = 117
+      OnExecute = ActionMostrarFiltrosExecute
+    end
   end
 end

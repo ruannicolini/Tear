@@ -10,7 +10,7 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza, EditBeleza;
 
 type
   TF01006 = class(TFBase)
@@ -33,6 +33,13 @@ type
     DBEditBeleza1: TDBEditBeleza;
     FDQuery1trecurso: TStringField;
     ClientDataSet1trecurso: TStringField;
+    ChKPatrimonio: TCheckBox;
+    chkDescricao: TCheckBox;
+    ChkTipoRecurso: TCheckBox;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    EditBeleza1: TEditBeleza;
+    Edit3: TEdit;
     procedure acInserirExecute(Sender: TObject);
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
@@ -43,6 +50,10 @@ type
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
+    procedure Edit2Change(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -134,11 +145,58 @@ begin
 
 end;
 
+procedure TF01006.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select rec.*, tr.descricao as trecurso from recurso rec ';
+  FDQuery1.SQL.add('left outer join tipo_recurso tr on tr.idtipo_recurso = rec.idtiporecurso where 1=1');
+
+  if(ChKPatrimonio.Checked = true)then
+    FDQuery1.SQL.Add(' and patrimonio = ' + Edit1.Text);
+  if(chkDescricao.Checked = true)then
+    FDQuery1.SQL.Add(' and descricao like "%' + Edit1.Text +'%"');
+  if(ChkTipoRecurso.Checked = true)then
+    FDQuery1.SQL.Add(' and idtipo_recurso = ' + Edit3.Text);
+
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF01006.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select rec.*, tr.descricao as trecurso from recurso rec left outer join tipo_recurso tr on tr.idtipo_recurso = rec.idtiporecurso;';
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
 procedure TF01006.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idRecurso.AsInteger :=DModule.buscaProximoParametro('seqRecurso');
 
+end;
+
+procedure TF01006.Edit1Change(Sender: TObject);
+begin
+  inherited;
+  if((edit1.Text = '')or (edit2.Text = ' '))then
+  begin
+    ChKPatrimonio.Checked := false;
+  end else
+    ChKPatrimonio.Checked := true;
+end;
+
+procedure TF01006.Edit2Change(Sender: TObject);
+begin
+  inherited;
+  if((edit2.Text = '')or (edit2.Text = ' '))then
+  begin
+    chkDescricao.Checked := false;
+  end else
+    chkDescricao.Checked := true;
 end;
 
 Initialization
