@@ -3,6 +3,8 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
+  ExplicitLeft = -419
+  ExplicitTop = -63
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -1048,6 +1050,8 @@ inherited F01013: TF01013
       inherited PanelFiltros: TPanel
         Width = 1182
         Height = 67
+        ExplicitLeft = 3
+        ExplicitTop = -2
         ExplicitWidth = 1182
         ExplicitHeight = 67
         object chkProduto: TCheckBox [0]
@@ -1161,7 +1165,24 @@ inherited F01013: TF01013
         inherited btnFiltrar: TButton
           Left = 1126
           TabOrder = 6
+          OnClick = btnFiltrarClick
           ExplicitLeft = 1126
+        end
+        object chkTempoOriginal: TCheckBox
+          Left = 466
+          Top = 9
+          Width = 121
+          Height = 17
+          Caption = 'TEMPO ORIGINAL'
+          TabOrder = 7
+        end
+        object chkTempoIdeal: TCheckBox
+          Left = 466
+          Top = 30
+          Width = 121
+          Height = 17
+          Caption = 'TEMPO IDEAL'
+          TabOrder = 8
         end
       end
     end
@@ -1525,7 +1546,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00A00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00A40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

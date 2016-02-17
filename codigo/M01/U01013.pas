@@ -148,6 +148,8 @@ type
     Label16: TLabel;
     DBEdit16: TDBEdit;
     Edit6: TEdit;
+    chkTempoOriginal: TCheckBox;
+    chkTempoIdeal: TCheckBox;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
@@ -180,6 +182,8 @@ type
     procedure ClientDataSet1ritmoChange(Sender: TField);
     procedure ClientDataSet1num_pecasChange(Sender: TField);
     procedure DBEdit16Change(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
+    procedure ActionMostrarFiltrosExecute(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -262,6 +266,12 @@ begin
   DBEdit10.Color := $00EFEFEF;
   DBEdit11.Color := $00EFEFEF;
   Edit6.Color := clWindow;
+end;
+
+procedure TF01013.ActionMostrarFiltrosExecute(Sender: TObject);
+begin
+  inherited;
+  //
 end;
 
 procedure TF01013.BEditarClick(Sender: TObject);
@@ -489,34 +499,45 @@ begin
 end;
 
 procedure TF01013.BtnLimparFiltrosClick(Sender: TObject);
-var
-cont : integer;
-  i: Integer;
-  vetor: array[1..2] of Integer;
 begin
   inherited;
-  {ClientDataSet1.Filtered := false;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select cr.*, o.descricao as operacao, p.descricao as produto, t.descricao as tecido,  op.nome as operador, cron.nome as cronometrista';
+  FDQuery1.SQL.add(' from cronometragem cr');
+  FDQuery1.SQL.add(' left outer join operacao o on o.idoperacao = cr.idoperacao');
+  FDQuery1.SQL.add(' left outer join produto p on p.idProduto = cr.idproduto');
+  FDQuery1.SQL.add(' left outer join tecido t on t.idTecido = cr.idtecido');
+  FDQuery1.SQL.add(' left outer join operador op on op.idOperador = cr.idOperador');
+  FDQuery1.SQL.add(' left outer join cronometrista cron on cron.idCronometrista = cr.idCronometrista');
+  FDQuery1.Open;
+  BPesquisar.Click;
 
-  cont := 0;
+end;
+
+procedure TF01013.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+
+  FDQuery1.SQL.Text := 'select cr.*, o.descricao as operacao, p.descricao as produto, t.descricao as tecido,  op.nome as operador, cron.nome as cronometrista';
+  FDQuery1.SQL.add(' from cronometragem cr');
+  FDQuery1.SQL.add(' left outer join operacao o on o.idoperacao = cr.idoperacao');
+  FDQuery1.SQL.add(' left outer join produto p on p.idProduto = cr.idproduto');
+  FDQuery1.SQL.add(' left outer join tecido t on t.idTecido = cr.idtecido');
+  FDQuery1.SQL.add(' left outer join operador op on op.idOperador = cr.idOperador');
+  FDQuery1.SQL.add(' left outer join cronometrista cron on cron.idCronometrista = cr.idCronometrista where 1=1');
+
   if(chkProduto.Checked = true)then
-    cont := cont + 1;
-    vetor[0] := 1;
+    FDQuery1.SQL.Add(' and cr.idProduto = ' + Edit4.Text);
   if(ChkOperacao.Checked = true)then
-    cont := cont +1;
-    vetor[]
+    FDQuery1.SQL.Add(' and cr.idOperacao = ' + Edit5.Text);
+  if(chkTempoOriginal.Checked = true)then
+    FDQuery1.SQL.Add(' and tempo_original = true');
+  if(chkTempoIdeal.Checked = true)then
+    FDQuery1.SQL.Add(' and tempo_ideal = true' + Edit3.Text);
 
-  for i := 0 to cont do
-  begin
-    if(i >0)then
-      ClientDataSet1.Filter := ClientDataSet1.Filter + ' and ';
-    if(chkProduto.Checked = true)then
-    begin
-      //ClientDataSet1.Filter := 'idProduto = ' + IntToStr(Edit4.Text);
-    end;
-  end;
-  ClientDataSet1.Filtered := true;
-  }
-
+  FDQuery1.Open;
+  BPesquisar.Click;
 end;
 
 procedure TF01013.btnINICIARClick(Sender: TObject);
