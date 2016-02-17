@@ -3,8 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -419
-  ExplicitTop = -63
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -566,8 +564,8 @@ inherited F01013: TF01013
               end
               object Edit3: TEdit
                 Left = 379
-                Top = 15
-                Width = 121
+                Top = 10
+                Width = 65
                 Height = 21
                 TabOrder = 3
                 Visible = False
@@ -803,13 +801,12 @@ inherited F01013: TF01013
           Visible = False
         end
         object Edit1: TEdit
-          Left = 167
-          Top = 33
-          Width = 143
+          Left = 495
+          Top = 250
+          Width = 74
           Height = 21
           ReadOnly = True
           TabOrder = 23
-          Text = 'Edit1'
           Visible = False
         end
         object DBCheckBox3: TDBCheckBox
@@ -1050,8 +1047,6 @@ inherited F01013: TF01013
       inherited PanelFiltros: TPanel
         Width = 1182
         Height = 67
-        ExplicitLeft = 3
-        ExplicitTop = -2
         ExplicitWidth = 1182
         ExplicitHeight = 67
         object chkProduto: TCheckBox [0]
@@ -1546,7 +1541,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00A40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00A80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -406,22 +406,66 @@ end;
 
 procedure TF01013.BSalvarClick(Sender: TObject);
 begin
-  inherited;
-  crono.Enabled := false;
-  status := false;
-  btnINICIAR.Caption := 'INICIAR';
-  btnLap.Caption := 'LAP';
-  btnLap.Enabled := false;
-  BImportar.Enabled := false;
-  BReutilizar.Enabled := true;
+  if trim(DBEdit7.Text) <> '' then
+    begin
+    if trim(DBEdit10.Text) <> '' then
+    begin
+        if trim(DBEdit2.Text) <> '' then
+        begin
+            if trim(DBEdit4.Text) <> '' then
+            begin
+                if trim(DBEdit3.Text) <> '' then
+                begin
+                    if trim(DBEdit6.Text) <> '' then
+                    begin
+                        //Pesquisa as Batidas da cronometragem em foco
+                        DModule.qAux.Close;
+                        DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
+                        DModule.qAux.ParamByName('idCro').AsInteger:= (ClientDataSet1idcronometragem.AsInteger);
+                        DModule.qAux.Open;
+                        if not(DModule.qAux.IsEmpty) then
+                        begin
+                            //Pesquisa os Recursos usados na cronometragem em foco
+                            DModule.qAux.Close;
+                            DModule.qAux.SQL.Text := 'select * from cronometragem_has_tipo_recurso otr where otr.idCronometragem =:id';
+                            DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idcronometragem.AsInteger);
+                            DModule.qAux.Open;
+                            if not(DModule.qAux.IsEmpty) then
+                            begin
+                                //
+                                inherited;
+                                crono.Enabled := false;
+                                status := false;
+                                btnINICIAR.Caption := 'INICIAR';
+                                btnLap.Caption := 'LAP';
+                                btnLap.Enabled := false;
+                                BImportar.Enabled := false;
+                                BReutilizar.Enabled := true;
 
-  DBEdit1.Color := clWindow;
-  DBEdit7.Color := $00EFEFEF;
-  DBEdit8.Color := $00EFEFEF;
-  DBEdit9.Color := $00EFEFEF;
-  DBEdit10.Color := $00EFEFEF;
-  DBEdit11.Color := $00EFEFEF;
-  Edit6.Color := clWindow;
+                                DBEdit1.Color := clWindow;
+                                DBEdit7.Color := $00EFEFEF;
+                                DBEdit8.Color := $00EFEFEF;
+                                DBEdit9.Color := $00EFEFEF;
+                                DBEdit10.Color := $00EFEFEF;
+                                DBEdit11.Color := $00EFEFEF;
+                                Edit6.Color := clWindow;
+                            end else
+                                 showmessage('O Registro não pode ser finalizado. Nenhum Recurso adicionado.');
+                        end else
+                             showmessage('O Registro não pode ser finalizado. Nenhum Tempo Registrado. ');
+                    end else
+                         showmessage('Informe o Numero de Ocorrência');
+                end else
+                     showmessage('Informe o Numero de Peças');
+            end else
+                 showmessage('Informe a Porcentagem de Tolerância');
+        end else
+             showmessage('Informe a Porcentagem de Ritmo');
+    end else
+         showmessage('Informe o Operação');
+  end else
+    showmessage('Informe o Produto');
+
 end;
 
 procedure TF01013.btnLapClick(Sender: TObject);
