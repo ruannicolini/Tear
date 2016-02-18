@@ -150,6 +150,10 @@ type
     Edit6: TEdit;
     chkTempoOriginal: TCheckBox;
     chkTempoIdeal: TCheckBox;
+    FDQuery1prioridade: TIntegerField;
+    ClientDataSet1prioridade: TIntegerField;
+    Label17: TLabel;
+    DBEdit17: TDBEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
@@ -178,12 +182,18 @@ type
     procedure btnLapKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BReutilizarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
-    procedure ClientDataSet1toleranciaChange(Sender: TField);
-    procedure ClientDataSet1ritmoChange(Sender: TField);
-    procedure ClientDataSet1num_pecasChange(Sender: TField);
     procedure DBEdit16Change(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure ActionMostrarFiltrosExecute(Sender: TObject);
+    procedure DBEdit2Click(Sender: TObject);
+    procedure DBEdit3Click(Sender: TObject);
+    procedure DBEdit4Click(Sender: TObject);
+    procedure ClientDataSet1ritmoChange(Sender: TField);
+    procedure ClientDataSet1num_pecasChange(Sender: TField);
+    procedure ClientDataSet1toleranciaChange(Sender: TField);
+    procedure DBEdit7Change(Sender: TObject);
+    procedure DBEdit10Change(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -219,10 +229,21 @@ begin
   inherited Create(AOwner);
   ParIdProduto := pParm1;
   ParIdOperacao := pParm2;
-  ClientDataSet1.Filtered := false;
-  ClientDataSet1.Filter := 'idProduto = ' + IntToStr(ParIdProduto) + ' and idOperacao = ' + IntToStr(ParIdOperacao);
-  ClientDataSet1.Filtered := true;
+
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select cr.*, o.descricao as operacao, p.descricao as produto, t.descricao as tecido,  op.nome as operador, cron.nome as cronometrista';
+  FDQuery1.SQL.add(' from cronometragem cr');
+  FDQuery1.SQL.add(' left outer join operacao o on o.idoperacao = cr.idoperacao');
+  FDQuery1.SQL.add(' left outer join produto p on p.idProduto = cr.idproduto');
+  FDQuery1.SQL.add(' left outer join tecido t on t.idTecido = cr.idtecido');
+  FDQuery1.SQL.add(' left outer join operador op on op.idOperador = cr.idOperador');
+  FDQuery1.SQL.add(' left outer join cronometrista cron on cron.idCronometrista = cr.idCronometrista where 1=1');
+  FDQuery1.SQL.Add(' and cr.idProduto = ' + inttostr(ParIdProduto));
+  FDQuery1.SQL.Add(' and cr.idOperacao = ' + inttostr(ParIdOperacao));
+  FDQuery1.Open;
   BPesquisar.Click;
+
+
   Width := 957;
   Height := 610;
   PageControl.ActivePageIndex := 0;
@@ -266,6 +287,8 @@ begin
   DBEdit10.Color := $00EFEFEF;
   DBEdit11.Color := $00EFEFEF;
   Edit6.Color := clWindow;
+  DBEditBeleza1.Enabled := true;
+  DBEdit7.Enabled := true;
 end;
 
 procedure TF01013.ActionMostrarFiltrosExecute(Sender: TObject);
@@ -286,6 +309,46 @@ begin
   DBEdit10.Color := CorCamposOnlyRead();
   DBEdit11.Color := CorCamposOnlyRead();
   Edit6.Color := CorCamposOnlyRead();
+
+  DBEditBeleza1.Enabled := false;
+  DBEdit7.Enabled := false;
+end;
+
+procedure TF01013.BExcluirClick(Sender: TObject);
+begin
+
+  //
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select d.*, cron.idOperacao, op.descricao from dependencia d';
+  DModule.qAux.SQL.Add(' left outer join Cronometragem cron on cron.idCronometragem = d.idCronometragem');
+  DModule.qAux.SQL.Add(' left outer join operacao op on op.idOperacao = cron.idOperacao');
+  DModule.qAux.SQL.Add(' where d.idcronometragemDependencia =:idCD');
+  DModule.qAux.ParamByName('idCD').AsInteger:= ClientDataSet1idcronometragem.AsInteger;
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+     begin
+         //inherited;
+         if ds.DataSet.Active then
+         begin
+            if not ds.DataSet.IsEmpty then
+            begin
+                if (Application.MessageBox('Deseja Deletar ', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
+                begin
+                  //ds.DataSet.Delete;
+
+                  DModule.qAux.Close;
+                  DModule.qAux.SQL.Text := 'select phf.*, f.descricao from cronometragem phf left outer join operacao f on phf.idoperacao = f.idoperacao where phf.idProduto =:id order by (prioridade)';
+                  DModule.qAux.ParamByName('id').AsInteger:= ClientDataSet1idProduto.AsInteger;
+                  DModule.qAux.Open;
+                  DModule.qAux.First;
+                end;
+            end else
+                ShowMessage('Não Há registros');
+         end;
+     end else
+       ShowMessage('Não é possível excluir.' +#13+'A Operação desta cronometragem está vinculada a outra Operação (' +
+       DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
+
 end;
 
 procedure TF01013.BInserirClick(Sender: TObject);
@@ -449,6 +512,9 @@ begin
                                 DBEdit10.Color := $00EFEFEF;
                                 DBEdit11.Color := $00EFEFEF;
                                 Edit6.Color := clWindow;
+
+                                DBEditBeleza1.Enabled := true;
+                                DBEdit7.Enabled := true;
                             end else
                                  showmessage('O Registro não pode ser finalizado. Nenhum Recurso adicionado.');
                         end else
@@ -691,15 +757,18 @@ begin
     min := 0;
     seg := 0;
     mil := 0;
+    soma := 0;
     while not DModule.qAux.eof do
     begin
-      min := min + DModule.qAux.FieldByName('minutos').AsInteger * 60000;
-      seg := seg + StrToInt(DModule.qAux.FieldByName('segundos').AsString) * 1000;
+      min := min + DModule.qAux.FieldByName('minutos').AsInteger;
+      seg := seg + StrToInt(DModule.qAux.FieldByName('segundos').AsString);
       mil := mil + StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
       i := i +1;
       DModule.qAux.next;
     end;
-    soma := min + seg + mil;
+    soma := (min* 60000) + seg * 1000 + mil;
+
+    //ShowMessage('Min: ' + inttostr(min) + ' Seg: ' + inttostr(seg) + ' mil: ' + inttostr(mil) + #13 + 'Soma: ' + inttostr(soma) + ' Num de Batidas: ' + inttostr(i) );
 
     if((i > 0) and ( ClientDataSet1num_pecas.AsInteger > 0))then
     begin
@@ -727,6 +796,7 @@ procedure TF01013.CDS_BatidaAfterDelete(DataSet: TDataSet);
 begin
   inherited;
   CDS_Batida.ApplyUpdates(-1);
+  CalculaTempoPadraoFinal;
 end;
 
 procedure TF01013.CDS_BatidaAfterInsert(DataSet: TDataSet);
@@ -740,6 +810,7 @@ procedure TF01013.CDS_BatidaAfterPost(DataSet: TDataSet);
 begin
   inherited;
   CDS_Batida.ApplyUpdates(-1);
+  CalculaTempoPadraoFinal;
 end;
 
 procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
@@ -766,22 +837,55 @@ begin
   ClientDataSet1idcronometragem.AsInteger := DModule.buscaProximoParametro('seqCronometragem');
 end;
 
-procedure TF01013.ClientDataSet1num_pecasChange(Sender: TField);
-begin
-  inherited;
-  CalculaTempoPadraoFinal;
-end;
-
 procedure TF01013.ClientDataSet1ritmoChange(Sender: TField);
 begin
   inherited;
   CalculaTempoPadraoFinal;
 end;
 
-procedure TF01013.ClientDataSet1toleranciaChange(Sender: TField);
+procedure TF01013.DBEdit10Change(Sender: TObject);
 begin
   inherited;
-  CalculaTempoPadraoFinal;
+  if DS.DataSet.State=dsInsert then
+  begin
+    if ((trim(DBEdit10.Text) <> '') and (trim(DBEdit7.Text) <> '')) then
+    begin
+         DModule.qAux.Close;
+         DModule.qAux.SQL.Text := 'select * from cronometragem where idproduto =:idProd and idOperacao =:idOp';
+         DModule.qAux.ParamByName('idProd').AsInteger := ClientDataSet1idProduto.AsInteger;
+         DModule.qAux.ParamByName('idOp').AsInteger := ClientDataSet1idOperacao.AsInteger;
+         DModule.qAux.open;
+         DModule.qAux.First;
+
+         //Verifica se Cronometragem já existe
+         if(DModule.qAux.IsEmpty)then
+         begin
+              //Pesquisa qual a ultima prioridade a diciona como ultima prioridade daquele produto
+
+                DModule.qAux.Close;
+                DModule.qAux.SQL.Text := 'select * from cronometragem where idproduto =:idProd order by prioridade desc';
+                DModule.qAux.ParamByName('idProd').AsInteger := ClientDataSet1idProduto.AsInteger;
+                DModule.qAux.open;
+                DModule.qAux.First;
+
+                //Atribui prioridade
+                ClientDataSet1Prioridade.value := DModule.qAux.FieldByName('prioridade').AsInteger + 1;
+
+         end else
+          begin
+              ShowMessage('Cronometragem Já Existe.');
+              DBEdit10.Text := '';
+              DBEditBeleza2.Text := '';
+              ClientDataSet1Prioridade.value := 0;
+              DBEdit17.Text := '';
+          end;
+
+    end else
+    begin
+      ClientDataSet1Prioridade.value := 0;
+      DBEdit17.Text := '';
+    end;
+  end;
 end;
 
 procedure TF01013.DBEdit16Change(Sender: TObject);
@@ -791,6 +895,42 @@ begin
   inherited;
   fTPF := ClientDataSet1tempoPadraoFinal.AsFloat * OneMillisecond;
   Edit6.Text := formatdatetime('hh:nn:ss.zzz',  fTPF);
+end;
+
+procedure TF01013.DBEdit2Click(Sender: TObject);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
+end;
+
+procedure TF01013.DBEdit3Click(Sender: TObject);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
+end;
+
+procedure TF01013.DBEdit4Click(Sender: TObject);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
+end;
+
+procedure TF01013.DBEdit7Change(Sender: TObject);
+begin
+  inherited;
+  //se mudar o produto, deve mudar tbm a prioridade;
+  if trim(DBEdit7.Text) <> '' then
+  begin
+    DBEdit10.Enabled := true;
+    DBEditBeleza2.Enabled := true;
+
+  end else
+  begin
+    DBEdit10.Text := '';
+    DBEditBeleza2.Text := '';
+    DBEdit10.Enabled := false;
+    DBEditBeleza2.Enabled := false;
+  end;
 end;
 
 procedure TF01013.DBEditBeleza1Click(Sender: TObject);
@@ -804,7 +944,7 @@ procedure TF01013.DBGridBatidaKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   inherited;
-  {if (key = 46) then
+  if (key = 46) then
   //Deleta Batida
   begin
     if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
@@ -814,7 +954,7 @@ begin
         CalculaTempoPadraoFinal;
      end;
   end;
-  }
+
 end;
 
 procedure TF01013.DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
@@ -864,6 +1004,7 @@ begin
   end;
   edit2.Text := formatdatetime('hh:nn:ss.zzz',  fTempoCronometr);
 
+
   //DBGrid Batida
   FDQ_Batida.ParamByName('id').Value:=(ClientDataSet1idcronometragem.AsInteger);
   DS_Batida.DataSet.Close;
@@ -883,6 +1024,18 @@ begin
   inherited;
   //BPesquisarClick(Sender);
   BImportar.Enabled := false;
+end;
+
+procedure TF01013.ClientDataSet1num_pecasChange(Sender: TField);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
+end;
+
+procedure TF01013.ClientDataSet1toleranciaChange(Sender: TField);
+begin
+  inherited;
+  CalculaTempoPadraoFinal;
 end;
 
 Initialization

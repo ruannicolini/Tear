@@ -198,6 +198,8 @@ procedure TFBase.FormShow(Sender: TObject);
 begin
   ArredondarComponente(btnFiltrar, 60);
   ArredondarComponente(BtnLimparFiltros, 60);
+  BSalvar.Enabled := false;
+  BCancelar.Enabled := false;
 end;
 
 procedure TFBase.BInserirClick(Sender: TObject);

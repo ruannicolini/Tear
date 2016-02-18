@@ -10,12 +10,9 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
-    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited grDados: TGroupBox
@@ -227,6 +224,15 @@ inherited F01013: TF01013
           Caption = 'TEMPO PADR'#195'O FINAL'
           FocusControl = DBEdit16
         end
+        object Label17: TLabel
+          Left = 163
+          Top = 17
+          Width = 19
+          Height = 13
+          Caption = 'OR.'
+          FocusControl = DBEdit17
+          Visible = False
+        end
         object DBEdit1: TDBEdit
           Left = 25
           Top = 33
@@ -246,6 +252,7 @@ inherited F01013: TF01013
           DataField = 'ritmo'
           DataSource = DS
           TabOrder = 8
+          OnClick = DBEdit2Click
         end
         object DBEdit3: TDBEdit
           Left = 174
@@ -255,6 +262,7 @@ inherited F01013: TF01013
           DataField = 'num_pecas'
           DataSource = DS
           TabOrder = 9
+          OnClick = DBEdit3Click
         end
         object DBEdit4: TDBEdit
           Left = 324
@@ -264,6 +272,7 @@ inherited F01013: TF01013
           DataField = 'tolerancia'
           DataSource = DS
           TabOrder = 10
+          OnClick = DBEdit4Click
         end
         object DBEdit5: TDBEdit
           Left = 625
@@ -294,6 +303,7 @@ inherited F01013: TF01013
           DataSource = DS
           ReadOnly = True
           TabOrder = 13
+          OnChange = DBEdit7Change
         end
         object DBEdit8: TDBEdit
           Left = 324
@@ -328,8 +338,10 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'idOperacao'
           DataSource = DS
+          Enabled = False
           ReadOnly = True
           TabOrder = 16
+          OnChange = DBEdit10Change
         end
         object DBEdit11: TDBEdit
           Left = 25
@@ -352,12 +364,15 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'operacao'
           DataSource = DS
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ParentShowHint = False
+          ShowHint = False
           TabOrder = 1
           Ativar_Pesquisa = True
           mostrar_Botao = True
@@ -858,7 +873,6 @@ inherited F01013: TF01013
           DataSource = DS
           ReadOnly = True
           TabOrder = 25
-          Visible = False
           OnChange = DBEdit16Change
         end
         object Edit6: TEdit
@@ -870,11 +884,19 @@ inherited F01013: TF01013
           ReadOnly = True
           TabOrder = 26
         end
+        object DBEdit17: TDBEdit
+          Left = 160
+          Top = 33
+          Width = 24
+          Height = 21
+          DataField = 'prioridade'
+          DataSource = DS
+          ReadOnly = True
+          TabOrder = 27
+        end
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
@@ -1397,6 +1419,9 @@ inherited F01013: TF01013
     object ClientDataSet1tempoPadraoFinal: TSingleField
       FieldName = 'tempoPadraoFinal'
     end
+    object ClientDataSet1prioridade: TIntegerField
+      FieldName = 'prioridade'
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 728
@@ -1537,12 +1562,17 @@ inherited F01013: TF01013
       FieldName = 'tempoPadraoFinal'
       Origin = 'tempoPadraoFinal'
     end
+    object FDQuery1prioridade: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'prioridade'
+      Origin = 'prioridade'
+    end
   end
   inherited ImageListBase: TImageList
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00AC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00B40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

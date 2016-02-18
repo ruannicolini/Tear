@@ -224,6 +224,10 @@ begin
       ClientDataSet3prioridade.Value := DataSource3.DataSet.RecordCount + 1;
       ClientDataSet3idProduto.Value := ClientDataSet1idProduto.AsInteger;
       ClientDataSet3idOperacao.Value := StrToInt(Edit1.Text);
+      ClientDataSet3tempo_original.Value := false;
+      ClientDataSet3tempo_ideal.Value := false;
+      ClientDataSet3num_pecas.Value := 1;
+      ClientDataSet3num_ocorrencia.Value :=1;
 
       {Salva}
       DataSource3.DataSet.Post;
@@ -235,7 +239,7 @@ begin
 
       Edit1.Text :='';
     end else
-      ShowMessage('Fase já adicionada');
+      ShowMessage('Operação já adicionada');
   end else
     ShowMessage('Selecione uma fase.');
 end;
