@@ -150,10 +150,6 @@ type
     Edit6: TEdit;
     chkTempoOriginal: TCheckBox;
     chkTempoIdeal: TCheckBox;
-    FDQuery1prioridade: TIntegerField;
-    ClientDataSet1prioridade: TIntegerField;
-    Label17: TLabel;
-    DBEdit17: TDBEdit;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
@@ -194,6 +190,7 @@ type
     procedure DBEdit7Change(Sender: TObject);
     procedure DBEdit10Change(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
+    procedure DBEdit17Click(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -496,6 +493,7 @@ begin
                             DModule.qAux.Open;
                             if not(DModule.qAux.IsEmpty) then
                             begin
+                                //ShowMessage('TPF: ' + ClientDataSet1tempoPadraoFinal.AsString);
                                 //
                                 inherited;
                                 crono.Enabled := false;
@@ -782,7 +780,9 @@ begin
       //TempoPadraoFinal = TempoPadrao * (Tolerancia/100)
         tempoPadraoFinal := tempoPadrao * (1+(ClientDataSet1tolerancia.AsInteger/100));
 
-        ClientDataSet1tempoPadraoFinal.value := tempoPadraoFinal;
+        ClientDataSet1tempoPadraoFinal.Value := tempoPadraoFinal;
+        DBEdit16.Text := FloatToStr(tempoPadraoFinal);
+        //DBEdit16.OnChange(nil);
     end;
 
 end;
@@ -859,32 +859,12 @@ begin
          DModule.qAux.First;
 
          //Verifica se Cronometragem já existe
-         if(DModule.qAux.IsEmpty)then
+         if not(DModule.qAux.IsEmpty)then
          begin
-              //Pesquisa qual a ultima prioridade a diciona como ultima prioridade daquele produto
-
-                DModule.qAux.Close;
-                DModule.qAux.SQL.Text := 'select * from cronometragem where idproduto =:idProd order by prioridade desc';
-                DModule.qAux.ParamByName('idProd').AsInteger := ClientDataSet1idProduto.AsInteger;
-                DModule.qAux.open;
-                DModule.qAux.First;
-
-                //Atribui prioridade
-                ClientDataSet1Prioridade.value := DModule.qAux.FieldByName('prioridade').AsInteger + 1;
-
-         end else
-          begin
               ShowMessage('Cronometragem Já Existe.');
               DBEdit10.Text := '';
               DBEditBeleza2.Text := '';
-              ClientDataSet1Prioridade.value := 0;
-              DBEdit17.Text := '';
           end;
-
-    end else
-    begin
-      ClientDataSet1Prioridade.value := 0;
-      DBEdit17.Text := '';
     end;
   end;
 end;
@@ -895,7 +875,14 @@ fTPF: TTime;
 begin
   inherited;
   fTPF := ClientDataSet1tempoPadraoFinal.AsFloat * OneMillisecond;
+  //ShowMessage('fTPF: ' + TimeToStr(fTPF));
   Edit6.Text := formatdatetime('hh:nn:ss.zzz',  fTPF);
+end;
+
+procedure TF01013.DBEdit17Click(Sender: TObject);
+begin
+  inherited;
+  //ShowMessage(FloatToStr(ClientDataSet1tempoPadraoFinal.AsFloat));
 end;
 
 procedure TF01013.DBEdit2Click(Sender: TObject);

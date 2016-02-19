@@ -3,8 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -336
-  ExplicitTop = -16
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -12,7 +10,6 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
-    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
@@ -228,15 +225,6 @@ inherited F01013: TF01013
           Height = 13
           Caption = 'TEMPO PADR'#195'O FINAL'
           FocusControl = DBEdit16
-        end
-        object Label17: TLabel
-          Left = 163
-          Top = 17
-          Width = 19
-          Height = 13
-          Caption = 'OR.'
-          FocusControl = DBEdit17
-          Visible = False
         end
         object DBEdit1: TDBEdit
           Left = 25
@@ -876,8 +864,8 @@ inherited F01013: TF01013
           Height = 21
           DataField = 'tempoPadraoFinal'
           DataSource = DS
-          ReadOnly = True
           TabOrder = 25
+          Visible = False
           OnChange = DBEdit16Change
         end
         object Edit6: TEdit
@@ -888,16 +876,6 @@ inherited F01013: TF01013
           Alignment = taCenter
           ReadOnly = True
           TabOrder = 26
-        end
-        object DBEdit17: TDBEdit
-          Left = 160
-          Top = 33
-          Width = 24
-          Height = 21
-          DataField = 'prioridade'
-          DataSource = DS
-          ReadOnly = True
-          TabOrder = 27
         end
       end
     end
@@ -1423,9 +1401,7 @@ inherited F01013: TF01013
     end
     object ClientDataSet1tempoPadraoFinal: TSingleField
       FieldName = 'tempoPadraoFinal'
-    end
-    object ClientDataSet1prioridade: TIntegerField
-      FieldName = 'prioridade'
+      ProviderFlags = [pfInUpdate]
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -1566,18 +1542,14 @@ inherited F01013: TF01013
       AutoGenerateValue = arDefault
       FieldName = 'tempoPadraoFinal'
       Origin = 'tempoPadraoFinal'
-    end
-    object FDQuery1prioridade: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'prioridade'
-      Origin = 'prioridade'
+      ProviderFlags = [pfInUpdate]
     end
   end
   inherited ImageListBase: TImageList
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00BC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00C00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -2152,7 +2124,7 @@ inherited F01013: TF01013
     end
   end
   object FDQ_Recurso: TFDQuery
-    Connection = DModule.FDConnection
+    ConnectionName = 'balay'
     SQL.Strings = (
       
         'select * from cronometragem_has_tipo_recurso otr'#10'left outer join' +

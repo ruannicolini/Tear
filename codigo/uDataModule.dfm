@@ -3,12 +3,12 @@ object DModule: TDModule
   Height = 375
   Width = 424
   object qAux: TFDQuery
-    Connection = FDConnection
+    ConnectionName = 'balay'
     Left = 48
     Top = 152
   end
   object FModulo: TFDQuery
-    Connection = FDConnection
+    ConnectionName = 'balay'
     SQL.Strings = (
       'SELECT * FROM MODULO')
     Left = 48
@@ -26,11 +26,13 @@ object DModule: TDModule
     Top = 40
   end
   object FDConnection: TFDConnection
+    ConnectionName = 'balay'
     Params.Strings = (
       'Database=balay'
       'User_Name=root'
       'Password=root'
       'DriverID=MySQL')
+    Connected = True
     LoginPrompt = False
     BeforeConnect = FDConnectionBeforeConnect
     Left = 184

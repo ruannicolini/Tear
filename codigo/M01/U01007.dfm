@@ -2,6 +2,7 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 525
   ClientWidth = 811
+  ExplicitTop = -149
   ExplicitWidth = 827
   ExplicitHeight = 564
   PixelsPerInch = 96
@@ -9,9 +10,12 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 490
+    ActivePage = TbDados
     ExplicitWidth = 811
     ExplicitHeight = 490
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 462
       inherited grDados: TGroupBox
@@ -281,30 +285,6 @@ inherited F01007: TF01007
               CorBorda = clGray
               NovoLayout = False
             end
-            object Button1: TButton
-              Left = 194
-              Top = 3
-              Width = 23
-              Height = 24
-              Align = alCustom
-              Anchors = [akTop, akRight, akBottom]
-              ImageIndex = 0
-              Images = ImageList2
-              TabOrder = 3
-              OnClick = Button1Click
-            end
-            object Button2: TButton
-              Left = 194
-              Top = 27
-              Width = 23
-              Height = 24
-              Align = alCustom
-              Anchors = [akTop, akRight, akBottom]
-              ImageIndex = 1
-              Images = ImageList2
-              TabOrder = 4
-              OnClick = Button2Click
-            end
           end
         end
         object GroupBoxDependencias: TGroupBox
@@ -467,6 +447,8 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 462
       inherited GBFiltros: TGroupBox
@@ -675,7 +657,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C00540110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00580110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1269,9 +1251,6 @@ inherited F01007: TF01007
     object ClientDataSet3idOperador: TIntegerField
       FieldName = 'idOperador'
     end
-    object ClientDataSet3prioridade: TIntegerField
-      FieldName = 'prioridade'
-    end
     object ClientDataSet3descricao: TStringField
       FieldName = 'descricao'
       Size = 45
@@ -1292,7 +1271,7 @@ inherited F01007: TF01007
       
         'select phf.*, f.descricao from cronometragem phf '#10'left outer joi' +
         'n operacao f on phf.idoperacao = f.idoperacao '#10'where phf.idProdu' +
-        'to =:id '#10'order by (prioridade);')
+        'to =:id '#10'order by (f.idOperacao);')
     Left = 552
     Top = 296
     ParamData = <
@@ -1368,11 +1347,6 @@ inherited F01007: TF01007
       FieldName = 'idOperador'
       Origin = 'idOperador'
     end
-    object FDQuery3prioridade: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'prioridade'
-      Origin = 'prioridade'
-    end
     object FDQuery3descricao: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'descricao'
@@ -1391,7 +1365,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
@@ -1537,11 +1511,15 @@ inherited F01007: TF01007
       
         'left outer join cronometragem c on dep.idCronometragem = c.idCro' +
         'nometragem '#13#10#10
+      ''
       
         'left outer join cronometragem d on dep.idCronometragemDependenci' +
         'a = d.idCronometragem '#10
       'left outer join operacao op on op.idOperacao = d.idOperacao '#13#10#10
-      'where d.idProduto =:idProd and c.idOperacao =:idOp;')
+      ''
+      
+        'where d.idProduto =:idProd and c.idOperacao =:idOp order by(op.i' +
+        'dOperacao);')
     Left = 556
     Top = 395
     ParamData = <
