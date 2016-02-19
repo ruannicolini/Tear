@@ -18,6 +18,7 @@ type
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     FDConnection: TFDConnection;
     procedure FDConnectionBeforeConnect(Sender: TObject);
+    procedure qAuxBeforeExecute(DataSet: TFDDataSet);
   private
     { Private declarations }
   public
@@ -33,12 +34,14 @@ implementation
 
 {$R *.dfm}
 
+uses MidasLib, IniFiles;
+
 
 function TDModule.buscaProximoParametro(p: string): integer;
 var
   i : integer;
 begin
-  
+
   qAux.SQL.Text := 'select valor from parametros where parametro =:p';
   qAux.ParamByName('p').AsString:= p;
   qAux.Open;
@@ -63,7 +66,15 @@ begin
   FDConnection.Params.DriverID := 'MYSQL';
   FDConnection.DriverName := 'MYSQL';
   FDPhysMySQLDriverLink1.DriverID := 'MYSQL';
-  //FDPhysMySQLDriverLink1. := 'MYSQL';
 end;
 
-end.
+procedure TDModule.qAuxBeforeExecute(DataSet: TFDDataSet);
+var
+ConfigIni: TIniFile;
+begin
+//ConfigIni := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Config.ini');
+//FModulo.ConnectionName := configIni.ReadString('CONFIG', 'DATABASE', '');
+
+end;
+
+End.

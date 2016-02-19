@@ -34,18 +34,6 @@ type
     BCancelar: TSpeedButton;
     BPesquisar: TSpeedButton;
     BFechar: TSpeedButton;
-    ImgSaveWhite: TImage;
-    ImgSaveGray: TImage;
-    Image1: TImage;
-    Image2: TImage;
-    Image3: TImage;
-    Image6: TImage;
-    Image7: TImage;
-    Image8: TImage;
-    Image4: TImage;
-    Image5: TImage;
-    Image9: TImage;
-    Image10: TImage;
     BFirst: TSpeedButton;
     BPrior: TSpeedButton;
     BNext: TSpeedButton;

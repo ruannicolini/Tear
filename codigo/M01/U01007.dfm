@@ -2,7 +2,8 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 525
   ClientWidth = 811
-  ExplicitTop = -149
+  ExplicitLeft = -40
+  ExplicitTop = 8
   ExplicitWidth = 827
   ExplicitHeight = 564
   PixelsPerInch = 96
@@ -10,12 +11,10 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 811
     Height = 490
-    ActivePage = TbDados
+    ActivePage = TbFiltros
     ExplicitWidth = 811
     ExplicitHeight = 490
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 462
       inherited grDados: TGroupBox
@@ -447,8 +446,6 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 803
       ExplicitHeight = 462
       inherited GBFiltros: TGroupBox

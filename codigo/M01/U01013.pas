@@ -322,30 +322,21 @@ begin
   DModule.qAux.SQL.Add(' where d.idcronometragemDependencia =:idCD');
   DModule.qAux.ParamByName('idCD').AsInteger:= ClientDataSet1idcronometragem.AsInteger;
   DModule.qAux.Open;
-  if(DModule.qAux.IsEmpty)then
-     begin
-         //inherited;
-         if ds.DataSet.Active then
-         begin
-            if not ds.DataSet.IsEmpty then
-            begin
-                if (Application.MessageBox('Deseja Deletar ', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
-                begin
-                  //ds.DataSet.Delete;
 
-                  {DModule.qAux.Close;
-                  DModule.qAux.SQL.Text := 'select phf.*, f.descricao from cronometragem phf left outer join operacao f on phf.idoperacao = f.idoperacao where phf.idProduto =:id order by (prioridade)';
-                  DModule.qAux.ParamByName('id').AsInteger:= ClientDataSet1idProduto.AsInteger;
-                  DModule.qAux.Open;
-                  DModule.qAux.First;
-                  }
-                end;
-            end else
-                ShowMessage('Não Há registros');
-         end;
-     end else
-       ShowMessage('Não é possível excluir.' +#13+'A Operação desta cronometragem está vinculada a outra Operação (' +
-       DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
+  if ds.DataSet.Active then
+  begin
+      if (not(DS.DataSet.IsEmpty)) then
+      begin
+
+          if(DModule.qAux.IsEmpty)then
+          begin
+              inherited;
+          end else
+               ShowMessage('Não é possível excluir.' +#13+'A Operação desta cronometragem está vinculada a outra Operação (' +
+               DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
+      end else
+          ShowMessage('Não Há registros');
+  end;
 
 end;
 

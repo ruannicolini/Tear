@@ -3,6 +3,8 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
+  ExplicitLeft = -405
+  ExplicitTop = -156
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -22,78 +24,6 @@ inherited F01013: TF01013
         Height = 587
         ExplicitWidth = 1182
         ExplicitHeight = 587
-        inherited ImgSaveWhite: TImage
-          Left = 646
-          Top = 257
-          ExplicitLeft = 646
-          ExplicitTop = 257
-        end
-        inherited ImgSaveGray: TImage
-          Left = 670
-          Top = 257
-          ExplicitLeft = 670
-          ExplicitTop = 257
-        end
-        inherited Image1: TImage
-          Left = 646
-          Top = 288
-          ExplicitLeft = 646
-          ExplicitTop = 288
-        end
-        inherited Image2: TImage
-          Left = 670
-          Top = 288
-          ExplicitLeft = 670
-          ExplicitTop = 288
-        end
-        inherited Image3: TImage
-          Left = 646
-          Top = 319
-          ExplicitLeft = 646
-          ExplicitTop = 319
-        end
-        inherited Image6: TImage
-          Left = 670
-          Top = 319
-          ExplicitLeft = 670
-          ExplicitTop = 319
-        end
-        inherited Image7: TImage
-          Left = 670
-          Top = 350
-          ExplicitLeft = 670
-          ExplicitTop = 350
-        end
-        inherited Image8: TImage
-          Left = 646
-          Top = 350
-          ExplicitLeft = 646
-          ExplicitTop = 350
-        end
-        inherited Image4: TImage
-          Left = 670
-          Top = 381
-          ExplicitLeft = 670
-          ExplicitTop = 381
-        end
-        inherited Image5: TImage
-          Left = 646
-          Top = 381
-          ExplicitLeft = 646
-          ExplicitTop = 381
-        end
-        inherited Image9: TImage
-          Left = 670
-          Top = 412
-          ExplicitLeft = 670
-          ExplicitTop = 412
-        end
-        inherited Image10: TImage
-          Left = 646
-          Top = 412
-          ExplicitLeft = 646
-          ExplicitTop = 412
-        end
         object Label1: TLabel
           Left = 25
           Top = 19
@@ -880,6 +810,8 @@ inherited F01013: TF01013
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
@@ -1549,7 +1481,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00C00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00C80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -2124,7 +2056,7 @@ inherited F01013: TF01013
     end
   end
   object FDQ_Recurso: TFDQuery
-    ConnectionName = 'balay'
+    Connection = DModule.FDConnection
     SQL.Strings = (
       
         'select * from cronometragem_has_tipo_recurso otr'#10'left outer join' +
