@@ -12,9 +12,12 @@ uses
 
 type
   TDModule = class(TDataModule)
-    FDConnection: TFDConnection;
     qAux: TFDQuery;
     FModulo: TFDQuery;
+    FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDConnection: TFDConnection;
+    procedure FDConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,6 +56,14 @@ begin
 
   ShowMessage('Parametro Inválido.');
 
+end;
+
+procedure TDModule.FDConnectionBeforeConnect(Sender: TObject);
+begin
+  FDConnection.Params.DriverID := 'MYSQL';
+  FDConnection.DriverName := 'MYSQL';
+  FDPhysMySQLDriverLink1.DriverID := 'MYSQL';
+  //FDPhysMySQLDriverLink1. := 'MYSQL';
 end;
 
 end.

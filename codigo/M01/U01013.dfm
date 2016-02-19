@@ -3,6 +3,8 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
+  ExplicitLeft = -336
+  ExplicitTop = -16
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -10,9 +12,12 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
+    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited grDados: TGroupBox
@@ -1572,7 +1577,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00B40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00BC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -2147,7 +2152,7 @@ inherited F01013: TF01013
     end
   end
   object FDQ_Recurso: TFDQuery
-    ConnectionName = 'balay'
+    Connection = DModule.FDConnection
     SQL.Strings = (
       
         'select * from cronometragem_has_tipo_recurso otr'#10'left outer join' +
@@ -2245,7 +2250,7 @@ inherited F01013: TF01013
     end
   end
   object FDQ_Batida: TFDQuery
-    ConnectionName = 'balay'
+    Connection = DModule.FDConnection
     SQL.Strings = (
       'select * from batida where idCronometragem =:id;')
     Left = 800

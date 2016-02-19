@@ -97,6 +97,9 @@ implementation
 
 {$R *.dfm}
 
+uses
+UdataModule;
+
 
 procedure TFBase.Action5Execute(Sender: TObject);
 begin

@@ -336,11 +336,12 @@ begin
                 begin
                   //ds.DataSet.Delete;
 
-                  DModule.qAux.Close;
+                  {DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select phf.*, f.descricao from cronometragem phf left outer join operacao f on phf.idoperacao = f.idoperacao where phf.idProduto =:id order by (prioridade)';
                   DModule.qAux.ParamByName('id').AsInteger:= ClientDataSet1idProduto.AsInteger;
                   DModule.qAux.Open;
                   DModule.qAux.First;
+                  }
                 end;
             end else
                 ShowMessage('Não Há registros');
@@ -776,10 +777,10 @@ begin
         tempoMedio := (soma/i)/ClientDataSet1num_pecas.AsInteger;
 
       //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
-        tempoPadrao := tempoMedio * (1+(1-(ClientDataSet1ritmo.AsInteger/100)));
+        tempoPadrao := tempoMedio * (ClientDataSet1ritmo.AsInteger/100);
 
       //TempoPadraoFinal = TempoPadrao * (Tolerancia/100)
-        tempoPadraoFinal := tempoPadrao * (ClientDataSet1tolerancia.AsInteger/100);
+        tempoPadraoFinal := tempoPadrao * (1+(ClientDataSet1tolerancia.AsInteger/100));
 
         ClientDataSet1tempoPadraoFinal.value := tempoPadraoFinal;
     end;

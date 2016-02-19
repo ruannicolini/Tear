@@ -2,7 +2,7 @@ inherited F01010: TF01010
   Caption = 'F01010'
   ClientHeight = 552
   ClientWidth = 813
-  ExplicitLeft = -42
+  ExplicitLeft = -159
   ExplicitWidth = 829
   ExplicitHeight = 591
   PixelsPerInch = 96
@@ -13,8 +13,6 @@ inherited F01010: TF01010
     ExplicitWidth = 813
     ExplicitHeight = 517
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 805
       ExplicitHeight = 489
       inherited grDados: TGroupBox
@@ -334,8 +332,6 @@ inherited F01010: TF01010
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 805
       ExplicitHeight = 489
       inherited GBFiltros: TGroupBox
@@ -591,7 +587,7 @@ inherited F01010: TF01010
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010D002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1131,7 +1127,7 @@ inherited F01010: TF01010
     Top = 232
   end
   object Query_TR: TFDQuery
-    ConnectionName = 'balay'
+    Connection = DModule.FDConnection
     SQL.Strings = (
       'select * from operador_has_tipo_recurso otr'#10
       'left outer join tipo_recurso t '
