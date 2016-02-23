@@ -152,7 +152,7 @@ begin
     {ShowMessage('Inserção');}
     //DELETAR
     DModule.qAux.Close;
-    DModule.qAux.SQL.Text := 'Delete from produto_has_OPERACAO WHERE idProduto =:p';
+    DModule.qAux.SQL.Text := 'Delete from cronometragem WHERE idProduto =:p';
     DModule.qAux.ParamByName('p').AsString := ClientDataSet1idProduto.AsString;
     DModule.qAux.execsql;
   end else
