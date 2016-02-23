@@ -129,6 +129,7 @@ type
       Shift: TShiftState);
     procedure Edit3Change(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -291,6 +292,16 @@ begin
   if(ChkGrupo.Checked = true)then
     FDQuery1.SQL.Add(' and idgrupo_produto = ' + Edit4.Text);
 
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF01007.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  //
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select prod.*, gp.descricao as grupo from produto prod left outer join grupo_produto gp on prod.idgrupo = gp.idgrupo_produto';
   FDQuery1.Open;
   BPesquisar.Click;
 end;
