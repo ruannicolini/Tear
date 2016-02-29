@@ -2,7 +2,6 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 525
   ClientWidth = 811
-  ExplicitLeft = -40
   ExplicitWidth = 827
   ExplicitHeight = 564
   PixelsPerInch = 96
@@ -132,12 +131,13 @@ inherited F01007: TF01007
           NovoLayout = False
         end
         object GroupBoxOperacoes: TGroupBox
-          Left = 270
+          Left = 272
           Top = 147
-          Width = 232
+          Width = 230
           Height = 141
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
+          BiDiMode = bdLeftToRight
           Caption = 'OPERA'#199#213'ES'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -147,12 +147,13 @@ inherited F01007: TF01007
           Padding.Left = 4
           Padding.Right = 4
           Padding.Bottom = 4
+          ParentBiDiMode = False
           ParentFont = False
           TabOrder = 5
           object DBGridBeleza2: TDBGridBeleza
             Left = 6
             Top = 72
-            Width = 220
+            Width = 218
             Height = 63
             Hint = 'Clique no Titulo da Coluna para Ordenar'
             TabStop = False
@@ -200,14 +201,6 @@ inherited F01007: TF01007
               item
                 Alignment = taCenter
                 Expanded = False
-                FieldName = 'prioridade'
-                Title.Alignment = taCenter
-                Title.Caption = 'PRIORIDADE'
-                Visible = True
-              end
-              item
-                Alignment = taCenter
-                Expanded = False
                 FieldName = 'tempoPadraoFinal'
                 Title.Alignment = taCenter
                 Title.Caption = 'TPF'
@@ -217,7 +210,7 @@ inherited F01007: TF01007
           object GroupBox1: TGroupBox
             Left = 6
             Top = 18
-            Width = 220
+            Width = 218
             Height = 54
             Margins.Left = 0
             Margins.Top = 0
@@ -228,7 +221,7 @@ inherited F01007: TF01007
             ParentDoubleBuffered = False
             TabOrder = 1
             object BitBtn1: TBitBtn
-              Left = 98
+              Left = 96
               Top = 14
               Width = 27
               Height = 23
@@ -245,7 +238,7 @@ inherited F01007: TF01007
               OnClick = BitBtn1Click
             end
             object BtnExcluirOperacao: TBitBtn
-              Left = 124
+              Left = 122
               Top = 14
               Width = 27
               Height = 23
@@ -258,7 +251,7 @@ inherited F01007: TF01007
             object EditBeleza1: TEditBeleza
               Left = 72
               Top = 15
-              Width = 26
+              Width = 110
               Height = 21
               Align = alCustom
               Anchors = [akLeft, akRight]
@@ -302,14 +295,18 @@ inherited F01007: TF01007
           ParentFont = False
           TabOrder = 6
           object GroupBox2: TGroupBox
-            Left = 2
-            Top = 18
-            Width = 228
+            AlignWithMargins = True
+            Left = 5
+            Top = 21
+            Width = 222
             Height = 31
             Align = alTop
             TabOrder = 0
+            ExplicitLeft = 2
+            ExplicitTop = 18
+            ExplicitWidth = 228
             object Button4: TButton
-              Left = 102
+              Left = 96
               Top = 4
               Width = 27
               Height = 23
@@ -318,9 +315,10 @@ inherited F01007: TF01007
               Caption = '+'
               TabOrder = 0
               OnClick = Button4Click
+              ExplicitLeft = 102
             end
             object btnExcluirDependencia: TButton
-              Left = 128
+              Left = 122
               Top = 4
               Width = 27
               Height = 23
@@ -329,11 +327,12 @@ inherited F01007: TF01007
               Caption = '-'
               TabOrder = 1
               OnClick = btnExcluirDependenciaClick
+              ExplicitLeft = 128
             end
             object EditBeleza2: TEditBeleza
               Left = 76
               Top = 5
-              Width = 26
+              Width = 20
               Height = 21
               Align = alCustom
               Anchors = [akLeft, akRight]
@@ -362,13 +361,14 @@ inherited F01007: TF01007
               CorBorda = clGray
               NovoLayout = False
               OnButtonClick = EditBeleza2ButtonClick
+              ExplicitWidth = 26
             end
           end
           object DBGridBeleza3: TDBGridBeleza
             Left = 2
-            Top = 49
+            Top = 55
             Width = 228
-            Height = 73
+            Height = 67
             Hint = 'Clique no Titulo da Coluna para Ordenar'
             Align = alClient
             BorderStyle = bsNone
@@ -424,8 +424,8 @@ inherited F01007: TF01007
           end
         end
         object Edit2: TEdit
-          Left = 186
-          Top = 328
+          Left = 169
+          Top = 331
           Width = 80
           Height = 21
           TabOrder = 7
@@ -433,8 +433,8 @@ inherited F01007: TF01007
           Visible = False
         end
         object Edit1: TEdit
-          Left = 188
-          Top = 239
+          Left = 180
+          Top = 180
           Width = 80
           Height = 21
           TabStop = False
@@ -656,7 +656,7 @@ inherited F01007: TF01007
     Left = 712
     Top = 184
     Bitmap = {
-      494C01010D002C00600110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00680110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1364,7 +1364,7 @@ inherited F01007: TF01007
     Left = 676
     Top = 185
     Bitmap = {
-      494C010103000800CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800D40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

@@ -136,7 +136,6 @@
         </DCCReference>
         <DCCReference Include="M03\U03001.pas">
             <Form>F03001</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="M01\U01010.pas">
             <Form>F01010</Form>
@@ -152,10 +151,13 @@
         </DCCReference>
         <DCCReference Include="M03\U03002.pas">
             <Form>F03002</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="M01\U01013.pas">
             <Form>F01013</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="M02\U02001.pas">
+            <Form>F02001</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
@@ -187,6 +189,12 @@
             </Delphi.Personality>
             <Deployment Version="1">
                 <DeployFile LocalName="Win32\Debug\Tear.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Tear.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Release\Tear.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Tear.exe</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -572,9 +580,9 @@
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>
