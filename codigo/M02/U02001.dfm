@@ -5,16 +5,282 @@ inherited F02001: TF02001
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
+    inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
+      inherited grDados: TGroupBox
+        object Label1: TLabel
+          Left = 40
+          Top = 16
+          Width = 22
+          Height = 13
+          Caption = 'COD'
+          FocusControl = DBEdit1
+        end
+        object Label2: TLabel
+          Left = 40
+          Top = 56
+          Width = 51
+          Height = 13
+          Caption = 'N'#186' ORDEM'
+          FocusControl = DBEdit2
+        end
+        object Label3: TLabel
+          Left = 40
+          Top = 96
+          Width = 49
+          Height = 13
+          Caption = 'PRODUTO'
+          FocusControl = DBEdit3
+        end
+        object Label4: TLabel
+          Left = 283
+          Top = 96
+          Width = 66
+          Height = 13
+          Caption = 'QUANTIDADE'
+          FocusControl = DBEdit4
+        end
+        object Label5: TLabel
+          Left = 193
+          Top = 56
+          Width = 27
+          Height = 13
+          Caption = 'DATA'
+        end
+        object Label6: TLabel
+          Left = 40
+          Top = 141
+          Width = 73
+          Height = 13
+          Caption = 'OBSERVA'#199#213'ES'
+          FocusControl = DBEdit6
+        end
+        object DBEdit1: TDBEdit
+          Left = 40
+          Top = 32
+          Width = 103
+          Height = 21
+          DataField = 'idOrdem'
+          DataSource = DS
+          TabOrder = 0
+        end
+        object DBEdit2: TDBEdit
+          Left = 40
+          Top = 72
+          Width = 137
+          Height = 21
+          DataField = 'numOrdem'
+          DataSource = DS
+          TabOrder = 1
+        end
+        object DBEdit3: TDBEdit
+          Left = 40
+          Top = 112
+          Width = 27
+          Height = 21
+          DataField = 'idProduto'
+          DataSource = DS
+          TabOrder = 2
+        end
+        object DBEdit4: TDBEdit
+          Left = 283
+          Top = 112
+          Width = 103
+          Height = 21
+          DataField = 'qtdOriginal'
+          DataSource = DS
+          TabOrder = 3
+        end
+        object DBEdit6: TDBEdit
+          Left = 40
+          Top = 157
+          Width = 385
+          Height = 21
+          DataField = 'observacao'
+          DataSource = DS
+          TabOrder = 4
+        end
+        object DBEditBeleza1: TDBEditBeleza
+          Left = 67
+          Top = 112
+          Width = 200
+          Height = 21
+          Color = 15724527
+          DataField = 'descricao'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 5
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            
+              'select idProduto, descricao from produto where descricao like :v' +
+              'arDescricao')
+          database = 'BALAY'
+          campo = 'DESCRICAO'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit3
+          campo_outro_edit = 'idProduto'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object DBEdit_Calendario1: TDBEdit_Calendario
+          Left = 193
+          Top = 72
+          Width = 110
+          Height = 21
+          Hint = 'Duplo Clique para Buscar a data de hoje!'
+          DataField = 'dataCadastro'
+          DataSource = DS
+          MaxLength = 8
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 6
+          Formato_Data = 'dd/mm/yy'
+        end
+      end
+    end
     inherited TbFiltros: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 810
       ExplicitHeight = 455
+      inherited DBGridBeleza1: TDBGridBeleza
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idOrdem'
+            Title.Caption = 'COD'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'numOrdem'
+            Title.Alignment = taCenter
+            Title.Caption = 'OP'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idProduto'
+            Title.Caption = 'ID'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Title.Caption = 'PRODUTO'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'qtdOriginal'
+            Title.Caption = 'QTD'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'dataCadastro'
+            Title.Caption = 'DATA'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'observacao'
+            Title.Caption = 'OBS'
+            Visible = True
+          end>
+      end
+    end
+  end
+  inherited ClientDataSet1: TClientDataSet
+    object ClientDataSet1idOrdem: TIntegerField
+      FieldName = 'idOrdem'
+      Required = True
+    end
+    object ClientDataSet1numOrdem: TIntegerField
+      FieldName = 'numOrdem'
+    end
+    object ClientDataSet1idProduto: TIntegerField
+      FieldName = 'idProduto'
+    end
+    object ClientDataSet1qtdOriginal: TIntegerField
+      FieldName = 'qtdOriginal'
+    end
+    object ClientDataSet1dataCadastro: TDateField
+      FieldName = 'dataCadastro'
+    end
+    object ClientDataSet1observacao: TStringField
+      FieldName = 'observacao'
+      Size = 60
+    end
+    object ClientDataSet1descricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+  end
+  inherited FDQuery1: TFDQuery
+    SQL.Strings = (
+      
+        'select ord.*, d.descricao from ordem_producao ord '#10'left outer jo' +
+        'in produto d on ord.idproduto = d.idproduto ')
+    object FDQuery1idOrdem: TIntegerField
+      FieldName = 'idOrdem'
+      Origin = 'idOrdem'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery1numOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOrdem'
+      Origin = 'numOrdem'
+    end
+    object FDQuery1idProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object FDQuery1qtdOriginal: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtdOriginal'
+      Origin = 'qtdOriginal'
+    end
+    object FDQuery1dataCadastro: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'dataCadastro'
+      Origin = 'dataCadastro'
+    end
+    object FDQuery1observacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'observacao'
+      Origin = 'observacao'
+      Size = 60
+    end
+    object FDQuery1descricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010E002C000C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

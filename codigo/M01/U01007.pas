@@ -100,6 +100,25 @@ type
     Edit3: TEdit;
     EditBeleza3: TEditBeleza;
     Edit4: TEdit;
+    GroupBoxFases: TGroupBox;
+    GroupBox3: TGroupBox;
+    DBGridBeleza4: TDBGridBeleza;
+    EditBeleza4: TEditBeleza;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    FDQuery4: TFDQuery;
+    ClientDataSet4: TClientDataSet;
+    DataSetProvider4: TDataSetProvider;
+    DataSource4: TDataSource;
+    Edit5: TEdit;
+    FDQuery4idProduto: TIntegerField;
+    FDQuery4idFase: TIntegerField;
+    FDQuery4sequencia: TIntegerField;
+    FDQuery4descricao: TStringField;
+    ClientDataSet4idProduto: TIntegerField;
+    ClientDataSet4idFase: TIntegerField;
+    ClientDataSet4sequencia: TIntegerField;
+    ClientDataSet4descricao: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
@@ -130,6 +149,14 @@ type
     procedure Edit3Change(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure ClientDataSet4AfterCancel(DataSet: TDataSet);
+    procedure ClientDataSet4AfterDelete(DataSet: TDataSet);
+    procedure ClientDataSet4AfterPost(DataSet: TDataSet);
+    procedure EditBeleza1ButtonClick(Sender: TObject;
+      var query_result: TFDQuery);
+    procedure DataSource4DataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -233,13 +260,83 @@ begin
     ShowMessage('Selecione uma fase.');
 end;
 
+procedure TF01007.BitBtn2Click(Sender: TObject);
+begin
+  inherited;
+  //
+  if trim(EditBeleza4.Text) <> '' then
+  begin
+    if not DataSource4.DataSet.Active then
+          DataSource4.DataSet.Open;
+
+    if(ClientDataSet4.Locate('idFase',Edit5.Text,[]) = false)then
+    begin
+
+      {Modo de inserção}
+      DataSource4.DataSet.Append;
+      {Stribuição dos dados}
+      ClientDataSet4sequencia.Value := DataSource4.DataSet.RecordCount + 1;
+      ClientDataSet4idProduto.Value := ClientDataSet1idProduto.AsInteger;
+      ClientDataSet4idFase.Value := StrToInt(Edit5.Text);
+
+      {Salva}
+      DataSource4.DataSet.Post;
+
+      {Atualiza DBGRID FASE}
+      FDQuery4.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+      DataSource4.DataSet.Close;
+      DataSource4.DataSet.Open;
+
+      Edit5.Clear;
+    end else
+      ShowMessage('Fase já adicionada');
+  end else
+    ShowMessage('Selecione uma fase.');
+end;
+
+procedure TF01007.BitBtn3Click(Sender: TObject);
+begin
+  inherited;
+  //
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select phf.*, op.descricao as oper, f.descricao from cronometragem phf left outer join operacao op on op.idOperacao = phf.idOperacao left outer join fase f on f.idfase = op.idfase where phf.idProduto =:idProd and f.idfase =:idFas';
+  DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+  DModule.qAux.ParamByName('idFas').AsInteger:= (ClientDataSet4idFase.AsInteger);
+  DModule.qAux.Open;
+  if(DModule.qAux.IsEmpty)then
+  begin
+    if MessageDlg('Deseja Apagar Item '+ IntToStr(ClientDataSet4idFase.AsInteger)+ ' - ' + ClientDataSet4descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    begin
+       if(DataSource4.DataSet.RecNo = ClientDataSet4.RecordCount) then
+       //Faz se for o ultimo registro do dataSet
+        begin
+              ClientDataSet4.Delete;
+        end else
+        begin
+          ClientDataSet4.Delete;
+          while not ClientDataSet4.Eof do //enquanto existir registros dentro do dataset..
+          begin
+            DataSource4.DataSet.Edit;
+            ClientDataSet4sequencia.Value := ClientDataSet4sequencia.AsInteger -1;
+            DataSource4.DataSet.Post;
+            ClientDataSet4.Next;  //vai para o próximo registro
+          end;
+        end;
+    end;
+
+  end else
+       ShowMessage('Este produto possui operações dentro desta fase.' +#13+'(' +
+       DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('oper').AsString + ')');
+
+end;
+
 procedure TF01007.BPesquisarClick(Sender: TObject);
 begin
   inherited;
-  {DBGRID FASE}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource3.DataSet.Close;
-  DataSource3.DataSet.Open;
+  {Fase}
+  FDQuery4.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource4.DataSet.Close;
+  DataSource4.DataSet.Open;
 end;
 
 procedure TF01007.BSalvarClick(Sender: TObject);
@@ -409,6 +506,24 @@ begin
   ClientDataSet3.ApplyUpdates(-1);
 end;
 
+procedure TF01007.ClientDataSet4AfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet4.CancelUpdates;
+end;
+
+procedure TF01007.ClientDataSet4AfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet4.ApplyUpdates(-1);
+end;
+
+procedure TF01007.ClientDataSet4AfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet4.ApplyUpdates(-1);
+end;
+
 procedure TF01007.DataSource3DataChange(Sender: TObject; Field: TField);
 begin
   inherited;
@@ -418,6 +533,16 @@ begin
   DataSource2.DataSet.Close;
   DataSource2.DataSet.Open;
 
+end;
+
+procedure TF01007.DataSource4DataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  {DBGRID Operacao}
+  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  FDQuery3.ParamByName('idFas').Value:=(ClientDataSet4idFase.AsInteger);
+  DataSource3.DataSet.Close;
+  DataSource3.DataSet.Open;
 end;
 
 procedure TF01007.DBGridBeleza2DblClick(Sender: TObject);
@@ -454,10 +579,10 @@ end;
 procedure TF01007.DSDataChange(Sender: TObject; Field: TField);
 begin
   inherited;
-  {DBGRID Operações}
-  FDQuery3.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
-  DataSource3.DataSet.Close;
-  DataSource3.DataSet.Open;
+  {Fase}
+  FDQuery4.ParamByName('id').Value:=(ClientDataSet1idProduto.AsInteger);
+  DataSource4.DataSet.Close;
+  DataSource4.DataSet.Open;
 
 end;
 
@@ -469,6 +594,14 @@ begin
     chkDescricao.Checked := false;
   end else
     chkDescricao.Checked := true;
+end;
+
+procedure TF01007.EditBeleza1ButtonClick(Sender: TObject;
+  var query_result: TFDQuery);
+begin
+  inherited;
+  query_result.ParamByName('idProd').Value := (ClientDataSet1idProduto.AsInteger);
+  query_result.ParamByName('idFas').Value := (ClientDataSet4idFase.AsInteger);
 end;
 
 procedure TF01007.EditBeleza2ButtonClick(Sender: TObject;
