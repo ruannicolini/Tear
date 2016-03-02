@@ -270,7 +270,6 @@ begin
     Lab.Width := Button.Width + 10;
     Lab.Left := Button.Left - 5;
     Lab.Alignment := taCenter;
-
     DModule.qAux.Next;
   end;
 end;

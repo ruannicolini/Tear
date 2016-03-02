@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `balay` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `balay`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: balay
@@ -63,7 +65,7 @@ CREATE TABLE `batida` (
 
 LOCK TABLES `batida` WRITE;
 /*!40000 ALTER TABLE `batida` DISABLE KEYS */;
-INSERT INTO `batida` VALUES (48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(100,0,0,610,1,153),(101,0,2,156,1,153),(102,0,2,516,1,153),(110,1,2,3,1,153),(127,0,11,266,1,167),(128,0,12,531,1,167),(129,0,12,922,1,167),(130,0,1,593,1,167),(135,0,1,328,1,153),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188),(173,0,2,141,1,195),(174,0,8,812,1,195),(175,0,6,484,1,195),(176,0,3,47,1,195),(177,0,8,422,1,195),(179,0,2,266,1,195);
+INSERT INTO `batida` VALUES (48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188),(244,0,1,859,1,167),(245,0,1,782,1,167),(246,0,2,312,1,167),(247,0,2,31,1,167),(248,0,1,828,1,167),(249,0,2,547,1,167),(250,0,2,375,1,167),(251,0,3,688,1,167),(252,0,2,937,1,153),(253,0,3,735,1,153),(254,0,3,0,1,153),(255,0,4,125,1,153),(256,0,1,734,1,153),(257,0,1,953,1,194),(258,0,3,641,1,194),(260,0,2,391,1,194),(261,0,2,672,1,194),(262,0,3,187,1,194),(279,0,3,672,1,200),(280,0,3,656,1,200),(281,0,2,781,1,200),(282,0,2,157,1,200),(283,0,2,781,1,200),(292,0,2,562,1,191);
 /*!40000 ALTER TABLE `batida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +102,7 @@ CREATE TABLE `cronometragem` (
 
 LOCK TABLES `cronometragem` WRITE;
 /*!40000 ALTER TABLE `cronometragem` DISABLE KEYS */;
-INSERT INTO `cronometragem` VALUES (153,1,1,80,1,10,5,4,8,1,2,5,45,NULL,1213.65),(167,1,1,5,4,3,1,2,43,8,2,26,52,NULL,NULL),(191,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,26,NULL,1,NULL),(192,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,9,NULL,2,NULL),(194,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,5,NULL,3,NULL),(195,1,1,80,1,10,90,1,7,NULL,NULL,28,NULL,4,697.48);
+INSERT INTO `cronometragem` VALUES (153,1,1,80,1,10,5,4,8,1,2,5,45,1,2733.46),(167,1,1,80,1,10,1,2,43,8,2,26,52,NULL,2026.42),(191,0,0,90,1,10,10,1,7,NULL,NULL,26,NULL,2,2536.38),(192,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,9,NULL,1,NULL),(194,1,0,80,1,20,NULL,1,7,NULL,NULL,5,NULL,3,2658.05),(200,NULL,NULL,NULL,NULL,NULL,NULL,NULL,71,NULL,NULL,22,NULL,1,0);
 /*!40000 ALTER TABLE `cronometragem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -146,7 +148,7 @@ CREATE TABLE `cronometragem_has_tipo_recurso` (
 
 LOCK TABLES `cronometragem_has_tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` DISABLE KEYS */;
-INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4),(153,3);
+INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4),(153,3),(167,1),(167,5),(191,6),(194,4);
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +196,7 @@ CREATE TABLE `dependencia` (
 
 LOCK TABLES `dependencia` WRITE;
 /*!40000 ALTER TABLE `dependencia` DISABLE KEYS */;
-INSERT INTO `dependencia` VALUES (191,192);
+INSERT INTO `dependencia` VALUES (191,192),(191,194);
 /*!40000 ALTER TABLE `dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,7 +220,7 @@ CREATE TABLE `fase` (
 
 LOCK TABLES `fase` WRITE;
 /*!40000 ALTER TABLE `fase` DISABLE KEYS */;
-INSERT INTO `fase` VALUES (1,'FASE TESTE 1'),(5,'FASE 5'),(6,'FASE 6'),(7,'FASE 7'),(8,'FASE 8');
+INSERT INTO `fase` VALUES (1,'FASE TESTE 1'),(5,'FASE 5 TESTE'),(6,'FASE 6'),(7,'FASE 7'),(8,'FASE 8');
 /*!40000 ALTER TABLE `fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +330,7 @@ CREATE TABLE `interface` (
   `icone` int(11) DEFAULT NULL,
   `tela` varchar(5) NOT NULL,
   PRIMARY KEY (`idinterface`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +339,7 @@ CREATE TABLE `interface` (
 
 LOCK TABLES `interface` WRITE;
 /*!40000 ALTER TABLE `interface` DISABLE KEYS */;
-INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001'),(2,1,NULL,'Produto',7,'01007'),(3,1,NULL,'G. Produtos',9,'01009'),(4,1,NULL,'Recurso',6,'01006'),(5,1,NULL,'Tipo de Recurso',4,'01004'),(6,1,NULL,'Cronometrista',2,'01002'),(7,1,NULL,'Tecido',5,'01005'),(8,1,NULL,'Operação',8,'01008'),(9,1,NULL,'G. Operadores',3,'01003'),(10,1,NULL,'Operador',10,'01010'),(11,1,NULL,'Fase',11,'01011'),(12,1,NULL,'Parte',12,'01012'),(13,3,NULL,'Telas',4,'03001'),(14,3,NULL,'Modulo',4,'03002'),(15,1,NULL,'Cronometragem',0,'01013');
+INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001'),(2,1,NULL,'Produto',7,'01007'),(3,1,NULL,'G. Produtos',9,'01009'),(4,1,NULL,'Recurso',6,'01006'),(5,1,NULL,'Tipo de Recurso',4,'01004'),(6,1,NULL,'Cronometrista',2,'01002'),(7,1,NULL,'Tecido',5,'01005'),(8,1,NULL,'Operação',8,'01008'),(9,1,NULL,'G. Operadores',3,'01003'),(10,1,NULL,'Operador',10,'01010'),(11,1,NULL,'Fase',11,'01011'),(12,1,NULL,'Parte',12,'01012'),(13,4,NULL,'Telas',4,'03001'),(14,4,NULL,'Modulo',4,'03002'),(15,1,NULL,'Cronometragem',0,'01013'),(16,2,NULL,'Ordens',13,'02001');
 /*!40000 ALTER TABLE `interface` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +355,7 @@ CREATE TABLE `modulo` (
   `descricao` varchar(45) DEFAULT NULL,
   `icone` int(11) DEFAULT NULL,
   PRIMARY KEY (`idmodulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,8 +364,36 @@ CREATE TABLE `modulo` (
 
 LOCK TABLES `modulo` WRITE;
 /*!40000 ALTER TABLE `modulo` DISABLE KEYS */;
-INSERT INTO `modulo` VALUES (1,'Cronoanálise',0),(2,'Balanceamento',1),(3,'Ajustes',2);
+INSERT INTO `modulo` VALUES (1,'Cronoanálise',0),(2,'Produção',3),(3,'Balanceamento',1),(4,'Ajustes',2);
 /*!40000 ALTER TABLE `modulo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movimentacao`
+--
+
+DROP TABLE IF EXISTS `movimentacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movimentacao` (
+  `idmovimentacao` int(11) NOT NULL,
+  `idOrdem_has_fase` int(11) DEFAULT NULL,
+  `dataMov` date DEFAULT NULL,
+  `responsavel` varchar(45) DEFAULT NULL,
+  `qtd` int(11) DEFAULT NULL,
+  `idTipoMovimentacao` int(11) DEFAULT NULL,
+  `observacao` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`idmovimentacao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movimentacao`
+--
+
+LOCK TABLES `movimentacao` WRITE;
+/*!40000 ALTER TABLE `movimentacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -462,6 +492,62 @@ INSERT INTO `operador_has_tipo_recurso` VALUES (44,1),(45,1),(60,1),(1,3),(44,3)
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ordem_has_fase`
+--
+
+DROP TABLE IF EXISTS `ordem_has_fase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ordem_has_fase` (
+  `idOrdem_has_fase` int(11) NOT NULL,
+  `idOrdem` int(11) DEFAULT NULL,
+  `idFase` int(11) DEFAULT NULL,
+  `qtdOriginal` int(11) DEFAULT NULL,
+  `qtdPrevista` int(11) DEFAULT NULL,
+  `qtdProduzindo` int(11) DEFAULT NULL,
+  `idLinhaProducao` int(11) DEFAULT NULL,
+  `sequencia` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idOrdem_has_fase`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordem_has_fase`
+--
+
+LOCK TABLES `ordem_has_fase` WRITE;
+/*!40000 ALTER TABLE `ordem_has_fase` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ordem_has_fase` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ordem_producao`
+--
+
+DROP TABLE IF EXISTS `ordem_producao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ordem_producao` (
+  `idOrdem` int(11) NOT NULL,
+  `numOrdem` int(11) DEFAULT NULL,
+  `idProduto` int(11) DEFAULT NULL,
+  `qtdOriginal` int(11) DEFAULT NULL,
+  `dataCadastro` date DEFAULT NULL,
+  `observacao` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`idOrdem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordem_producao`
+--
+
+LOCK TABLES `ordem_producao` WRITE;
+/*!40000 ALTER TABLE `ordem_producao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ordem_producao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `parametros`
 --
 
@@ -482,7 +568,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,181),('seqCelula',NULL,21),('seqCronometragem',NULL,197),('seqCronometrista',NULL,9),('seqFase',NULL,15),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,30),('seqOperador',NULL,69),('seqParte',NULL,6),('seqProduto',NULL,88),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoRecurso',NULL,14);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,293),('seqCelula',NULL,21),('seqCronometragem',NULL,222),('seqCronometrista',NULL,11),('seqFase',NULL,16),('seqGrupoProduto',NULL,15),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqParte',NULL,6),('seqProduto',NULL,100),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoRecurso',NULL,14);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,8 +618,32 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',1),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',4),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3),(63,'TESTE 8','2016-02-04',8),(71,'TESTE 4','2016-02-18',4);
+INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',3),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',4),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3),(63,'TESTE 8','2016-02-04',8),(71,'TESTE 4','2016-02-18',4),(90,'323',NULL,4),(91,'XCVB',NULL,2);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `produto_has_fase`
+--
+
+DROP TABLE IF EXISTS `produto_has_fase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `produto_has_fase` (
+  `idProduto` int(11) NOT NULL,
+  `idFase` int(11) NOT NULL,
+  `sequencia` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idProduto`,`idFase`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `produto_has_fase`
+--
+
+LOCK TABLES `produto_has_fase` WRITE;
+/*!40000 ALTER TABLE `produto_has_fase` DISABLE KEYS */;
+/*!40000 ALTER TABLE `produto_has_fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -611,6 +721,29 @@ INSERT INTO `tipo_recurso` VALUES (1,'TIPO RECURSO TESTE 1'),(2,'TIPO RECURSO TE
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tipomovimentacao`
+--
+
+DROP TABLE IF EXISTS `tipomovimentacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipomovimentacao` (
+  `idtipoMovimentacao` int(11) NOT NULL,
+  `descricao` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idtipoMovimentacao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipomovimentacao`
+--
+
+LOCK TABLES `tipomovimentacao` WRITE;
+/*!40000 ALTER TABLE `tipomovimentacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipomovimentacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'balay'
 --
 
@@ -627,4 +760,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-17 11:11:21
+-- Dump completed on 2016-03-02  9:02:12
