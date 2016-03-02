@@ -2,8 +2,7 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 525
   ClientWidth = 843
-  ExplicitLeft = -13
-  ExplicitTop = 2
+  ExplicitTop = -53
   ExplicitWidth = 859
   ExplicitHeight = 564
   PixelsPerInch = 96
@@ -22,34 +21,36 @@ inherited F01007: TF01007
       inherited grDados: TGroupBox
         Width = 835
         Height = 462
+        ExplicitLeft = -16
+        ExplicitTop = 56
         ExplicitWidth = 835
         ExplicitHeight = 462
         object Label1: TLabel
           Left = 23
-          Top = 14
+          Top = 28
           Width = 22
           Height = 13
           Caption = 'COD'
           FocusControl = DBEdit1
         end
         object Label2: TLabel
-          Left = 23
-          Top = 101
+          Left = 291
+          Top = 95
           Width = 59
           Height = 13
           Caption = 'DESCRI'#199#195'O'
           FocusControl = DBEdit2
         end
         object Label3: TLabel
-          Left = 23
-          Top = 57
+          Left = 157
+          Top = 28
           Width = 27
           Height = 13
           Caption = 'DATA'
         end
         object Label4: TLabel
-          Left = 155
-          Top = 57
+          Left = 22
+          Top = 95
           Width = 35
           Height = 13
           Caption = 'GRUPO'
@@ -57,7 +58,7 @@ inherited F01007: TF01007
         end
         object DBEdit1: TDBEdit
           Left = 23
-          Top = 30
+          Top = 44
           Width = 119
           Height = 21
           TabStop = False
@@ -67,9 +68,9 @@ inherited F01007: TF01007
           TabOrder = 0
         end
         object DBEdit2: TDBEdit
-          Left = 23
-          Top = 117
-          Width = 296
+          Left = 291
+          Top = 111
+          Width = 520
           Height = 21
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -79,8 +80,8 @@ inherited F01007: TF01007
           TabOrder = 3
         end
         object DBEdit4: TDBEdit
-          Left = 155
-          Top = 73
+          Left = 22
+          Top = 111
           Width = 35
           Height = 21
           TabStop = False
@@ -91,8 +92,8 @@ inherited F01007: TF01007
           TabOrder = 4
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
-          Left = 23
-          Top = 73
+          Left = 157
+          Top = 44
           Width = 120
           Height = 21
           Hint = 'Duplo Clique para Buscar a data de hoje!'
@@ -104,11 +105,10 @@ inherited F01007: TF01007
           Formato_Data = 'dd/mm/yy'
         end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 189
-          Top = 73
-          Width = 130
+          Left = 56
+          Top = 111
+          Width = 229
           Height = 21
-          Anchors = [akLeft, akTop, akRight]
           Color = 15724527
           DataField = 'grupo'
           DataSource = DS
@@ -134,12 +134,12 @@ inherited F01007: TF01007
           NovoLayout = False
         end
         object GroupBoxOperacoes: TGroupBox
-          Left = 259
-          Top = 147
-          Width = 333
-          Height = 263
+          Left = 305
+          Top = 148
+          Width = 225
+          Height = 264
           Align = alCustom
-          Anchors = [akLeft, akTop, akBottom]
+          Anchors = [akLeft, akTop, akRight, akBottom]
           BiDiMode = bdLeftToRight
           Caption = 'OPERA'#199#213'ES'
           Font.Charset = DEFAULT_CHARSET
@@ -156,8 +156,8 @@ inherited F01007: TF01007
           object DBGridBeleza2: TDBGridBeleza
             Left = 6
             Top = 72
-            Width = 321
-            Height = 185
+            Width = 213
+            Height = 186
             Hint = 'Clique no Titulo da Coluna para Ordenar'
             TabStop = False
             Align = alClient
@@ -222,7 +222,7 @@ inherited F01007: TF01007
           object GroupBox1: TGroupBox
             Left = 6
             Top = 18
-            Width = 321
+            Width = 213
             Height = 54
             Margins.Left = 0
             Margins.Top = 0
@@ -232,13 +232,12 @@ inherited F01007: TF01007
             DoubleBuffered = False
             ParentDoubleBuffered = False
             TabOrder = 1
+            ExplicitWidth = 243
             object BitBtn1: TBitBtn
-              Left = 241
+              Left = 163
               Top = 15
               Width = 27
               Height = 23
-              Align = alCustom
-              Anchors = [akTop, akRight, akBottom]
               Caption = '+'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -250,12 +249,10 @@ inherited F01007: TF01007
               OnClick = BitBtn1Click
             end
             object BtnExcluirOperacao: TBitBtn
-              Left = 267
+              Left = 189
               Top = 15
               Width = 27
               Height = 23
-              Align = alCustom
-              Anchors = [akTop, akRight, akBottom]
               Caption = '-'
               TabOrder = 2
               OnClick = BtnExcluirOperacaoClick
@@ -263,7 +260,7 @@ inherited F01007: TF01007
             object EditBeleza1: TEditBeleza
               Left = 27
               Top = 16
-              Width = 213
+              Width = 105
               Height = 21
               Align = alCustom
               Anchors = [akLeft, akRight]
@@ -292,16 +289,17 @@ inherited F01007: TF01007
               CorBorda = clGray
               NovoLayout = False
               OnButtonClick = EditBeleza1ButtonClick
+              ExplicitWidth = 213
             end
           end
         end
         object GroupBoxDependencias: TGroupBox
-          Left = 596
-          Top = 147
-          Width = 232
-          Height = 263
+          Left = 553
+          Top = 149
+          Width = 259
+          Height = 264
           Align = alCustom
-          Anchors = [akLeft, akTop, akBottom]
+          Anchors = [akTop, akRight, akBottom]
           Caption = 'DEPEND'#202'NCIAS'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -316,7 +314,7 @@ inherited F01007: TF01007
           object GroupBox2: TGroupBox
             Left = 6
             Top = 18
-            Width = 220
+            Width = 247
             Height = 54
             Margins.Left = 0
             Margins.Top = 0
@@ -324,9 +322,10 @@ inherited F01007: TF01007
             Margins.Bottom = 0
             Align = alTop
             TabOrder = 0
+            ExplicitWidth = 244
             object Button4: TButton
-              Left = 150
-              Top = 15
+              Left = 167
+              Top = 14
               Width = 27
               Height = 23
               Align = alCustom
@@ -336,8 +335,8 @@ inherited F01007: TF01007
               OnClick = Button4Click
             end
             object btnExcluirDependencia: TButton
-              Left = 176
-              Top = 15
+              Left = 193
+              Top = 14
               Width = 27
               Height = 23
               Align = alCustom
@@ -347,9 +346,9 @@ inherited F01007: TF01007
               OnClick = btnExcluirDependenciaClick
             end
             object EditBeleza2: TEditBeleza
-              Left = 17
-              Top = 16
-              Width = 133
+              Left = 26
+              Top = 15
+              Width = 141
               Height = 21
               Color = 15724527
               Font.Charset = DEFAULT_CHARSET
@@ -381,8 +380,8 @@ inherited F01007: TF01007
           object DBGridBeleza3: TDBGridBeleza
             Left = 6
             Top = 72
-            Width = 220
-            Height = 185
+            Width = 247
+            Height = 186
             Hint = 'Clique no Titulo da Coluna para Ordenar'
             Align = alClient
             BorderStyle = bsNone
@@ -435,6 +434,7 @@ inherited F01007: TF01007
                 Title.Font.Height = -11
                 Title.Font.Name = 'Tahoma'
                 Title.Font.Style = []
+                Width = 145
                 Visible = True
               end>
           end
@@ -450,7 +450,7 @@ inherited F01007: TF01007
         end
         object Edit1: TEdit
           Left = 351
-          Top = 83
+          Top = 97
           Width = 80
           Height = 21
           TabStop = False
@@ -461,9 +461,9 @@ inherited F01007: TF01007
         end
         object GroupBoxFases: TGroupBox
           Left = 23
-          Top = 149
-          Width = 232
-          Height = 261
+          Top = 150
+          Width = 259
+          Height = 262
           Align = alCustom
           Anchors = [akLeft, akTop, akBottom]
           Caption = 'FASES'
@@ -474,13 +474,13 @@ inherited F01007: TF01007
           object GroupBox3: TGroupBox
             Left = 6
             Top = 15
-            Width = 220
+            Width = 247
             Height = 55
             Align = alTop
             TabOrder = 0
             object EditBeleza4: TEditBeleza
               Left = 17
-              Top = 16
+              Top = 17
               Width = 131
               Height = 21
               Color = 15724527
@@ -507,7 +507,7 @@ inherited F01007: TF01007
             end
             object BitBtn2: TBitBtn
               Left = 149
-              Top = 15
+              Top = 16
               Width = 27
               Height = 23
               Caption = '+'
@@ -516,7 +516,7 @@ inherited F01007: TF01007
             end
             object BitBtn3: TBitBtn
               Left = 174
-              Top = 15
+              Top = 16
               Width = 27
               Height = 23
               Caption = '-'
@@ -527,8 +527,8 @@ inherited F01007: TF01007
           object DBGridBeleza4: TDBGridBeleza
             Left = 6
             Top = 70
-            Width = 220
-            Height = 185
+            Width = 247
+            Height = 186
             Hint = 'Clique no Titulo da Coluna para Ordenar'
             Align = alClient
             BorderStyle = bsNone
@@ -581,7 +581,7 @@ inherited F01007: TF01007
                 Title.Font.Height = -11
                 Title.Font.Name = 'Tahoma'
                 Title.Font.Style = []
-                Width = 120
+                Width = 91
                 Visible = True
               end
               item
@@ -599,8 +599,8 @@ inherited F01007: TF01007
           end
         end
         object Edit5: TEdit
-          Left = 92
-          Top = 416
+          Left = 761
+          Top = 89
           Width = 69
           Height = 21
           TabOrder = 10
@@ -746,11 +746,11 @@ inherited F01007: TF01007
     end
   end
   inherited DS: TDataSource
-    Left = 472
+    Left = 752
     Top = 72
   end
   inherited ClientDataSet1: TClientDataSet
-    Left = 448
+    Left = 728
     Top = 72
     object ClientDataSet1idProduto: TIntegerField
       FieldName = 'idProduto'
@@ -775,7 +775,7 @@ inherited F01007: TF01007
     end
   end
   inherited DataSetProvider1: TDataSetProvider
-    Left = 424
+    Left = 704
     Top = 72
   end
   inherited FDQuery1: TFDQuery
@@ -783,7 +783,7 @@ inherited F01007: TF01007
       
         'select prod.*, '#10'gp.descricao as grupo '#10'from produto prod'#10'left ou' +
         'ter join grupo_produto gp on prod.idgrupo = gp.idgrupo_produto;')
-    Left = 392
+    Left = 672
     Top = 72
     object FDQuery1idProduto: TIntegerField
       AutoGenerateValue = arDefault
@@ -1774,9 +1774,9 @@ inherited F01007: TF01007
       
         'select phf.*, f.descricao from produto_has_fase phf '#10'left outer ' +
         'join fase f on phf.idfase = f.idfase '#10'where phf.idProduto =:id '#10 +
-        'order by (f.idfase)')
-    Left = 76
-    Top = 427
+        'order by (phf.sequencia)')
+    Left = 676
+    Top = 139
     ParamData = <
       item
         Name = 'ID'
@@ -1816,8 +1816,8 @@ inherited F01007: TF01007
     AfterPost = ClientDataSet4AfterPost
     AfterCancel = ClientDataSet4AfterCancel
     AfterDelete = ClientDataSet4AfterDelete
-    Left = 140
-    Top = 427
+    Left = 716
+    Top = 139
     object ClientDataSet4idProduto: TIntegerField
       FieldName = 'idProduto'
       Required = True
@@ -1836,13 +1836,13 @@ inherited F01007: TF01007
   end
   object DataSetProvider4: TDataSetProvider
     DataSet = FDQuery4
-    Left = 108
-    Top = 427
+    Left = 692
+    Top = 139
   end
   object DataSource4: TDataSource
     DataSet = ClientDataSet4
     OnDataChange = DataSource4DataChange
-    Left = 172
-    Top = 427
+    Left = 748
+    Top = 139
   end
 end
