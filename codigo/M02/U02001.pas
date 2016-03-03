@@ -11,7 +11,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider,
   Datasnap.DBClient, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, DBGridBeleza,
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza,
-  Edit_Calendario, DBEditCalendario;
+  Edit_Calendario, DBEditCalendario, Vcl.Tabs;
 
 type
   TF02001 = class(TFBase)
@@ -42,7 +42,37 @@ type
     DBEdit6: TDBEdit;
     DBEditBeleza1: TDBEditBeleza;
     DBEdit_Calendario1: TDBEdit_Calendario;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    MOVIMENTAÇÕES: TTabSheet;
+    GroupBox1: TGroupBox;
+    DBGridBeleza2: TDBGridBeleza;
+    FDQuery2: TFDQuery;
+    DataSetProvider2: TDataSetProvider;
+    ClientDataSet2: TClientDataSet;
+    DataSource2: TDataSource;
+    FDQuery2idOrdem_has_fase: TIntegerField;
+    FDQuery2idOrdem: TIntegerField;
+    FDQuery2idFase: TIntegerField;
+    FDQuery2qtdOriginal: TIntegerField;
+    FDQuery2qtdPrevista: TIntegerField;
+    FDQuery2qtdProduzindo: TIntegerField;
+    FDQuery2idLinhaProducao: TIntegerField;
+    FDQuery2sequencia: TIntegerField;
+    FDQuery2fase: TStringField;
+    ClientDataSet2idOrdem_has_fase: TIntegerField;
+    ClientDataSet2idOrdem: TIntegerField;
+    ClientDataSet2idFase: TIntegerField;
+    ClientDataSet2qtdOriginal: TIntegerField;
+    ClientDataSet2qtdPrevista: TIntegerField;
+    ClientDataSet2qtdProduzindo: TIntegerField;
+    ClientDataSet2idLinhaProducao: TIntegerField;
+    ClientDataSet2sequencia: TIntegerField;
+    ClientDataSet2fase: TStringField;
+    FDQuery2grupo: TStringField;
+    ClientDataSet2grupo: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
+    procedure DSDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -62,6 +92,15 @@ procedure TF02001.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idOrdem.AsInteger := DModule.buscaProximoParametro('seqOrdemProducao');
+end;
+
+procedure TF02001.DSDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  {Fase}
+  FDQuery2.ParamByName('idOrdem').Value:=(ClientDataSet1idOrdem.AsInteger);
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
 end;
 
 Initialization

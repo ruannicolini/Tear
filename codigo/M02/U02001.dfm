@@ -1,16 +1,22 @@
-inherited F02001: TF02001
+﻿inherited F02001: TF02001
   Caption = 'F02001'
+  ExplicitTop = -74
   ExplicitWidth = 834
   ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
+    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 810
       ExplicitHeight = 455
       inherited grDados: TGroupBox
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
         object Label1: TLabel
           Left = 40
           Top = 16
@@ -21,38 +27,38 @@ inherited F02001: TF02001
         end
         object Label2: TLabel
           Left = 40
-          Top = 56
+          Top = 59
           Width = 51
           Height = 13
           Caption = 'N'#186' ORDEM'
           FocusControl = DBEdit2
         end
         object Label3: TLabel
-          Left = 40
-          Top = 96
+          Left = 288
+          Top = 59
           Width = 49
           Height = 13
           Caption = 'PRODUTO'
           FocusControl = DBEdit3
         end
         object Label4: TLabel
-          Left = 283
-          Top = 96
+          Left = 530
+          Top = 59
           Width = 66
           Height = 13
           Caption = 'QUANTIDADE'
           FocusControl = DBEdit4
         end
         object Label5: TLabel
-          Left = 193
-          Top = 56
+          Left = 164
+          Top = 59
           Width = 27
           Height = 13
           Caption = 'DATA'
         end
         object Label6: TLabel
           Left = 40
-          Top = 141
+          Top = 103
           Width = 73
           Height = 13
           Caption = 'OBSERVA'#199#213'ES'
@@ -69,26 +75,27 @@ inherited F02001: TF02001
         end
         object DBEdit2: TDBEdit
           Left = 40
-          Top = 72
-          Width = 137
+          Top = 75
+          Width = 110
           Height = 21
           DataField = 'numOrdem'
           DataSource = DS
           TabOrder = 1
         end
         object DBEdit3: TDBEdit
-          Left = 40
-          Top = 112
+          Left = 288
+          Top = 75
           Width = 27
           Height = 21
+          Color = 15724527
           DataField = 'idProduto'
           DataSource = DS
           TabOrder = 2
         end
         object DBEdit4: TDBEdit
-          Left = 283
-          Top = 112
-          Width = 103
+          Left = 530
+          Top = 75
+          Width = 110
           Height = 21
           DataField = 'qtdOriginal'
           DataSource = DS
@@ -96,16 +103,18 @@ inherited F02001: TF02001
         end
         object DBEdit6: TDBEdit
           Left = 40
-          Top = 157
-          Width = 385
+          Top = 119
+          Width = 728
           Height = 21
+          Align = alCustom
+          Anchors = [akLeft, akTop, akRight, akBottom]
           DataField = 'observacao'
           DataSource = DS
           TabOrder = 4
         end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 67
-          Top = 112
+          Left = 315
+          Top = 75
           Width = 200
           Height = 21
           Color = 15724527
@@ -133,18 +142,175 @@ inherited F02001: TF02001
           NovoLayout = False
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
-          Left = 193
-          Top = 72
+          Left = 164
+          Top = 75
           Width = 110
           Height = 21
           Hint = 'Duplo Clique para Buscar a data de hoje!'
           DataField = 'dataCadastro'
           DataSource = DS
-          MaxLength = 8
           ParentShowHint = False
           ShowHint = True
           TabOrder = 6
           Formato_Data = 'dd/mm/yy'
+        end
+        object PageControl1: TPageControl
+          Left = -4
+          Top = 153
+          Width = 813
+          Height = 303
+          ActivePage = TabSheet1
+          Align = alCustom
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          MultiLine = True
+          TabOrder = 7
+          object TabSheet1: TTabSheet
+            AlignWithMargins = True
+            Caption = 'FASES'
+            ExplicitHeight = 221
+            object GroupBox1: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 799
+              Height = 41
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alTop
+              TabOrder = 0
+            end
+            object DBGridBeleza2: TDBGridBeleza
+              Left = 0
+              Top = 41
+              Width = 799
+              Height = 228
+              Hint = 'Clique no Titulo da Coluna para Ordenar'
+              Align = alClient
+              BorderStyle = bsNone
+              DataSource = DataSource2
+              FixedColor = 16762447
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 1
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWhite
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              Cor_2 = 16773849
+              Direcao_Cor2 = dg_Vertical
+              Direcao_Enter = dg_Horiz
+              ClickTituloOrdenar = True
+              MarcarLinhaInteira = False
+              CorLinhaMarcada = clSilver
+              BloquearExportacoes = False
+              Columns = <
+                item
+                  Alignment = taCenter
+                  Color = 16382457
+                  Expanded = False
+                  FieldName = 'sequencia'
+                  Title.Caption = 'Seq'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = []
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Color = 16382457
+                  Expanded = False
+                  FieldName = 'idOrdem_has_fase'
+                  Title.Caption = 'COD'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = []
+                  Visible = True
+                end
+                item
+                  Alignment = taRightJustify
+                  Color = 16382457
+                  Expanded = False
+                  FieldName = 'fase'
+                  Title.Caption = 'FASE'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = []
+                  Width = 179
+                  Visible = True
+                end
+                item
+                  Color = 16382457
+                  Expanded = False
+                  FieldName = 'grupo'
+                  Title.Caption = 'LINHA'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = []
+                  Width = 230
+                  Visible = True
+                end
+                item
+                  Color = 16382457
+                  Expanded = False
+                  FieldName = 'qtdOriginal'
+                  Title.Caption = 'QTD_ORIGINAL'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = []
+                  Width = 100
+                  Visible = True
+                end
+                item
+                  Color = 16382457
+                  Expanded = False
+                  FieldName = 'qtdProduzindo'
+                  Title.Caption = 'QTD_PRODUZINDO'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = []
+                  Width = 122
+                  Visible = True
+                end
+                item
+                  Color = 16382457
+                  Expanded = False
+                  FieldName = 'qtdPrevista'
+                  Title.Caption = 'QTD_PREVISTA'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = []
+                  Visible = True
+                end>
+            end
+          end
+          object MOVIMENTAÇÕES: TTabSheet
+            Caption = 'MOVIMENTA'#199#213'ES'
+            ImageIndex = 1
+            ExplicitHeight = 227
+          end
         end
       end
     end
@@ -171,9 +337,9 @@ inherited F02001: TF02001
             Visible = True
           end
           item
-            Alignment = taCenter
             Expanded = False
             FieldName = 'idProduto'
+            Title.Alignment = taRightJustify
             Title.Caption = 'ID'
             Visible = True
           end
@@ -181,12 +347,14 @@ inherited F02001: TF02001
             Expanded = False
             FieldName = 'descricao'
             Title.Caption = 'PRODUTO'
+            Width = 198
             Visible = True
           end
           item
             Alignment = taCenter
             Expanded = False
             FieldName = 'qtdOriginal'
+            Title.Alignment = taCenter
             Title.Caption = 'QTD'
             Visible = True
           end
@@ -194,19 +362,28 @@ inherited F02001: TF02001
             Alignment = taCenter
             Expanded = False
             FieldName = 'dataCadastro'
+            Title.Alignment = taCenter
             Title.Caption = 'DATA'
+            Width = 101
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'observacao'
             Title.Caption = 'OBS'
+            Width = 770
             Visible = True
           end>
       end
     end
   end
+  inherited DS: TDataSource
+    Left = 768
+    Top = 96
+  end
   inherited ClientDataSet1: TClientDataSet
+    Left = 736
+    Top = 96
     object ClientDataSet1idOrdem: TIntegerField
       FieldName = 'idOrdem'
       Required = True
@@ -233,11 +410,17 @@ inherited F02001: TF02001
       Size = 45
     end
   end
+  inherited DataSetProvider1: TDataSetProvider
+    Left = 704
+    Top = 96
+  end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
       
         'select ord.*, d.descricao from ordem_producao ord '#10'left outer jo' +
         'in produto d on ord.idproduto = d.idproduto ')
+    Left = 672
+    Top = 96
     object FDQuery1idOrdem: TIntegerField
       FieldName = 'idOrdem'
       Origin = 'idOrdem'
@@ -279,8 +462,10 @@ inherited F02001: TF02001
     end
   end
   inherited ImageListBase: TImageList
+    Left = 768
+    Top = 144
     Bitmap = {
-      494C01010E002C00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -814,5 +999,137 @@ inherited F02001: TF02001
       E067E067FE17FE17E047E047FFA3FFA3E00FE00FFFC3FFC3E01FE01FFFE7FFE7
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited Acoes: TActionList
+    Left = 736
+    Top = 144
+  end
+  object FDQuery2: TFDQuery
+    Connection = DModule.FDConnection
+    SQL.Strings = (
+      
+        'select ohf.*, f.descricao as fase, g.descricao as grupo from ord' +
+        'em_has_fase ohf '#13#10#10
+      ''
+      'left outer join fase f on f.idfase = ohf.idfase '
+      'left outer join grupo g on g.idgrupo = ohf.idlinhaproducao '#13#10#10
+      ''
+      'where idOrdem =:idOrdem')
+    Left = 511
+    Top = 327
+    ParamData = <
+      item
+        Name = 'IDORDEM'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQuery2idOrdem_has_fase: TIntegerField
+      FieldName = 'idOrdem_has_fase'
+      Origin = 'idOrdem_has_fase'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery2idOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOrdem'
+      Origin = 'idOrdem'
+    end
+    object FDQuery2idFase: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idFase'
+      Origin = 'idFase'
+    end
+    object FDQuery2qtdOriginal: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtdOriginal'
+      Origin = 'qtdOriginal'
+    end
+    object FDQuery2qtdPrevista: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtdPrevista'
+      Origin = 'qtdPrevista'
+    end
+    object FDQuery2qtdProduzindo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtdProduzindo'
+      Origin = 'qtdProduzindo'
+    end
+    object FDQuery2idLinhaProducao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idLinhaProducao'
+      Origin = 'idLinhaProducao'
+    end
+    object FDQuery2sequencia: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'sequencia'
+      Origin = 'sequencia'
+    end
+    object FDQuery2fase: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'fase'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery2grupo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'grupo'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+  end
+  object DataSetProvider2: TDataSetProvider
+    DataSet = FDQuery2
+    Left = 535
+    Top = 327
+  end
+  object ClientDataSet2: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider2'
+    Left = 607
+    Top = 327
+    object ClientDataSet2idOrdem_has_fase: TIntegerField
+      FieldName = 'idOrdem_has_fase'
+      Required = True
+    end
+    object ClientDataSet2idOrdem: TIntegerField
+      FieldName = 'idOrdem'
+    end
+    object ClientDataSet2idFase: TIntegerField
+      FieldName = 'idFase'
+    end
+    object ClientDataSet2qtdOriginal: TIntegerField
+      FieldName = 'qtdOriginal'
+    end
+    object ClientDataSet2qtdPrevista: TIntegerField
+      FieldName = 'qtdPrevista'
+    end
+    object ClientDataSet2qtdProduzindo: TIntegerField
+      FieldName = 'qtdProduzindo'
+    end
+    object ClientDataSet2idLinhaProducao: TIntegerField
+      FieldName = 'idLinhaProducao'
+    end
+    object ClientDataSet2sequencia: TIntegerField
+      FieldName = 'sequencia'
+    end
+    object ClientDataSet2fase: TStringField
+      FieldName = 'fase'
+      ProviderFlags = []
+      Size = 45
+    end
+    object ClientDataSet2grupo: TStringField
+      FieldName = 'grupo'
+      ProviderFlags = []
+      Size = 45
+    end
+  end
+  object DataSource2: TDataSource
+    DataSet = ClientDataSet2
+    Left = 671
+    Top = 327
   end
 end

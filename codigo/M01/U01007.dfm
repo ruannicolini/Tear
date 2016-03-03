@@ -2,7 +2,6 @@ inherited F01007: TF01007
   Caption = 'F01007'
   ClientHeight = 525
   ClientWidth = 843
-  ExplicitTop = -53
   ExplicitWidth = 859
   ExplicitHeight = 564
   PixelsPerInch = 96
@@ -21,8 +20,6 @@ inherited F01007: TF01007
       inherited grDados: TGroupBox
         Width = 835
         Height = 462
-        ExplicitLeft = -16
-        ExplicitTop = 56
         ExplicitWidth = 835
         ExplicitHeight = 462
         object Label1: TLabel
@@ -232,7 +229,6 @@ inherited F01007: TF01007
             DoubleBuffered = False
             ParentDoubleBuffered = False
             TabOrder = 1
-            ExplicitWidth = 243
             object BitBtn1: TBitBtn
               Left = 163
               Top = 15
@@ -289,7 +285,6 @@ inherited F01007: TF01007
               CorBorda = clGray
               NovoLayout = False
               OnButtonClick = EditBeleza1ButtonClick
-              ExplicitWidth = 213
             end
           end
         end
@@ -322,7 +317,6 @@ inherited F01007: TF01007
             Margins.Bottom = 0
             Align = alTop
             TabOrder = 0
-            ExplicitWidth = 244
             object Button4: TButton
               Left = 167
               Top = 14
@@ -822,7 +816,7 @@ inherited F01007: TF01007
     Left = 584
     Top = 72
     Bitmap = {
-      494C01010D002C00700110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00740110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1536,7 +1530,7 @@ inherited F01007: TF01007
     Left = 548
     Top = 73
     Bitmap = {
-      494C010103000800DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
