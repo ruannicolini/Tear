@@ -3,7 +3,6 @@ inherited F02001: TF02001
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    ActivePage = TbDados
     inherited TbDados: TTabSheet
       inherited grDados: TGroupBox
         Margins.Left = 0
@@ -340,6 +339,7 @@ inherited F02001: TF02001
                 Top = 0
                 Caption = 'Limpar'
                 ImageIndex = 1
+                OnClick = TBtnLimparClick
               end
               object ToolButton4: TToolButton
                 Left = 260
@@ -354,6 +354,7 @@ inherited F02001: TF02001
                 Top = 0
                 Caption = 'Excluir Fase Selecionada'
                 ImageIndex = 2
+                OnClick = TBtnExcluirClick
               end
             end
           end

@@ -91,6 +91,8 @@ type
     procedure ClientDataSet2AfterInsert(DataSet: TDataSet);
     procedure DBGridBeleza2DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure TBtnExcluirClick(Sender: TObject);
+    procedure TBtnLimparClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -172,6 +174,51 @@ begin
   PageControl1.ActivePageIndex := TabSet1.TabIndex;
 end;
 
+procedure TF02001.TBtnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  if datasource2.DataSet.Active then
+  begin
+    if not datasource2.DataSet.IsEmpty then
+    begin
+        if (Application.MessageBox('Deseja Deletar ?', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
+        begin
+          datasource2.DataSet.Delete;
+        end;
+    end
+    else
+        ShowMessage('Não Há registros');
+  end;
+
+end;
+
+procedure TF02001.TBtnLimparClick(Sender: TObject);
+begin
+  inherited;
+
+  if datasource2.DataSet.Active then
+  begin
+    if not datasource2.DataSet.IsEmpty then
+    begin
+        if (Application.MessageBox('Deseja Apagar Rota de Produção ?', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
+        begin
+
+          //LIMPAR ORDEM_HAS_FASE
+          ClientDataSet2.Close;
+          DModule.qAux.Close;
+          DModule.qAux.SQL.Text := 'Delete from ordem_has_fase WHERE idordem =:od';
+          DModule.qAux.ParamByName('od').AsString := ClientDataSet1idOrdem.AsString;
+          DModule.qAux.execsql;
+          ClientDataSet2.open;
+        end;
+    end
+    else
+        ShowMessage('Não Há registros');
+  end;
+
+
+end;
+
 procedure TF02001.TBtnProcessarRotaClick(Sender: TObject);
 var
 matriz: array of array of integer;
@@ -228,8 +275,6 @@ begin
     i := i+1;
     DModule.qAux.next;
   end;
-
-  ShowMessage('Tam matriz : ' + inttostr(Length(matriz)-1));
 
   for i := 0 to (Length(matriz)-1) do
   begin
