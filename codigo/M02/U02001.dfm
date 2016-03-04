@@ -1,16 +1,10 @@
 inherited F02001: TF02001
   Caption = 'F02001'
-  ExplicitWidth = 834
-  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     ActivePage = TbDados
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       inherited grDados: TGroupBox
         Margins.Left = 0
         Margins.Top = 0
@@ -144,7 +138,7 @@ inherited F02001: TF02001
         object PageControl1: TPageControl
           Left = 21
           Top = 226
-          Width = 760
+          Width = 759
           Height = 178
           ActivePage = TabSheet1
           Align = alCustom
@@ -158,15 +152,15 @@ inherited F02001: TF02001
               AlignWithMargins = True
               Left = 3
               Top = 33
-              Width = 740
+              Width = 739
               Height = 108
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
               BorderStyle = bsNone
-              Color = 16382457
+              Color = clWhite
               DataSource = DataSource2
               DrawingStyle = gdsGradient
-              FixedColor = 16382457
+              FixedColor = 16762447
               GradientEndColor = 16382457
               GradientStartColor = clInactiveCaption
               Font.Charset = DEFAULT_CHARSET
@@ -180,11 +174,12 @@ inherited F02001: TF02001
               ShowHint = True
               TabOrder = 0
               TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clWhite
+              TitleFont.Color = clBlack
               TitleFont.Height = -11
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
-              Cor_2 = clSilver
+              OnDrawColumnCell = DBGridBeleza2DrawColumnCell
+              Cor_2 = 16382457
               Direcao_Cor2 = dg_Horiz
               Direcao_Enter = dg_Horiz
               ClickTituloOrdenar = True
@@ -194,7 +189,6 @@ inherited F02001: TF02001
               Columns = <
                 item
                   Alignment = taCenter
-                  Color = clWhite
                   Expanded = False
                   FieldName = 'sequencia'
                   Title.Caption = 'Seq'
@@ -208,7 +202,6 @@ inherited F02001: TF02001
                 end
                 item
                   Alignment = taCenter
-                  Color = clWhite
                   Expanded = False
                   FieldName = 'idOrdem_has_fase'
                   Title.Caption = 'COD'
@@ -221,8 +214,6 @@ inherited F02001: TF02001
                   Visible = True
                 end
                 item
-                  Alignment = taRightJustify
-                  Color = clWhite
                   Expanded = False
                   FieldName = 'fase'
                   Title.Caption = 'FASE'
@@ -236,7 +227,6 @@ inherited F02001: TF02001
                   Visible = True
                 end
                 item
-                  Color = clWhite
                   Expanded = False
                   FieldName = 'grupo'
                   Title.Caption = 'LINHA'
@@ -251,7 +241,6 @@ inherited F02001: TF02001
                 end
                 item
                   Alignment = taCenter
-                  Color = clWhite
                   Expanded = False
                   FieldName = 'qtdOriginal'
                   Title.Alignment = taCenter
@@ -262,12 +251,26 @@ inherited F02001: TF02001
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
                   Title.Font.Style = [fsBold]
-                  Width = 84
+                  Width = 74
                   Visible = True
                 end
                 item
                   Alignment = taCenter
-                  Color = clWhite
+                  Expanded = False
+                  FieldName = 'qtdPrevista'
+                  Title.Alignment = taCenter
+                  Title.Caption = 'PREVISTO'
+                  Title.Color = clHighlight
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 74
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
                   Expanded = False
                   FieldName = 'qtdProduzindo'
                   Title.Alignment = taCenter
@@ -283,18 +286,14 @@ inherited F02001: TF02001
                 end
                 item
                   Alignment = taCenter
-                  Color = clWhite
                   Expanded = False
-                  FieldName = 'qtdPrevista'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'PREVISTO'
-                  Title.Color = clHighlight
+                  FieldName = 'qtdFinalizada'
+                  Title.Caption = 'FINALIZADO'
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
                   Title.Font.Style = [fsBold]
-                  Width = 84
                   Visible = True
                 end>
             end
@@ -302,13 +301,12 @@ inherited F02001: TF02001
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 740
+              Width = 739
               Height = 24
               ButtonHeight = 19
               ButtonWidth = 129
               Caption = 'ToolBar1'
               Color = 16382457
-              Ctl3D = True
               DoubleBuffered = False
               DrawingStyle = dsGradient
               EdgeBorders = [ebLeft, ebTop, ebRight, ebBottom]
@@ -322,13 +320,12 @@ inherited F02001: TF02001
               ShowCaptions = True
               TabOrder = 1
               Transparent = True
-              ExplicitLeft = -173
-              ExplicitTop = -19
               object TBtnProcessarRota: TToolButton
                 Left = 0
                 Top = 0
                 Caption = 'Processar Rota'
                 ImageIndex = 0
+                OnClick = TBtnProcessarRotaClick
               end
               object ToolButton2: TToolButton
                 Left = 129
@@ -408,10 +405,6 @@ inherited F02001: TF02001
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       object DBText1: TDBText [0]
         Left = 456
         Top = 136
@@ -564,7 +557,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C00180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C001C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1114,8 +1107,8 @@ inherited F02001: TF02001
       'left outer join grupo g on g.idgrupo = ohf.idlinhaproducao '#13#10#10
       ''
       'where idOrdem =:idOrdem')
-    Left = 511
-    Top = 327
+    Left = 519
+    Top = 215
     ParamData = <
       item
         Name = 'IDORDEM'
@@ -1178,18 +1171,27 @@ inherited F02001: TF02001
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery2qtdFinalizada: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtdFinalizada'
+      Origin = 'qtdFinalizada'
+    end
   end
   object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
-    Left = 535
-    Top = 327
+    Left = 543
+    Top = 215
   end
   object ClientDataSet2: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider2'
-    Left = 607
-    Top = 327
+    AfterInsert = ClientDataSet2AfterInsert
+    AfterPost = ClientDataSet2AfterPost
+    AfterCancel = ClientDataSet2AfterCancel
+    AfterDelete = ClientDataSet2AfterDelete
+    Left = 575
+    Top = 215
     object ClientDataSet2idOrdem_has_fase: TIntegerField
       FieldName = 'idOrdem_has_fase'
       Required = True
@@ -1225,10 +1227,13 @@ inherited F02001: TF02001
       ProviderFlags = []
       Size = 45
     end
+    object ClientDataSet2qtdFinalizada: TIntegerField
+      FieldName = 'qtdFinalizada'
+    end
   end
   object DataSource2: TDataSource
     DataSet = ClientDataSet2
-    Left = 671
-    Top = 327
+    Left = 607
+    Top = 215
   end
 end

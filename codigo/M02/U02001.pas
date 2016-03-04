@@ -78,10 +78,19 @@ type
     TBtnLimpar: TToolButton;
     ToolButton4: TToolButton;
     TBtnExcluir: TToolButton;
+    FDQuery2qtdFinalizada: TIntegerField;
+    ClientDataSet2qtdFinalizada: TIntegerField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure TabSet1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure TBtnProcessarRotaClick(Sender: TObject);
+    procedure ClientDataSet2AfterCancel(DataSet: TDataSet);
+    procedure ClientDataSet2AfterDelete(DataSet: TDataSet);
+    procedure ClientDataSet2AfterPost(DataSet: TDataSet);
+    procedure ClientDataSet2AfterInsert(DataSet: TDataSet);
+    procedure DBGridBeleza2DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -101,6 +110,43 @@ procedure TF02001.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idOrdem.AsInteger := DModule.buscaProximoParametro('seqOrdemProducao');
+end;
+
+procedure TF02001.ClientDataSet2AfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet2.CancelUpdates;
+end;
+
+procedure TF02001.ClientDataSet2AfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet2.ApplyUpdates(-1);
+end;
+
+procedure TF02001.ClientDataSet2AfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet2idOrdem_has_fase.AsInteger := DModule.buscaProximoParametro('seqOrdemFase');
+end;
+
+procedure TF02001.ClientDataSet2AfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet2.ApplyUpdates(-1);
+end;
+
+procedure TF02001.DBGridBeleza2DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  TDbGrid(Sender).Canvas.font.Color:= clBlack; //aqui é definida a cor da fonte
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    FillRect(Rect);
+  end;
+
 end;
 
 procedure TF02001.DSDataChange(Sender: TObject; Field: TField);
@@ -124,6 +170,86 @@ procedure TF02001.TabSet1Click(Sender: TObject);
 begin
   inherited;
   PageControl1.ActivePageIndex := TabSet1.TabIndex;
+end;
+
+procedure TF02001.TBtnProcessarRotaClick(Sender: TObject);
+var
+matriz: array of array of integer;
+i : integer;
+begin
+  inherited;
+  //Pega as fases do produto selecionado
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from produto_has_fase where idProduto =:idProd order by (sequencia)';
+  DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+  DModule.qAux.Open;
+  DModule.qAux.first;
+
+  //Declaração do tamanho da Matriz
+  SetLength(matriz, DModule.qAux.RecordCount);
+  for i := 0 to (DModule.qAux.RecordCount -1) do
+  begin
+    SetLength(matriz[i], 6);
+  end;
+
+  //Atribui valores na matriz
+  i := 0;
+  while not DModule.qAux.eof do
+  begin
+    //idOrdem
+    matriz[i][0] := ClientDataSet1idOrdem.AsInteger;
+
+    //IdFase
+    matriz[i][1] := DModule.qAux.FieldByName('idfase').AsInteger;
+
+    //QtdOriginal
+    matriz[i][2] := ClientDataSet1qtdOriginal.AsInteger;
+
+    //qtdPrevisto
+    IF(i = 0)THEN
+    BEGIN
+      matriz[i][3] := 0;
+    END ELSE
+      matriz[i][3] := ClientDataSet1qtdOriginal.AsInteger;
+
+    //QtdFinalizado
+    matriz[i][4] := 0;
+
+    //QtdProduzindo
+    IF(i = 0)THEN
+    BEGIN
+    matriz[i][5] := ClientDataSet1qtdOriginal.AsInteger;;
+    END ELSE
+    matriz[i][5] := 0;
+
+    //Sequencia
+    matriz[i][6] := DModule.qAux.FieldByName('sequencia').AsInteger;
+
+    i := i+1;
+    DModule.qAux.next;
+  end;
+
+  ShowMessage('Tam matriz : ' + inttostr(Length(matriz)-1));
+
+  for i := 0 to (Length(matriz)-1) do
+  begin
+    // DataSource2 = ordem_has_fase
+    ClientDataSet2.Open;
+    ClientDataSet2.Append;
+    ClientDataSet2idOrdem.Value := matriz[i][0];
+    ClientDataSet2idFase.Value := matriz[i][1];
+    ClientDataSet2qtdOriginal.Value := matriz[i][2];
+    ClientDataSet2qtdPrevista.Value := matriz[i][3];
+    ClientDataSet2qtdFinalizada.Value := matriz[i][4];
+    ClientDataSet2qtdProduzindo.Value := matriz[i][5];
+    ClientDataSet2sequencia.Value := matriz[i][6];
+    ClientDataSet2.Post;
+
+  end;
+
+  DataSource2.DataSet.Close;
+  DataSource2.DataSet.Open;
+
 end;
 
 Initialization
