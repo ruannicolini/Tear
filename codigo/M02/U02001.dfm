@@ -1,11 +1,16 @@
 inherited F02001: TF02001
   Caption = 'F02001'
-  ExplicitTop = 5
+  ExplicitWidth = 834
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     ActivePage = TbDados
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
       inherited grDados: TGroupBox
         Margins.Left = 0
         Margins.Top = 0
@@ -149,16 +154,15 @@ inherited F02001: TF02001
           object TabSheet1: TTabSheet
             AlignWithMargins = True
             Caption = 'FASES'
-            ExplicitWidth = 799
-            ExplicitHeight = 221
             object DBGridBeleza2: TDBGridBeleza
               AlignWithMargins = True
               Left = 3
-              Top = 42
+              Top = 33
               Width = 740
-              Height = 99
+              Height = 108
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
+              BorderStyle = bsNone
               Color = 16382457
               DataSource = DataSource2
               DrawingStyle = gdsGradient
@@ -294,24 +298,71 @@ inherited F02001: TF02001
                   Visible = True
                 end>
             end
-            object GroupBox1: TGroupBox
+            object ToolBar1: TToolBar
               AlignWithMargins = True
               Left = 3
               Top = 3
               Width = 740
-              Height = 33
-              Align = alTop
-              Color = 15724527
-              ParentBackground = False
+              Height = 24
+              ButtonHeight = 19
+              ButtonWidth = 129
+              Caption = 'ToolBar1'
+              Color = 16382457
+              Ctl3D = True
+              DoubleBuffered = False
+              DrawingStyle = dsGradient
+              EdgeBorders = [ebLeft, ebTop, ebRight, ebBottom]
+              Flat = False
+              GradientEndColor = 16382457
+              GradientStartColor = 14342874
+              HotTrackColor = clScrollBar
+              List = True
               ParentColor = False
+              ParentDoubleBuffered = False
+              ShowCaptions = True
               TabOrder = 1
+              Transparent = True
+              ExplicitLeft = -173
+              ExplicitTop = -19
+              object TBtnProcessarRota: TToolButton
+                Left = 0
+                Top = 0
+                Caption = 'Processar Rota'
+                ImageIndex = 0
+              end
+              object ToolButton2: TToolButton
+                Left = 129
+                Top = 0
+                Width = 2
+                Caption = 'ToolButton2'
+                ImageIndex = 1
+                Style = tbsSeparator
+              end
+              object TBtnLimpar: TToolButton
+                Left = 131
+                Top = 0
+                Caption = 'Limpar'
+                ImageIndex = 1
+              end
+              object ToolButton4: TToolButton
+                Left = 260
+                Top = 0
+                Width = 8
+                Caption = 'ToolButton4'
+                ImageIndex = 2
+                Style = tbsSeparator
+              end
+              object TBtnExcluir: TToolButton
+                Left = 268
+                Top = 0
+                Caption = 'Excluir Fase Selecionada'
+                ImageIndex = 2
+              end
             end
           end
           object MOVIMENTACOES: TTabSheet
             Caption = 'MOVIMENTA'#199#213'ES'
             ImageIndex = 1
-            ExplicitWidth = 805
-            ExplicitHeight = 227
           end
         end
         object DBRichEdit1: TDBRichEdit
@@ -336,26 +387,31 @@ inherited F02001: TF02001
           Width = 761
           Height = 18
           Align = alCustom
-          BackgroundColor = clGradientInactiveCaption
+          BackgroundColor = 15724527
           DoubleBuffered = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentDoubleBuffered = False
           StartMargin = 0
-          SelectedColor = clSkyBlue
+          SelectedColor = 14866119
           SoftTop = True
           Tabs.Strings = (
             'FASES'
             'MOVIMENTA'#199#213'ES')
           TabIndex = 0
+          UnselectedColor = 15724527
           OnClick = TabSet1Click
         end
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
       object DBText1: TDBText [0]
         Left = 456
         Top = 136
@@ -508,7 +564,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

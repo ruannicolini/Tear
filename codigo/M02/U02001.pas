@@ -11,7 +11,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider,
   Datasnap.DBClient, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, DBGridBeleza,
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza,
-  Edit_Calendario, DBEditCalendario, Vcl.Tabs;
+  Edit_Calendario, DBEditCalendario, Vcl.Tabs, Vcl.ToolWin;
 
 type
   TF02001 = class(TFBase)
@@ -72,7 +72,12 @@ type
     DBText1: TDBText;
     DBRichEdit1: TDBRichEdit;
     TabSet1: TTabSet;
-    GroupBox1: TGroupBox;
+    ToolBar1: TToolBar;
+    TBtnProcessarRota: TToolButton;
+    ToolButton2: TToolButton;
+    TBtnLimpar: TToolButton;
+    ToolButton4: TToolButton;
+    TBtnExcluir: TToolButton;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure TabSet1Click(Sender: TObject);
