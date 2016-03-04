@@ -39,13 +39,11 @@ type
     DBEdit4: TDBEdit;
     Label5: TLabel;
     Label6: TLabel;
-    DBEdit6: TDBEdit;
     DBEditBeleza1: TDBEditBeleza;
     DBEdit_Calendario1: TDBEdit_Calendario;
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
-    MOVIMENTAÇÕES: TTabSheet;
-    GroupBox1: TGroupBox;
+    MOVIMENTACOES: TTabSheet;
     DBGridBeleza2: TDBGridBeleza;
     FDQuery2: TFDQuery;
     DataSetProvider2: TDataSetProvider;
@@ -71,8 +69,14 @@ type
     ClientDataSet2fase: TStringField;
     FDQuery2grupo: TStringField;
     ClientDataSet2grupo: TStringField;
+    DBText1: TDBText;
+    DBRichEdit1: TDBRichEdit;
+    TabSet1: TTabSet;
+    GroupBox1: TGroupBox;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure DSDataChange(Sender: TObject; Field: TField);
+    procedure TabSet1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -101,6 +105,20 @@ begin
   FDQuery2.ParamByName('idOrdem').Value:=(ClientDataSet1idOrdem.AsInteger);
   DataSource2.DataSet.Close;
   DataSource2.DataSet.Open;
+end;
+
+procedure TF02001.FormShow(Sender: TObject);
+begin
+  inherited;
+  PageControl1.Pages[0].TabVisible := FALSE;
+  PageControl1.Pages[1].TabVisible := FALSE;
+  PageControl1.ActivePageIndex := 0;
+end;
+
+procedure TF02001.TabSet1Click(Sender: TObject);
+begin
+  inherited;
+  PageControl1.ActivePageIndex := TabSet1.TabIndex;
 end;
 
 Initialization

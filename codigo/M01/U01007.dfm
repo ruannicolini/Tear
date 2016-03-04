@@ -9,7 +9,6 @@ inherited F01007: TF01007
   inherited PageControl: TPageControl
     Width = 843
     Height = 490
-    ActivePage = TbDados
     ExplicitWidth = 843
     ExplicitHeight = 490
     inherited TbDados: TTabSheet

@@ -85,11 +85,11 @@ object FBase: TFBase
         Hint = 'Clique no Titulo da Coluna para Ordenar'
         Align = alClient
         BorderStyle = bsNone
-        Color = clBtnFace
+        Color = clSilver
         DataSource = DS
         FixedColor = 16762447
         GradientEndColor = 16382457
-        GradientStartColor = 16382457
+        GradientStartColor = clSilver
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -11
@@ -855,7 +855,7 @@ object FBase: TFBase
     Left = 448
     Top = 248
     Bitmap = {
-      494C01010E002C00040110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

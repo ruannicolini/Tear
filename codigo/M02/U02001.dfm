@@ -1,90 +1,83 @@
-﻿inherited F02001: TF02001
+inherited F02001: TF02001
   Caption = 'F02001'
-  ExplicitTop = -74
-  ExplicitWidth = 834
-  ExplicitHeight = 557
+  ExplicitTop = 5
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     ActivePage = TbDados
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       inherited grDados: TGroupBox
         Margins.Left = 0
         Margins.Top = 0
         Margins.Right = 0
         Margins.Bottom = 0
         object Label1: TLabel
-          Left = 40
-          Top = 16
+          Left = 21
+          Top = 34
           Width = 22
           Height = 13
           Caption = 'COD'
           FocusControl = DBEdit1
         end
         object Label2: TLabel
-          Left = 40
-          Top = 59
+          Left = 147
+          Top = 34
           Width = 51
           Height = 13
           Caption = 'N'#186' ORDEM'
           FocusControl = DBEdit2
         end
         object Label3: TLabel
-          Left = 288
-          Top = 59
+          Left = 21
+          Top = 78
           Width = 49
           Height = 13
           Caption = 'PRODUTO'
           FocusControl = DBEdit3
         end
         object Label4: TLabel
-          Left = 530
-          Top = 59
+          Left = 666
+          Top = 78
           Width = 66
           Height = 13
           Caption = 'QUANTIDADE'
           FocusControl = DBEdit4
         end
         object Label5: TLabel
-          Left = 164
-          Top = 59
+          Left = 667
+          Top = 34
           Width = 27
           Height = 13
           Caption = 'DATA'
         end
         object Label6: TLabel
-          Left = 40
-          Top = 103
+          Left = 21
+          Top = 123
           Width = 73
           Height = 13
           Caption = 'OBSERVA'#199#213'ES'
-          FocusControl = DBEdit6
         end
         object DBEdit1: TDBEdit
-          Left = 40
-          Top = 32
-          Width = 103
+          Left = 21
+          Top = 50
+          Width = 110
           Height = 21
           DataField = 'idOrdem'
           DataSource = DS
           TabOrder = 0
         end
         object DBEdit2: TDBEdit
-          Left = 40
-          Top = 75
-          Width = 110
+          Left = 146
+          Top = 50
+          Width = 505
           Height = 21
           DataField = 'numOrdem'
           DataSource = DS
           TabOrder = 1
         end
         object DBEdit3: TDBEdit
-          Left = 288
-          Top = 75
+          Left = 21
+          Top = 94
           Width = 27
           Height = 21
           Color = 15724527
@@ -93,29 +86,18 @@
           TabOrder = 2
         end
         object DBEdit4: TDBEdit
-          Left = 530
-          Top = 75
-          Width = 110
+          Left = 666
+          Top = 94
+          Width = 114
           Height = 21
           DataField = 'qtdOriginal'
           DataSource = DS
           TabOrder = 3
         end
-        object DBEdit6: TDBEdit
-          Left = 40
-          Top = 119
-          Width = 728
-          Height = 21
-          Align = alCustom
-          Anchors = [akLeft, akTop, akRight, akBottom]
-          DataField = 'observacao'
-          DataSource = DS
-          TabOrder = 4
-        end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 315
-          Top = 75
-          Width = 200
+          Left = 48
+          Top = 94
+          Width = 603
           Height = 21
           Color = 15724527
           DataField = 'descricao'
@@ -126,7 +108,7 @@
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 4
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -142,183 +124,244 @@
           NovoLayout = False
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
-          Left = 164
-          Top = 75
-          Width = 110
+          Left = 666
+          Top = 50
+          Width = 114
           Height = 21
           Hint = 'Duplo Clique para Buscar a data de hoje!'
           DataField = 'dataCadastro'
           DataSource = DS
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 6
+          TabOrder = 5
           Formato_Data = 'dd/mm/yy'
         end
         object PageControl1: TPageControl
-          Left = -4
-          Top = 153
-          Width = 813
-          Height = 303
+          Left = 21
+          Top = 226
+          Width = 760
+          Height = 178
           ActivePage = TabSheet1
           Align = alCustom
-          Anchors = [akLeft, akTop, akRight, akBottom]
+          Anchors = [akLeft, akTop, akBottom]
           MultiLine = True
-          TabOrder = 7
+          TabOrder = 6
           object TabSheet1: TTabSheet
             AlignWithMargins = True
             Caption = 'FASES'
+            ExplicitWidth = 799
             ExplicitHeight = 221
-            object GroupBox1: TGroupBox
-              Left = 0
-              Top = 0
-              Width = 799
-              Height = 41
-              Margins.Left = 0
-              Margins.Top = 0
-              Margins.Right = 0
-              Margins.Bottom = 0
-              Align = alTop
-              TabOrder = 0
-            end
             object DBGridBeleza2: TDBGridBeleza
-              Left = 0
-              Top = 41
-              Width = 799
-              Height = 228
+              AlignWithMargins = True
+              Left = 3
+              Top = 42
+              Width = 740
+              Height = 99
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
-              BorderStyle = bsNone
+              Color = 16382457
               DataSource = DataSource2
-              FixedColor = 16762447
+              DrawingStyle = gdsGradient
+              FixedColor = 16382457
+              GradientEndColor = 16382457
+              GradientStartColor = clInactiveCaption
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = []
-              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
               ParentFont = False
               ParentShowHint = False
               ShowHint = True
-              TabOrder = 1
+              TabOrder = 0
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWhite
               TitleFont.Height = -11
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
-              Cor_2 = 16773849
-              Direcao_Cor2 = dg_Vertical
+              Cor_2 = clSilver
+              Direcao_Cor2 = dg_Horiz
               Direcao_Enter = dg_Horiz
               ClickTituloOrdenar = True
-              MarcarLinhaInteira = False
-              CorLinhaMarcada = clSilver
+              MarcarLinhaInteira = True
+              CorLinhaMarcada = 15854564
               BloquearExportacoes = False
               Columns = <
                 item
                   Alignment = taCenter
-                  Color = 16382457
+                  Color = clWhite
                   Expanded = False
                   FieldName = 'sequencia'
                   Title.Caption = 'Seq'
+                  Title.Color = clHighlight
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = []
+                  Title.Font.Style = [fsBold]
                   Visible = True
                 end
                 item
                   Alignment = taCenter
-                  Color = 16382457
+                  Color = clWhite
                   Expanded = False
                   FieldName = 'idOrdem_has_fase'
                   Title.Caption = 'COD'
+                  Title.Color = clHighlight
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = []
+                  Title.Font.Style = [fsBold]
                   Visible = True
                 end
                 item
                   Alignment = taRightJustify
-                  Color = 16382457
+                  Color = clWhite
                   Expanded = False
                   FieldName = 'fase'
                   Title.Caption = 'FASE'
+                  Title.Color = clHighlight
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = []
-                  Width = 179
+                  Title.Font.Style = [fsBold]
+                  Width = 169
                   Visible = True
                 end
                 item
-                  Color = 16382457
+                  Color = clWhite
                   Expanded = False
                   FieldName = 'grupo'
                   Title.Caption = 'LINHA'
+                  Title.Color = clHighlight
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = []
-                  Width = 230
+                  Title.Font.Style = [fsBold]
+                  Width = 169
                   Visible = True
                 end
                 item
-                  Color = 16382457
+                  Alignment = taCenter
+                  Color = clWhite
                   Expanded = False
                   FieldName = 'qtdOriginal'
-                  Title.Caption = 'QTD_ORIGINAL'
+                  Title.Alignment = taCenter
+                  Title.Caption = 'QTD'
+                  Title.Color = clHighlight
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = []
-                  Width = 100
+                  Title.Font.Style = [fsBold]
+                  Width = 84
                   Visible = True
                 end
                 item
-                  Color = 16382457
+                  Alignment = taCenter
+                  Color = clWhite
                   Expanded = False
                   FieldName = 'qtdProduzindo'
-                  Title.Caption = 'QTD_PRODUZINDO'
+                  Title.Alignment = taCenter
+                  Title.Caption = 'PRODUZINDO'
+                  Title.Color = clHighlight
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = []
-                  Width = 122
+                  Title.Font.Style = [fsBold]
+                  Width = 84
                   Visible = True
                 end
                 item
-                  Color = 16382457
+                  Alignment = taCenter
+                  Color = clWhite
                   Expanded = False
                   FieldName = 'qtdPrevista'
-                  Title.Caption = 'QTD_PREVISTA'
+                  Title.Alignment = taCenter
+                  Title.Caption = 'PREVISTO'
+                  Title.Color = clHighlight
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
                   Title.Font.Height = -11
                   Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = []
+                  Title.Font.Style = [fsBold]
+                  Width = 84
                   Visible = True
                 end>
             end
+            object GroupBox1: TGroupBox
+              AlignWithMargins = True
+              Left = 3
+              Top = 3
+              Width = 740
+              Height = 33
+              Align = alTop
+              Color = 15724527
+              ParentBackground = False
+              ParentColor = False
+              TabOrder = 1
+            end
           end
-          object MOVIMENTAÇÕES: TTabSheet
+          object MOVIMENTACOES: TTabSheet
             Caption = 'MOVIMENTA'#199#213'ES'
             ImageIndex = 1
+            ExplicitWidth = 805
             ExplicitHeight = 227
           end
+        end
+        object DBRichEdit1: TDBRichEdit
+          Left = 21
+          Top = 141
+          Width = 759
+          Height = 54
+          DataField = 'observacao'
+          DataSource = DS
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ScrollBars = ssVertical
+          TabOrder = 7
+          Zoom = 100
+        end
+        object TabSet1: TTabSet
+          Left = 19
+          Top = 210
+          Width = 761
+          Height = 18
+          Align = alCustom
+          BackgroundColor = clGradientInactiveCaption
+          DoubleBuffered = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentDoubleBuffered = False
+          StartMargin = 0
+          SelectedColor = clSkyBlue
+          SoftTop = True
+          Tabs.Strings = (
+            'FASES'
+            'MOVIMENTA'#199#213'ES')
+          TabIndex = 0
+          OnClick = TabSet1Click
         end
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
+      object DBText1: TDBText [0]
+        Left = 456
+        Top = 136
+        Width = 65
+        Height = 17
+      end
       inherited DBGridBeleza1: TDBGridBeleza
         Columns = <
           item
@@ -378,12 +421,12 @@
     end
   end
   inherited DS: TDataSource
-    Left = 768
-    Top = 96
+    Left = 760
+    Top = 40
   end
   inherited ClientDataSet1: TClientDataSet
-    Left = 736
-    Top = 96
+    Left = 728
+    Top = 40
     object ClientDataSet1idOrdem: TIntegerField
       FieldName = 'idOrdem'
       Required = True
@@ -411,16 +454,16 @@
     end
   end
   inherited DataSetProvider1: TDataSetProvider
-    Left = 704
-    Top = 96
+    Left = 696
+    Top = 40
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
       
         'select ord.*, d.descricao from ordem_producao ord '#10'left outer jo' +
         'in produto d on ord.idproduto = d.idproduto ')
-    Left = 672
-    Top = 96
+    Left = 664
+    Top = 40
     object FDQuery1idOrdem: TIntegerField
       FieldName = 'idOrdem'
       Origin = 'idOrdem'
@@ -462,8 +505,8 @@
     end
   end
   inherited ImageListBase: TImageList
-    Left = 768
-    Top = 144
+    Left = 632
+    Top = 40
     Bitmap = {
       494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
@@ -1001,8 +1044,8 @@
       000000000000}
   end
   inherited Acoes: TActionList
-    Left = 736
-    Top = 144
+    Left = 600
+    Top = 40
   end
   object FDQuery2: TFDQuery
     Connection = DModule.FDConnection
