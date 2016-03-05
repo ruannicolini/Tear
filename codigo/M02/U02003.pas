@@ -10,10 +10,23 @@ uses
   System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider,
   Datasnap.DBClient, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, DBGridBeleza,
-  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls;
+  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Mask, Vcl.DBCtrls;
 
 type
   TF02003 = class(TFBase)
+    FDQuery1idtipo_Movimentacao: TIntegerField;
+    FDQuery1descricao: TStringField;
+    ClientDataSet1idtipo_Movimentacao: TIntegerField;
+    ClientDataSet1descricao: TStringField;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,6 +39,40 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+UDataModule;
+
+procedure TF02003.Action5Execute(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
+procedure TF02003.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF02003.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF02003.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+end;
+
+procedure TF02003.ClientDataSet1AfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet1idtipo_Movimentacao.AsInteger := DModule.buscaProximoParametro('seqTipoMovimentacao');
+
+end;
 
 Initialization
   RegisterClass(TF02003);

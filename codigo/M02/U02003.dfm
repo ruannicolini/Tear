@@ -1,18 +1,106 @@
 inherited F02003: TF02003
   Caption = 'F02003'
+  ExplicitWidth = 834
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     inherited TbDados: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
+      inherited grDados: TGroupBox
+        object Label1: TLabel
+          Left = 40
+          Top = 24
+          Width = 22
+          Height = 13
+          Caption = 'COD'
+          FocusControl = DBEdit1
+        end
+        object Label2: TLabel
+          Left = 40
+          Top = 64
+          Width = 59
+          Height = 13
+          Caption = 'DESCRI'#199#195'O'
+          FocusControl = DBEdit2
+        end
+        object DBEdit1: TDBEdit
+          Left = 40
+          Top = 40
+          Width = 134
+          Height = 21
+          DataField = 'idtipo_Movimentacao'
+          DataSource = DS
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object DBEdit2: TDBEdit
+          Left = 40
+          Top = 80
+          Width = 589
+          Height = 21
+          DataField = 'descricao'
+          DataSource = DS
+          TabOrder = 1
+        end
+      end
+    end
+    inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
+      inherited DBGridBeleza1: TDBGridBeleza
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idtipo_Movimentacao'
+            Title.Caption = 'COD'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Title.Caption = 'DESCRI'#199#195'O'
+            Width = 1240
+            Visible = True
+          end>
+      end
+    end
+  end
+  inherited ClientDataSet1: TClientDataSet
+    object ClientDataSet1idtipo_Movimentacao: TIntegerField
+      FieldName = 'idtipo_Movimentacao'
+      Required = True
+    end
+    object ClientDataSet1descricao: TStringField
+      FieldName = 'descricao'
+      Size = 45
+    end
+  end
+  inherited FDQuery1: TFDQuery
+    SQL.Strings = (
+      'select * from tipo_movimentacao')
+    object FDQuery1idtipo_Movimentacao: TIntegerField
+      FieldName = 'idtipo_Movimentacao'
+      Origin = 'idtipo_Movimentacao'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery1descricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010E002C00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

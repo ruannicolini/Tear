@@ -93,6 +93,10 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure TBtnExcluirClick(Sender: TObject);
     procedure TBtnLimparClick(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -107,6 +111,34 @@ implementation
 {$R *.dfm}
 
 uses uDataModule;
+
+procedure TF02001.Action5Execute(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit3.Color := clWindow;
+end;
+
+procedure TF02001.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit3.Color := CorCamposOnlyRead();
+end;
+
+procedure TF02001.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit3.Color := CorCamposOnlyRead();
+end;
+
+procedure TF02001.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit3.Color := clWindow;
+end;
 
 procedure TF02001.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
