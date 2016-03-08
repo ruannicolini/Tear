@@ -8,7 +8,6 @@ inherited F02002: TF02002
   TextHeight = 13
   inherited PageControl: TPageControl
     Height = 522
-    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -19,7 +18,7 @@ inherited F02002: TF02002
         ExplicitTop = 3
         ExplicitHeight = 494
         object Label1: TLabel
-          Left = 40
+          Left = 38
           Top = 31
           Width = 22
           Height = 13
@@ -27,7 +26,7 @@ inherited F02002: TF02002
           FocusControl = DBEdit1
         end
         object Label2: TLabel
-          Left = 333
+          Left = 331
           Top = 75
           Width = 68
           Height = 13
@@ -35,14 +34,14 @@ inherited F02002: TF02002
           FocusControl = DBEdit2
         end
         object Label3: TLabel
-          Left = 40
+          Left = 38
           Top = 120
           Width = 27
           Height = 13
           Caption = 'DATA'
         end
         object Label4: TLabel
-          Left = 40
+          Left = 38
           Top = 164
           Width = 70
           Height = 13
@@ -50,7 +49,7 @@ inherited F02002: TF02002
           FocusControl = DBEdit4
         end
         object Label5: TLabel
-          Left = 490
+          Left = 488
           Top = 120
           Width = 66
           Height = 13
@@ -58,7 +57,7 @@ inherited F02002: TF02002
           FocusControl = DBEdit5
         end
         object Label6: TLabel
-          Left = 186
+          Left = 184
           Top = 120
           Width = 125
           Height = 13
@@ -66,15 +65,14 @@ inherited F02002: TF02002
           FocusControl = DBEdit6
         end
         object Label7: TLabel
-          Left = 40
+          Left = 38
           Top = 212
           Width = 68
           Height = 13
           Caption = 'OBSERVA'#199#195'O'
-          FocusControl = DBEdit7
         end
         object Label8: TLabel
-          Left = 40
+          Left = 38
           Top = 75
           Width = 61
           Height = 13
@@ -82,7 +80,7 @@ inherited F02002: TF02002
           FocusControl = DBEdit8
         end
         object Label9: TLabel
-          Left = 187
+          Left = 185
           Top = 75
           Width = 51
           Height = 13
@@ -90,7 +88,7 @@ inherited F02002: TF02002
           FocusControl = DBEdit9
         end
         object DBEdit1: TDBEdit
-          Left = 40
+          Left = 38
           Top = 47
           Width = 134
           Height = 21
@@ -100,7 +98,7 @@ inherited F02002: TF02002
           TabOrder = 0
         end
         object DBEdit2: TDBEdit
-          Left = 333
+          Left = 331
           Top = 91
           Width = 27
           Height = 21
@@ -111,7 +109,7 @@ inherited F02002: TF02002
           TabOrder = 1
         end
         object DBEdit4: TDBEdit
-          Left = 40
+          Left = 38
           Top = 180
           Width = 584
           Height = 21
@@ -120,7 +118,7 @@ inherited F02002: TF02002
           TabOrder = 2
         end
         object DBEdit5: TDBEdit
-          Left = 490
+          Left = 488
           Top = 136
           Width = 134
           Height = 21
@@ -129,7 +127,7 @@ inherited F02002: TF02002
           TabOrder = 3
         end
         object DBEdit6: TDBEdit
-          Left = 186
+          Left = 184
           Top = 136
           Width = 26
           Height = 21
@@ -139,35 +137,28 @@ inherited F02002: TF02002
           ReadOnly = True
           TabOrder = 4
         end
-        object DBEdit7: TDBEdit
-          Left = 40
-          Top = 228
-          Width = 587
-          Height = 21
-          DataField = 'observacao'
-          DataSource = DS
-          TabOrder = 5
-        end
         object DBEdit8: TDBEdit
-          Left = 40
+          Left = 38
           Top = 91
           Width = 134
           Height = 21
           DataField = 'idOrdem'
           DataSource = DS
-          TabOrder = 6
+          TabOrder = 5
+          OnExit = DBEdit8Exit
         end
         object DBEdit9: TDBEdit
-          Left = 187
+          Left = 185
           Top = 91
           Width = 134
           Height = 21
           DataField = 'numOrdem'
           DataSource = DS
-          TabOrder = 7
+          ReadOnly = True
+          TabOrder = 6
         end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 212
+          Left = 210
           Top = 136
           Width = 269
           Height = 21
@@ -180,7 +171,7 @@ inherited F02002: TF02002
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 7
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -195,20 +186,21 @@ inherited F02002: TF02002
           NovoLayout = False
         end
         object DBEditBeleza2: TDBEditBeleza
-          Left = 360
+          Left = 358
           Top = 91
           Width = 264
           Height = 21
           Color = 15724527
           DataField = 'fase'
           DataSource = DS
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 9
+          TabOrder = 8
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -228,7 +220,7 @@ inherited F02002: TF02002
           OnButtonClick = DBEditBeleza2ButtonClick
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
-          Left = 40
+          Left = 38
           Top = 136
           Width = 134
           Height = 21
@@ -238,8 +230,23 @@ inherited F02002: TF02002
           MaxLength = 8
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 10
+          TabOrder = 9
           Formato_Data = 'dd/mm/yy'
+        end
+        object DBRichEdit1: TDBRichEdit
+          Left = 38
+          Top = 228
+          Width = 584
+          Height = 74
+          DataField = 'observacao'
+          DataSource = DS
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          TabOrder = 10
+          Zoom = 100
         end
       end
     end
@@ -251,6 +258,12 @@ inherited F02002: TF02002
       inherited DBGridBeleza1: TDBGridBeleza
         Height = 383
       end
+    end
+  end
+  inherited Panel2: TPanel
+    inherited BInserir: TSpeedButton
+      Left = 8
+      ExplicitLeft = 8
     end
   end
   inherited DS: TDataSource

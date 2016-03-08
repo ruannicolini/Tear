@@ -5,7 +5,6 @@ inherited F02001: TF02001
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -373,6 +372,117 @@ inherited F02001: TF02001
           object MOVIMENTACOES: TTabSheet
             Caption = 'MOVIMENTA'#199#213'ES'
             ImageIndex = 1
+            object DBGridBeleza3: TDBGridBeleza
+              AlignWithMargins = True
+              Left = 3
+              Top = 3
+              Width = 745
+              Height = 144
+              Hint = 'Clique no Titulo da Coluna para Ordenar'
+              Align = alClient
+              BorderStyle = bsNone
+              Color = clWhite
+              DataSource = DataSource3
+              DrawingStyle = gdsGradient
+              FixedColor = 16762447
+              GradientEndColor = 16382457
+              GradientStartColor = clInactiveCaption
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 0
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clBlack
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              OnDrawColumnCell = DBGridBeleza2DrawColumnCell
+              Cor_2 = 16382457
+              Direcao_Cor2 = dg_Horiz
+              Direcao_Enter = dg_Horiz
+              ClickTituloOrdenar = True
+              MarcarLinhaInteira = True
+              CorLinhaMarcada = 15854564
+              BloquearExportacoes = False
+              Columns = <
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'idmovimentacao'
+                  Title.Caption = 'COD'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'idOrdem_has_fase'
+                  Title.Caption = 'COD FASE(ORDEM)'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'fase'
+                  Title.Caption = 'FASE'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 188
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'dataMov'
+                  Title.Caption = 'DATA'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'qtd'
+                  Title.Caption = 'QTD'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'TipoMovimentacao'
+                  Title.Caption = 'TIPO MOVIMENTA'#199#195'O'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end>
+            end
           end
         end
         object DBRichEdit1: TDBRichEdit
@@ -1253,5 +1363,126 @@ inherited F02001: TF02001
     OnStateChange = DataSource2StateChange
     Left = 607
     Top = 215
+  end
+  object FDQuery3: TFDQuery
+    Connection = DModule.FDConnection
+    SQL.Strings = (
+      
+        'select mov.*, f.descricao as fase, tm.descricao as TipoMovimenta' +
+        'cao from movimentacao mov'#10'left outer join ordem_has_fase ohf on ' +
+        'ohf.idOrdem_has_fase = mov.idOrdem_has_fase'#10'left outer join tipo' +
+        '_movimentacao tm on tm.idtipo_Movimentacao = mov.idTipoMovimenta' +
+        'cao'#10'left outer join fase f on ohf.idfase = f.idfase'#10'where ohf.id' +
+        'Ordem =:idOrdem '#10'group by (idOrdem_has_fase);')
+    Left = 545
+    Top = 445
+    ParamData = <
+      item
+        Name = 'IDORDEM'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQuery3idmovimentacao: TIntegerField
+      FieldName = 'idmovimentacao'
+      Origin = 'idmovimentacao'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery3idOrdem_has_fase: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOrdem_has_fase'
+      Origin = 'idOrdem_has_fase'
+    end
+    object FDQuery3dataMov: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'dataMov'
+      Origin = 'dataMov'
+    end
+    object FDQuery3responsavel: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'responsavel'
+      Origin = 'responsavel'
+      Size = 45
+    end
+    object FDQuery3qtd: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtd'
+      Origin = 'qtd'
+    end
+    object FDQuery3idTipoMovimentacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idTipoMovimentacao'
+      Origin = 'idTipoMovimentacao'
+    end
+    object FDQuery3observacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'observacao'
+      Origin = 'observacao'
+      Size = 60
+    end
+    object FDQuery3fase: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'fase'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery3TipoMovimentacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TipoMovimentacao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+  end
+  object ClientDataSet3: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider3'
+    Left = 613
+    Top = 445
+    object ClientDataSet3idmovimentacao: TIntegerField
+      FieldName = 'idmovimentacao'
+      Required = True
+    end
+    object ClientDataSet3idOrdem_has_fase: TIntegerField
+      FieldName = 'idOrdem_has_fase'
+    end
+    object ClientDataSet3dataMov: TDateField
+      FieldName = 'dataMov'
+    end
+    object ClientDataSet3responsavel: TStringField
+      FieldName = 'responsavel'
+      Size = 45
+    end
+    object ClientDataSet3qtd: TIntegerField
+      FieldName = 'qtd'
+    end
+    object ClientDataSet3idTipoMovimentacao: TIntegerField
+      FieldName = 'idTipoMovimentacao'
+    end
+    object ClientDataSet3observacao: TStringField
+      FieldName = 'observacao'
+      Size = 60
+    end
+    object ClientDataSet3fase: TStringField
+      FieldName = 'fase'
+      Size = 45
+    end
+    object ClientDataSet3TipoMovimentacao: TStringField
+      FieldName = 'TipoMovimentacao'
+      Size = 45
+    end
+  end
+  object DataSetProvider3: TDataSetProvider
+    DataSet = FDQuery3
+    Left = 581
+    Top = 445
+  end
+  object DataSource3: TDataSource
+    DataSet = ClientDataSet3
+    Left = 644
+    Top = 443
   end
 end

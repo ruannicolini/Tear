@@ -53,7 +53,6 @@ type
     Label6: TLabel;
     DBEdit6: TDBEdit;
     Label7: TLabel;
-    DBEdit7: TDBEdit;
     Label8: TLabel;
     DBEdit8: TDBEdit;
     Label9: TLabel;
@@ -65,8 +64,15 @@ type
     ClientDataSet1fase: TStringField;
     DBEditBeleza2: TDBEditBeleza;
     DBEdit_Calendario1: TDBEdit_Calendario;
+    DBRichEdit1: TDBRichEdit;
     procedure DBEditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
+    procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
+    procedure BInserirClick(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
+    procedure DBEdit8Exit(Sender: TObject);
   private
     { Private declarations }
   public
@@ -79,6 +85,78 @@ var
 implementation
 
 {$R *.dfm}
+
+uses UDataModule;
+
+procedure TF02002.Action5Execute(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit2.Color := $00EFEFEF;
+  DBEdit6.Color := $00EFEFEF;
+  DBEdit9.Color := clWindow;
+end;
+
+procedure TF02002.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit2.Color := CorCamposOnlyRead();
+  DBEdit6.Color := CorCamposOnlyRead();
+  DBEdit9.Color := $00EFEFEF;
+end;
+
+procedure TF02002.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := CorCamposOnlyRead();
+  DBEdit2.Color := CorCamposOnlyRead();
+  DBEdit6.Color := CorCamposOnlyRead();
+  DBEdit9.Color := $00EFEFEF;
+end;
+
+procedure TF02002.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  DBEdit1.Color := clWindow;
+  DBEdit2.Color := $00EFEFEF;
+  DBEdit6.Color := $00EFEFEF;
+  DBEdit9.Color := clWindow;
+end;
+
+procedure TF02002.ClientDataSet1AfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet1idmovimentacao.AsInteger := DModule.buscaProximoParametro('seqMovimentacao');
+end;
+
+procedure TF02002.DBEdit8Exit(Sender: TObject);
+begin
+  inherited;
+  //
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from ordem_producao where idordem =:id';
+  DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+  DModule.qAux.Open;
+  DModule.qAux.first;
+
+  if(DModule.qAux.IsEmpty)then
+  begin
+    DBEditBeleza2.Enabled := FALSE;
+    DBEditBeleza2.Clear;
+    DBEdit2.Clear;
+    ClientDataSet1numOrdem.Clear;
+    if NOT(ClientDataSet1idOrdem.IsNull)then
+    begin
+      ShowMessage('CÓDIGO NÃO ENCONTRADO');
+    end;
+  end else
+  begin
+    DBEditBeleza2.Enabled := TRUE;
+    ClientDataSet1numOrdem.Value := StrToInt(DModule.qAux.FieldByName('numOrdem').AsString);;
+
+  end;
+end;
 
 procedure TF02002.DBEditBeleza2ButtonClick(Sender: TObject;
   var query_result: TFDQuery);

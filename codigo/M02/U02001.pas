@@ -80,6 +80,29 @@ type
     TBtnExcluir: TToolButton;
     FDQuery2qtdFinalizada: TIntegerField;
     ClientDataSet2qtdFinalizada: TIntegerField;
+    DBGridBeleza3: TDBGridBeleza;
+    FDQuery3: TFDQuery;
+    ClientDataSet3: TClientDataSet;
+    DataSetProvider3: TDataSetProvider;
+    DataSource3: TDataSource;
+    FDQuery3idmovimentacao: TIntegerField;
+    FDQuery3idOrdem_has_fase: TIntegerField;
+    FDQuery3dataMov: TDateField;
+    FDQuery3responsavel: TStringField;
+    FDQuery3qtd: TIntegerField;
+    FDQuery3idTipoMovimentacao: TIntegerField;
+    FDQuery3observacao: TStringField;
+    FDQuery3fase: TStringField;
+    FDQuery3TipoMovimentacao: TStringField;
+    ClientDataSet3idmovimentacao: TIntegerField;
+    ClientDataSet3idOrdem_has_fase: TIntegerField;
+    ClientDataSet3dataMov: TDateField;
+    ClientDataSet3responsavel: TStringField;
+    ClientDataSet3qtd: TIntegerField;
+    ClientDataSet3idTipoMovimentacao: TIntegerField;
+    ClientDataSet3observacao: TStringField;
+    ClientDataSet3fase: TStringField;
+    ClientDataSet3TipoMovimentacao: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure TabSet1Click(Sender: TObject);
@@ -205,6 +228,11 @@ begin
   FDQuery2.ParamByName('idOrdem').Value:=(ClientDataSet1idOrdem.AsInteger);
   DataSource2.DataSet.Close;
   DataSource2.DataSet.Open;
+
+  {MOVIMENTAÇÕES}
+  FDQuery3.ParamByName('idOrdem').Value:=(ClientDataSet1idOrdem.AsInteger);
+  DataSource3.DataSet.Close;
+  DataSource3.DataSet.Open;
 end;
 
 procedure TF02001.FormShow(Sender: TObject);
