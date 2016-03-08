@@ -76,6 +76,7 @@ type
     { Public declarations }
     constructor CreateMov(AOwner : TComponent; pParm1 : integer);
     constructor CreateOrdemFase(AOwner : TComponent; pParm1 : integer);
+    procedure calculoMovimentcao();
   end;
 
 var
@@ -107,8 +108,6 @@ inherited Create(AOwner);
   Width := 857;
   Height := 430;
   PageControl.ActivePageIndex := 1;
-
-
 end;
 
 constructor TF02002.CreateMov(AOwner: TComponent; pParm1: integer);
@@ -171,6 +170,20 @@ begin
   DBEdit2.Color := $00EFEFEF;
   DBEdit6.Color := $00EFEFEF;
   DBEdit9.Color := clWindow;
+end;
+
+procedure TF02002.calculoMovimentcao;
+begin
+  //Manipulação dos dados da movimentação
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select m.*, ohf.* from movimentacao m ';
+  DModule.qAux.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
+  DModule.qAux.SQL.Add('where ohf.idordem =:idOrdem ');
+  DModule.qAux.SQL.Add('order by (M.idOrdem_has_fase)');
+  DModule.qAux.ParamByName('idOrdem').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+  DModule.qAux.Open;
+  DModule.qAux.first;
+
 end;
 
 procedure TF02002.ClientDataSet1AfterInsert(DataSet: TDataSet);

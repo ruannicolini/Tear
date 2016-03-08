@@ -1,12 +1,10 @@
 inherited F02001: TF02001
   Caption = 'F02001'
-  ExplicitTop = -142
   ExplicitWidth = 834
   ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24

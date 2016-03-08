@@ -2,6 +2,7 @@ inherited F01003: TF01003
   Caption = 'F01003'
   ClientHeight = 532
   ClientWidth = 820
+  ExplicitTop = -150
   ExplicitWidth = 836
   ExplicitHeight = 571
   PixelsPerInch = 96
@@ -9,6 +10,7 @@ inherited F01003: TF01003
   inherited PageControl: TPageControl
     Width = 820
     Height = 497
+    ActivePage = TbDados
     ExplicitWidth = 820
     ExplicitHeight = 497
     inherited TbDados: TTabSheet
@@ -64,8 +66,8 @@ inherited F01003: TF01003
           TabOrder = 1
         end
         object PageControl1: TPageControl
-          Left = 139
-          Top = 120
+          Left = 138
+          Top = 121
           Width = 502
           Height = 305
           ActivePage = Fases
@@ -208,7 +210,7 @@ inherited F01003: TF01003
                 Visible = False
               end
               object BitBtn1: TBitBtn
-                Left = 289
+                Left = 290
                 Top = 18
                 Width = 53
                 Height = 23
@@ -218,7 +220,7 @@ inherited F01003: TF01003
                 OnClick = BitBtn1Click
               end
               object BitBtn2: TBitBtn
-                Left = 347
+                Left = 348
                 Top = 18
                 Width = 53
                 Height = 23
@@ -229,7 +231,7 @@ inherited F01003: TF01003
                 OnClick = BitBtn2Click
               end
               object EditBeleza1: TEditBeleza
-                Left = 88
+                Left = 89
                 Top = 19
                 Width = 197
                 Height = 21
@@ -257,6 +259,115 @@ inherited F01003: TF01003
                 CorBorda = clGray
                 NovoLayout = False
               end
+            end
+          end
+          object recursos: TTabSheet
+            Caption = 'Recursos'
+            ImageIndex = 2
+            ExplicitHeight = 278
+            object GroupBox2: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 494
+              Height = 60
+              Align = alTop
+              TabOrder = 0
+              DesignSize = (
+                494
+                60)
+              object BitBtn3: TBitBtn
+                Left = 282
+                Top = 18
+                Width = 53
+                Height = 23
+                Anchors = [akTop, akRight, akBottom]
+                Caption = 'ADD'
+                TabOrder = 0
+              end
+              object BitBtn4: TBitBtn
+                Left = 340
+                Top = 18
+                Width = 53
+                Height = 23
+                Align = alCustom
+                Anchors = [akTop, akRight, akBottom]
+                Caption = 'Excluir'
+                TabOrder = 1
+              end
+              object EditBeleza2: TEditBeleza
+                Left = 82
+                Top = 19
+                Width = 194
+                Height = 21
+                Align = alCustom
+                Anchors = [akLeft, akTop, akRight]
+                Color = 15724527
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 2
+                Ativar_Pesquisa = True
+                Ativar_MultiSelecao = False
+                mostrar_Botao = True
+                sql.Strings = (
+                  'select idRecurso, descricao from recurso '
+                  'where descricao like :varDescricao')
+                database = 'BALAY'
+                campo = 'DESCRICAO'
+                Sempre_Mostrar_Janela = False
+                Outro_Edit = Edit3
+                campo_outro_edit = 'IDRECURSO'
+                CorBorda = clGray
+                NovoLayout = False
+              end
+              object Edit3: TEdit
+                Left = 74
+                Top = 19
+                Width = 22
+                Height = 21
+                TabStop = False
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                Color = 15724527
+                ReadOnly = True
+                TabOrder = 3
+                Visible = False
+              end
+            end
+            object DBGridBeleza4: TDBGridBeleza
+              Left = 0
+              Top = 60
+              Width = 494
+              Height = 217
+              Hint = 'Clique no Titulo da Coluna para Ordenar'
+              Align = alClient
+              BorderStyle = bsNone
+              DataSource = DS_GRUPO_HAS_RECURSO
+              FixedColor = 16762447
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 1
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWhite
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              Cor_2 = 16773849
+              Direcao_Cor2 = dg_Vertical
+              Direcao_Enter = dg_Horiz
+              ClickTituloOrdenar = True
+              MarcarLinhaInteira = False
+              CorLinhaMarcada = clSilver
+              BloquearExportacoes = False
             end
           end
         end
@@ -367,7 +478,7 @@ inherited F01003: TF01003
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1028,5 +1139,27 @@ inherited F01003: TF01003
     DataSet = ClientDataSet3
     Left = 728
     Top = 336
+  end
+  object FDQuery4: TFDQuery
+    Connection = DModule.FDConnection
+    Left = 644
+    Top = 411
+  end
+  object DataSetProvider4: TDataSetProvider
+    DataSet = FDQuery4
+    Left = 668
+    Top = 411
+  end
+  object ClientDataSet4: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider4'
+    Left = 700
+    Top = 411
+  end
+  object DS_GRUPO_HAS_RECURSO: TDataSource
+    DataSet = ClientDataSet4
+    Left = 732
+    Top = 411
   end
 end

@@ -142,7 +142,7 @@ procedure TF02001.Action5Execute(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;
-  DBEdit3.Color := clWindow;
+  DBEdit3.Color := $00EFEFEF;
 end;
 
 procedure TF02001.BEditarClick(Sender: TObject);
@@ -163,7 +163,7 @@ procedure TF02001.BSalvarClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := clWindow;
-  DBEdit3.Color := clWindow;
+  DBEdit3.Color := $00EFEFEF;
 end;
 
 procedure TF02001.ClientDataSet1AfterInsert(DataSet: TDataSet);

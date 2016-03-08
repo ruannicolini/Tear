@@ -55,6 +55,17 @@ type
     GroupBox1: TGroupBox;
     Edit2: TEdit;
     Label3: TLabel;
+    recursos: TTabSheet;
+    GroupBox2: TGroupBox;
+    DBGridBeleza4: TDBGridBeleza;
+    FDQuery4: TFDQuery;
+    DataSetProvider4: TDataSetProvider;
+    ClientDataSet4: TClientDataSet;
+    DS_GRUPO_HAS_RECURSO: TDataSource;
+    BitBtn3: TBitBtn;
+    BitBtn4: TBitBtn;
+    EditBeleza2: TEditBeleza;
+    Edit3: TEdit;
     procedure acEditarExecute(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
