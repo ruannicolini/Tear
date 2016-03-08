@@ -2,13 +2,13 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2016/02/29 16:25:19.000.266,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/02/29 16:26:53.000.105,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02001.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
-    <Transaction>2016/02/29 16:26:53.000.105,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02001.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/04 18:39:30.596,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/04 18:40:32.731,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02002.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/04 18:40:32.732,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02002.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
-    <Transaction>2016/03/04 18:58:52.787,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/04 18:59:52.671,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02003.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
-    <Transaction>2016/03/04 18:59:52.671,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02003.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
+    <Transaction>2016/02/29 16:26:53.000.105,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02001.pas</Transaction>
+    <Transaction>2016/02/29 16:26:53.000.105,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02001.dfm</Transaction>
+    <Transaction>2016/03/04 18:39:30.000.596,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
+    <Transaction>2016/03/04 18:40:32.000.731,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02002.pas</Transaction>
+    <Transaction>2016/03/04 18:40:32.000.732,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02002.dfm</Transaction>
+    <Transaction>2016/03/04 18:58:52.000.787,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
+    <Transaction>2016/03/04 18:59:52.000.671,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02003.pas</Transaction>
+    <Transaction>2016/03/04 18:59:52.000.671,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02003.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -97,6 +97,7 @@ type
     procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure DataSource2StateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -168,6 +169,20 @@ procedure TF02001.ClientDataSet2AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet2.ApplyUpdates(-1);
+end;
+
+procedure TF02001.DataSource2StateChange(Sender: TObject);
+begin
+  inherited;
+  if(DataSource2.DataSet.IsEmpty)then
+  begin
+    TBtnProcessarRota.Enabled := true;
+    TBtnLimpar.Enabled := false;
+    TBtnExcluir.Enabled := false;
+  end else
+    TBtnProcessarRota.Enabled := false;
+    TBtnLimpar.Enabled := true;
+    TBtnExcluir.Enabled := true;
 end;
 
 procedure TF02001.DBGridBeleza2DrawColumnCell(Sender: TObject;

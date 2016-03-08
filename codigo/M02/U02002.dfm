@@ -1,18 +1,428 @@
 inherited F02002: TF02002
   Caption = 'F02002'
+  ClientHeight = 557
+  ExplicitLeft = 6
+  ExplicitWidth = 834
+  ExplicitHeight = 596
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
+    Height = 522
+    ActivePage = TbDados
     inherited TbDados: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
+      inherited grDados: TGroupBox
+        Height = 494
+        ExplicitTop = 3
+        ExplicitHeight = 494
+        object Label1: TLabel
+          Left = 40
+          Top = 31
+          Width = 22
+          Height = 13
+          Caption = 'COD'
+          FocusControl = DBEdit1
+        end
+        object Label2: TLabel
+          Left = 333
+          Top = 75
+          Width = 68
+          Height = 13
+          Caption = 'FASE (Ordem)'
+          FocusControl = DBEdit2
+        end
+        object Label3: TLabel
+          Left = 40
+          Top = 120
+          Width = 27
+          Height = 13
+          Caption = 'DATA'
+        end
+        object Label4: TLabel
+          Left = 40
+          Top = 164
+          Width = 70
+          Height = 13
+          Caption = 'RESPONS'#193'VEL'
+          FocusControl = DBEdit4
+        end
+        object Label5: TLabel
+          Left = 490
+          Top = 120
+          Width = 66
+          Height = 13
+          Caption = 'QUANTIDADE'
+          FocusControl = DBEdit5
+        end
+        object Label6: TLabel
+          Left = 186
+          Top = 120
+          Width = 125
+          Height = 13
+          Caption = 'TIPO DE MOVIMENTA'#199#195'O'
+          FocusControl = DBEdit6
+        end
+        object Label7: TLabel
+          Left = 40
+          Top = 212
+          Width = 68
+          Height = 13
+          Caption = 'OBSERVA'#199#195'O'
+          FocusControl = DBEdit7
+        end
+        object Label8: TLabel
+          Left = 40
+          Top = 75
+          Width = 61
+          Height = 13
+          Caption = 'COD ORDEM'
+          FocusControl = DBEdit8
+        end
+        object Label9: TLabel
+          Left = 187
+          Top = 75
+          Width = 51
+          Height = 13
+          Caption = 'N'#186' ORDEM'
+          FocusControl = DBEdit9
+        end
+        object DBEdit1: TDBEdit
+          Left = 40
+          Top = 47
+          Width = 134
+          Height = 21
+          DataField = 'idmovimentacao'
+          DataSource = DS
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object DBEdit2: TDBEdit
+          Left = 333
+          Top = 91
+          Width = 27
+          Height = 21
+          Color = 15724527
+          DataField = 'idOrdem_has_fase'
+          DataSource = DS
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object DBEdit4: TDBEdit
+          Left = 40
+          Top = 180
+          Width = 584
+          Height = 21
+          DataField = 'responsavel'
+          DataSource = DS
+          TabOrder = 2
+        end
+        object DBEdit5: TDBEdit
+          Left = 490
+          Top = 136
+          Width = 134
+          Height = 21
+          DataField = 'qtd'
+          DataSource = DS
+          TabOrder = 3
+        end
+        object DBEdit6: TDBEdit
+          Left = 186
+          Top = 136
+          Width = 26
+          Height = 21
+          Color = 15724527
+          DataField = 'idTipoMovimentacao'
+          DataSource = DS
+          ReadOnly = True
+          TabOrder = 4
+        end
+        object DBEdit7: TDBEdit
+          Left = 40
+          Top = 228
+          Width = 587
+          Height = 21
+          DataField = 'observacao'
+          DataSource = DS
+          TabOrder = 5
+        end
+        object DBEdit8: TDBEdit
+          Left = 40
+          Top = 91
+          Width = 134
+          Height = 21
+          DataField = 'idOrdem'
+          DataSource = DS
+          TabOrder = 6
+        end
+        object DBEdit9: TDBEdit
+          Left = 187
+          Top = 91
+          Width = 134
+          Height = 21
+          DataField = 'numOrdem'
+          DataSource = DS
+          TabOrder = 7
+        end
+        object DBEditBeleza1: TDBEditBeleza
+          Left = 212
+          Top = 136
+          Width = 269
+          Height = 21
+          Color = 15724527
+          DataField = 'tipoMovimentacao'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 8
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idtipo_Movimentacao, descricao from tipo_movimentacao '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit6
+          campo_outro_edit = 'idTipo_movimentacao'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object DBEditBeleza2: TDBEditBeleza
+          Left = 360
+          Top = 91
+          Width = 264
+          Height = 21
+          Color = 15724527
+          DataField = 'fase'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 9
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf'
+            'left outer join fase f on ohf.idfase =  f.idfase '
+            
+              'where f.descricao like :varDescricao and ohf.idOrdem_has_fase in' +
+              ' (select distinct idOrdem_has_fase from ordem_has_fase where idO' +
+              'rdem =:x)')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit2
+          campo_outro_edit = 'idOrdem_has_fase'
+          CorBorda = clGray
+          NovoLayout = False
+          OnButtonClick = DBEditBeleza2ButtonClick
+        end
+        object DBEdit_Calendario1: TDBEdit_Calendario
+          Left = 40
+          Top = 136
+          Width = 134
+          Height = 21
+          Hint = 'Duplo Clique para Buscar a data de hoje!'
+          DataField = 'dataMov'
+          DataSource = DS
+          MaxLength = 8
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 10
+          Formato_Data = 'dd/mm/yy'
+        end
+      end
+    end
+    inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
+      inherited DBGridBeleza1: TDBGridBeleza
+        Height = 383
+      end
+    end
+  end
+  inherited DS: TDataSource
+    Left = 544
+    Top = 8
+  end
+  inherited ClientDataSet1: TClientDataSet
+    Left = 512
+    Top = 8
+    object ClientDataSet1idmovimentacao: TIntegerField
+      FieldName = 'idmovimentacao'
+      Required = True
+    end
+    object ClientDataSet1idOrdem_has_fase: TIntegerField
+      FieldName = 'idOrdem_has_fase'
+    end
+    object ClientDataSet1dataMov: TDateField
+      FieldName = 'dataMov'
+    end
+    object ClientDataSet1responsavel: TStringField
+      FieldName = 'responsavel'
+      Size = 45
+    end
+    object ClientDataSet1qtd: TIntegerField
+      FieldName = 'qtd'
+    end
+    object ClientDataSet1idTipoMovimentacao: TIntegerField
+      FieldName = 'idTipoMovimentacao'
+    end
+    object ClientDataSet1observacao: TStringField
+      FieldName = 'observacao'
+      Size = 60
+    end
+    object ClientDataSet1idOrdem: TIntegerField
+      FieldName = 'idOrdem'
+    end
+    object ClientDataSet1numOrdem: TIntegerField
+      FieldName = 'numOrdem'
+    end
+    object ClientDataSet1idProduto: TIntegerField
+      FieldName = 'idProduto'
+    end
+    object ClientDataSet1qtdOriginal: TIntegerField
+      FieldName = 'qtdOriginal'
+    end
+    object ClientDataSet1dataCadastro: TDateField
+      FieldName = 'dataCadastro'
+    end
+    object ClientDataSet1observacao_1: TStringField
+      FieldName = 'observacao_1'
+      Size = 60
+    end
+    object ClientDataSet1tipoMovimentacao: TStringField
+      FieldName = 'tipoMovimentacao'
+      Size = 45
+    end
+    object ClientDataSet1fase: TStringField
+      FieldName = 'fase'
+      Size = 45
+    end
+  end
+  inherited DataSetProvider1: TDataSetProvider
+    Left = 480
+    Top = 8
+  end
+  inherited FDQuery1: TFDQuery
+    SQL.Strings = (
+      
+        'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao a' +
+        's fase from movimentacao m '#10#10#10'left outer join tipo_movimentacao ' +
+        'tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao '#10#10#10'left oute' +
+        'r join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_ha' +
+        's_fase'#10#10#10'left outer join fase f on f.idfase = ohf.idfase '#10#10#10'left' +
+        ' outer join ordem_producao o on o.idOrdem = ohf.idORdem_has_fase' +
+        ';')
+    Left = 448
+    Top = 8
+    object FDQuery1idmovimentacao: TIntegerField
+      FieldName = 'idmovimentacao'
+      Origin = 'idmovimentacao'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery1idOrdem_has_fase: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOrdem_has_fase'
+      Origin = 'idOrdem_has_fase'
+    end
+    object FDQuery1dataMov: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'dataMov'
+      Origin = 'dataMov'
+    end
+    object FDQuery1responsavel: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'responsavel'
+      Origin = 'responsavel'
+      Size = 45
+    end
+    object FDQuery1qtd: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtd'
+      Origin = 'qtd'
+    end
+    object FDQuery1idTipoMovimentacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idTipoMovimentacao'
+      Origin = 'idTipoMovimentacao'
+    end
+    object FDQuery1observacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'observacao'
+      Origin = 'observacao'
+      Size = 60
+    end
+    object FDQuery1idOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOrdem'
+      Origin = 'idOrdem'
+      ProviderFlags = []
+    end
+    object FDQuery1numOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOrdem'
+      Origin = 'numOrdem'
+      ProviderFlags = []
+    end
+    object FDQuery1idProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+      ProviderFlags = []
+    end
+    object FDQuery1qtdOriginal: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtdOriginal'
+      Origin = 'qtdOriginal'
+      ProviderFlags = []
+    end
+    object FDQuery1dataCadastro: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'dataCadastro'
+      Origin = 'dataCadastro'
+      ProviderFlags = []
+    end
+    object FDQuery1observacao_1: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'observacao_1'
+      Origin = 'observacao'
+      ProviderFlags = []
+      Size = 60
+    end
+    object FDQuery1tipoMovimentacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipoMovimentacao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery1fase: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'fase'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
     end
   end
   inherited ImageListBase: TImageList
+    Left = 608
+    Top = 8
     Bitmap = {
-      494C01010E002C00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -546,5 +956,9 @@ inherited F02002: TF02002
       E067E067FE17FE17E047E047FFA3FFA3E00FE00FFFC3FFC3E01FE01FFFE7FFE7
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited Acoes: TActionList
+    Left = 576
+    Top = 8
   end
 end
