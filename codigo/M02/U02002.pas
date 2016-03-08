@@ -37,10 +37,7 @@ type
     ClientDataSet1observacao: TStringField;
     ClientDataSet1idOrdem: TIntegerField;
     ClientDataSet1numOrdem: TIntegerField;
-    ClientDataSet1idProduto: TIntegerField;
     ClientDataSet1qtdOriginal: TIntegerField;
-    ClientDataSet1dataCadastro: TDateField;
-    ClientDataSet1observacao_1: TStringField;
     Label1: TLabel;
     DBEdit1: TDBEdit;
     Label2: TLabel;
@@ -77,6 +74,8 @@ type
     { Private declarations }
   public
     { Public declarations }
+    constructor CreateMov(AOwner : TComponent; pParm1 : integer);
+    constructor CreateOrdemFase(AOwner : TComponent; pParm1 : integer);
   end;
 
 var
@@ -87,6 +86,56 @@ implementation
 {$R *.dfm}
 
 uses UDataModule;
+
+constructor TF02002.CreateOrdemFase(AOwner: TComponent; pParm1: integer);
+var
+ParIdOF : integer;
+begin
+inherited Create(AOwner);
+  ParIdOF:= pParm1;
+
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
+  FDQuery1.SQL.add('left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao ');
+  FDQuery1.SQL.add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_has_fase ');
+  FDQuery1.SQL.add('left outer join fase f on f.idfase = ohf.idfase ');
+  FDQuery1.SQL.add('left outer join ordem_producao o on o.idOrdem =  ohf.idORdem ');
+  FDQuery1.SQL.Add('where ohf.idOrdem_has_fase = ' + inttostr(ParIdOF));
+  FDQuery1.Open;
+  BPesquisar.Click;
+
+  Width := 857;
+  Height := 430;
+  PageControl.ActivePageIndex := 1;
+
+
+end;
+
+constructor TF02002.CreateMov(AOwner: TComponent; pParm1: integer);
+var
+ParIdMov : integer;
+begin
+  //
+  inherited Create(AOwner);
+  ParIdMov:= pParm1;
+
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
+  FDQuery1.SQL.add('left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao ');
+  FDQuery1.SQL.add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_has_fase ');
+  FDQuery1.SQL.add('left outer join fase f on f.idfase = ohf.idfase ');
+  FDQuery1.SQL.add('left outer join ordem_producao o on o.idOrdem =  ohf.idORdem ');
+  FDQuery1.SQL.Add('where m.idmovimentacao = ' + inttostr(ParIdMov));
+  FDQuery1.Open;
+  BPesquisar.Click;
+
+  Width := 957;
+  Height := 610;
+  PageControl.ActivePageIndex := 0;
+
+end;
+
+
 
 procedure TF02002.Action5Execute(Sender: TObject);
 begin

@@ -121,6 +121,8 @@ type
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure DataSource2StateChange(Sender: TObject);
+    procedure DBGridBeleza3DblClick(Sender: TObject);
+    procedure DBGridBeleza2DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -134,7 +136,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDataModule;
+uses uDataModule, u02002;
 
 procedure TF02001.Action5Execute(Sender: TObject);
 begin
@@ -208,6 +210,17 @@ begin
     TBtnExcluir.Enabled := true;
 end;
 
+procedure TF02001.DBGridBeleza2DblClick(Sender: TObject);
+begin
+  inherited;
+  With TF02002.CreateOrdemFase(self, ClientDataSet2idOrdem_has_fase.value) do
+  Begin
+    ShowModal;
+    Free;
+  End;
+  DS.OnDataChange(NIL, NIL);
+end;
+
 procedure TF02001.DBGridBeleza2DrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
@@ -219,6 +232,18 @@ begin
     FillRect(Rect);
   end;
 
+end;
+
+procedure TF02001.DBGridBeleza3DblClick(Sender: TObject);
+begin
+  inherited;
+
+  With TF02002.CreateMov(self, ClientDataSet3idmovimentacao.value) do
+  Begin
+    ShowModal;
+    Free;
+  End;
+  DS.OnDataChange(NIL, NIL);
 end;
 
 procedure TF02001.DSDataChange(Sender: TObject; Field: TField);

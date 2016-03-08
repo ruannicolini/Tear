@@ -23,15 +23,15 @@ inherited F01007: TF01007
         ExplicitHeight = 462
         object Label1: TLabel
           Left = 23
-          Top = 28
+          Top = 29
           Width = 22
           Height = 13
           Caption = 'COD'
           FocusControl = DBEdit1
         end
         object Label2: TLabel
-          Left = 291
-          Top = 95
+          Left = 305
+          Top = 81
           Width = 59
           Height = 13
           Caption = 'DESCRI'#199#195'O'
@@ -39,14 +39,14 @@ inherited F01007: TF01007
         end
         object Label3: TLabel
           Left = 157
-          Top = 28
+          Top = 29
           Width = 27
           Height = 13
           Caption = 'DATA'
         end
         object Label4: TLabel
           Left = 22
-          Top = 95
+          Top = 81
           Width = 35
           Height = 13
           Caption = 'GRUPO'
@@ -54,7 +54,7 @@ inherited F01007: TF01007
         end
         object DBEdit1: TDBEdit
           Left = 23
-          Top = 44
+          Top = 45
           Width = 119
           Height = 21
           TabStop = False
@@ -64,9 +64,9 @@ inherited F01007: TF01007
           TabOrder = 0
         end
         object DBEdit2: TDBEdit
-          Left = 291
-          Top = 111
-          Width = 520
+          Left = 305
+          Top = 97
+          Width = 506
           Height = 21
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -77,7 +77,7 @@ inherited F01007: TF01007
         end
         object DBEdit4: TDBEdit
           Left = 22
-          Top = 111
+          Top = 97
           Width = 35
           Height = 21
           TabStop = False
@@ -89,7 +89,7 @@ inherited F01007: TF01007
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
           Left = 157
-          Top = 44
+          Top = 45
           Width = 120
           Height = 21
           Hint = 'Duplo Clique para Buscar a data de hoje!'
@@ -102,7 +102,7 @@ inherited F01007: TF01007
         end
         object DBEditBeleza1: TDBEditBeleza
           Left = 56
-          Top = 111
+          Top = 97
           Width = 229
           Height = 21
           Color = 15724527
@@ -131,7 +131,7 @@ inherited F01007: TF01007
         end
         object GroupBoxOperacoes: TGroupBox
           Left = 305
-          Top = 148
+          Top = 134
           Width = 225
           Height = 264
           Align = alCustom
@@ -289,7 +289,7 @@ inherited F01007: TF01007
         end
         object GroupBoxDependencias: TGroupBox
           Left = 553
-          Top = 149
+          Top = 135
           Width = 259
           Height = 264
           Align = alCustom
@@ -443,7 +443,7 @@ inherited F01007: TF01007
         end
         object Edit1: TEdit
           Left = 351
-          Top = 97
+          Top = 83
           Width = 80
           Height = 21
           TabStop = False
@@ -454,7 +454,7 @@ inherited F01007: TF01007
         end
         object GroupBoxFases: TGroupBox
           Left = 23
-          Top = 150
+          Top = 136
           Width = 259
           Height = 262
           Align = alCustom
@@ -815,7 +815,7 @@ inherited F01007: TF01007
     Left = 584
     Top = 72
     Bitmap = {
-      494C01010D002C007C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00840110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1529,7 +1529,7 @@ inherited F01007: TF01007
     Left = 548
     Top = 73
     Bitmap = {
-      494C010103000800E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800F00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

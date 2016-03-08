@@ -1,21 +1,20 @@
 inherited F02002: TF02002
   Caption = 'F02002'
   ClientHeight = 557
-  ExplicitLeft = 6
   ExplicitWidth = 834
   ExplicitHeight = 596
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     Height = 522
+    ExplicitHeight = 522
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 810
-      ExplicitHeight = 455
+      ExplicitHeight = 494
       inherited grDados: TGroupBox
         Height = 494
-        ExplicitTop = 3
         ExplicitHeight = 494
         object Label1: TLabel
           Left = 38
@@ -227,7 +226,6 @@ inherited F02002: TF02002
           Hint = 'Duplo Clique para Buscar a data de hoje!'
           DataField = 'dataMov'
           DataSource = DS
-          MaxLength = 8
           ParentShowHint = False
           ShowHint = True
           TabOrder = 9
@@ -254,9 +252,89 @@ inherited F02002: TF02002
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 810
-      ExplicitHeight = 455
+      ExplicitHeight = 494
       inherited DBGridBeleza1: TDBGridBeleza
         Height = 383
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idmovimentacao'
+            Title.Caption = 'COD'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idOrdem'
+            Title.Caption = 'COD ORDEM'
+            Width = 101
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'fase'
+            Title.Caption = 'FASE'
+            Width = 176
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'qtd'
+            Title.Caption = 'QTD'
+            Width = 52
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'tipoMovimentacao'
+            Title.Caption = 'TIPO MOVIMENTA'#199#195'O'
+            Width = 189
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'dataMov'
+            Title.Caption = 'DATA'
+            Width = 90
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'responsavel'
+            Title.Caption = 'RESPONS'#193'VEL'
+            Width = 660
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idOrdem_has_fase'
+            Title.Caption = 'FASE(ORDEM)'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'observacao'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'numOrdem'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'idTipoMovimentacao'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'qtdOriginal'
+            Visible = False
+          end>
       end
     end
   end
@@ -303,18 +381,8 @@ inherited F02002: TF02002
     object ClientDataSet1numOrdem: TIntegerField
       FieldName = 'numOrdem'
     end
-    object ClientDataSet1idProduto: TIntegerField
-      FieldName = 'idProduto'
-    end
     object ClientDataSet1qtdOriginal: TIntegerField
       FieldName = 'qtdOriginal'
-    end
-    object ClientDataSet1dataCadastro: TDateField
-      FieldName = 'dataCadastro'
-    end
-    object ClientDataSet1observacao_1: TStringField
-      FieldName = 'observacao_1'
-      Size = 60
     end
     object ClientDataSet1tipoMovimentacao: TStringField
       FieldName = 'tipoMovimentacao'
@@ -337,8 +405,7 @@ inherited F02002: TF02002
         'tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao '#10#10#10'left oute' +
         'r join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_ha' +
         's_fase'#10#10#10'left outer join fase f on f.idfase = ohf.idfase '#10#10#10'left' +
-        ' outer join ordem_producao o on o.idOrdem = ohf.idORdem_has_fase' +
-        ';')
+        ' outer join ordem_producao o on o.idOrdem = ohf.idORdem;')
     Left = 448
     Top = 8
     object FDQuery1idmovimentacao: TIntegerField
@@ -435,7 +502,7 @@ inherited F02002: TF02002
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C001C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
