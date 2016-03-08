@@ -56,16 +56,23 @@ type
     Edit2: TEdit;
     Label3: TLabel;
     recursos: TTabSheet;
-    GroupBox2: TGroupBox;
     DBGridBeleza4: TDBGridBeleza;
     FDQuery4: TFDQuery;
     DataSetProvider4: TDataSetProvider;
     ClientDataSet4: TClientDataSet;
     DS_GRUPO_HAS_RECURSO: TDataSource;
-    BitBtn3: TBitBtn;
-    BitBtn4: TBitBtn;
-    EditBeleza2: TEditBeleza;
-    Edit3: TEdit;
+    FDQuery4idRecurso: TIntegerField;
+    FDQuery4patrimonio: TIntegerField;
+    FDQuery4descricao: TStringField;
+    FDQuery4idTipoRecurso: TIntegerField;
+    FDQuery4idGrupo: TIntegerField;
+    FDQuery4TIPO: TStringField;
+    ClientDataSet4idRecurso: TIntegerField;
+    ClientDataSet4patrimonio: TIntegerField;
+    ClientDataSet4descricao: TStringField;
+    ClientDataSet4idTipoRecurso: TIntegerField;
+    ClientDataSet4idGrupo: TIntegerField;
+    ClientDataSet4TIPO: TStringField;
     procedure acEditarExecute(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
@@ -309,6 +316,10 @@ begin
   FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
   DS_FASE_HAS_GRUPO.DataSet.Close;
   DS_FASE_HAS_GRUPO.DataSet.Open;
+
+  FDQuery4.ParamByName('idG').Value:=(ClientDataSet1idgrupo.AsInteger);
+  DS_GRUPO_HAS_RECURSO.DataSet.Close;
+  DS_GRUPO_HAS_RECURSO.DataSet.Open;
 end;
 
 procedure TF01003.BSalvarClick(Sender: TObject);
@@ -386,6 +397,10 @@ begin
   FDQuery3.ParamByName('id').Value:=(ClientDataSet1idgrupo.AsInteger);
   DS_FASE_HAS_GRUPO.DataSet.Close;
   DS_FASE_HAS_GRUPO.DataSet.Open;
+
+  FDQuery4.ParamByName('idG').Value:=(ClientDataSet1idgrupo.AsInteger);
+  DS_GRUPO_HAS_RECURSO.DataSet.Close;
+  DS_GRUPO_HAS_RECURSO.DataSet.Open;
 
 end;
 

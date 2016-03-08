@@ -2,7 +2,6 @@ inherited F01003: TF01003
   Caption = 'F01003'
   ClientHeight = 532
   ClientWidth = 820
-  ExplicitTop = -150
   ExplicitWidth = 836
   ExplicitHeight = 571
   PixelsPerInch = 96
@@ -21,6 +20,8 @@ inherited F01003: TF01003
       inherited grDados: TGroupBox
         Width = 812
         Height = 469
+        ExplicitLeft = -3
+        ExplicitTop = -24
         ExplicitWidth = 812
         ExplicitHeight = 469
         object Label1: TLabel
@@ -70,66 +71,11 @@ inherited F01003: TF01003
           Top = 121
           Width = 502
           Height = 305
-          ActivePage = Fases
+          ActivePage = recursos
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 2
           TabStop = False
-          object Operadores: TTabSheet
-            Caption = 'Operadores'
-            object DBGridBeleza2: TDBGridBeleza
-              Left = 0
-              Top = 0
-              Width = 494
-              Height = 277
-              Hint = 'Clique no Titulo da Coluna para Ordenar'
-              Align = alClient
-              BorderStyle = bsNone
-              Color = 16382457
-              DataSource = DS_OPERADORES
-              FixedColor = 16762447
-              GradientEndColor = 16382457
-              GradientStartColor = 16382457
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-              ParentFont = False
-              ParentShowHint = False
-              ReadOnly = True
-              ShowHint = True
-              TabOrder = 0
-              TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clDefault
-              TitleFont.Height = -11
-              TitleFont.Name = 'Tahoma'
-              TitleFont.Style = []
-              Cor_2 = 16382457
-              Direcao_Cor2 = dg_Vertical
-              Direcao_Enter = dg_Horiz
-              ClickTituloOrdenar = True
-              MarcarLinhaInteira = False
-              CorLinhaMarcada = 16382457
-              BloquearExportacoes = False
-              Columns = <
-                item
-                  Alignment = taCenter
-                  Expanded = False
-                  FieldName = 'idoperador'
-                  Title.Caption = 'COD'
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'nome'
-                  Title.Caption = 'NOME'
-                  Width = 666
-                  Visible = True
-                end>
-            end
-          end
           object Fases: TTabSheet
             Caption = 'Fases'
             ImageIndex = 1
@@ -265,82 +211,11 @@ inherited F01003: TF01003
             Caption = 'Recursos'
             ImageIndex = 2
             ExplicitHeight = 278
-            object GroupBox2: TGroupBox
+            object DBGridBeleza4: TDBGridBeleza
               Left = 0
               Top = 0
               Width = 494
-              Height = 60
-              Align = alTop
-              TabOrder = 0
-              DesignSize = (
-                494
-                60)
-              object BitBtn3: TBitBtn
-                Left = 282
-                Top = 18
-                Width = 53
-                Height = 23
-                Anchors = [akTop, akRight, akBottom]
-                Caption = 'ADD'
-                TabOrder = 0
-              end
-              object BitBtn4: TBitBtn
-                Left = 340
-                Top = 18
-                Width = 53
-                Height = 23
-                Align = alCustom
-                Anchors = [akTop, akRight, akBottom]
-                Caption = 'Excluir'
-                TabOrder = 1
-              end
-              object EditBeleza2: TEditBeleza
-                Left = 82
-                Top = 19
-                Width = 194
-                Height = 21
-                Align = alCustom
-                Anchors = [akLeft, akTop, akRight]
-                Color = 15724527
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = []
-                ParentFont = False
-                TabOrder = 2
-                Ativar_Pesquisa = True
-                Ativar_MultiSelecao = False
-                mostrar_Botao = True
-                sql.Strings = (
-                  'select idRecurso, descricao from recurso '
-                  'where descricao like :varDescricao')
-                database = 'BALAY'
-                campo = 'DESCRICAO'
-                Sempre_Mostrar_Janela = False
-                Outro_Edit = Edit3
-                campo_outro_edit = 'IDRECURSO'
-                CorBorda = clGray
-                NovoLayout = False
-              end
-              object Edit3: TEdit
-                Left = 74
-                Top = 19
-                Width = 22
-                Height = 21
-                TabStop = False
-                Anchors = [akLeft, akTop, akRight, akBottom]
-                Color = 15724527
-                ReadOnly = True
-                TabOrder = 3
-                Visible = False
-              end
-            end
-            object DBGridBeleza4: TDBGridBeleza
-              Left = 0
-              Top = 60
-              Width = 494
-              Height = 217
+              Height = 277
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
               BorderStyle = bsNone
@@ -355,7 +230,7 @@ inherited F01003: TF01003
               ParentFont = False
               ParentShowHint = False
               ShowHint = True
-              TabOrder = 1
+              TabOrder = 0
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWhite
               TitleFont.Height = -11
@@ -368,6 +243,110 @@ inherited F01003: TF01003
               MarcarLinhaInteira = False
               CorLinhaMarcada = clSilver
               BloquearExportacoes = False
+              Columns = <
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'idRecurso'
+                  Title.Caption = 'COD'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'descricao'
+                  Title.Caption = 'RECURSO'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 174
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'patrimonio'
+                  Title.Caption = 'PATRIM'#212'NIO'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 90
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'TIPO'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 150
+                  Visible = True
+                end>
+            end
+          end
+          object Operadores: TTabSheet
+            Caption = 'Operadores'
+            object DBGridBeleza2: TDBGridBeleza
+              Left = 0
+              Top = 0
+              Width = 494
+              Height = 277
+              Hint = 'Clique no Titulo da Coluna para Ordenar'
+              Align = alClient
+              BorderStyle = bsNone
+              Color = 16382457
+              DataSource = DS_OPERADORES
+              FixedColor = 16762447
+              GradientEndColor = 16382457
+              GradientStartColor = 16382457
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ParentFont = False
+              ParentShowHint = False
+              ReadOnly = True
+              ShowHint = True
+              TabOrder = 0
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clDefault
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              Cor_2 = 16382457
+              Direcao_Cor2 = dg_Vertical
+              Direcao_Enter = dg_Horiz
+              ClickTituloOrdenar = True
+              MarcarLinhaInteira = False
+              CorLinhaMarcada = 16382457
+              BloquearExportacoes = False
+              Columns = <
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'idoperador'
+                  Title.Caption = 'COD'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'nome'
+                  Title.Caption = 'NOME'
+                  Width = 666
+                  Visible = True
+                end>
             end
           end
         end
@@ -1142,8 +1121,53 @@ inherited F01003: TF01003
   end
   object FDQuery4: TFDQuery
     Connection = DModule.FDConnection
+    SQL.Strings = (
+      
+        'SELECT REC.*, TR.DESCRICAO AS TIPO FROM RECURSO REC'#10'LEFT OUTER J' +
+        'OIN TIPO_RECURSO TR ON TR.IDTIPO_RECURSO = REC.IDTIPORECURSO '#10'WH' +
+        'ERE IDGRUPO =:idG;')
     Left = 644
     Top = 411
+    ParamData = <
+      item
+        Name = 'IDG'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object FDQuery4idRecurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idRecurso'
+      Origin = 'idRecurso'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQuery4patrimonio: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'patrimonio'
+      Origin = 'patrimonio'
+    end
+    object FDQuery4descricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      Size = 45
+    end
+    object FDQuery4idTipoRecurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idTipoRecurso'
+      Origin = 'idTipoRecurso'
+    end
+    object FDQuery4idGrupo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idGrupo'
+      Origin = 'idGrupo'
+    end
+    object FDQuery4TIPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
   end
   object DataSetProvider4: TDataSetProvider
     DataSet = FDQuery4
@@ -1156,6 +1180,26 @@ inherited F01003: TF01003
     ProviderName = 'DataSetProvider4'
     Left = 700
     Top = 411
+    object ClientDataSet4idRecurso: TIntegerField
+      FieldName = 'idRecurso'
+    end
+    object ClientDataSet4patrimonio: TIntegerField
+      FieldName = 'patrimonio'
+    end
+    object ClientDataSet4descricao: TStringField
+      FieldName = 'descricao'
+      Size = 45
+    end
+    object ClientDataSet4idTipoRecurso: TIntegerField
+      FieldName = 'idTipoRecurso'
+    end
+    object ClientDataSet4idGrupo: TIntegerField
+      FieldName = 'idGrupo'
+    end
+    object ClientDataSet4TIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 45
+    end
   end
   object DS_GRUPO_HAS_RECURSO: TDataSource
     DataSet = ClientDataSet4

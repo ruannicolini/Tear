@@ -53,6 +53,14 @@ inherited F01006: TF01006
           Caption = 'TIPO DE RECURSO'
           FocusControl = DBEdit4
         end
+        object Label5: TLabel
+          Left = 32
+          Top = 176
+          Width = 106
+          Height = 13
+          Caption = 'LINHA DE PRODU'#199#195'O'
+          FocusControl = DBEdit5
+        end
         object DBEdit1: TDBEdit
           Left = 32
           Top = 32
@@ -124,6 +132,44 @@ inherited F01006: TF01006
           campo_outro_edit = 'idtipo_recurso'
           CorBorda = clGray
           NovoLayout = False
+        end
+        object DBEditBeleza2: TDBEditBeleza
+          Left = 68
+          Top = 192
+          Width = 441
+          Height = 21
+          Color = 15724527
+          DataField = 'GRUPO'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 5
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idGRUPO, descricao from GRUPO '
+            'where descricao like :varDescricao')
+          database = 'BALAY'
+          campo = 'DESCRICAO'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit5
+          campo_outro_edit = 'IDGRUPO'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object DBEdit5: TDBEdit
+          Left = 32
+          Top = 192
+          Width = 36
+          Height = 21
+          Color = 15724527
+          DataField = 'idGrupo'
+          DataSource = DS
+          TabOrder = 6
         end
       end
     end
@@ -301,6 +347,13 @@ inherited F01006: TF01006
       ProviderFlags = []
       Size = 45
     end
+    object ClientDataSet1idGrupo: TIntegerField
+      FieldName = 'idGrupo'
+    end
+    object ClientDataSet1GRUPO: TStringField
+      FieldName = 'GRUPO'
+      Size = 45
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 608
@@ -309,9 +362,12 @@ inherited F01006: TF01006
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
       
-        'select rec.*, '#10'tr.descricao as trecurso '#10'from recurso rec'#10'left o' +
-        'uter join tipo_recurso tr on tr.idtipo_recurso = rec.idtiporecur' +
-        'so;')
+        'select rec.*, '#10'tr.descricao as trecurso, G.DESCRICAO AS GRUPO '#10'f' +
+        'rom recurso rec'#10' '
+      
+        'left outer join tipo_recurso tr on tr.idtipo_recurso = rec.idtip' +
+        'orecurso '
+      'LEFT OUTER JOIN GRUPO G ON G.IDGRUPO = REC.IDGRUPO;')
     Left = 536
     Top = 248
     object FDQuery1idRecurso: TIntegerField
@@ -345,10 +401,22 @@ inherited F01006: TF01006
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery1idGrupo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idGrupo'
+      Origin = 'idGrupo'
+    end
+    object FDQuery1GRUPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'GRUPO'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

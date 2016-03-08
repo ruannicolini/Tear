@@ -40,6 +40,13 @@ type
     Edit2: TEdit;
     EditBeleza1: TEditBeleza;
     Edit3: TEdit;
+    DBEditBeleza2: TDBEditBeleza;
+    FDQuery1idGrupo: TIntegerField;
+    FDQuery1GRUPO: TStringField;
+    ClientDataSet1idGrupo: TIntegerField;
+    ClientDataSet1GRUPO: TStringField;
+    Label5: TLabel;
+    DBEdit5: TDBEdit;
     procedure acInserirExecute(Sender: TObject);
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
