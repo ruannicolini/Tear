@@ -9,7 +9,6 @@ inherited F01003: TF01003
   inherited PageControl: TPageControl
     Width = 820
     Height = 497
-    ActivePage = TbDados
     ExplicitWidth = 820
     ExplicitHeight = 497
     inherited TbDados: TTabSheet
@@ -20,8 +19,6 @@ inherited F01003: TF01003
       inherited grDados: TGroupBox
         Width = 812
         Height = 469
-        ExplicitLeft = -3
-        ExplicitTop = -24
         ExplicitWidth = 812
         ExplicitHeight = 469
         object Label1: TLabel
@@ -71,7 +68,7 @@ inherited F01003: TF01003
           Top = 121
           Width = 502
           Height = 305
-          ActivePage = recursos
+          ActivePage = Fases
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 2
@@ -210,6 +207,9 @@ inherited F01003: TF01003
           object recursos: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
             ExplicitHeight = 278
             object DBGridBeleza4: TDBGridBeleza
               Left = 0
@@ -219,6 +219,7 @@ inherited F01003: TF01003
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
               BorderStyle = bsNone
+              Color = 16382457
               DataSource = DS_GRUPO_HAS_RECURSO
               FixedColor = 16762447
               Font.Charset = DEFAULT_CHARSET
@@ -226,7 +227,7 @@ inherited F01003: TF01003
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = []
-              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
               ParentFont = False
               ParentShowHint = False
               ShowHint = True
@@ -236,8 +237,8 @@ inherited F01003: TF01003
               TitleFont.Height = -11
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
-              Cor_2 = 16773849
-              Direcao_Cor2 = dg_Vertical
+              Cor_2 = 16382457
+              Direcao_Cor2 = dg_Horiz
               Direcao_Enter = dg_Horiz
               ClickTituloOrdenar = True
               MarcarLinhaInteira = False
@@ -296,6 +297,10 @@ inherited F01003: TF01003
           end
           object Operadores: TTabSheet
             Caption = 'Operadores'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object DBGridBeleza2: TDBGridBeleza
               Left = 0
               Top = 0
@@ -457,7 +462,7 @@ inherited F01003: TF01003
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
