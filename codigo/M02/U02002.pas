@@ -78,6 +78,10 @@ type
     procedure Edit1Change(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure DBEdit6Change(Sender: TObject);
+    procedure DBEdit2Change(Sender: TObject);
+    procedure DBEditBeleza1Change(Sender: TObject);
+    procedure DBEdit5Exit(Sender: TObject);
   private
     { Private declarations }
   public
@@ -151,6 +155,13 @@ begin
   DBEdit2.Color := $00EFEFEF;
   DBEdit6.Color := $00EFEFEF;
   DBEdit9.Color := clWindow;
+
+  DBEditBeleza1.Enabled := true;
+  DBEditBeleza2.Enabled := true;
+  DBEdit5.Enabled := true;
+  DBEdit8.Enabled := true;
+  DBEdit2.Enabled := true;
+  DBEdit6.Enabled := true;
 end;
 
 procedure TF02002.BEditarClick(Sender: TObject);
@@ -160,6 +171,13 @@ begin
   DBEdit2.Color := CorCamposOnlyRead();
   DBEdit6.Color := CorCamposOnlyRead();
   DBEdit9.Color := $00EFEFEF;
+
+  DBEditBeleza1.Enabled := false;
+  DBEditBeleza2.Enabled := false;
+  DBEdit5.Enabled := false;
+  DBEdit8.Enabled := false;
+  DBEdit2.Enabled := false;
+  DBEdit6.Enabled := false;
 end;
 
 procedure TF02002.BInserirClick(Sender: TObject);
@@ -169,6 +187,10 @@ begin
   DBEdit2.Color := CorCamposOnlyRead();
   DBEdit6.Color := CorCamposOnlyRead();
   DBEdit9.Color := $00EFEFEF;
+
+  DBEditBeleza1.Enabled := true;
+  DBEditBeleza2.Enabled := true;
+  DBEdit5.Enabled := true;
 end;
 
 procedure TF02002.BSalvarClick(Sender: TObject);
@@ -178,6 +200,13 @@ begin
   DBEdit2.Color := $00EFEFEF;
   DBEdit6.Color := $00EFEFEF;
   DBEdit9.Color := clWindow;
+
+  DBEditBeleza1.Enabled := true;
+  DBEditBeleza2.Enabled := true;
+  DBEdit5.Enabled := true;
+  DBEdit8.Enabled := true;
+  DBEdit2.Enabled := true;
+  DBEdit6.Enabled := true;
 end;
 
 procedure TF02002.btnFiltrarClick(Sender: TObject);
@@ -233,6 +262,56 @@ begin
   ClientDataSet1idmovimentacao.AsInteger := DModule.buscaProximoParametro('seqMovimentacao');
 end;
 
+procedure TF02002.DBEdit2Change(Sender: TObject);
+begin
+  inherited;
+  if trim(DBEditBeleza2.Text) <> '' then
+  begin
+    DBEditBeleza1.Enabled := true;
+  end else
+    DBEditBeleza1.Enabled := false;
+end;
+
+procedure TF02002.DBEdit5Exit(Sender: TObject);
+begin
+  inherited;
+  if trim(DBEdit5.Text) <> '' then
+  BEGIN
+    IF(STRTOINT(DBEdit5.Text) > 0)THEN
+    BEGIN
+      if NOT(ClientDataSet1idTipoMovimentacao.AsInteger = 1) then
+      begin
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Text := 'select * from ORDEM_HAS_FASE where idordem_HAS_FASE =:id';
+        DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem_has_fase.AsInteger);
+        DModule.qAux.Open;
+        DModule.qAux.first;
+        IF(ClientDataSet1qtd.AsInteger > StrToInt(DModule.qAux.FieldByName('QTDPRODUZINDO').AsString))THEN
+        BEGIN
+          ShowMessage('INFORME UMA QUANTIDADE MENOR '+ 'QUE A QUANTIDADE PRODUZINDO (' + DModule.qAux.FieldByName('QTDPRODUZINDO').AsString+ ')');
+          ClientDataSet1qtd.Clear;
+        END;
+      END;
+    END ELSE
+      BEGIN
+      ShowMessage('INFORME UMA QUANTIDADE MAIOR QUE ZERO');
+      ClientDataSet1qtd.Clear;
+      END;
+  END;
+
+end;
+
+procedure TF02002.DBEdit6Change(Sender: TObject);
+begin
+  inherited;
+  //
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from ordem_producao where idordem =:id';
+  DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+  DModule.qAux.Open;
+  DModule.qAux.first;
+end;
+
 procedure TF02002.DBEdit8Exit(Sender: TObject);
 begin
   inherited;
@@ -256,9 +335,19 @@ begin
   end else
   begin
     DBEditBeleza2.Enabled := TRUE;
-    ClientDataSet1numOrdem.Value := StrToInt(DModule.qAux.FieldByName('numOrdem').AsString);;
+    ClientDataSet1numOrdem.Value := StrToInt(DModule.qAux.FieldByName('numOrdem').AsString);
 
   end;
+end;
+
+procedure TF02002.DBEditBeleza1Change(Sender: TObject);
+begin
+  inherited;
+  if trim(DBEditBeleza1.Text) <> '' then
+  begin
+    DBEdit5.Enabled := true;
+  end else
+    DBEdit5.Enabled := false;
 end;
 
 procedure TF02002.DBEditBeleza2ButtonClick(Sender: TObject;

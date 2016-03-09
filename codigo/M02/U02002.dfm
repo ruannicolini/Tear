@@ -106,6 +106,7 @@ inherited F02002: TF02002
           DataSource = DS
           ReadOnly = True
           TabOrder = 1
+          OnChange = DBEdit2Change
         end
         object DBEdit4: TDBEdit
           Left = 38
@@ -123,7 +124,9 @@ inherited F02002: TF02002
           Height = 21
           DataField = 'qtd'
           DataSource = DS
+          Enabled = False
           TabOrder = 3
+          OnExit = DBEdit5Exit
         end
         object DBEdit6: TDBEdit
           Left = 184
@@ -135,6 +138,7 @@ inherited F02002: TF02002
           DataSource = DS
           ReadOnly = True
           TabOrder = 4
+          OnChange = DBEdit6Change
         end
         object DBEdit8: TDBEdit
           Left = 38
@@ -171,6 +175,7 @@ inherited F02002: TF02002
           Font.Style = []
           ParentFont = False
           TabOrder = 7
+          OnChange = DBEditBeleza1Change
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -192,7 +197,6 @@ inherited F02002: TF02002
           Color = 15724527
           DataField = 'fase'
           DataSource = DS
-          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -206,9 +210,9 @@ inherited F02002: TF02002
             'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf'
             'left outer join fase f on ohf.idfase =  f.idfase '
             
-              'where f.descricao like :varDescricao and ohf.idOrdem_has_fase in' +
-              ' (select distinct idOrdem_has_fase from ordem_has_fase where idO' +
-              'rdem =:x)')
+              'where ohf.qtdProduzindo > 0 and f.descricao like :varDescricao a' +
+              'nd ohf.idOrdem_has_fase in (select distinct idOrdem_has_fase fro' +
+              'm ordem_has_fase where idOrdem =:x)')
           database = 'balay'
           campo = 'descricao'
           Sempre_Mostrar_Janela = False
@@ -473,13 +477,19 @@ inherited F02002: TF02002
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
+      'select m.*, o.* , tm.descricao as tipoMovimentacao, '
+      'f.descricao as fase from movimentacao m '#10#10#13#10#10
+      ''
       
-        'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao a' +
-        's fase from movimentacao m '#10#10#10'left outer join tipo_movimentacao ' +
-        'tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao '#10#10#10'left oute' +
-        'r join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_ha' +
-        's_fase'#10#10#10'left outer join fase f on f.idfase = ohf.idfase '#10#10#10'left' +
-        ' outer join ordem_producao o on o.idOrdem = ohf.idORdem;')
+        'left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao =' +
+        ' m.idTipoMovimentacao '#13#10#10
+      #13#10#10
+      
+        #10'left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.' +
+        'idORdem_has_fase '#13#10#10
+      #13#10#10
+      #10'left outer join fase f on f.idfase = ohf.idfase '#10#10#10
+      'left outer join ordem_producao o on o.idOrdem = ohf.idORdem;')
     Left = 448
     Top = 8
     object FDQuery1idmovimentacao: TIntegerField
@@ -576,7 +586,7 @@ inherited F02002: TF02002
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
