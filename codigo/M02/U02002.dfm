@@ -253,6 +253,14 @@ inherited F02002: TF02002
       ExplicitTop = 24
       ExplicitWidth = 810
       ExplicitHeight = 494
+      inherited GBFiltros: TGroupBox
+        inherited Panel1: TPanel
+          inherited BtnLimparFiltros: TButton
+            Top = 4
+            ExplicitTop = 4
+          end
+        end
+      end
       inherited DBGridBeleza1: TDBGridBeleza
         Height = 383
         Columns = <
@@ -335,6 +343,72 @@ inherited F02002: TF02002
             FieldName = 'qtdOriginal'
             Visible = False
           end>
+      end
+      inherited PanelFiltros: TPanel
+        inherited btnFiltrar: TButton
+          OnClick = btnFiltrarClick
+        end
+        object Edit1: TEdit
+          Left = 22
+          Top = 37
+          Width = 121
+          Height = 21
+          TabOrder = 1
+          OnChange = Edit1Change
+        end
+        object chkCodOrdem: TCheckBox
+          Left = 22
+          Top = 17
+          Width = 97
+          Height = 17
+          Caption = 'COD ORDEM'
+          TabOrder = 2
+        end
+        object chkTipoMov: TCheckBox
+          Left = 160
+          Top = 16
+          Width = 200
+          Height = 17
+          Caption = 'TIPO DE MOVIMENTA'#199#195'O'
+          TabOrder = 3
+        end
+        object EditBeleza1: TEditBeleza
+          Left = 160
+          Top = 37
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idtipo_movimentacao, descricao from tipo_movimentacao '
+            'where descricao like :varDescricao')
+          database = 'BALAY'
+          campo = 'DESCRICAO'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = chkTipoMov
+          Outro_Edit = Edit2
+          campo_outro_edit = 'IDTIPO_MOVIMENTACAO'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object Edit2: TEdit
+          Left = 366
+          Top = 37
+          Width = 27
+          Height = 21
+          TabOrder = 5
+          Text = 'Edit2'
+          Visible = False
+        end
       end
     end
   end
@@ -502,7 +576,7 @@ inherited F02002: TF02002
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -1,6 +1,5 @@
 inherited F02001: TF02001
   Caption = 'F02001'
-  ExplicitLeft = -47
   ExplicitWidth = 834
   ExplicitHeight = 557
   PixelsPerInch = 96

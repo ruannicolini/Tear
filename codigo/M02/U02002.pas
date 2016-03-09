@@ -11,7 +11,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider,
   Datasnap.DBClient, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, DBGridBeleza,
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza,
-  DBEditCalendario;
+  DBEditCalendario, EditBeleza;
 
 type
   TF02002 = class(TFBase)
@@ -62,6 +62,11 @@ type
     DBEditBeleza2: TDBEditBeleza;
     DBEdit_Calendario1: TDBEdit_Calendario;
     DBRichEdit1: TDBRichEdit;
+    Edit1: TEdit;
+    chkCodOrdem: TCheckBox;
+    chkTipoMov: TCheckBox;
+    EditBeleza1: TEditBeleza;
+    Edit2: TEdit;
     procedure DBEditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -70,6 +75,9 @@ type
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure DBEdit8Exit(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -172,6 +180,39 @@ begin
   DBEdit9.Color := clWindow;
 end;
 
+procedure TF02002.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
+  FDQuery1.SQL.add('left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao ');
+  FDQuery1.SQL.add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_has_fase ');
+  FDQuery1.SQL.add('left outer join fase f on f.idfase = ohf.idfase ');
+  FDQuery1.SQL.add('left outer join ordem_producao o on o.idOrdem = ohf.idORdem where 1=1 ');
+
+  if(chkCodOrdem.Checked = true)then
+    FDQuery1.SQL.Add(' and ohf.idOrdem like "%' + Edit1.Text +'%"');
+  if(chkTipoMov.Checked = true)then
+    FDQuery1.SQL.Add(' and TM.IDTIPO_MOVIMENTACAO = ' + Edit2.Text);
+
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF02002.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
+  FDQuery1.SQL.add('left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao ');
+  FDQuery1.SQL.add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_has_fase ');
+  FDQuery1.SQL.add('left outer join fase f on f.idfase = ohf.idfase ');
+  FDQuery1.SQL.add('left outer join ordem_producao o on o.idOrdem = ohf.idORdem');
+  FDQuery1.Open;
+  BPesquisar.Click;
+
+end;
+
 procedure TF02002.calculoMovimentcao;
 begin
   //Manipulação dos dados da movimentação
@@ -225,6 +266,16 @@ procedure TF02002.DBEditBeleza2ButtonClick(Sender: TObject;
 begin
   inherited;
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
+end;
+
+procedure TF02002.Edit1Change(Sender: TObject);
+begin
+  inherited;
+      if((edit1.Text = '')or (edit1.Text = ' '))then
+  begin
+    chkCodOrdem.Checked := false;
+  end else
+    chkCodOrdem.Checked := true;
 end;
 
 Initialization
