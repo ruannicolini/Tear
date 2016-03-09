@@ -1,5 +1,6 @@
 inherited F02001: TF02001
   Caption = 'F02001'
+  ExplicitLeft = -47
   ExplicitWidth = 834
   ExplicitHeight = 557
   PixelsPerInch = 96
@@ -596,6 +597,88 @@ inherited F02001: TF02001
             Visible = True
           end>
       end
+      inherited PanelFiltros: TPanel
+        inherited btnFiltrar: TButton
+          OnClick = btnFiltrarClick
+        end
+        object Edit1: TEdit
+          Left = 22
+          Top = 32
+          Width = 121
+          Height = 21
+          TabOrder = 1
+          OnChange = Edit1Change
+        end
+        object chkCod: TCheckBox
+          Left = 22
+          Top = 9
+          Width = 97
+          Height = 17
+          Caption = 'COD'
+          TabOrder = 2
+        end
+        object chkProduto: TCheckBox
+          Left = 302
+          Top = 9
+          Width = 97
+          Height = 17
+          Caption = 'PRODUTO'
+          TabOrder = 3
+        end
+        object EditBeleza1: TEditBeleza
+          Left = 302
+          Top = 32
+          Width = 200
+          Height = 21
+          Color = 15724527
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select idproduto, descricao from produto '
+            'where descricao like :varDescricao')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Marcar_CheckBox = chkProduto
+          Outro_Edit = Edit2
+          campo_outro_edit = 'idProduto'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object Edit2: TEdit
+          Left = 508
+          Top = 32
+          Width = 25
+          Height = 21
+          TabOrder = 5
+          Text = 'Edit2'
+          Visible = False
+        end
+        object chkOrdem: TCheckBox
+          Left = 162
+          Top = 9
+          Width = 97
+          Height = 17
+          Caption = 'NUM ORDEM'
+          TabOrder = 6
+        end
+        object Edit3: TEdit
+          Left = 162
+          Top = 32
+          Width = 121
+          Height = 21
+          TabOrder = 7
+          OnChange = Edit3Change
+        end
+      end
     end
   end
   inherited DS: TDataSource
@@ -686,7 +769,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C002C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00300110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

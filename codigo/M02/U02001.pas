@@ -11,7 +11,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider,
   Datasnap.DBClient, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, DBGridBeleza,
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza,
-  Edit_Calendario, DBEditCalendario, Vcl.Tabs, Vcl.ToolWin;
+  Edit_Calendario, DBEditCalendario, Vcl.Tabs, Vcl.ToolWin, EditBeleza;
 
 type
   TF02001 = class(TFBase)
@@ -103,6 +103,13 @@ type
     ClientDataSet3observacao: TStringField;
     ClientDataSet3fase: TStringField;
     ClientDataSet3TipoMovimentacao: TStringField;
+    Edit1: TEdit;
+    chkCod: TCheckBox;
+    chkProduto: TCheckBox;
+    EditBeleza1: TEditBeleza;
+    Edit2: TEdit;
+    chkOrdem: TCheckBox;
+    Edit3: TEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure TabSet1Click(Sender: TObject);
@@ -123,6 +130,10 @@ type
     procedure DataSource2StateChange(Sender: TObject);
     procedure DBGridBeleza3DblClick(Sender: TObject);
     procedure DBGridBeleza2DblClick(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure Edit3Change(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
+    procedure BtnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -164,6 +175,32 @@ begin
   inherited;
   DBEdit1.Color := clWindow;
   DBEdit3.Color := $00EFEFEF;
+end;
+
+procedure TF02001.btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select ord.*, d.descricao from ordem_producao ord left outer join produto d on ord.idproduto = d.idproduto where 1=1 ';
+
+  if(chkCod.Checked = true)then
+    FDQuery1.SQL.Add(' and ord.idOrdem like "%' + Edit1.Text +'%"');
+  if(chkOrdem.Checked = true)then
+    FDQuery1.SQL.Add(' and ord.numOrdem = ' + Edit3.Text);
+  if(chkProduto.Checked = true)then
+    FDQuery1.SQL.Add(' and ord.idProduto = ' + Edit2.Text);
+
+  FDQuery1.Open;
+  BPesquisar.Click;
+end;
+
+procedure TF02001.BtnLimparFiltrosClick(Sender: TObject);
+begin
+  inherited;
+  FDQuery1.Close;
+  FDQuery1.SQL.Text := 'select ord.*, d.descricao from ordem_producao ord left outer join produto d on ord.idproduto = d.idproduto';
+  FDQuery1.Open;
+  BPesquisar.Click;
 end;
 
 procedure TF02001.ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -258,6 +295,26 @@ begin
   FDQuery3.ParamByName('idOrdem').Value:=(ClientDataSet1idOrdem.AsInteger);
   DataSource3.DataSet.Close;
   DataSource3.DataSet.Open;
+end;
+
+procedure TF02001.Edit1Change(Sender: TObject);
+begin
+  inherited;
+    if((edit1.Text = '')or (edit1.Text = ' '))then
+  begin
+    chkCod.Checked := false;
+  end else
+    chkCod.Checked := true;
+end;
+
+procedure TF02001.Edit3Change(Sender: TObject);
+begin
+  inherited;
+    if((edit3.Text = '')or(edit3.Text = ' '))then
+  begin
+    chkOrdem.Checked := false;
+  end else
+    chkOrdem.Checked := true;
 end;
 
 procedure TF02001.FormShow(Sender: TObject);
