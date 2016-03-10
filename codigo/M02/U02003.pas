@@ -29,11 +29,11 @@ type
     FDQuery1incrementar: TBooleanField;
     FDQuery1decrementar: TBooleanField;
     FDQuery1finalizar: TBooleanField;
-    FDQuery1dividirordem: TBooleanField;
     ClientDataSet1incrementar: TBooleanField;
     ClientDataSet1decrementar: TBooleanField;
     ClientDataSet1finalizar: TBooleanField;
-    ClientDataSet1dividirordem: TBooleanField;
+    FDQuery1dividirOrdem: TBooleanField;
+    ClientDataSet1dividirOrdem: TBooleanField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);

@@ -267,53 +267,89 @@ begin
   DModule.qAux.Open;
   DModule.qAux.first;
 
-  //Quantidade original da Ordem
-  qtdOriginal := 0;
-  qtdOriginal := DModule.qAux.FieldByName('qORI').AsInteger;
-
   // Seta valores na primeira fase da ordem;
   qAux2.Close;
   qAux2.SQL.Text := 'UPDATE ordem_has_fase SET qtdOriginal =:qtdO, qtdProduzindo =:qtdO, qtdPrevista = 0, qtdFinalizada = 0 WHERE idOrdem_has_fase =:IDOHS';
-  qAux2.ParamByName('qtdO').value:= qtdOriginal;
+  qAux2.ParamByName('qtdO').value:= DModule.qAux.FieldByName('qORI').AsInteger;
   qAux2.ParamByName('IDOHS').value:= DModule.qAux.FieldByName('idO_H_S').AsInteger;
   qAux2.ExecSQL;
 
-  //
+  //Atribuição dos valores
+  qtdOriginal := DModule.qAux.FieldByName('qORI').AsInteger;
+  qtdFinalizado := DModule.qAux.FieldByName('qORI').AsInteger;
+  qtdProduzindo := 0;
+  qtdPrevisto := 0;
+
+  //Passa em todas as fases da ordem de produção (Ordem_has_fase)
   while not DModule.qAux.eof do
   begin
+      //Atribuição dos valores
+      qtdPrevisto := qtdPrevisto + qtdProduzindo; // é a soma de toda os quantidades produzindo antes da fase atual;
+      qtdProduzindo := qtdFinalizado; //qtdFinalizado da fase anterior
+      qtdFinalizado := 0; // Cada Fase calcula sua qtdFinalizado a seguir
 
-      //busca movimentações da ordem_has_fase
+      ShowMessage('qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
+                  'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));
+
+      //busca movimentações da ordem_has_fase corrente
       qAux2.Close;
-      {qAux2.SQL.Text := 'select m.*, m.idTipoMovimentacao as tipo, ohf.* from movimentacao m ';
+      qAux2.SQL.Text := 'select ohf.*, tm.*, m.* from movimentacao m ';
       qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
-      qAux2.SQL.Add('where ohf.idordem =:idOrdem and M.idOrdem_has_fase =:idOHF');
-      qAux2.SQL.Add('order by (M.idOrdem_has_fase)');
-      }
-
-      qAux2.SQL.Text := 'select ohf.*, m.* from movimentacao m ';
-      qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
+      qAux2.SQL.Add('left outer join tipo_movimentacao tm on tm.idTipo_movimentacao = m.idTipoMovimentacao');
       qAux2.SQL.Add('where ohf.idordem =:idOrdem and m.idOrdem_has_fase =:idOHF');
       qAux2.SQL.Add('order by (m.idOrdem_has_fase)');
-
       qAux2.ParamByName('idOrdem').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
       qAux2.ParamByName('idOHF').AsInteger:= StrToInt(DModule.qAux.FieldByName('idO_H_S').AsString);
       qAux2.Open;
       qAux2.first;
 
-      ShowMessage (inttostr(qaux2.RecordCount));
       while not qaux2.Eof do
       begin
-        case qAux2.FieldByName('idTipoMovimentacao').AsInteger of
-          1:ShowMessage('TM 1');
-          2:ShowMessage('TM 2');
-          3:ShowMessage('TM 3');
-          4:ShowMessage('TM 4');
-          5:ShowMessage('TM 5');
+        //
+        if(qAux2.FieldByName('incrementar').AsBoolean = true)then
+        begin
+          //ShowMessage('incrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
         end;
 
-      qaux2.Next;
+        //
+        if(qAux2.FieldByName('decrementar').AsBoolean = true)then
+        begin
+          //ShowMessage('Decrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
+        end;
+
+        //
+        if(qAux2.FieldByName('finalizar').AsBoolean = true)then
+        begin
+          //subtrai movimentacao.qtd de qtdProduzindo
+          IF(qtdProduzindo > 0)THEN
+          begin
+          qtdProduzindo := qtdProduzindo - qAux2.FieldByName('qtd').AsInteger;
+          end;
+          //Add quantidade finalizada
+          qtdFinalizado := qtdFinalizado + qAux2.FieldByName('QTD').AsInteger;
+
+          ShowMessage('HBO' + #13+ 'qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
+                  'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));
+        end;
+
+        //
+        if(qAux2.FieldByName('dividirOrdem').AsBoolean = true)then
+        begin
+          //ShowMessage('DividirOrdem fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
+        end;
+
+        qaux2.Next;
       end;
 
+      // Repara valores recalculados
+      qAux2.Close;
+      qAux2.SQL.Text := 'UPDATE ordem_has_fase SET qtdOriginal =:qtdOri, qtdProduzindo =:qtdProd, qtdPrevista =:qtdPrev, qtdFinalizada =:qtdFin WHERE idOrdem_has_fase =:IDOHS';
+      qAux2.ParamByName('qtdOri').value:= qtdOriginal;
+      qAux2.ParamByName('qtdProd').value:= qtdProduzindo;
+      qAux2.ParamByName('qtdPrev').value:= qtdPrevisto;
+      qAux2.ParamByName('qtdFin').value:= qtdFinalizado;
+      qAux2.ParamByName('IDOHS').value:= DModule.qAux.FieldByName('idO_H_S').AsInteger;
+      qAux2.ExecSQL;
 
       DModule.qAux.next;
   end;

@@ -82,7 +82,7 @@ inherited F02003: TF02003
           Width = 97
           Height = 17
           Caption = 'DIVIDIR ORDEM'
-          DataField = 'dividir ordem'
+          DataField = 'dividirOrdem'
           DataSource = DS
           TabOrder = 5
         end
@@ -130,8 +130,8 @@ inherited F02003: TF02003
     object ClientDataSet1finalizar: TBooleanField
       FieldName = 'finalizar'
     end
-    object ClientDataSet1dividirordem: TBooleanField
-      FieldName = 'dividir ordem'
+    object ClientDataSet1dividirOrdem: TBooleanField
+      FieldName = 'dividirOrdem'
     end
   end
   inherited FDQuery1: TFDQuery
@@ -164,15 +164,15 @@ inherited F02003: TF02003
       FieldName = 'finalizar'
       Origin = 'finalizar'
     end
-    object FDQuery1dividirordem: TBooleanField
+    object FDQuery1dividirOrdem: TBooleanField
       AutoGenerateValue = arDefault
-      FieldName = 'dividir ordem'
-      Origin = '`dividir ordem`'
+      FieldName = 'dividirOrdem'
+      Origin = 'dividirOrdem'
     end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010E002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
