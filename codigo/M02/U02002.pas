@@ -284,7 +284,7 @@ begin
   while not DModule.qAux.eof do
   begin
       //Atribuição dos valores
-      qtdPrevisto := qtdPrevisto + qtdProduzindo; // é a soma de toda os quantidades produzindo antes da fase atual;
+      qtdPrevisto := qtdPrevisto + qtdProduzindo; // é a soma da qtdPrevista + qtdProduzindo da fase anterior;
       qtdProduzindo := qtdFinalizado; //qtdFinalizado da fase anterior
       qtdFinalizado := 0; // Cada Fase calcula sua qtdFinalizado a seguir
 
@@ -306,12 +306,6 @@ begin
       while not qaux2.Eof do
       begin
         //
-        if(qAux2.FieldByName('incrementar').AsBoolean = true)then
-        begin
-          //ShowMessage('incrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
-        end;
-
-        //
         if(qAux2.FieldByName('decrementar').AsBoolean = true)then
         begin
           //ShowMessage('Decrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
@@ -330,6 +324,13 @@ begin
 
           ShowMessage('HBO' + #13+ 'qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
                   'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));
+        end;
+
+        //
+        if(qAux2.FieldByName('incrementar').AsBoolean = true)then
+        begin
+          //ShowMessage('incrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
+          qtdProduzindo := qtdProduzindo + qAux2.FieldByName('qtd').AsInteger;
         end;
 
         //
