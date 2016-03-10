@@ -46,6 +46,46 @@ inherited F02003: TF02003
           DataSource = DS
           TabOrder = 1
         end
+        object CHKINCREMENTAR: TDBCheckBox
+          Left = 40
+          Top = 109
+          Width = 97
+          Height = 17
+          Caption = 'INCREMENTAR'
+          DataField = 'incrementar'
+          DataSource = DS
+          TabOrder = 2
+        end
+        object CHKDECREMENTAR: TDBCheckBox
+          Left = 40
+          Top = 132
+          Width = 97
+          Height = 17
+          Caption = 'DECREMENTAR'
+          DataField = 'decrementar'
+          DataSource = DS
+          TabOrder = 3
+        end
+        object CHKFINALIZAR: TDBCheckBox
+          Left = 40
+          Top = 155
+          Width = 97
+          Height = 17
+          Caption = 'FINALIZAR'
+          DataField = 'finalizar'
+          DataSource = DS
+          TabOrder = 4
+        end
+        object CHKDIVIDIR: TDBCheckBox
+          Left = 40
+          Top = 178
+          Width = 97
+          Height = 17
+          Caption = 'DIVIDIR ORDEM'
+          DataField = 'dividir ordem'
+          DataSource = DS
+          TabOrder = 5
+        end
       end
     end
     inherited TbFiltros: TTabSheet
@@ -81,6 +121,18 @@ inherited F02003: TF02003
       FieldName = 'descricao'
       Size = 45
     end
+    object ClientDataSet1incrementar: TBooleanField
+      FieldName = 'incrementar'
+    end
+    object ClientDataSet1decrementar: TBooleanField
+      FieldName = 'decrementar'
+    end
+    object ClientDataSet1finalizar: TBooleanField
+      FieldName = 'finalizar'
+    end
+    object ClientDataSet1dividirordem: TBooleanField
+      FieldName = 'dividir ordem'
+    end
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
@@ -97,10 +149,30 @@ inherited F02003: TF02003
       Origin = 'descricao'
       Size = 45
     end
+    object FDQuery1incrementar: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'incrementar'
+      Origin = 'incrementar'
+    end
+    object FDQuery1decrementar: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'decrementar'
+      Origin = 'decrementar'
+    end
+    object FDQuery1finalizar: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'finalizar'
+      Origin = 'finalizar'
+    end
+    object FDQuery1dividirordem: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'dividir ordem'
+      Origin = '`dividir ordem`'
+    end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010E002C001C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

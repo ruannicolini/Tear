@@ -257,6 +257,7 @@ end;
 procedure TF02002.calculoMovimentcao;
 var
 contRegistros : integer;
+qtdOriginal, qtdPrevisto, qtdProduzindo, qtdFinalizado : Integer;
 begin
 
   //Busca fases da ordem;
@@ -266,29 +267,53 @@ begin
   DModule.qAux.Open;
   DModule.qAux.first;
 
+  //Quantidade original da Ordem
+  qtdOriginal := 0;
+  qtdOriginal := DModule.qAux.FieldByName('qORI').AsInteger;
+
   // Seta valores na primeira fase da ordem;
   qAux2.Close;
-  qAux2.SQL.Text := 'uPDATE ordem_has_fase SET qtdOriginal =:qtdO, qtdProduzindo =:qtdO, qtdPrevista = 0, qtdFinalizada = 0 WHERE idOrdem_has_fase =:IDOHS';
-  qAux2.ParamByName('qtdO').value:= DModule.qAux.FieldByName('qORI').AsInteger;
+  qAux2.SQL.Text := 'UPDATE ordem_has_fase SET qtdOriginal =:qtdO, qtdProduzindo =:qtdO, qtdPrevista = 0, qtdFinalizada = 0 WHERE idOrdem_has_fase =:IDOHS';
+  qAux2.ParamByName('qtdO').value:= qtdOriginal;
   qAux2.ParamByName('IDOHS').value:= DModule.qAux.FieldByName('idO_H_S').AsInteger;
   qAux2.ExecSQL;
 
   //
   while not DModule.qAux.eof do
   begin
-      {
+
       //busca movimentações da ordem_has_fase
       qAux2.Close;
-      qAux2.SQL.Text := 'select m.*, ohf.* from movimentacao m ';
+      {qAux2.SQL.Text := 'select m.*, m.idTipoMovimentacao as tipo, ohf.* from movimentacao m ';
       qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
-      qAux2.SQL.Add('where ohf.idordem =:idOrdem and M.idOrdem_has_fase =: idOrdemFase');
+      qAux2.SQL.Add('where ohf.idordem =:idOrdem and M.idOrdem_has_fase =:idOHF');
       qAux2.SQL.Add('order by (M.idOrdem_has_fase)');
+      }
+
+      qAux2.SQL.Text := 'select ohf.*, m.* from movimentacao m ';
+      qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
+      qAux2.SQL.Add('where ohf.idordem =:idOrdem and m.idOrdem_has_fase =:idOHF');
+      qAux2.SQL.Add('order by (m.idOrdem_has_fase)');
+
       qAux2.ParamByName('idOrdem').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
-      qAux2.ParamByName('idOrdemFase').AsInteger:= StrToInt(DModule.qAux.FieldByName('idOrdem_has_fase').AsString);
+      qAux2.ParamByName('idOHF').AsInteger:= StrToInt(DModule.qAux.FieldByName('idO_H_S').AsString);
       qAux2.Open;
       qAux2.first;
 
-      }
+      ShowMessage (inttostr(qaux2.RecordCount));
+      while not qaux2.Eof do
+      begin
+        case qAux2.FieldByName('idTipoMovimentacao').AsInteger of
+          1:ShowMessage('TM 1');
+          2:ShowMessage('TM 2');
+          3:ShowMessage('TM 3');
+          4:ShowMessage('TM 4');
+          5:ShowMessage('TM 5');
+        end;
+
+      qaux2.Next;
+      end;
+
 
       DModule.qAux.next;
   end;

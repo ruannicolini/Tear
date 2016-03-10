@@ -22,6 +22,18 @@ type
     DBEdit1: TDBEdit;
     Label2: TLabel;
     DBEdit2: TDBEdit;
+    CHKINCREMENTAR: TDBCheckBox;
+    CHKDECREMENTAR: TDBCheckBox;
+    CHKFINALIZAR: TDBCheckBox;
+    CHKDIVIDIR: TDBCheckBox;
+    FDQuery1incrementar: TBooleanField;
+    FDQuery1decrementar: TBooleanField;
+    FDQuery1finalizar: TBooleanField;
+    FDQuery1dividirordem: TBooleanField;
+    ClientDataSet1incrementar: TBooleanField;
+    ClientDataSet1decrementar: TBooleanField;
+    ClientDataSet1finalizar: TBooleanField;
+    ClientDataSet1dividirordem: TBooleanField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);
@@ -59,6 +71,10 @@ procedure TF02003.BInserirClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
+  CHKINCREMENTAR.Checked := FALSE;
+  CHKDECREMENTAR.Checked := FALSE;
+  CHKFINALIZAR.Checked := FALSE;
+  CHKDIVIDIR.Checked := FALSE;
 end;
 
 procedure TF02003.BSalvarClick(Sender: TObject);
