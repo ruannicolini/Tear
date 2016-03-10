@@ -110,6 +110,10 @@ type
     Edit2: TEdit;
     chkOrdem: TCheckBox;
     Edit3: TEdit;
+    FDQuery2inclusao: TFMTBCDField;
+    FDQuery2reducao: TFMTBCDField;
+    ClientDataSet2inclusao: TFMTBCDField;
+    ClientDataSet2reducao: TFMTBCDField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure TabSet1Click(Sender: TObject);

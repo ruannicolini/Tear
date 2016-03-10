@@ -306,12 +306,6 @@ begin
       while not qaux2.Eof do
       begin
         //
-        if(qAux2.FieldByName('decrementar').AsBoolean = true)then
-        begin
-          //ShowMessage('Decrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
-        end;
-
-        //
         if(qAux2.FieldByName('finalizar').AsBoolean = true)then
         begin
           //subtrai movimentacao.qtd de qtdProduzindo
@@ -334,9 +328,21 @@ begin
         end;
 
         //
+        if(qAux2.FieldByName('decrementar').AsBoolean = true)then
+        begin
+          //ShowMessage('Decrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
+          qtdProduzindo := qtdProduzindo - qAux2.FieldByName('qtd').AsInteger;
+        end;
+
+        //
         if(qAux2.FieldByName('dividirOrdem').AsBoolean = true)then
         begin
           //ShowMessage('DividirOrdem fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
+
+          //Aqui vou criar outra ordem com as mesmas fases e com a quantidade indormada,
+          // em observações basta informar que é uma ordem de retrabalho.
+
+
         end;
 
         qaux2.Next;

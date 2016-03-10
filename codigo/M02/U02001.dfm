@@ -306,6 +306,32 @@ inherited F02001: TF02001
                   Title.Font.Style = [fsBold]
                   Width = 74
                   Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'inclusao'
+                  Title.Caption = 'INCLUS'#195'O'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 74
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'reducao'
+                  Title.Caption = 'REDU'#199#195'O'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 74
+                  Visible = True
                 end>
             end
             object ToolBar1: TToolBar
@@ -768,7 +794,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C00300110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00340110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1310,13 +1336,20 @@ inherited F02001: TF02001
   object FDQuery2: TFDQuery
     Connection = DModule.FDConnection
     SQL.Strings = (
+      'select ohf.*, f.descricao as fase, g.descricao as grupo,'
       
-        'select ohf.*, f.descricao as fase, g.descricao as grupo from ord' +
-        'em_has_fase ohf '#13#10#10
-      ''
-      'left outer join fase f on f.idfase = ohf.idfase '
+        '(select sum(m.qtd) from movimentacao m '#10'left outer join tipo_mov' +
+        'imentacao tm on tm.idtipo_Movimentacao = m.idTipoMovimentacao'#10' w' +
+        'here tm.incrementar = true and m.idOrdem_has_fase = ohf.idOrdem_' +
+        'has_fase ) as inclusao,'#13#10#10
+      
+        #10'(select sum(m.qtd) from movimentacao m '#10'left outer join tipo_mo' +
+        'vimentacao tm on tm.idtipo_Movimentacao = m.idTipoMovimentacao'#10'w' +
+        'here (tm.decrementar = true) and m.idOrdem_has_fase = ohf.idOrde' +
+        'm_has_fase) as reducao'#10#10' '
+      'from ordem_has_fase ohf '#13#10#10
+      'left outer join fase f on f.idfase = ohf.idfase '#13#10#10
       'left outer join grupo g on g.idgrupo = ohf.idlinhaproducao '#13#10#10
-      ''
       'where idOrdem =:idOrdem')
     Left = 519
     Top = 215
@@ -1387,6 +1420,24 @@ inherited F02001: TF02001
       FieldName = 'qtdFinalizada'
       Origin = 'qtdFinalizada'
     end
+    object FDQuery2inclusao: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'inclusao'
+      Origin = 'inclusao'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 32
+      Size = 0
+    end
+    object FDQuery2reducao: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'reducao'
+      Origin = 'reducao'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 32
+      Size = 0
+    end
   end
   object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
@@ -1440,6 +1491,18 @@ inherited F02001: TF02001
     end
     object ClientDataSet2qtdFinalizada: TIntegerField
       FieldName = 'qtdFinalizada'
+    end
+    object ClientDataSet2inclusao: TFMTBCDField
+      FieldName = 'inclusao'
+      ReadOnly = True
+      Precision = 32
+      Size = 0
+    end
+    object ClientDataSet2reducao: TFMTBCDField
+      FieldName = 'reducao'
+      ReadOnly = True
+      Precision = 32
+      Size = 0
     end
   end
   object DataSource2: TDataSource
