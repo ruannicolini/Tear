@@ -7,6 +7,7 @@ inherited F02002: TF02002
   TextHeight = 13
   inherited PageControl: TPageControl
     Height = 522
+    ActivePage = TbDados
     ExplicitHeight = 522
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
@@ -249,6 +250,15 @@ inherited F02002: TF02002
           Font.Style = []
           TabOrder = 10
           Zoom = 100
+        end
+        object BitBtn1: TBitBtn
+          Left = 656
+          Top = 64
+          Width = 75
+          Height = 25
+          Caption = 'BitBtn1'
+          TabOrder = 11
+          OnClick = BitBtn1Click
         end
       end
     end
@@ -1123,6 +1133,11 @@ inherited F02002: TF02002
   end
   inherited Acoes: TActionList
     Left = 576
+    Top = 8
+  end
+  object qAux2: TFDQuery
+    Connection = DModule.FDConnection
+    Left = 641
     Top = 8
   end
 end

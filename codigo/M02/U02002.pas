@@ -67,6 +67,8 @@ type
     chkTipoMov: TCheckBox;
     EditBeleza1: TEditBeleza;
     Edit2: TEdit;
+    qAux2: TFDQuery;
+    BitBtn1: TBitBtn;
     procedure DBEditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -82,6 +84,7 @@ type
     procedure DBEdit2Change(Sender: TObject);
     procedure DBEditBeleza1Change(Sender: TObject);
     procedure DBEdit5Exit(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -193,6 +196,12 @@ begin
   DBEdit5.Enabled := true;
 end;
 
+procedure TF02002.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+  calculoMovimentcao;
+end;
+
 procedure TF02002.BSalvarClick(Sender: TObject);
 begin
   inherited;
@@ -207,6 +216,9 @@ begin
   DBEdit8.Enabled := true;
   DBEdit2.Enabled := true;
   DBEdit6.Enabled := true;
+
+  //
+  calculoMovimentcao;
 end;
 
 procedure TF02002.btnFiltrarClick(Sender: TObject);
@@ -243,16 +255,56 @@ begin
 end;
 
 procedure TF02002.calculoMovimentcao;
+var
+contRegistros : integer;
 begin
-  //Manipulação dos dados da movimentação
+
+  //Busca fases da ordem;
   DModule.qAux.Close;
-  DModule.qAux.SQL.Text := 'select m.*, ohf.* from movimentacao m ';
-  DModule.qAux.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
-  DModule.qAux.SQL.Add('where ohf.idordem =:idOrdem ');
-  DModule.qAux.SQL.Add('order by (M.idOrdem_has_fase)');
-  DModule.qAux.ParamByName('idOrdem').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+  DModule.qAux.SQL.Text :='SELECT OHF.*,ohf.idOrdem_has_fase as idO_H_S, OP.qtdOriginal AS qORI FROM ordem_has_fase OHF LEFT OUTER JOIN ordem_producao OP ON OHF.idOrdem = OP.idORDEM where OHF.idORDEM =:IDO Order by (sequencia)';
+  DModule.qAux.ParamByName('idO').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
   DModule.qAux.Open;
   DModule.qAux.first;
+
+  // Seta valores na primeira fase da ordem;
+  qAux2.Close;
+  qAux2.SQL.Text := 'uPDATE ordem_has_fase SET qtdOriginal =:qtdO, qtdProduzindo =:qtdO, qtdPrevista = 0, qtdFinalizada = 0 WHERE idOrdem_has_fase =:IDOHS';
+  qAux2.ParamByName('qtdO').value:= DModule.qAux.FieldByName('qORI').AsInteger;
+  qAux2.ParamByName('IDOHS').value:= DModule.qAux.FieldByName('idO_H_S').AsInteger;
+  qAux2.ExecSQL;
+
+  //
+  while not DModule.qAux.eof do
+  begin
+      {
+      //busca movimentações da ordem_has_fase
+      qAux2.Close;
+      qAux2.SQL.Text := 'select m.*, ohf.* from movimentacao m ';
+      qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
+      qAux2.SQL.Add('where ohf.idordem =:idOrdem and M.idOrdem_has_fase =: idOrdemFase');
+      qAux2.SQL.Add('order by (M.idOrdem_has_fase)');
+      qAux2.ParamByName('idOrdem').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+      qAux2.ParamByName('idOrdemFase').AsInteger:= StrToInt(DModule.qAux.FieldByName('idOrdem_has_fase').AsString);
+      qAux2.Open;
+      qAux2.first;
+
+      }
+
+      DModule.qAux.next;
+  end;
+
+
+
+  //Manipulação dos dados da movimentação
+  {qAux2.Close;
+  qAux2.SQL.Text := 'select m.*, ohf.* from movimentacao m ';
+  qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
+  qAux2.SQL.Add('where ohf.idordem =:idOrdem ');
+  qAux2.SQL.Add('order by (M.idOrdem_has_fase)');
+  qAux2.ParamByName('idOrdem').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+  qAux2.Open;
+  qAux2.first;
+  }
 
 end;
 
