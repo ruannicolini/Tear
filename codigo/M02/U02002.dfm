@@ -6,7 +6,6 @@ inherited F02002: TF02002
   TextHeight = 13
   inherited PageControl: TPageControl
     Height = 522
-    ActivePage = TbDados
     ExplicitHeight = 522
     inherited TbDados: TTabSheet
       ExplicitHeight = 494

@@ -84,6 +84,7 @@ type
     procedure DBEditBeleza1Change(Sender: TObject);
     procedure DBEdit5Exit(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -182,6 +183,12 @@ begin
   DBEdit6.Enabled := false;
 end;
 
+procedure TF02002.BExcluirClick(Sender: TObject);
+begin
+  inherited;
+  calculoMovimentcao;
+end;
+
 procedure TF02002.BInserirClick(Sender: TObject);
 begin
   inherited;
@@ -203,7 +210,8 @@ end;
 
 procedure TF02002.BSalvarClick(Sender: TObject);
 var
-idProd, idN : Integer;
+idProd, idN, NOrdem, qtd : Integer;
+obs : string;
 begin
 
   DBEdit1.Color := clWindow;
@@ -238,40 +246,31 @@ begin
         DModule.qAux.SQL.Text := 'select * from ordem_producao where idOrdem =:id';
         DModule.qAux.ParamByName('id').AsInteger := ClientDataSet1idOrdem.AsInteger;
         DModule.qAux.Open;
+
+        //Obtenção dos valores das variáveis
         idProd := DModule.qAux.FieldByName('idProduto').AsInteger;
-
-        ShowMessage('Buscou Ordem');
-
+        obs := 'Retrabalho da ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger);
         idN := DModule.buscaProximoParametro('seqOrdemProducao');
+        NOrdem := ClientDataSet1numOrdem.AsInteger;
+        ShowMessage(' client data set 1 qtd : ' + ClientDataSet1qtd.AsString);
+        qtd := ClientDataSet1qtd.AsInteger;
+        ShowMessage(' qtd: ' + inttostr(qtd));
+
+
+        //Inclui Nova ondem
         DModule.qAux.Close;
         DModule.qAux.SQL.Clear;
         DModule.qAux.SQL.Text := 'insert into ordem_producao(idordem,numordem,idproduto,qtdoriginal,datacadastro,observacao) ';
-        DModule.qAux.SQL.Add('values( :idN , 670, 7, 1, 11/03/2016 , "nada")');
+        DModule.qAux.SQL.Add('values( :idN , :nOrdem, :idP, :qtd, :d , :obs)');
 
-        ShowMessage('SEQ ' + inttostr(idProd));
+        ShowMessage('SEQ ' + inttostr(idN));
         DModule.qAux.ParamByName('idN').Asinteger := idN;
+        DModule.qAux.ParamByName('nOrdem').Asinteger := NOrdem;
+        DModule.qAux.ParamByName('idP').Asinteger := idProd;
+        DModule.qAux.ParamByName('qtd').Asinteger := qtd;
+        DModule.qAux.ParamByName('d').AsDate := Date();
+        DModule.qAux.ParamByName('obs').AsString := obs;
         DModule.qAux.ExecSQL;
-
-        {+ ClientDataSet1numOrdem.AsString + ', '
-        + inttostr(idProd) +', '
-        + ClientDataSet1qtd.AsString +','
-        + DateToStr(Date()) +', '
-        + 'Retrabalho da ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger) + ', '
-        +  inttostr(DModule.buscaProximoParametro('seqOrdemProducao')) +' )';
-
-              //Quantidade
-        //DModule.qAux.ParamByName('qtd').AsInteger := ClientDataSet1qtd.AsInteger;
-              //Data
-        //DModule.qAux.ParamByName('dataC').AsDate := Date();
-              //Num da Ordem
-        //DModule.qAux.ParamByName('NOrdem').AsInteger := ClientDataSet1numOrdem.AsInteger;
-              //Produto
-        //DModule.qAux.ParamByName('idProd').AsInteger := idProd;
-        }
-              //Observação
-        //DModule.qAux.ParamByName('obs').Value := 'Retrabalho da ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger);
-
-        //DModule.qAux.ExecSQL;
 
         end;
   end;

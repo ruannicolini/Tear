@@ -138,6 +138,7 @@ type
     procedure Edit3Change(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -205,6 +206,12 @@ begin
   FDQuery1.SQL.Text := 'select ord.*, d.descricao from ordem_producao ord left outer join produto d on ord.idproduto = d.idproduto';
   FDQuery1.Open;
   BPesquisar.Click;
+end;
+
+procedure TF02001.ClientDataSet1AfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  //
 end;
 
 procedure TF02001.ClientDataSet1AfterInsert(DataSet: TDataSet);
