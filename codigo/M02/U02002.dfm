@@ -6,6 +6,7 @@ inherited F02002: TF02002
   TextHeight = 13
   inherited PageControl: TPageControl
     Height = 522
+    ActivePage = TbDados
     ExplicitHeight = 522
     inherited TbDados: TTabSheet
       ExplicitHeight = 494
@@ -120,7 +121,6 @@ inherited F02002: TF02002
           Height = 21
           DataField = 'qtd'
           DataSource = DS
-          Enabled = False
           TabOrder = 3
           OnExit = DBEdit5Exit
         end
@@ -200,6 +200,7 @@ inherited F02002: TF02002
           Font.Style = []
           ParentFont = False
           TabOrder = 8
+          OnChange = DBEditBeleza2Change
           Ativar_Pesquisa = True
           mostrar_Botao = True
           sql.Strings = (
@@ -480,17 +481,16 @@ inherited F02002: TF02002
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
       'select m.*, o.* , tm.descricao as tipoMovimentacao, '
-      'f.descricao as fase from movimentacao m '#10#10#13#10#10
-      ''
+      'f.descricao as fase from movimentacao m '#10#10
       
         'left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao =' +
         ' m.idTipoMovimentacao '#13#10#10
-      #13#10#10
+      ''
+      ''
       
-        #10'left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.' +
-        'idORdem_has_fase '#13#10#10
-      #13#10#10
-      #10'left outer join fase f on f.idfase = ohf.idfase '#10#10#10
+        'left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.i' +
+        'dORdem_has_fase '
+      'left outer join fase f on f.idfase = ohf.idfase '#10#10#10
       'left outer join ordem_producao o on o.idOrdem = ohf.idORdem;')
     Left = 448
     Top = 8

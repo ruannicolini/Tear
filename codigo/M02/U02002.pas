@@ -85,6 +85,7 @@ type
     procedure DBEdit5Exit(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
+    procedure DBEditBeleza2Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -197,9 +198,9 @@ begin
   DBEdit6.Color := CorCamposOnlyRead();
   DBEdit9.Color := $00EFEFEF;
 
-  DBEditBeleza1.Enabled := true;
-  DBEditBeleza2.Enabled := true;
-  DBEdit5.Enabled := true;
+  DBEditBeleza1.Enabled := false;
+  DBEditBeleza2.Enabled := false;
+  DBEdit5.Enabled := false;
 end;
 
 procedure TF02002.BitBtn1Click(Sender: TObject);
@@ -464,7 +465,14 @@ begin
   BEGIN
     IF(STRTOINT(DBEdit5.Text) > 0)THEN
     BEGIN
-      if NOT(ClientDataSet1idTipoMovimentacao.AsInteger = 1) then
+      DModule.qAux.Close;
+      DModule.qAux.SQL.Text := 'select * from tipo_movimentacao where idtipo_movimentacao =:id';
+      DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idTipoMovimentacao.AsInteger);
+      DModule.qAux.Open;
+      DModule.qAux.first;
+
+      ShowMessage(DModule.qAux.FieldByName('incrementar').AsString);
+      if (DModule.qAux.FieldByName('incrementar').AsBoolean = false) then
       begin
         DModule.qAux.Close;
         DModule.qAux.SQL.Text := 'select * from ORDEM_HAS_FASE where idordem_HAS_FASE =:id';
@@ -528,11 +536,15 @@ end;
 procedure TF02002.DBEditBeleza1Change(Sender: TObject);
 begin
   inherited;
-  if trim(DBEditBeleza1.Text) <> '' then
+  if trim(DBEdit6.Text) <> '' then
+  begin
+    DBEdit5.Enabled := false;
+    DBEdit6.Clear;
+    DBEdit5.Clear;
+  end else
   begin
     DBEdit5.Enabled := true;
-  end else
-    DBEdit5.Enabled := false;
+  end;
 end;
 
 procedure TF02002.DBEditBeleza2ButtonClick(Sender: TObject;
@@ -540,6 +552,22 @@ procedure TF02002.DBEditBeleza2ButtonClick(Sender: TObject;
 begin
   inherited;
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
+end;
+
+procedure TF02002.DBEditBeleza2Change(Sender: TObject);
+begin
+  inherited;
+    if trim(DBEdit2.Text) <> '' then
+  begin
+    DBEditBeleza1.Enabled := true;
+    DBEditBeleza1.Clear;
+    DBEdit6.Clear;
+    DBEdit2.Clear;
+    DBEdit5.Clear;
+  end else
+  begin
+    DBEditBeleza1.Enabled := false;
+  end;
 end;
 
 procedure TF02002.Edit1Change(Sender: TObject);
