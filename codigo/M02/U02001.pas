@@ -139,6 +139,7 @@ type
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
+    procedure BExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -166,6 +167,21 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit3.Color := CorCamposOnlyRead();
+end;
+
+procedure TF02001.BExcluirClick(Sender: TObject);
+begin
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from movimentacao m left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase WHERE ohf.idordem =:id';
+  DModule.qAux.ParamByName('id').value := ClientDataSet1idOrdem.AsInteger;
+  DModule.qAux.open;
+
+  if (DModule.qAux.IsEmpty)then
+  begin
+    inherited;
+  end else
+    ShowMessage('Fases já possuem movimentações. Não é possivel excluir ordem');
+
 end;
 
 procedure TF02001.BInserirClick(Sender: TObject);
@@ -345,18 +361,28 @@ end;
 procedure TF02001.TBtnExcluirClick(Sender: TObject);
 begin
   inherited;
-  if datasource2.DataSet.Active then
+
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from movimentacao WHERE idordem_has_fase =:id';
+  DModule.qAux.ParamByName('id').AsString := ClientDataSet3idOrdem_has_fase.AsString;
+  DModule.qAux.open;
+
+  if(DModule.qAux.IsEmpty)then
   begin
-    if not datasource2.DataSet.IsEmpty then
-    begin
-        if (Application.MessageBox('Deseja Deletar ?', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
+      if datasource2.DataSet.Active then
+      begin
+        if not datasource2.DataSet.IsEmpty then
         begin
-          datasource2.DataSet.Delete;
-        end;
-    end
-    else
-        ShowMessage('Não Há registros');
-  end;
+            if (Application.MessageBox('Deseja Deletar ?', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
+            begin
+              datasource2.DataSet.Delete;
+            end;
+        end
+        else
+            ShowMessage('Não Há registros');
+      end;
+  end else
+    ShowMessage('A Fase possui Movimentações.'+#13+' Não é possivel excluir.');
 
 end;
 
@@ -364,25 +390,34 @@ procedure TF02001.TBtnLimparClick(Sender: TObject);
 begin
   inherited;
 
-  if datasource2.DataSet.Active then
-  begin
-    if not datasource2.DataSet.IsEmpty then
-    begin
-        if (Application.MessageBox('Deseja Apagar Rota de Produção ?', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
-        begin
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from movimentacao m left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase WHERE ohf.idordem =:id';
+  DModule.qAux.ParamByName('id').value := ClientDataSet1idOrdem.AsInteger;
+  DModule.qAux.open;
 
-          //LIMPAR ORDEM_HAS_FASE
-          ClientDataSet2.Close;
-          DModule.qAux.Close;
-          DModule.qAux.SQL.Text := 'Delete from ordem_has_fase WHERE idordem =:od';
-          DModule.qAux.ParamByName('od').AsString := ClientDataSet1idOrdem.AsString;
-          DModule.qAux.execsql;
-          ClientDataSet2.open;
-        end;
-    end
-    else
-        ShowMessage('Não Há registros');
-  end;
+  if(DModule.qAux.IsEmpty)then
+  begin
+      if datasource2.DataSet.Active then
+      begin
+        if not datasource2.DataSet.IsEmpty then
+        begin
+            if (Application.MessageBox('Deseja Apagar Rota de Produção ?', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
+            begin
+
+              //LIMPAR ORDEM_HAS_FASE
+              ClientDataSet2.Close;
+              DModule.qAux.Close;
+              DModule.qAux.SQL.Text := 'Delete from ordem_has_fase WHERE idordem =:od';
+              DModule.qAux.ParamByName('od').AsString := ClientDataSet1idOrdem.AsString;
+              DModule.qAux.execsql;
+              ClientDataSet2.open;
+            end;
+        end
+        else
+            ShowMessage('Não Há registros');
+      end;
+  end else
+    ShowMessage('Fases já possuem movimentações. Não é possível excluir.');
 
 
 end;

@@ -204,14 +204,23 @@ end;
 procedure TF01007.BExcluirClick(Sender: TObject);
 begin
   DModule.qAux.Close;
-  DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idProduto =:idProd';
+  DModule.qAux.SQL.Text := 'select * from ordem_producao c where c.idProduto =:idProd';
   DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
   DModule.qAux.Open;
   if(DModule.qAux.IsEmpty)then
   begin
-    inherited;
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idProduto =:idProd';
+    DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+    DModule.qAux.Open;
+    if(DModule.qAux.IsEmpty)then
+    begin
+      inherited;
+    end else
+      ShowMessage('Cronometragem vinculada a este Produto. Não é possível excluir.');
   end else
-    ShowMessage('Cronometragem vinculada a este Produto. Não é possível excluir.');
+    ShowMessage('Ordem de produção vinculada a este Produto. Não é possível excluir.');
+
 
 end;
 
