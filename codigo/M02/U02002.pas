@@ -67,7 +67,6 @@ type
     chkTipoMov: TCheckBox;
     EditBeleza1: TEditBeleza;
     Edit2: TEdit;
-    qAux2: TFDQuery;
     BitBtn1: TBitBtn;
     procedure DBEditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
@@ -203,8 +202,10 @@ begin
 end;
 
 procedure TF02002.BSalvarClick(Sender: TObject);
+var
+idProd, idN : Integer;
 begin
-  inherited;
+
   DBEdit1.Color := clWindow;
   DBEdit2.Color := $00EFEFEF;
   DBEdit6.Color := $00EFEFEF;
@@ -218,6 +219,64 @@ begin
   DBEdit6.Enabled := true;
 
   //
+  if DS.DataSet.State=dsInsert then
+  begin
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'select * from tipo_movimentacao where idtipo_Movimentacao =:id';
+    DModule.qAux.ParamByName('id').AsInteger := ClientDataSet1idTipoMovimentacao.AsInteger;
+    DModule.qAux.Open;
+
+    ShowMessage(DModule.qAux.FieldByName('dividirOrdem').AsString);
+    if(DModule.qAux.FieldByName('dividirOrdem').AsBoolean = true)then
+    begin
+        ShowMessage('DividirOrdem');
+
+        //Aqui vou criar outra ordem com as mesmas fases e com a quantidade indormada,
+        // em observações basta informar que é uma ordem de retrabalho.
+
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Text := 'select * from ordem_producao where idOrdem =:id';
+        DModule.qAux.ParamByName('id').AsInteger := ClientDataSet1idOrdem.AsInteger;
+        DModule.qAux.Open;
+        idProd := DModule.qAux.FieldByName('idProduto').AsInteger;
+
+        ShowMessage('Buscou Ordem');
+
+        idN := DModule.buscaProximoParametro('seqOrdemProducao');
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Clear;
+        DModule.qAux.SQL.Text := 'insert into ordem_producao(idordem,numordem,idproduto,qtdoriginal,datacadastro,observacao) ';
+        DModule.qAux.SQL.Add('values( :idN , 670, 7, 1, 11/03/2016 , "nada")');
+
+        ShowMessage('SEQ ' + inttostr(idProd));
+        DModule.qAux.ParamByName('idN').Asinteger := idN;
+        DModule.qAux.ExecSQL;
+
+        {+ ClientDataSet1numOrdem.AsString + ', '
+        + inttostr(idProd) +', '
+        + ClientDataSet1qtd.AsString +','
+        + DateToStr(Date()) +', '
+        + 'Retrabalho da ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger) + ', '
+        +  inttostr(DModule.buscaProximoParametro('seqOrdemProducao')) +' )';
+
+              //Quantidade
+        //DModule.qAux.ParamByName('qtd').AsInteger := ClientDataSet1qtd.AsInteger;
+              //Data
+        //DModule.qAux.ParamByName('dataC').AsDate := Date();
+              //Num da Ordem
+        //DModule.qAux.ParamByName('NOrdem').AsInteger := ClientDataSet1numOrdem.AsInteger;
+              //Produto
+        //DModule.qAux.ParamByName('idProd').AsInteger := idProd;
+        }
+              //Observação
+        //DModule.qAux.ParamByName('obs').Value := 'Retrabalho da ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger);
+
+        //DModule.qAux.ExecSQL;
+
+        end;
+  end;
+
+  inherited;
   calculoMovimentcao;
 end;
 
@@ -258,7 +317,17 @@ procedure TF02002.calculoMovimentcao;
 var
 contRegistros : integer;
 qtdOriginal, qtdPrevisto, qtdProduzindo, qtdFinalizado : Integer;
+qAux2, qAux3: TFDQuery;
 begin
+  // OBS: DModule.qAux = ordem_has_fase
+
+  // OBS: qAux2 = movimentacao
+  qAux2 := TFDQuery.Create(F02002);
+  qAux2.Connection := DModule.FDConnection;
+
+  // OBS: qAux3 = auxilia na divisão da ordem (Retrabalho)
+  qAux3 := TFDQuery.Create(F02002);
+  qAux3.Connection := DModule.FDConnection;
 
   //Busca fases da ordem;
   DModule.qAux.Close;
@@ -339,10 +408,7 @@ begin
         begin
           //ShowMessage('DividirOrdem fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
 
-          //Aqui vou criar outra ordem com as mesmas fases e com a quantidade indormada,
-          // em observações basta informar que é uma ordem de retrabalho.
-
-
+          //Esta sendo tratado ao salvar uma nova movimentcao
         end;
 
         qaux2.Next;
