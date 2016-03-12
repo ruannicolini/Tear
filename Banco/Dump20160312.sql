@@ -393,7 +393,7 @@ CREATE TABLE `movimentacao` (
 
 LOCK TABLES `movimentacao` WRITE;
 /*!40000 ALTER TABLE `movimentacao` DISABLE KEYS */;
-INSERT INTO `movimentacao` VALUES (7,33,'2016-03-08','RUAN',3,2,'OK'),(8,33,'2016-03-08','RUAN',2,5,NULL),(9,31,'2016-03-08','RUAN',1,4,NULL);
+INSERT INTO `movimentacao` VALUES (8,33,'2016-03-08','RUAN',2,5,NULL),(17,31,NULL,NULL,10,1,NULL),(18,32,'2016-03-10',NULL,5,1,NULL),(19,31,'2016-03-10',NULL,2,2,NULL),(20,31,'2016-03-10',NULL,16,1,NULL),(73,31,'2016-03-12',NULL,1,11,NULL);
 /*!40000 ALTER TABLE `movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -503,12 +503,12 @@ CREATE TABLE `ordem_has_fase` (
   `idOrdem_has_fase` int(11) NOT NULL,
   `idOrdem` int(11) DEFAULT NULL,
   `idFase` int(11) DEFAULT NULL,
-  `qtdOriginal` int(11) DEFAULT NULL,
-  `qtdPrevista` int(11) DEFAULT NULL,
-  `qtdProduzindo` int(11) DEFAULT NULL,
+  `qtdOriginal` int(11) DEFAULT '0',
+  `qtdPrevista` int(11) DEFAULT '0',
+  `qtdProduzindo` int(11) DEFAULT '0',
   `idLinhaProducao` int(11) DEFAULT NULL,
   `sequencia` int(11) DEFAULT NULL,
-  `qtdFinalizada` int(11) DEFAULT NULL,
+  `qtdFinalizada` int(11) DEFAULT '0',
   PRIMARY KEY (`idOrdem_has_fase`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -519,7 +519,7 @@ CREATE TABLE `ordem_has_fase` (
 
 LOCK TABLES `ordem_has_fase` WRITE;
 /*!40000 ALTER TABLE `ordem_has_fase` DISABLE KEYS */;
-INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,25,NULL,1,0),(32,7,1,25,25,0,NULL,2,0),(33,7,5,25,25,0,NULL,3,0);
+INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0);
 /*!40000 ALTER TABLE `ordem_has_fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -547,7 +547,7 @@ CREATE TABLE `ordem_producao` (
 
 LOCK TABLES `ordem_producao` WRITE;
 /*!40000 ALTER TABLE `ordem_producao` DISABLE KEYS */;
-INSERT INTO `ordem_producao` VALUES (7,12345,7,25,'2016-03-03','Teste de observações');
+INSERT INTO `ordem_producao` VALUES (7,12345,7,25,'2016-03-03','Teste de observações'),(30,12345,7,1,'2016-03-12','Retrabalho da ordem 12345');
 /*!40000 ALTER TABLE `ordem_producao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -572,7 +572,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,293),('seqCelula',NULL,21),('seqCronometragem',NULL,223),('seqCronometrista',NULL,11),('seqFase',NULL,16),('seqGrupoProduto',NULL,15),('seqMovimentacao',NULL,10),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,34),('seqOrdemProducao',NULL,8),('seqParte',NULL,6),('seqProduto',NULL,103),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,6),('seqTipoRecurso',NULL,14);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,293),('seqCelula',NULL,21),('seqCronometragem',NULL,223),('seqCronometrista',NULL,11),('seqFase',NULL,16),('seqGrupoProduto',NULL,15),('seqMovimentacao',NULL,74),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,37),('seqOrdemProducao',NULL,31),('seqParte',NULL,6),('seqProduto',NULL,103),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,12),('seqTipoRecurso',NULL,14);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -622,7 +622,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',3),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',4),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3),(63,'TESTE 8','2016-02-04',8),(71,'TESTE 4','2016-02-18',4),(90,'323',NULL,4),(91,'XCVB',NULL,2);
+INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',3),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',4),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3),(71,'TESTE 4','2016-02-18',4),(90,'323',NULL,4),(91,'XCVB',NULL,2);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -688,6 +688,10 @@ DROP TABLE IF EXISTS `tecido`;
 CREATE TABLE `tecido` (
   `idtecido` int(11) NOT NULL DEFAULT '0',
   `descricao` varchar(45) DEFAULT NULL,
+  `incrementar` tinyint(4) DEFAULT NULL,
+  `decrementar` tinyint(4) DEFAULT NULL,
+  `dividirOrdem` tinyint(4) DEFAULT NULL,
+  `finalizar` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`idtecido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -698,7 +702,7 @@ CREATE TABLE `tecido` (
 
 LOCK TABLES `tecido` WRITE;
 /*!40000 ALTER TABLE `tecido` DISABLE KEYS */;
-INSERT INTO `tecido` VALUES (1,'TECIDO 1 - TESTE ok'),(2,'TECIDO 2 - TESTE');
+INSERT INTO `tecido` VALUES (1,'TECIDO 1 - TESTE ok',NULL,NULL,NULL,NULL),(2,'TECIDO 2 - TESTE',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tecido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -712,6 +716,10 @@ DROP TABLE IF EXISTS `tipo_movimentacao`;
 CREATE TABLE `tipo_movimentacao` (
   `idtipo_Movimentacao` int(11) NOT NULL,
   `descricao` varchar(45) DEFAULT NULL,
+  `incrementar` tinyint(1) DEFAULT NULL,
+  `decrementar` tinyint(1) DEFAULT NULL,
+  `finalizar` tinyint(1) DEFAULT NULL,
+  `dividirOrdem` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idtipo_Movimentacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -722,7 +730,7 @@ CREATE TABLE `tipo_movimentacao` (
 
 LOCK TABLES `tipo_movimentacao` WRITE;
 /*!40000 ALTER TABLE `tipo_movimentacao` DISABLE KEYS */;
-INSERT INTO `tipo_movimentacao` VALUES (1,'Finalização'),(2,'Incremento'),(3,'Cancelamento'),(4,'Extravio'),(5,'Perda');
+INSERT INTO `tipo_movimentacao` VALUES (1,'Finalização',0,0,1,0),(2,'Incremento',1,0,0,0),(3,'Cancelamento',0,1,0,0),(4,'Extravio',0,1,0,0),(5,'Perda',0,1,0,0),(11,'RETRABALHO',0,1,0,1);
 /*!40000 ALTER TABLE `tipo_movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -767,4 +775,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-08 16:55:00
+-- Dump completed on 2016-03-12 18:40:59
