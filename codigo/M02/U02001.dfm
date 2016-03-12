@@ -5,7 +5,6 @@ inherited F02001: TF02001
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -795,7 +794,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C003C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00400110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1521,7 +1520,7 @@ inherited F02001: TF02001
         'ohf.idOrdem_has_fase = mov.idOrdem_has_fase'#10'left outer join tipo' +
         '_movimentacao tm on tm.idtipo_Movimentacao = mov.idTipoMovimenta' +
         'cao'#10'left outer join fase f on ohf.idfase = f.idfase'#10'where ohf.id' +
-        'Ordem =:idOrdem '#10'order by (idOrdem_has_fase);')
+        'Ordem =:idOrdem '#10'order by (idmovimentacao) desc;')
     Left = 545
     Top = 445
     ParamData = <

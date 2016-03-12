@@ -67,7 +67,6 @@ type
     chkTipoMov: TCheckBox;
     EditBeleza1: TEditBeleza;
     Edit2: TEdit;
-    BitBtn1: TBitBtn;
     procedure DBEditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -83,9 +82,10 @@ type
     procedure DBEdit2Change(Sender: TObject);
     procedure DBEditBeleza1Change(Sender: TObject);
     procedure DBEdit5Exit(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure DBEditBeleza2Change(Sender: TObject);
+    procedure ClientDataSet1AfterApplyUpdates(Sender: TObject;
+      var OwnerData: OleVariant);
   private
     { Private declarations }
   public
@@ -186,8 +186,21 @@ end;
 
 procedure TF02002.BExcluirClick(Sender: TObject);
 begin
-  inherited;
-  calculoMovimentcao;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from movimentacao m left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ';
+  DModule.qAux.SQL.Add('WHERE ohf.idordem =:id order by (m.idMovimentacao) desc');
+  DModule.qAux.ParamByName('id').value := ClientDataSet1idOrdem.AsInteger;
+  DModule.qAux.open;
+
+  if not(DModule.qAux.IsEmpty)then
+  begin
+    DModule.qAux.First;
+    if(DModule.qAux.FieldByName('idMovimentacao').AsInteger = ClientDataSet1idmovimentacao.AsInteger)then
+    begin
+      inherited;
+    end else
+      ShowMessage('Não é possível excluir movimentação tendo movimentações posteriores a ela.');
+  end;
 end;
 
 procedure TF02002.BInserirClick(Sender: TObject);
@@ -201,12 +214,6 @@ begin
   DBEditBeleza1.Enabled := false;
   DBEditBeleza2.Enabled := false;
   DBEdit5.Enabled := false;
-end;
-
-procedure TF02002.BitBtn1Click(Sender: TObject);
-begin
-  inherited;
-  calculoMovimentcao;
 end;
 
 procedure TF02002.BSalvarClick(Sender: TObject);
@@ -235,7 +242,6 @@ begin
     DModule.qAux.ParamByName('id').AsInteger := ClientDataSet1idTipoMovimentacao.AsInteger;
     DModule.qAux.Open;
 
-    ShowMessage(DModule.qAux.FieldByName('dividirOrdem').AsString);
     if(DModule.qAux.FieldByName('dividirOrdem').AsBoolean = true)then
     begin
         ShowMessage('DividirOrdem');
@@ -253,9 +259,7 @@ begin
         obs := 'Retrabalho da ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger);
         idN := DModule.buscaProximoParametro('seqOrdemProducao');
         NOrdem := ClientDataSet1numOrdem.AsInteger;
-        ShowMessage(' client data set 1 qtd : ' + ClientDataSet1qtd.AsString);
         qtd := ClientDataSet1qtd.AsInteger;
-        ShowMessage(' qtd: ' + inttostr(qtd));
 
 
         //Inclui Nova ondem
@@ -264,7 +268,6 @@ begin
         DModule.qAux.SQL.Text := 'insert into ordem_producao(idordem,numordem,idproduto,qtdoriginal,datacadastro,observacao) ';
         DModule.qAux.SQL.Add('values( :idN , :nOrdem, :idP, :qtd, :d , :obs)');
 
-        ShowMessage('SEQ ' + inttostr(idN));
         DModule.qAux.ParamByName('idN').Asinteger := idN;
         DModule.qAux.ParamByName('nOrdem').Asinteger := NOrdem;
         DModule.qAux.ParamByName('idP').Asinteger := idProd;
@@ -277,7 +280,6 @@ begin
   end;
 
   inherited;
-  calculoMovimentcao;
 end;
 
 procedure TF02002.btnFiltrarClick(Sender: TObject);
@@ -357,8 +359,8 @@ begin
       qtdProduzindo := qtdFinalizado; //qtdFinalizado da fase anterior
       qtdFinalizado := 0; // Cada Fase calcula sua qtdFinalizado a seguir
 
-      ShowMessage('qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
-                  'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));
+      {ShowMessage('qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
+                  'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));}
 
       //busca movimentações da ordem_has_fase corrente
       qAux2.Close;
@@ -385,8 +387,9 @@ begin
           //Add quantidade finalizada
           qtdFinalizado := qtdFinalizado + qAux2.FieldByName('QTD').AsInteger;
 
-          ShowMessage('HBO' + #13+ 'qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
+          {ShowMessage('HBO' + #13+ 'qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
                   'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));
+          }
         end;
 
         //
@@ -427,19 +430,13 @@ begin
       DModule.qAux.next;
   end;
 
+end;
 
-
-  //Manipulação dos dados da movimentação
-  {qAux2.Close;
-  qAux2.SQL.Text := 'select m.*, ohf.* from movimentacao m ';
-  qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
-  qAux2.SQL.Add('where ohf.idordem =:idOrdem ');
-  qAux2.SQL.Add('order by (M.idOrdem_has_fase)');
-  qAux2.ParamByName('idOrdem').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
-  qAux2.Open;
-  qAux2.first;
-  }
-
+procedure TF02002.ClientDataSet1AfterApplyUpdates(Sender: TObject;
+  var OwnerData: OleVariant);
+begin
+  inherited;
+  calculoMovimentcao;
 end;
 
 procedure TF02002.ClientDataSet1AfterInsert(DataSet: TDataSet);

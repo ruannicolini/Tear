@@ -1,6 +1,7 @@
 inherited F02002: TF02002
   Caption = 'F02002'
   ClientHeight = 557
+  ExplicitWidth = 834
   ExplicitHeight = 596
   PixelsPerInch = 96
   TextHeight = 13
@@ -8,6 +9,9 @@ inherited F02002: TF02002
     Height = 522
     ExplicitHeight = 522
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
       ExplicitHeight = 494
       inherited grDados: TGroupBox
         Height = 494
@@ -246,18 +250,12 @@ inherited F02002: TF02002
           TabOrder = 10
           Zoom = 100
         end
-        object BitBtn1: TBitBtn
-          Left = 656
-          Top = 64
-          Width = 75
-          Height = 25
-          Caption = 'BitBtn1'
-          TabOrder = 11
-          OnClick = BitBtn1Click
-        end
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
       ExplicitHeight = 494
       inherited GBFiltros: TGroupBox
         inherited Panel1: TPanel
@@ -429,6 +427,7 @@ inherited F02002: TF02002
     Top = 8
   end
   inherited ClientDataSet1: TClientDataSet
+    AfterApplyUpdates = ClientDataSet1AfterApplyUpdates
     Left = 512
     Top = 8
     object ClientDataSet1idmovimentacao: TIntegerField
@@ -587,7 +586,7 @@ inherited F02002: TF02002
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C00340110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C003C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
