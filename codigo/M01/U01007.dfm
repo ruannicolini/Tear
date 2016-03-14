@@ -442,8 +442,8 @@ inherited F01007: TF01007
           Visible = False
         end
         object Edit1: TEdit
-          Left = 351
-          Top = 83
+          Left = 363
+          Top = 3
           Width = 80
           Height = 21
           TabStop = False
@@ -815,7 +815,7 @@ inherited F01007: TF01007
     Left = 584
     Top = 72
     Bitmap = {
-      494C01010D002C00940110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00980110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1357,8 +1357,8 @@ inherited F01007: TF01007
   object DataSource3: TDataSource
     DataSet = ClientDataSet3
     OnDataChange = DataSource3DataChange
-    Left = 432
-    Top = 160
+    Left = 448
+    Top = 80
   end
   object ClientDataSet3: TClientDataSet
     Aggregates = <>
@@ -1369,8 +1369,8 @@ inherited F01007: TF01007
     AfterPost = ClientDataSet3AfterPost
     AfterCancel = ClientDataSet3AfterCancel
     AfterDelete = ClientDataSet3AfterDelete
-    Left = 400
-    Top = 160
+    Left = 416
+    Top = 80
     object ClientDataSet3idcronometragem: TIntegerField
       FieldName = 'idcronometragem'
     end
@@ -1421,8 +1421,8 @@ inherited F01007: TF01007
   end
   object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
-    Left = 368
-    Top = 160
+    Left = 384
+    Top = 80
   end
   object FDQuery3: TFDQuery
     Connection = DModule.FDConnection
@@ -1431,8 +1431,8 @@ inherited F01007: TF01007
       'left outer join operacao f on phf.idoperacao = f.idoperacao '#10
       'where phf.idProduto =:id and f.idFase =:idFas '#10
       'order by (f.idOperacao);')
-    Left = 336
-    Top = 160
+    Left = 352
+    Top = 80
     ParamData = <
       item
         Name = 'ID'
@@ -1529,7 +1529,7 @@ inherited F01007: TF01007
     Left = 548
     Top = 73
     Bitmap = {
-      494C010103000800000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800040110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

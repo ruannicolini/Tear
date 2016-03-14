@@ -159,8 +159,10 @@ type
     procedure DataSource4DataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
+
   public
     { Public declarations }
+
   end;
 
 var

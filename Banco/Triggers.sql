@@ -29,15 +29,27 @@ BEGIN
 	DELETE FROM cronometragem_has_tipo_recurso WHERE cronometragem_has_tipo_recurso.idCronometragem = old.idCronometragem;
     -- Exclui Batida
     DELETE FROM batida WHERE batida.idCronometragem = old.idCronometragem;
+    -- Exclui Dependencias
+    DELETE FROM dependencia WHERE dependencia.idCronometragem = old.idCronometragem;
 END //
 DELIMITER ;
 
 
--- Excluiu produto_has_operacao do Grupo excluído
+-- Excluiu fases do Produto excluído
 DELIMITER //
-CREATE TRIGGER TRIGGER_Produto_has_Operacao_delete 
-AFTER DELETE ON produto_has_operacao for each row
+CREATE TRIGGER TRIGGER_Produto_delete 
+AFTER DELETE ON produto for each row
 BEGIN
-	DELETE FROM dependencia WHERE dependencia.idOperacaoOperacao = old.idOperacao;
+	DELETE FROM produto_has_fase WHERE produto_has_fase.idProduto = old.idProduto;
+END //
+DELIMITER ;
+
+
+-- Excluiu ordem_has_fase da Ordem excluída
+DELIMITER //
+CREATE TRIGGER TRIGGER_Ordem_delete 
+AFTER DELETE ON ordem_producao for each row
+BEGIN
+	DELETE FROM ordem_has_fase WHERE ordem_has_fase.idOrdem = old.idOrdem;
 END //
 DELIMITER ;
