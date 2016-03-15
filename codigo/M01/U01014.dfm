@@ -113,10 +113,20 @@ object F01014: TF01014
       Left = 112
       Top = 56
       Width = 313
-      Height = 121
+      Height = 97
       Align = alCustom
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
+    end
+    object Button2: TButton
+      Left = 350
+      Top = 159
+      Width = 75
+      Height = 25
+      Align = alCustom
+      Anchors = [akRight, akBottom]
+      Caption = 'SALVAR'
+      TabOrder = 3
     end
   end
 end

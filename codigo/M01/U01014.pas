@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, UPrincipal,
-  Vcl.ComCtrls, system.JSON;
+  Vcl.ComCtrls, system.JSON, Vcl.FileCtrl;
 
 type
   TF01014 = class(TForm)
@@ -14,6 +14,7 @@ type
     Panel2: TPanel;
     btnFechar: TSpeedButton;
     Memo1: TMemo;
+    Button2: TButton;
     procedure btnFecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -31,6 +32,7 @@ implementation
 
 {$R *.dfm}
 
+uses UDataModule;
 
 procedure TF01014.btnFecharClick(Sender: TObject);
 begin
@@ -40,22 +42,28 @@ end;
 procedure TF01014.Button1Click(Sender: TObject);
 var
 i:integer;
+pasta : string;
 arqCompleto : TJsonObject;
-arrayCronometrista :TJsonarray;
+arrayCronometrista, arrayOperador, arrayOperacao, arrayTecido, arrayTipoRecurso :TJsonarray;
 begin
-  //
+  // cria OBJEto JSON PRincipal
   arqCompleto := TJSONObject.Create;
-  try
-    //Array Cronometrista
-    arrayCronometrista := TJSONArray.Create;
 
+  try
+    //CRONOMETRISTA
+    arrayCronometrista := TJSONArray.Create;
+    // PESQUISA NA TABELA Cronometrista
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'SELECT * FROM CRONOMETRISTA';
+    DModule.qAux.Open;
+    DModule.qAux.First;
     //Atribuindo dados ao array
-    for i := 0 to 2 do
-    begin
+    while NOT DModule.qAux.Eof do
+    BEGIN
         //cria o objeto JSON
         obj := TJSONObject.Create;
-        obj.AddPair('id',TJSONNumber.Create(i));
-        obj.AddPair('nome',TJSONString.Create(  'Teste ' + inttostr(i)  ));
+        obj.AddPair('id',TJSONNumber.Create( DModule.qAux.FieldByName('idCronometrista').AsInteger ));
+        obj.AddPair('nome',TJSONString.Create(  DModule.qAux.FieldByName('nome').AsString  ));
 
         //adiciona o obj ao arrayCronometrista
         arrayCronometrista.Add(obj);
@@ -63,15 +71,129 @@ begin
         obj := nil;
         obj.Free;
 
-    end;
-      arqCompleto.AddPair('cronometrista', arrayCronometrista);
+        DModule.qAux.Next;
+    END;
+    arqCompleto.AddPair('cronometrista', arrayCronometrista);
+
+
+    //OPERADOR
+    arrayOperador := TJSONArray.Create;
+    // PESQUISA NA TABELA Cronometrista
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'SELECT * FROM OPERADOR';
+    DModule.qAux.Open;
+    DModule.qAux.First;
+    //Atribuindo dados ao array
+    while NOT DModule.qAux.Eof do
+    BEGIN
+        //cria o objeto JSON
+        obj := TJSONObject.Create;
+        obj.AddPair('id',TJSONNumber.Create( DModule.qAux.FieldByName('idOperador').AsInteger ));
+        obj.AddPair('nome',TJSONString.Create(  DModule.qAux.FieldByName('nome').AsString  ));
+
+        //adiciona o obj ao arrayCronometrista
+        arrayOperador.Add(obj);
+        //Libera espaço de memoria
+        obj := nil;
+        obj.Free;
+
+        DModule.qAux.Next;
+    END;
+    arqCompleto.AddPair('operador', arrayOperador);
+
+
+    //OPERAÇÃO
+    arrayOperacao := TJSONArray.Create;
+    // PESQUISA NA TABELA Cronometrista
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'SELECT * FROM OPERACAO';
+    DModule.qAux.Open;
+    DModule.qAux.First;
+    //Atribuindo dados ao array
+    while NOT DModule.qAux.Eof do
+    BEGIN
+        //cria o objeto JSON
+        obj := TJSONObject.Create;
+        obj.AddPair('id',TJSONNumber.Create( DModule.qAux.FieldByName('idOperacao').AsInteger ));
+        obj.AddPair('nome',TJSONString.Create(  DModule.qAux.FieldByName('descricao').AsString  ));
+
+        //adiciona o obj ao arrayCronometrista
+        arrayOperacao.Add(obj);
+        //Libera espaço de memoria
+        obj := nil;
+        obj.Free;
+
+        DModule.qAux.Next;
+    END;
+    arqCompleto.AddPair('operacao', arrayOperador);
+
+
+    //TECIDO
+    arrayTecido := TJSONArray.Create;
+    // PESQUISA NA TABELA Cronometrista
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'SELECT * FROM TECIDO';
+    DModule.qAux.Open;
+    DModule.qAux.First;
+    //Atribuindo dados ao array
+    while NOT DModule.qAux.Eof do
+    BEGIN
+        //cria o objeto JSON
+        obj := TJSONObject.Create;
+        obj.AddPair('id',TJSONNumber.Create( DModule.qAux.FieldByName('idTecido').AsInteger ));
+        obj.AddPair('nome',TJSONString.Create(  DModule.qAux.FieldByName('descricao').AsString  ));
+
+        //adiciona o obj ao arrayCronometrista
+        arrayTecido.Add(obj);
+        //Libera espaço de memoria
+        obj := nil;
+        obj.Free;
+
+        DModule.qAux.Next;
+    END;
+    arqCompleto.AddPair('tecido', arrayTecido);
+
+
+    //TipoRecurso
+    arrayTipoRecurso := TJSONArray.Create;
+    // PESQUISA NA TABELA Cronometrista
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'SELECT * FROM TIPO_RECURSO';
+    DModule.qAux.Open;
+    DModule.qAux.First;
+    //Atribuindo dados ao array
+    while NOT DModule.qAux.Eof do
+    BEGIN
+        //cria o objeto JSON
+        obj := TJSONObject.Create;
+        obj.AddPair('id',TJSONNumber.Create( DModule.qAux.FieldByName('idTipo_Recurso').AsInteger ));
+        obj.AddPair('nome',TJSONString.Create(  DModule.qAux.FieldByName('descricao').AsString  ));
+
+        //adiciona o obj ao arrayCronometrista
+        arrayTipoRecurso.Add(obj);
+        //Libera espaço de memoria
+        obj := nil;
+        obj.Free;
+
+        DModule.qAux.Next;
+    END;
+    arqCompleto.AddPair('recurso', arrayTipoRecurso);
+
+
+
   finally
-    ShowMessage('Calma');
     memo1.Clear;
     memo1.Lines.Add(arqCompleto.ToString);
     arqCompleto.FreeInstance;
-  end;
 
+    SelectDirectory('SALVA EM: ','',pasta);
+    if (Trim(Pasta) <> '') then
+    begin
+      if (Pasta[Length(Pasta)] <> '\') then
+        Pasta := Pasta + '\';
+    end;
+
+  end;
   ShowMessage('ok');
 
 end;
