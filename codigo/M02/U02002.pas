@@ -244,7 +244,7 @@ begin
 
     if(DModule.qAux.FieldByName('dividirOrdem').AsBoolean = true)then
     begin
-        ShowMessage('DividirOrdem');
+        //ShowMessage('DividirOrdem');
 
         //Aqui vou criar outra ordem com as mesmas fases e com a quantidade indormada,
         // em observações basta informar que é uma ordem de retrabalho.
