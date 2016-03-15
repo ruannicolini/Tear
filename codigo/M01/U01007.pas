@@ -119,6 +119,7 @@ type
     ClientDataSet4idFase: TIntegerField;
     ClientDataSet4sequencia: TIntegerField;
     ClientDataSet4descricao: TStringField;
+    BitBtn4: TBitBtn;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);

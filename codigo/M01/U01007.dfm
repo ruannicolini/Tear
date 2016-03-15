@@ -12,8 +12,6 @@ inherited F01007: TF01007
     ExplicitWidth = 843
     ExplicitHeight = 490
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 835
       ExplicitHeight = 462
       inherited grDados: TGroupBox
@@ -23,7 +21,7 @@ inherited F01007: TF01007
         ExplicitHeight = 462
         object Label1: TLabel
           Left = 23
-          Top = 29
+          Top = 36
           Width = 22
           Height = 13
           Caption = 'COD'
@@ -38,10 +36,12 @@ inherited F01007: TF01007
           FocusControl = DBEdit2
         end
         object Label3: TLabel
-          Left = 157
-          Top = 29
+          Left = 551
+          Top = 81
           Width = 27
           Height = 13
+          Align = alCustom
+          Anchors = [akTop, akRight]
           Caption = 'DATA'
         end
         object Label4: TLabel
@@ -54,8 +54,8 @@ inherited F01007: TF01007
         end
         object DBEdit1: TDBEdit
           Left = 23
-          Top = 45
-          Width = 119
+          Top = 52
+          Width = 84
           Height = 21
           TabStop = False
           DataField = 'idProduto'
@@ -66,7 +66,7 @@ inherited F01007: TF01007
         object DBEdit2: TDBEdit
           Left = 305
           Top = 97
-          Width = 506
+          Width = 225
           Height = 21
           Align = alCustom
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -88,11 +88,13 @@ inherited F01007: TF01007
           TabOrder = 4
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
-          Left = 157
-          Top = 45
+          Left = 551
+          Top = 97
           Width = 120
           Height = 21
           Hint = 'Duplo Clique para Buscar a data de hoje!'
+          Align = alCustom
+          Anchors = [akTop, akRight]
           DataField = 'data'
           DataSource = DS
           ParentShowHint = False
@@ -131,7 +133,7 @@ inherited F01007: TF01007
         end
         object GroupBoxOperacoes: TGroupBox
           Left = 305
-          Top = 134
+          Top = 129
           Width = 225
           Height = 264
           Align = alCustom
@@ -229,10 +231,12 @@ inherited F01007: TF01007
             ParentDoubleBuffered = False
             TabOrder = 1
             object BitBtn1: TBitBtn
-              Left = 163
+              Left = 120
               Top = 15
               Width = 27
               Height = 23
+              Align = alCustom
+              Anchors = [akRight]
               Caption = '+'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -244,16 +248,18 @@ inherited F01007: TF01007
               OnClick = BitBtn1Click
             end
             object BtnExcluirOperacao: TBitBtn
-              Left = 189
+              Left = 146
               Top = 15
               Width = 27
               Height = 23
+              Align = alCustom
+              Anchors = [akRight]
               Caption = '-'
               TabOrder = 2
               OnClick = BtnExcluirOperacaoClick
             end
             object EditBeleza1: TEditBeleza
-              Left = 27
+              Left = 15
               Top = 16
               Width = 105
               Height = 21
@@ -285,11 +291,21 @@ inherited F01007: TF01007
               NovoLayout = False
               OnButtonClick = EditBeleza1ButtonClick
             end
+            object BitBtn4: TBitBtn
+              Left = 172
+              Top = 15
+              Width = 27
+              Height = 23
+              Align = alCustom
+              Anchors = [akRight]
+              Caption = '/'
+              TabOrder = 3
+            end
           end
         end
         object GroupBoxDependencias: TGroupBox
-          Left = 553
-          Top = 135
+          Left = 551
+          Top = 130
           Width = 259
           Height = 264
           Align = alCustom
@@ -454,7 +470,7 @@ inherited F01007: TF01007
         end
         object GroupBoxFases: TGroupBox
           Left = 23
-          Top = 136
+          Top = 131
           Width = 259
           Height = 262
           Align = alCustom
@@ -472,7 +488,7 @@ inherited F01007: TF01007
             Align = alTop
             TabOrder = 0
             object EditBeleza4: TEditBeleza
-              Left = 17
+              Left = 30
               Top = 17
               Width = 131
               Height = 21
@@ -499,7 +515,7 @@ inherited F01007: TF01007
               NovoLayout = False
             end
             object BitBtn2: TBitBtn
-              Left = 149
+              Left = 162
               Top = 16
               Width = 27
               Height = 23
@@ -508,7 +524,7 @@ inherited F01007: TF01007
               OnClick = BitBtn2Click
             end
             object BitBtn3: TBitBtn
-              Left = 174
+              Left = 187
               Top = 16
               Width = 27
               Height = 23
@@ -593,7 +609,7 @@ inherited F01007: TF01007
         end
         object Edit5: TEdit
           Left = 761
-          Top = 89
+          Top = 57
           Width = 69
           Height = 21
           TabOrder = 10
@@ -603,8 +619,6 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 835
       ExplicitHeight = 462
       inherited GBFiltros: TGroupBox
@@ -815,7 +829,7 @@ inherited F01007: TF01007
     Left = 584
     Top = 72
     Bitmap = {
-      494C01010D002C009C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00A00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1529,7 +1543,7 @@ inherited F01007: TF01007
     Left = 548
     Top = 73
     Bitmap = {
-      494C010103000800080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101030008000C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
@@ -1768,8 +1782,8 @@ inherited F01007: TF01007
         'select phf.*, f.descricao from produto_has_fase phf '#10'left outer ' +
         'join fase f on phf.idfase = f.idfase '#10'where phf.idProduto =:id '#10 +
         'order by (phf.sequencia)')
-    Left = 676
-    Top = 139
+    Left = 580
+    Top = 11
     ParamData = <
       item
         Name = 'ID'
@@ -1809,8 +1823,8 @@ inherited F01007: TF01007
     AfterPost = ClientDataSet4AfterPost
     AfterCancel = ClientDataSet4AfterCancel
     AfterDelete = ClientDataSet4AfterDelete
-    Left = 716
-    Top = 139
+    Left = 620
+    Top = 11
     object ClientDataSet4idProduto: TIntegerField
       FieldName = 'idProduto'
       Required = True
@@ -1829,13 +1843,13 @@ inherited F01007: TF01007
   end
   object DataSetProvider4: TDataSetProvider
     DataSet = FDQuery4
-    Left = 692
-    Top = 139
+    Left = 596
+    Top = 11
   end
   object DataSource4: TDataSource
     DataSet = ClientDataSet4
     OnDataChange = DataSource4DataChange
-    Left = 748
-    Top = 139
+    Left = 652
+    Top = 11
   end
 end
