@@ -23,13 +23,9 @@ object F01014: TF01014
     Color = 16382457
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 240
-    ExplicitTop = 56
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object Button1: TButton
-      Left = 13
-      Top = 42
+      Left = 21
+      Top = 56
       Width = 70
       Height = 70
       Align = alCustom
@@ -113,20 +109,10 @@ object F01014: TF01014
       Left = 112
       Top = 56
       Width = 313
-      Height = 97
+      Height = 121
       Align = alCustom
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
-    end
-    object Button2: TButton
-      Left = 350
-      Top = 159
-      Width = 75
-      Height = 25
-      Align = alCustom
-      Anchors = [akRight, akBottom]
-      Caption = 'SALVAR'
-      TabOrder = 3
     end
   end
 end

@@ -158,6 +158,7 @@ type
     procedure EditBeleza1ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
     procedure DataSource4DataChange(Sender: TObject; Field: TField);
+    procedure BitBtn4Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -174,7 +175,7 @@ implementation
 {$R *.dfm}
 
 uses
-uDataModule, U01013;
+uDataModule, U01013, U01015;
 
 procedure TF01007.Action5Execute(Sender: TObject);
 begin
@@ -340,6 +341,16 @@ begin
        ShowMessage('Este produto possui operações dentro desta fase.' +#13+'(' +
        DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('oper').AsString + ')');
 
+end;
+
+procedure TF01007.BitBtn4Click(Sender: TObject);
+begin
+  inherited;
+  With TF01015.Create(self) do
+  Begin
+    ShowModal;
+    Free;
+  End;
 end;
 
 procedure TF01007.BPesquisarClick(Sender: TObject);

@@ -172,6 +172,10 @@
             <Form>F01014</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="M01\U01015.pas">
+            <Form>F01015</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

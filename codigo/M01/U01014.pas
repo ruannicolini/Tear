@@ -14,7 +14,6 @@ type
     Panel2: TPanel;
     btnFechar: TSpeedButton;
     Memo1: TMemo;
-    Button2: TButton;
     procedure btnFecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -42,6 +41,7 @@ end;
 procedure TF01014.Button1Click(Sender: TObject);
 var
 i:integer;
+arq : TextFile;
 pasta : string;
 arqCompleto : TJsonObject;
 arrayCronometrista, arrayOperador, arrayOperacao, arrayTecido, arrayTipoRecurso :TJsonarray;
@@ -184,14 +184,22 @@ begin
   finally
     memo1.Clear;
     memo1.Lines.Add(arqCompleto.ToString);
+    SelectDirectory('SALVA EM: ','',pasta);
+    Assignfile(arq,pasta+'\igor.json');
+    showmessage(pasta+'\igor.json');
+    Rewrite(arq);
+    Write( arq,arqCompleto.ToString);
+    CloseFile(arq);
+    //showmessage(arqCompleto.ToString);
     arqCompleto.FreeInstance;
 
-    SelectDirectory('SALVA EM: ','',pasta);
+    {SelectDirectory('SALVA EM: ','',pasta);
     if (Trim(Pasta) <> '') then
     begin
       if (Pasta[Length(Pasta)] <> '\') then
         Pasta := Pasta + '\';
     end;
+    }
 
   end;
   ShowMessage('ok');
