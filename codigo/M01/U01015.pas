@@ -34,10 +34,10 @@ uses UPrincipal,IOUtils,DBXJSONReflect, DBXJSON, Generics.Collections;
 procedure TF01015.FileListBox1DblClick(Sender: TObject);
 var
 o : TextFile;
-arqCompleto : TJsonObject;
+arqCompleto, jSubObj: TJSONObject;
 jp: TJSONPair;  //
 jArray : TJSONArray;
-i,j: integer;
+i,j, r: integer;
 
 begin
   //Lendo arquivo json
@@ -54,11 +54,20 @@ begin
     jArray := (jp.JsonValue as TJSONArray); // do par zero pega o valor, que é array
     ShowMessage('quantidade de elementos ' +   IntToStr(jArray.Size));
 
+    jSubObj:= TJSONObject.Create;
     for j := 0 to jArray.Size -1 do //itera o array para pegar cada elemento
     begin
-      ShowMessage(jArray.Get(j).ToString);
-      jArray.Get(j).
+      jSubObj := (jArray.Get(j) as TJSONObject);
 
+      ShowMessage(
+      jSubObj.Get(0).JsonString.Value + ': ' + jSubObj.Get(0).JsonValue.Value + #13 +
+      jSubObj.Get(1).JsonString.Value + ': ' + jSubObj.Get(1).JsonValue.Value + #13 +
+      jSubObj.Get(2).JsonString.Value + ': ' + jSubObj.Get(2).JsonValue.Value + #13 +
+      jSubObj.Get(3).JsonString.Value + ': ' + jSubObj.Get(3).JsonValue.Value + #13 +
+      jSubObj.Get(4).JsonString.Value + ': ' + jSubObj.Get(4).JsonValue.Value + #13 +
+      jSubObj.Get(5).JsonString.Value + ': ' + jSubObj.Get(5).JsonValue.Value + #13 +
+      jSubObj.Get(6).JsonString.Value + ': ' + jSubObj.Get(6).JsonValue.Value + #13
+      );
 
     end;
 
