@@ -24,27 +24,18 @@ object F01015: TF01015
     Caption = 'Panel1'
     TabOrder = 0
     ExplicitWidth = 365
-    object Label1: TLabel
-      Left = 8
-      Top = 157
-      Width = 109
-      Height = 13
-      Caption = 'C:\Windows\System32'
-      Visible = False
-    end
     object memLista: TMemo
-      Left = 562
+      Left = 359
       Top = 16
-      Width = 59
+      Width = 262
       Height = 153
       TabOrder = 0
     end
     object DirectoryListBox1: TDirectoryListBox
       Left = 8
-      Top = 176
+      Top = 150
       Width = 145
       Height = 17
-      DirLabel = Label1
       FileList = FileListBox1
       TabOrder = 1
       Visible = False
@@ -55,19 +46,10 @@ object F01015: TF01015
       Width = 145
       Height = 135
       Color = 15854564
-      FileEdit = Edit1
       ItemHeight = 13
       Mask = '*.json'
       TabOrder = 2
       OnDblClick = FileListBox1DblClick
-    end
-    object Edit1: TEdit
-      Left = 159
-      Top = 16
-      Width = 121
-      Height = 21
-      TabOrder = 3
-      Text = '*.json'
     end
     object ListView1: TListView
       Left = 286
@@ -87,21 +69,7 @@ object F01015: TF01015
         item
           Caption = 'DATA'
         end>
-      TabOrder = 4
-    end
-    object ListBox1: TListBox
-      Left = 376
-      Top = 16
-      Width = 121
-      Height = 97
-      Columns = 4
-      ItemHeight = 13
-      Items.Strings = (
-        'TYUIOP'
-        'DFGHJK'
-        'FGHJKL'
-        'GHJKL')
-      TabOrder = 5
+      TabOrder = 3
     end
   end
 end

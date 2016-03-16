@@ -41,12 +41,13 @@ end;
 procedure TF01014.Button1Click(Sender: TObject);
 var
 i:integer;
+arq : TextFile;
 pasta : string;
 arqCompleto : TJsonObject;
 arrayCronometrista, arrayOperador, arrayOperacao, arrayTecido, arrayTipoRecurso :TJsonarray;
 begin
   // cria OBJEto JSON PRincipal
-  arqCompleto := TJSONObject.ParseJSONValue(s) as TJSONObject;
+  arqCompleto := TJSONObject.Create;
 
   try
     //CRONOMETRISTA

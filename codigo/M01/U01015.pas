@@ -13,10 +13,7 @@ type
     memLista: TMemo;
     DirectoryListBox1: TDirectoryListBox;
     FileListBox1: TFileListBox;
-    Label1: TLabel;
-    Edit1: TEdit;
     ListView1: TListView;
-    ListBox1: TListBox;
     procedure FormShow(Sender: TObject);
     procedure FileListBox1DblClick(Sender: TObject);
   private
@@ -38,12 +35,39 @@ procedure TF01015.FileListBox1DblClick(Sender: TObject);
 var
 o : TextFile;
 arqCompleto : TJsonObject;
+jp: TJSONPair;  //
+jArray : TJSONArray;
+i,j: integer;
+
 begin
   //Lendo arquivo json
   arqCompleto := TJSONObject.ParseJSONValue(TEncoding.ASCII.GetBytes(TFile.ReadAllText(FileListBox1.FileName)), 0) as TJSONObject;
 
-  //path
-  showmessage(FileListBox1.FileName);
+  //percorre o arquivo
+  for i := 0 to arqCompleto.Size - 1 do
+  begin
+    //obtém tag i
+    jp := arqCompleto.Get(i);
+
+    //Pega a lista "DADOS"
+    jArray := TJSONArray.Create;
+    jArray := (jp.JsonValue as TJSONArray); // do par zero pega o valor, que é array
+    ShowMessage('quantidade de elementos ' +   IntToStr(jArray.Size));
+
+    for j := 0 to jArray.Size -1 do //itera o array para pegar cada elemento
+    begin
+      ShowMessage(jArray.Get(j).ToString);
+      jArray.Get(j).
+
+
+    end;
+
+  end;
+
+  //
+  //showmessage(inttostr(arqCompleto.Count));
+
+  //Teste
   memLista.Clear;
   memLista.Lines.Add(arqCompleto.ToString);
 end;
