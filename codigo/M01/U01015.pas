@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls,
-  Vcl.FileCtrl;
+  Vcl.FileCtrl, system.JSON;
 
 type
   TF01015 = class(TForm)
@@ -15,6 +15,8 @@ type
     FileListBox1: TFileListBox;
     Label1: TLabel;
     Edit1: TEdit;
+    ListView1: TListView;
+    ListBox1: TListBox;
     procedure FormShow(Sender: TObject);
     procedure FileListBox1DblClick(Sender: TObject);
   private
@@ -30,16 +32,20 @@ implementation
 
 {$R *.dfm}
 
-uses UPrincipal;
-
-
-{ TF01015 }
+uses UPrincipal,IOUtils,DBXJSONReflect, DBXJSON, Generics.Collections;
 
 procedure TF01015.FileListBox1DblClick(Sender: TObject);
+var
+o : TextFile;
+arqCompleto : TJsonObject;
 begin
-  //
-  //memLista.Lines := FileListBox1;
+  //Lendo arquivo json
+  arqCompleto := TJSONObject.ParseJSONValue(TEncoding.ASCII.GetBytes(TFile.ReadAllText(FileListBox1.FileName)), 0) as TJSONObject;
+
+  //path
   showmessage(FileListBox1.FileName);
+  memLista.Clear;
+  memLista.Lines.Add(arqCompleto.ToString);
 end;
 
 procedure TF01015.FormShow(Sender: TObject);

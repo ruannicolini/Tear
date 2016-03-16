@@ -33,7 +33,7 @@ object F01015: TF01015
       Visible = False
     end
     object memLista: TMemo
-      Left = 298
+      Left = 562
       Top = 16
       Width = 59
       Height = 153
@@ -68,6 +68,40 @@ object F01015: TF01015
       Height = 21
       TabOrder = 3
       Text = '*.json'
+    end
+    object ListView1: TListView
+      Left = 286
+      Top = 16
+      Width = 67
+      Height = 150
+      Columns = <
+        item
+          Caption = 'OPERA'#199#195'O'
+        end
+        item
+          Caption = 'OPERADOR'
+        end
+        item
+          Caption = 'CRONOMETRISTA'
+        end
+        item
+          Caption = 'DATA'
+        end>
+      TabOrder = 4
+    end
+    object ListBox1: TListBox
+      Left = 376
+      Top = 16
+      Width = 121
+      Height = 97
+      Columns = 4
+      ItemHeight = 13
+      Items.Strings = (
+        'TYUIOP'
+        'DFGHJK'
+        'FGHJKL'
+        'GHJKL')
+      TabOrder = 5
     end
   end
 end
