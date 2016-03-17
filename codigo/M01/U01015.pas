@@ -36,28 +36,29 @@ var
 o : TextFile;
 arqCompleto, jSubObj: TJSONObject;
 jp: TJSONPair;  //
-jArray : TJSONArray;
-i,j, r: integer;
-
+jArrayCronometragem, jarrayTempo : TJSONArray;
+i,j,r: integer;
 begin
+  //Limpa Memo
+  memLista.Clear;
+
   //Lendo arquivo json
   arqCompleto := TJSONObject.ParseJSONValue(TEncoding.ASCII.GetBytes(TFile.ReadAllText(FileListBox1.FileName)), 0) as TJSONObject;
 
   //percorre o arquivo
   for i := 0 to arqCompleto.Size - 1 do
   begin
-    //obtém tag i
+    //obtém tag i (Exemplo: tag "Dados" do arquivo)
     jp := arqCompleto.Get(i);
 
-    //Pega a lista "DADOS"
-    jArray := TJSONArray.Create;
-    jArray := (jp.JsonValue as TJSONArray); // do par zero pega o valor, que é array
-    ShowMessage('quantidade de elementos ' +   IntToStr(jArray.Size));
-
+    //Pega lista de cronometragens
+    jArrayCronometragem := TJSONArray.Create;
+    jArrayCronometragem := (jp.JsonValue as TJSONArray);
     jSubObj:= TJSONObject.Create;
-    for j := 0 to jArray.Size -1 do //itera o array para pegar cada elemento
+    //Percorre cada cronometragem
+    for j := 0 to jArrayCronometragem.Size -1 do
     begin
-      jSubObj := (jArray.Get(j) as TJSONObject);
+      jSubObj := (jArrayCronometragem.Get(j) as TJSONObject);
 
       ShowMessage(
       jSubObj.Get(0).JsonString.Value + ': ' + jSubObj.Get(0).JsonValue.Value + #13 +
@@ -68,6 +69,16 @@ begin
       jSubObj.Get(5).JsonString.Value + ': ' + jSubObj.Get(5).JsonValue.Value + #13 +
       jSubObj.Get(6).JsonString.Value + ': ' + jSubObj.Get(6).JsonValue.Value + #13
       );
+
+      //Pega a lista "TEMPO"
+      jArrayTempo := TJSONArray.Create;
+      jArrayTempo := (jSubObj.Get(5).JsonValue as TJSONArray);
+      ShowMessage('quantidade de elementos tempo: ' +   IntToStr(jArrayTempo.Size));
+      //percorre cada elemento
+      for r := 0 to jArrayTempo.Size -1 do
+      begin
+        ShowMessage(jArrayTempo.Get(r).Value);
+      end;
 
     end;
 
