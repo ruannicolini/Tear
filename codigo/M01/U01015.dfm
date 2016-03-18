@@ -2,8 +2,8 @@ object F01015: TF01015
   Left = 0
   Top = 0
   Caption = 'F01015'
-  ClientHeight = 238
-  ClientWidth = 749
+  ClientHeight = 204
+  ClientWidth = 705
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,8 @@ object F01015: TF01015
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 749
-    Height = 238
+    Width = 705
+    Height = 204
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 0
@@ -27,7 +27,7 @@ object F01015: TF01015
     ExplicitHeight = 201
     object DirectoryListBox1: TDirectoryListBox
       Left = 8
-      Top = 150
+      Top = 173
       Width = 145
       Height = 17
       FileList = FileListBox1
@@ -38,7 +38,7 @@ object F01015: TF01015
       Left = 8
       Top = 16
       Width = 145
-      Height = 135
+      Height = 151
       Color = 15854564
       ItemHeight = 13
       Mask = '*.json'
@@ -49,7 +49,7 @@ object F01015: TF01015
       Left = 159
       Top = 16
       Width = 537
-      Height = 128
+      Height = 151
       Columns = <
         item
           Caption = 'idOPERA'#199#195'O'
@@ -72,6 +72,14 @@ object F01015: TF01015
       SortType = stText
       TabOrder = 2
       ViewStyle = vsReport
+    end
+    object BitBtn1: TBitBtn
+      Left = 621
+      Top = 168
+      Width = 75
+      Height = 25
+      Caption = 'ADD'
+      TabOrder = 3
     end
   end
 end
