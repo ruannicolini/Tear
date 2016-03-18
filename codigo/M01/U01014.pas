@@ -185,8 +185,8 @@ begin
     memo1.Clear;
     memo1.Lines.Add(arqCompleto.ToString);
     SelectDirectory('SALVA EM: ','',pasta);
-    Assignfile(arq,pasta+'\igor.json');
-    showmessage(pasta+'\igor.json');
+    Assignfile(arq,pasta+'\dados.json');
+    //showmessage(pasta+'\dados.json');
     Rewrite(arq);
     Write( arq,arqCompleto.ToString);
     CloseFile(arq);
