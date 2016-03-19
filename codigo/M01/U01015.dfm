@@ -23,8 +23,6 @@ object F01015: TF01015
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitWidth = 634
-    ExplicitHeight = 201
     object DirectoryListBox1: TDirectoryListBox
       Left = 8
       Top = 173
@@ -75,11 +73,12 @@ object F01015: TF01015
     end
     object BitBtn1: TBitBtn
       Left = 621
-      Top = 168
+      Top = 173
       Width = 75
       Height = 25
       Caption = 'ADD'
       TabOrder = 3
+      OnClick = BitBtn1Click
     end
   end
 end

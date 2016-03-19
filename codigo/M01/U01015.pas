@@ -20,11 +20,14 @@ type
     BitBtn1: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure FileListBox1DblClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
     matriz: array of array of integer;
+    ParIdProduto : integer;
   public
     { Public declarations }
+    constructor Create(AOwner: TComponent; pPROD: integer);
 
   end;
 
@@ -36,6 +39,49 @@ implementation
 {$R *.dfm}
 
 uses UPrincipal, udATAMODULE, IOUtils,DBXJSONReflect, DBXJSON, Generics.Collections;
+
+procedure TF01015.BitBtn1Click(Sender: TObject);
+var
+idOperacao, idOperador, idCronometrista, idTecido, idRecurso : integer;
+dataCronometragem : TDate;
+  I: Integer;
+begin
+//
+  if ListView1.Selected <> nil then
+  BEGIN
+    //Obtenção dos valores na listview
+     idOperacao := strtoint(ListView1.Items[ListView1.Selected.Index].Caption);
+     idOperador := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[0]);
+     idCronometrista := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[1]);
+     idTecido := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[2]);
+     idRecurso := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[3]);
+     dataCronometragem := StrToDate(ListView1.Items[ListView1.Selected.Index].SubItems[4]);
+
+     ShowMessage('Operação:' + inttostr(idOperacao) +#13+
+                'Operador:' + inttostr(idOperador) +#13+
+                'Cronometrista:' + inttostr(idCronometrista) +#13+
+                'Tecido:' + inttostr(idTecido) +#13+
+                'Recurso:' + inttostr(idRecurso) +#13+
+                'Data:' + DateToStr(dataCronometragem)
+     );
+
+    //Obtenção dos tempos na matriz
+     for I := 0 to (Length(matriz[ListView1.Selected.Index]) -1) do
+     begin
+      ShowMessage(inttostr(matriz[ListView1.Selected.Index][I]));
+
+     end;
+
+  END else
+    ShowMessage('Selecione uma cronometragem.');
+end;
+
+constructor TF01015.Create(AOwner: TComponent; pPROD: integer);
+begin
+  //
+  inherited Create(AOwner);
+  ParIdProduto := pPROD;
+end;
 
 procedure TF01015.FileListBox1DblClick(Sender: TObject);
 var

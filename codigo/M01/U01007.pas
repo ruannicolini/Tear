@@ -346,7 +346,7 @@ end;
 procedure TF01007.BitBtn4Click(Sender: TObject);
 begin
   inherited;
-  With TF01015.Create(self) do
+  With TF01015.Create(self, ClientDataSet1idProduto.AsInteger) do
   Begin
     ShowModal;
     Free;
