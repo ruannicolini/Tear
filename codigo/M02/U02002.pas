@@ -92,7 +92,7 @@ type
     { Public declarations }
     constructor CreateMov(AOwner : TComponent; pParm1 : integer);
     constructor CreateOrdemFase(AOwner : TComponent; pParm1 : integer);
-    procedure calculoMovimentcao();
+    procedure calculoMovimentcao(idOrd: integer);
   end;
 
 var
@@ -315,7 +315,7 @@ begin
 
 end;
 
-procedure TF02002.calculoMovimentcao;
+procedure TF02002.calculoMovimentcao(idOrd: integer);
 var
 contRegistros : integer;
 qtdOriginal, qtdPrevisto, qtdProduzindo, qtdFinalizado : Integer;
@@ -334,7 +334,7 @@ begin
   //Busca fases da ordem;
   DModule.qAux.Close;
   DModule.qAux.SQL.Text :='SELECT OHF.*,ohf.idOrdem_has_fase as idO_H_S, OP.qtdOriginal AS qORI FROM ordem_has_fase OHF LEFT OUTER JOIN ordem_producao OP ON OHF.idOrdem = OP.idORDEM where OHF.idORDEM =:IDO Order by (sequencia)';
-  DModule.qAux.ParamByName('idO').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+  DModule.qAux.ParamByName('idO').AsInteger:= idOrd;
   DModule.qAux.Open;
   DModule.qAux.first;
 
@@ -436,7 +436,7 @@ procedure TF02002.ClientDataSet1AfterApplyUpdates(Sender: TObject;
   var OwnerData: OleVariant);
 begin
   inherited;
-  calculoMovimentcao;
+  calculoMovimentcao(ClientDataSet1idOrdem.AsInteger);
 end;
 
 procedure TF02002.ClientDataSet1AfterInsert(DataSet: TDataSet);

@@ -42,11 +42,13 @@ uses UPrincipal, udATAMODULE, IOUtils,DBXJSONReflect, DBXJSON, Generics.Collecti
 
 procedure TF01015.BitBtn1Click(Sender: TObject);
 var
-idOperacao, idOperador, idCronometrista, idTecido, idRecurso : integer;
+idOperacao, idOperador, idCronometrista, idTecido, idRecurso, I, prioridade: Integer;
 dataCronometragem : TDate;
-  I: Integer;
+QAux2 : TFDQuery;
 begin
 //
+  QAux2.Connection := DModule.FDConnection;
+
   if ListView1.Selected <> nil then
   BEGIN
     //Obtenção dos valores na listview
@@ -73,6 +75,39 @@ begin
                 'Recurso:' + inttostr(idRecurso) +#13+
                 'Data:' + DateToStr(dataCronometragem)
         );
+
+        //Prioridade
+       qAux2.Close;
+       qAux2.SQL.Text := 'select count(*) as conta from cronometragem where idProduto =:idProd';
+       qAux2.ParamByName('idProd').AsInteger:=  ParIdProduto;
+       DModule.qAux.Open;
+       prioridade := qAux2.FieldByName('minutos').AsInteger + 1;
+       qAux2.Close;
+
+       DModule.qAux.Close;
+       DModule.qAux.SQL.Text := 'INSERT INTO CRONOMETRAGEM(idCronometragem, tempo_original, tempo_ideal,ritmo, num_pecas,tolerancia,comprimento_prod,num_ocorrencia,idProduto,idCronometrista, idTecido, idOperacao,idOperador,prioridade, dataCronometragem)' +
+          'VALUES(:idCronometragem, :tempo_original, :tempo_ideal,:ritmo,:num_pecas,:tolerancia,:comprimento_prod,:num_ocorrencia,:idProduto, ' +
+          ':idCronometrista, :idTecido, :idOperacao,:idOperador,:prioridade, :dataCronometragem)';
+
+       DModule.qAux.ParamByName('idCronometragem').AsInteger:= DModule.buscaProximoParametro('seqCronometragem');
+       DModule.qAux.ParamByName('tempo_original').AsBoolean:= false;
+       DModule.qAux.ParamByName('tempo_ideal').AsBoolean:= false;
+       DModule.qAux.ParamByName('idProduto').AsInteger:= ParIdProduto;
+       DModule.qAux.ParamByName('idCronometrista').AsInteger:= idCronometrista;
+       DModule.qAux.ParamByName('idTecido').AsInteger:= idTecido;
+       DModule.qAux.ParamByName('idOperacao').AsInteger:= idOperacao;
+       DModule.qAux.ParamByName('idOperador').AsInteger:= idOperador;
+       DModule.qAux.ParamByName('dataCronometragem').AsDate:= dataCronometragem;
+       DModule.qAux.ParamByName(':prioridade').AsInteger:= prioridade;
+
+       //Rever esses dados vindos do APP
+       DModule.qAux.ParamByName(':ritmo').AsInteger:= 80;
+       DModule.qAux.ParamByName(':num_pecas').AsInteger:= 1;
+       DModule.qAux.ParamByName(':tolerancia').AsInteger:= 15;
+       DModule.qAux.ParamByName(':comprimento_prod').AsInteger:= 35;
+       DModule.qAux.ParamByName(':num_ocorrencia').AsInteger:= 1;
+
+       DModule.qAux.ExecSQL;
 
         //Obtenção dos tempos na matriz
         for I := 0 to (Length(matriz[ListView1.Selected.Index]) -1) do

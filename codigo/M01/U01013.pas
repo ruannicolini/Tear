@@ -730,7 +730,7 @@ begin
       end;
 end;
 
-procedure TF01013.CalculaTempoPadraoFinal;
+procedure TF01013.CalculaTempoPadraoFinal(idCronometragem : integer);
 var
 i, hor, min, seg, mil, soma : integer;
 tempoMedio, tempoPadrao, tempoPadraoFinal: double;
