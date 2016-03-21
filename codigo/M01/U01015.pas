@@ -57,20 +57,32 @@ begin
      idRecurso := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[3]);
      dataCronometragem := StrToDate(ListView1.Items[ListView1.Selected.Index].SubItems[4]);
 
-     ShowMessage('Operação:' + inttostr(idOperacao) +#13+
+     //Verifica se já tem cronometragem dessa operação
+     DModule.qAux.Close;
+     DModule.qAux.SQL.Text := 'select * from cronometragem where idProduto =:idProd and idOperacao =:idOp';
+     DModule.qAux.ParamByName('idProd').AsInteger:= (ParIdProduto);
+     DModule.qAux.ParamByName('idOp').AsInteger:= (idOperacao);
+     DModule.qAux.Open;
+     DModule.qAux.first;
+     if(DModule.qAux.IsEmpty)then
+     begin
+        ShowMessage('Operação:' + inttostr(idOperacao) +#13+
                 'Operador:' + inttostr(idOperador) +#13+
                 'Cronometrista:' + inttostr(idCronometrista) +#13+
                 'Tecido:' + inttostr(idTecido) +#13+
                 'Recurso:' + inttostr(idRecurso) +#13+
                 'Data:' + DateToStr(dataCronometragem)
-     );
+        );
 
-    //Obtenção dos tempos na matriz
-     for I := 0 to (Length(matriz[ListView1.Selected.Index]) -1) do
-     begin
-      ShowMessage(inttostr(matriz[ListView1.Selected.Index][I]));
+        //Obtenção dos tempos na matriz
+        for I := 0 to (Length(matriz[ListView1.Selected.Index]) -1) do
+        begin
+          ShowMessage(inttostr(matriz[ListView1.Selected.Index][I]));
+        end;
 
-     end;
+
+     end else
+      ShowMessage('Cronometragem já existente.');
 
   END else
     ShowMessage('Selecione uma cronometragem.');

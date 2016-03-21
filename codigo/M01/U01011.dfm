@@ -96,13 +96,11 @@ inherited F01011: TF01011
       end
       inherited PanelFiltros: TPanel
         Width = 804
-        ExplicitLeft = 3
-        ExplicitTop = 3
         ExplicitWidth = 804
         object Label3: TLabel [0]
           Left = 15
           Top = 16
-          Width = 198
+          Width = 25
           Height = 13
           Caption = 'FASE'
         end
@@ -157,7 +155,7 @@ inherited F01011: TF01011
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -2,7 +2,7 @@
 	"Dados": [{
 		"cronometrista": 101,
 		"operador": 34,
-		"operacao": 1010,
+		"operacao": 5,
 		"tecido": 2,
 		"recurso": 3,
 		"tempo": [925, 1386, 1633, 1921],
