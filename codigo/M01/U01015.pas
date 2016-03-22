@@ -136,10 +136,18 @@ begin
                 INTTOSTR(idNovaCronometragem)+')';                             //IDCRONOMETRAGEM
                 DModule.qAux.ExecSQL;
              end;
-             ShowMessage('CRONOMETRAGEM ADICIONADA COM SUCESSO!');
+
+             //inseri Tipo de Recurso Utilizado
+             DModule.qAux.Close;
+             DModule.qAux.SQL.Text := 'insert into cronometragem_has_tipo_recurso(idCronometragem, idTipoRecurso)values('+
+             INTTOSTR(idNovaCronometragem) +','+     //IDCRONOMETRAGEM
+             INTTOSTR(idRecurso) +')';                     //IDTIPORECURSO
+             DModule.qAux.ExecSQL;
 
              //Calcula Tempo Padrao Final
              DModule.CalculaTempoPadraoFinal(idNovaCronometragem,num_pecas,ritmo,tolerancia);
+
+             ShowMessage('CRONOMETRAGEM ADICIONADA COM SUCESSO!');
 
          end else
           ShowMessage('Cronometragem já existente.');
