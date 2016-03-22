@@ -23,6 +23,7 @@ type
     { Private declarations }
   public
     function buscaProximoParametro(p: string): integer;
+    procedure CalculaTempoPadraoFinal(idCronometragem :integer; num_pecas:integer; ritmo: integer; tolerancia:integer);
   end;
 
 var
@@ -58,6 +59,54 @@ begin
   else
 
   ShowMessage('Parametro Inválido.');
+
+end;
+
+procedure TDModule.CalculaTempoPadraoFinal(idCronometragem, num_pecas, ritmo,
+  tolerancia: integer);
+var
+i, hor, min, seg, mil, soma : integer;
+tempoMedio, tempoPadrao, tempoPadraoFinal: double;
+fTPF: Ttime;
+begin
+  //Obtenção dos dados
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
+    DModule.qAux.ParamByName('idCro').AsInteger:= idCronometragem;
+    DModule.qAux.Open;
+    DModule.qAux.first;
+
+    //Contagem dos valores
+    i := 0; min := 0; seg := 0; mil := 0; soma := 0;
+
+    while not DModule.qAux.eof do
+    begin
+      min := min + DModule.qAux.FieldByName('minutos').AsInteger;
+      seg := seg + StrToInt(DModule.qAux.FieldByName('segundos').AsString);
+      mil := mil + StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+      i := i +1;
+      DModule.qAux.next;
+    end;
+    soma := (min* 60000) + seg * 1000 + mil;
+
+    if((i > 0) and ( num_pecas > 0))then
+    begin
+      //TempoMedio = (SomatórioTempo/NumeroBatidas)/NumerodePeças
+        tempoMedio := (soma/i)/num_pecas;
+
+      //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
+        tempoPadrao := tempoMedio * (ritmo/100);
+
+      //TempoPadraoFinal = TempoPadrao * (Tolerancia/100)
+        tempoPadraoFinal := tempoPadrao * (1+(tolerancia/100));
+
+        //sql alteração
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Text := 'UPDATE cronometragem SET tempoPadraoFinal =:tpf where idCronometragem =:idCro';
+        DModule.qAux.ParamByName('idCro').AsInteger:= idCronometragem;
+        DModule.qAux.ParamByName('tpf').AsFloat:= tempoPadraoFinal;
+        DModule.qAux.ExecSQL;
+    end;
 
 end;
 

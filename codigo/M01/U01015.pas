@@ -43,6 +43,7 @@ uses UPrincipal, udATAMODULE, IOUtils,DBXJSONReflect, DBXJSON, Generics.Collecti
 procedure TF01015.BitBtn1Click(Sender: TObject);
 var
 idOperacao, idOperador, idCronometrista, idTecido, idRecurso, I, idNovaCronometragem: Integer;
+ritmo, num_pecas, tolerancia, COMPRIMENTO_PECA, num_Ocorrencia :integer;
 dataCronometragem : TDate;
 QAux2 : TFDQuery;
 Hora, Min, Seg, MSeg: Word;
@@ -61,6 +62,12 @@ begin
      idRecurso := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[3]);
      dataCronometragem := StrToDate(ListView1.Items[ListView1.Selected.Index].SubItems[4]);
 
+     //Valores
+     ritmo := 80;
+     num_pecas := 1;
+     tolerancia := 15;
+     COMPRIMENTO_PECA := 35;
+     num_Ocorrencia := 1;
 
      //Verifica se Fase da cronometragem esta habilitada para o produto
      DModule.qAux.Close;
@@ -98,11 +105,11 @@ begin
                 inttostr(idNovaCronometragem) +',' +         //IDCRONOMETRIA
                 'false,'+                                    //TEMPO ORIGINAL
                 'false,'+                                    //TEMPO_IDEAL
-                inttostr(80) + ',' +                         //RITMO
-                inttostr(1) + ','+                           //NUM_PEÇAS
-                inttostr(15)+','+                            //TOLERANCIA
-                inttostr(35)+','+                            //COMPRIMENTO_PEÇA
-                inttostr(1) +','+                            //NUM_OCORRENCIA
+                inttostr(ritmo) + ',' +                      //RITMO
+                inttostr(num_pecas) + ','+                   //NUM_PEÇAS
+                inttostr(tolerancia)+','+                    //TOLERANCIA
+                inttostr(COMPRIMENTO_PECA)+','+              //COMPRIMENTO_PEÇA
+                inttostr(num_Ocorrencia) +','+               //NUM_OCORRENCIA
                 inttostr(ParIdProduto) +',' +                //PRODUTO
                 inttostr(idCronometrista) +','+              //CRONOMETRISTA
                 inttostr(idTecido) +','+                     //TECIDO
@@ -130,6 +137,9 @@ begin
                 DModule.qAux.ExecSQL;
              end;
              ShowMessage('CRONOMETRAGEM ADICIONADA COM SUCESSO!');
+
+             //Calcula Tempo Padrao Final
+             DModule.CalculaTempoPadraoFinal(idNovaCronometragem,num_pecas,ritmo,tolerancia);
 
          end else
           ShowMessage('Cronometragem já existente.');

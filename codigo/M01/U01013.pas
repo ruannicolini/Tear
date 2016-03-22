@@ -581,7 +581,7 @@ begin
     DS_Batida.DataSet.Open;
 
     //Recalcula o TPF
-    CalculaTempoPadraoFinal;
+     CalculaTempoPadraoFinal();
 
     end;
 end;
@@ -730,6 +730,7 @@ begin
       end;
 end;
 
+
 procedure TF01013.CalculaTempoPadraoFinal();
 var
 i, hor, min, seg, mil, soma : integer;
@@ -790,7 +791,8 @@ procedure TF01013.CDS_BatidaAfterDelete(DataSet: TDataSet);
 begin
   inherited;
   CDS_Batida.ApplyUpdates(-1);
-  CalculaTempoPadraoFinal;
+
+  CalculaTempoPadraoFinal();
 end;
 
 procedure TF01013.CDS_BatidaAfterInsert(DataSet: TDataSet);
@@ -804,7 +806,7 @@ procedure TF01013.CDS_BatidaAfterPost(DataSet: TDataSet);
 begin
   inherited;
   CDS_Batida.ApplyUpdates(-1);
-  CalculaTempoPadraoFinal;
+  //CalculaTempoPadraoFinal;
 end;
 
 procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
@@ -834,7 +836,8 @@ end;
 procedure TF01013.ClientDataSet1ritmoChange(Sender: TField);
 begin
   inherited;
-  CalculaTempoPadraoFinal;
+
+  CalculaTempoPadraoFinal();
 end;
 
 procedure TF01013.DBEdit10Change(Sender: TObject);
@@ -881,19 +884,22 @@ end;
 procedure TF01013.DBEdit2Click(Sender: TObject);
 begin
   inherited;
-  CalculaTempoPadraoFinal;
+
+  CalculaTempoPadraoFinal();
 end;
 
 procedure TF01013.DBEdit3Click(Sender: TObject);
 begin
   inherited;
-  CalculaTempoPadraoFinal;
+
+  CalculaTempoPadraoFinal();
 end;
 
 procedure TF01013.DBEdit4Click(Sender: TObject);
 begin
   inherited;
-  CalculaTempoPadraoFinal;
+
+  CalculaTempoPadraoFinal();
 end;
 
 procedure TF01013.DBEdit7Change(Sender: TObject);
@@ -932,7 +938,8 @@ begin
      begin
         CDS_Batida.Delete;
         DS.OnDataChange(Sender, nil);
-        CalculaTempoPadraoFinal;
+
+        CalculaTempoPadraoFinal();
      end;
   end;
 
@@ -1010,13 +1017,15 @@ end;
 procedure TF01013.ClientDataSet1num_pecasChange(Sender: TField);
 begin
   inherited;
-  CalculaTempoPadraoFinal;
+
+  CalculaTempoPadraoFinal();
 end;
 
 procedure TF01013.ClientDataSet1toleranciaChange(Sender: TField);
 begin
   inherited;
-  CalculaTempoPadraoFinal;
+
+  CalculaTempoPadraoFinal();
 end;
 
 Initialization
