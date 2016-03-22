@@ -736,6 +736,11 @@ i, hor, min, seg, mil, soma : integer;
 tempoMedio, tempoPadrao, tempoPadraoFinal: double;
 fTPF: Ttime;
 begin
+  //idcronometragem
+  //num_pecas
+  //ritmo
+  //tolerancia
+
   //Obtenção dos dados
     DModule.qAux.Close;
     DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
@@ -758,8 +763,6 @@ begin
     end;
     soma := (min* 60000) + seg * 1000 + mil;
 
-    //ShowMessage('Min: ' + inttostr(min) + ' Seg: ' + inttostr(seg) + ' mil: ' + inttostr(mil) + #13 + 'Soma: ' + inttostr(soma) + ' Num de Batidas: ' + inttostr(i) );
-
     if((i > 0) and ( ClientDataSet1num_pecas.AsInteger > 0))then
     begin
       //TempoMedio = (SomatórioTempo/NumeroBatidas)/NumerodePeças
@@ -773,7 +776,6 @@ begin
 
         ClientDataSet1tempoPadraoFinal.Value := tempoPadraoFinal;
         DBEdit16.Text := FloatToStr(tempoPadraoFinal);
-        //DBEdit16.OnChange(nil);
     end;
 
 end;

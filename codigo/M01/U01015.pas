@@ -42,7 +42,7 @@ uses UPrincipal, udATAMODULE, IOUtils,DBXJSONReflect, DBXJSON, Generics.Collecti
 
 procedure TF01015.BitBtn1Click(Sender: TObject);
 var
-idOperacao, idOperador, idCronometrista, idTecido, idRecurso, I, prioridade, idNovaCronometragem: Integer;
+idOperacao, idOperador, idCronometrista, idTecido, idRecurso, I, idNovaCronometragem: Integer;
 dataCronometragem : TDate;
 QAux2 : TFDQuery;
 Hora, Min, Seg, MSeg: Word;
@@ -61,77 +61,91 @@ begin
      idRecurso := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[3]);
      dataCronometragem := StrToDate(ListView1.Items[ListView1.Selected.Index].SubItems[4]);
 
-     //Verifica se já tem cronometragem dessa operação
+
+     //Verifica se Fase da cronometragem esta habilitada para o produto
      DModule.qAux.Close;
-     DModule.qAux.SQL.Text := 'select * from cronometragem where idProduto =:idProd and idOperacao =:idOp';
+     DModule.qAux.SQL.Text := 'SELECT * FROM produto_has_fase where idProduto =:idProd and idfase = ( select idFase from operacao where idOperacao =:idOp)';
      DModule.qAux.ParamByName('idProd').AsInteger:= (ParIdProduto);
      DModule.qAux.ParamByName('idOp').AsInteger:= (idOperacao);
      DModule.qAux.Open;
      DModule.qAux.first;
-     if(DModule.qAux.IsEmpty)then
+     if NOT(DModule.qAux.IsEmpty)then
      begin
-        ShowMessage('Operação:' + inttostr(idOperacao) +#13+
-                'Operador:' + inttostr(idOperador) +#13+
-                'Cronometrista:' + inttostr(idCronometrista) +#13+
-                'Tecido:' + inttostr(idTecido) +#13+
-                'Recurso:' + inttostr(idRecurso) +#13+
-                'Data:' + DateToStr(dataCronometragem)
-        );
+         //Verifica se já tem cronometragem dessa operação
+         DModule.qAux.Close;
+         DModule.qAux.SQL.Text := 'select * from cronometragem where idProduto =:idProd and idOperacao =:idOp';
+         DModule.qAux.ParamByName('idProd').AsInteger:= (ParIdProduto);
+         DModule.qAux.ParamByName('idOp').AsInteger:= (idOperacao);
+         DModule.qAux.Open;
+         DModule.qAux.first;
+         if(DModule.qAux.IsEmpty)then
+         begin
+              ShowMessage('Operação:' + inttostr(idOperacao) +#13+
+                      'Operador:' + inttostr(idOperador) +#13+
+                      'Cronometrista:' + inttostr(idCronometrista) +#13+
+                      'Tecido:' + inttostr(idTecido) +#13+
+                      'Recurso:' + inttostr(idRecurso) +#13+
+                      'Data:' + DateToStr(dataCronometragem)
+              );
 
-        //Prioridade
-       qAux2.Close;
-       qAux2.SQL.Text := 'select * From cronometragem where idProduto =:idProd';
-       qAux2.ParamByName('idProd').AsInteger:=  ParIdProduto;
-       DModule.qAux.Open;
-       prioridade := qAux2.RecordCount + 1;
-       qAux2.Close;
+             //ID NOVA CRONOMETRAGEM
+             idNovaCronometragem := DModule.buscaProximoParametro('seqCronometragem');
 
-       //ID NOVA CRONOMETRAGEM
-       idNovaCronometragem := DModule.buscaProximoParametro('seqCronometragem');
+             //INSERI NOVA CRONOMETRAGEM
+             DModule.qAux.Close;
+             DModule.qAux.SQL.Text := 'INSERT INTO CRONOMETRAGEM(idCronometragem, tempo_original, tempo_ideal,ritmo, num_pecas,tolerancia,comprimento_prod,num_ocorrencia,idProduto,idCronometrista, idTecido, idOperacao,idOperador,dataCronometragem)' +
+                'VALUES('+
+                inttostr(idNovaCronometragem) +',' +         //IDCRONOMETRIA
+                'false,'+                                    //TEMPO ORIGINAL
+                'false,'+                                    //TEMPO_IDEAL
+                inttostr(80) + ',' +                         //RITMO
+                inttostr(1) + ','+                           //NUM_PEÇAS
+                inttostr(15)+','+                            //TOLERANCIA
+                inttostr(35)+','+                            //COMPRIMENTO_PEÇA
+                inttostr(1) +','+                            //NUM_OCORRENCIA
+                inttostr(ParIdProduto) +',' +                //PRODUTO
+                inttostr(idCronometrista) +','+              //CRONOMETRISTA
+                inttostr(idTecido) +','+                     //TECIDO
+                inttostr(idOperacao)+','+                    //OPERAÇÃO
+                inttostr(idOperador)+','+                    //OPERADOR
+                DateToStr(dataCronometragem)+')';            //DATA
+             DModule.qAux.ExecSQL;
 
-       //INSERI NOVA CRONOMETRAGEM
-       DModule.qAux.Close;
-       DModule.qAux.SQL.Text := 'INSERT INTO CRONOMETRAGEM(idCronometragem, tempo_original, tempo_ideal,ritmo, num_pecas,tolerancia,comprimento_prod,num_ocorrencia,idProduto,idCronometrista, idTecido, idOperacao,idOperador,prioridade, dataCronometragem)' +
-          'VALUES('+
-          inttostr(idNovaCronometragem) +',' +         //IDCRONOMETRIA
-          'false,'+                                    //TEMPO ORIGINAL
-          'false,'+                                    //TEMPO_IDEAL
-          inttostr(80) + ',' +                         //RITMO
-          inttostr(1) + ','+                           //NUM_PEÇAS
-          inttostr(15)+','+                            //TOLERANCIA
-          inttostr(35)+','+                            //COMPRIMENTO_PEÇA
-          inttostr(1) +','+                            //NUM_OCORRENCIA
-          inttostr(ParIdProduto) +',' +                //PRODUTO
-          inttostr(idCronometrista) +','+              //CRONOMETRISTA
-          inttostr(idTecido) +','+                     //TECIDO
-          inttostr(idOperacao)+','+                    //OPERAÇÃO
-          inttostr(idOperador)+','+                    //OPERADOR
-          inttostr(prioridade)+','+                    //PRIORIDADE
-          DateToStr(dataCronometragem)+')';            //DATA
-       DModule.qAux.ExecSQL;
+             //Obtenção dos tempos na matriz
+             For I := 0 to (Length(matriz[ListView1.Selected.Index]) -1) do
+             begin
+                //SEPARA MIN, SEG E MSEG
+                DecodeTime(( (matriz[ListView1.Selected.Index][I] ) * OneMillisecond), Hora, Min, Seg, MSeg);
 
-       //Obtenção dos tempos na matriz
-       For I := 0 to (Length(matriz[ListView1.Selected.Index]) -1) do
-       begin
-          //SEPARA MIN, SEG E MSEG
-          DecodeTime(( (matriz[ListView1.Selected.Index][I] ) * OneMillisecond), Hora, Min, Seg, MSeg);
+                //INSERI BATIDA
+                DModule.qAux.Close;
+                DModule.qAux.SQL.Text := 'insert into Batida(idbatida, minutos, segundos, milesimos, utilizar, idCronometragem)'+
+                'values('+
+                INTTOSTR(DModule.buscaProximoParametro('seqBatida')) +','+     //IDBATIDA
+                INTTOSTR(MIN) +','+                                            //MINUTOS
+                INTTOSTR(SEG) +','+                                            //SEGUNDOS
+                INTTOSTR(MSEG) +','+                                           //MILESIMOS
+                'TRUE' + ',' +                                                 //UTILIZAR
+                INTTOSTR(idNovaCronometragem)+')';                             //IDCRONOMETRAGEM
+                DModule.qAux.ExecSQL;
+             end;
+             ShowMessage('CRONOMETRAGEM ADICIONADA COM SUCESSO!');
 
-          //INSERI BATIDA
-          DModule.qAux.Close;
-          DModule.qAux.SQL.Text := 'insert into Batida(idbatida, minutos, segundos, milesimos, utilizar, idCronometragem)'+
-          'values('+
-          INTTOSTR(DModule.buscaProximoParametro('seqBatida')) +','+     //IDBATIDA
-          INTTOSTR(MIN) +','+                                            //MINUTOS
-          INTTOSTR(SEG) +','+                                            //SEGUNDOS
-          INTTOSTR(MSEG) +','+                                           //MILESIMOS
-          'TRUE' + ',' +                                                 //UTILIZAR
-          INTTOSTR(idNovaCronometragem)+')';                             //IDCRONOMETRAGEM
-          DModule.qAux.ExecSQL;
-       end;
-       ShowMessage('CRONOMETRAGEM ADICIONADA COM SUCESSO!');
+         end else
+          ShowMessage('Cronometragem já existente.');
+
 
      end else
-      ShowMessage('Cronometragem já existente.');
+     begin
+       DModule.qAux.Close;
+       DModule.qAux.SQL.Text := 'select op.*, f.descricao as fase from operacao op left outer join fase f on op.idfase = f.idfase where idOperacao =:idOp';
+       DModule.qAux.ParamByName('idOp').AsInteger:= (idOperacao);
+       DModule.qAux.Open;
+       DModule.qAux.first;
+       ShowMessage('Fase ('+ DModule.qAux.FieldByName('idFase').AsString + ' - '
+       + DModule.qAux.FieldByName('fase').AsString
+       +') não esta habilitada para este produto.');
+     end;
 
   END else
     ShowMessage('Selecione uma cronometragem.');
