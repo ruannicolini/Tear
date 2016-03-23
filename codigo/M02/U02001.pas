@@ -197,11 +197,12 @@ end;
 
 procedure TF02001.BSalvarClick(Sender: TObject);
 begin
-  inherited;
+
   DBEdit1.Color := clWindow;
   DBEdit3.Color := $00EFEFEF;
   DBEdit4.Enabled := true;
   DBEditBeleza1.Enabled := true;
+  inherited;
 end;
 
 procedure TF02001.btnFiltrarClick(Sender: TObject);
@@ -439,6 +440,7 @@ i : integer;
 status: Boolean;
 begin
   inherited;
+
   //Verificar se produto e quantidade já estão disponiveis
   if(DBEdit3.Text <> '') and (DBEdit4.Text <> '')then
   begin
@@ -473,7 +475,7 @@ begin
           SetLength(matriz, DModule.qAux.RecordCount);
           for i := 0 to (DModule.qAux.RecordCount -1) do
           begin
-            SetLength(matriz[i], 7);
+            SetLength(matriz[i], 8);
           end;
 
           //Atribui valores na matriz
