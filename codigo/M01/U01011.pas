@@ -10,7 +10,7 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza;
 
 type
   TF01011 = class(TFBase)
@@ -152,8 +152,8 @@ begin
 
   if trim(DBEdit2.Text) <> '' then
   begin
-    inherited;
-    DBEdit1.Color := clWindow;
+      inherited;
+      DBEdit1.Color := clWindow;
   end else
      showmessage('Preencha o Campo Descrição');
 end;

@@ -1,10 +1,12 @@
 inherited F02001: TF02001
   Caption = 'F02001'
+  ExplicitTop = 5
   ExplicitWidth = 834
   ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
+    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -794,7 +796,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C00440110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C004C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1342,15 +1344,20 @@ inherited F02001: TF02001
         'imentacao tm on tm.idtipo_Movimentacao = m.idTipoMovimentacao'#10' w' +
         'here tm.incrementar = true and m.idOrdem_has_fase = ohf.idOrdem_' +
         'has_fase ) as inclusao,'#13#10#10
+      #13#10#10
       
-        #10'(select sum(m.qtd) from movimentacao m '#10'left outer join tipo_mo' +
-        'vimentacao tm on tm.idtipo_Movimentacao = m.idTipoMovimentacao'#10'w' +
-        'here (tm.decrementar = true) and m.idOrdem_has_fase = ohf.idOrde' +
-        'm_has_fase) as reducao'#10#10' '
+        '(select sum(m.qtd) from movimentacao m '#10'left outer join tipo_mov' +
+        'imentacao tm on tm.idtipo_Movimentacao = m.idTipoMovimentacao'#10'wh' +
+        'ere (tm.decrementar = true) and m.idOrdem_has_fase = ohf.idOrdem' +
+        '_has_fase) as reducao'#10#10' '
       'from ordem_has_fase ohf '#13#10#10
+      ''
       'left outer join fase f on f.idfase = ohf.idfase '#13#10#10
+      ''
       'left outer join grupo g on g.idgrupo = ohf.idlinhaproducao '#13#10#10
-      'where idOrdem =:idOrdem')
+      ''
+      'where idOrdem =:idOrdem'
+      'order by(ohf.sequencia)')
     Left = 519
     Top = 215
     ParamData = <

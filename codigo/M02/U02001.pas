@@ -160,6 +160,8 @@ begin
   inherited;
   DBEdit1.Color := clWindow;
   DBEdit3.Color := $00EFEFEF;
+  DBEdit4.Enabled := true;
+  DBEditBeleza1.Enabled := true;
 end;
 
 procedure TF02001.BEditarClick(Sender: TObject);
@@ -167,6 +169,8 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit3.Color := CorCamposOnlyRead();
+  DBEdit4.Enabled := false;
+  DBEditBeleza1.Enabled := false;
 end;
 
 procedure TF02001.BExcluirClick(Sender: TObject);
@@ -196,6 +200,8 @@ begin
   inherited;
   DBEdit1.Color := clWindow;
   DBEdit3.Color := $00EFEFEF;
+  DBEdit4.Enabled := true;
+  DBEditBeleza1.Enabled := true;
 end;
 
 procedure TF02001.btnFiltrarClick(Sender: TObject);
@@ -390,6 +396,10 @@ procedure TF02001.TBtnLimparClick(Sender: TObject);
 begin
   inherited;
 
+  //Permite que valores Produto e quantidade sejam alterados
+  DBEdit4.Enabled := true;
+  DBEditBeleza1.Enabled := true;
+
   DModule.qAux.Close;
   DModule.qAux.SQL.Text := 'select * from movimentacao m left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase WHERE ohf.idordem =:id';
   DModule.qAux.ParamByName('id').value := ClientDataSet1idOrdem.AsInteger;
@@ -426,77 +436,107 @@ procedure TF02001.TBtnProcessarRotaClick(Sender: TObject);
 var
 matriz: array of array of integer;
 i : integer;
+status: Boolean;
 begin
   inherited;
-  //Pega as fases do produto selecionado
-  DModule.qAux.Close;
-  DModule.qAux.SQL.Text := 'select * from produto_has_fase where idProduto =:idProd order by (sequencia)';
-  DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
-  DModule.qAux.Open;
-  DModule.qAux.first;
-
-  //Declaração do tamanho da Matriz
-  SetLength(matriz, DModule.qAux.RecordCount);
-  for i := 0 to (DModule.qAux.RecordCount -1) do
+  //Verificar se produto e quantidade já estão disponiveis
+  if(DBEdit3.Text <> '') and (DBEdit4.Text <> '')then
   begin
-    SetLength(matriz[i], 6);
+      //Impede que valores sejam alterados
+      DBEdit4.Enabled := false;
+      DBEditBeleza1.Enabled := false;
+
+      //Pega as fases do produto selecionado e trás um idGRUPO habilitado a realizar a fase sorteado aleatório
+      DModule.qAux.Close;
+      DModule.qAux.SQL.Text := 'select phf.*, (select idgrupo from fase_has_grupo fhg where idfase = phf.idfase ORDER BY RAND() LIMIT 1) as idGrupo from produto_has_fase phf where idProduto =:idProd order by (sequencia)';
+      DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+      DModule.qAux.Open;
+      DModule.qAux.first;
+
+
+      // é preciso verificar se alguma fase veio sem selecionar o grupo de produção
+      status := true;
+      while not DModule.qAux.eof do
+      begin
+         if(DModule.qAux.FieldByName('idGrupo').IsNull)then
+         begin
+            ShowMessage('Não há Grupos habilitados a fazer a fase de COD ' + DModule.qAux.FieldByName('idFase').AsString + #13+ 'Não é Possível Processar Rota');
+            status := false;
+         end;
+         DModule.qAux.Next;
+      end;
+      DModule.qAux.first;
+
+      if(status = true)then
+      begin
+          //Declaração do tamanho da Matriz
+          SetLength(matriz, DModule.qAux.RecordCount);
+          for i := 0 to (DModule.qAux.RecordCount -1) do
+          begin
+            SetLength(matriz[i], 7);
+          end;
+
+          //Atribui valores na matriz
+          i := 0;
+          while not DModule.qAux.eof do
+          begin
+            //idOrdem
+            matriz[i][0] := ClientDataSet1idOrdem.AsInteger;
+
+            //IdFase
+            matriz[i][1] := DModule.qAux.FieldByName('idfase').AsInteger;
+
+            //QtdOriginal
+            matriz[i][2] := ClientDataSet1qtdOriginal.AsInteger;
+
+            //qtdPrevisto
+            IF(i = 0)THEN
+            BEGIN
+              matriz[i][3] := 0;
+            END ELSE
+              matriz[i][3] := ClientDataSet1qtdOriginal.AsInteger;
+
+            //QtdFinalizado
+            matriz[i][4] := 0;
+
+            //QtdProduzindo
+            IF(i = 0)THEN
+            BEGIN
+            matriz[i][5] := ClientDataSet1qtdOriginal.AsInteger;;
+            END ELSE
+            matriz[i][5] := 0;
+
+            //Sequencia
+            matriz[i][6] := DModule.qAux.FieldByName('sequencia').AsInteger;
+
+            //Grupo Selecionado aleatoriamente para produzir
+            matriz[i][7] := DModule.qAux.FieldByName('idGrupo').AsInteger;
+
+            i := i+1;
+            DModule.qAux.next;
+          end;
+
+          for i := 0 to (Length(matriz)-1) do
+          begin
+            // DataSource2 = ordem_has_fase
+            ClientDataSet2.Open;
+            ClientDataSet2.Append;
+            ClientDataSet2idOrdem.Value := matriz[i][0];
+            ClientDataSet2idFase.Value := matriz[i][1];
+            ClientDataSet2qtdOriginal.Value := matriz[i][2];
+            ClientDataSet2qtdPrevista.Value := matriz[i][3];
+            ClientDataSet2qtdFinalizada.Value := matriz[i][4];
+            ClientDataSet2qtdProduzindo.Value := matriz[i][5];
+            ClientDataSet2sequencia.Value := matriz[i][6];
+            ClientDataSet2idLinhaProducao.Value := matriz[i][7];
+            ClientDataSet2.Post;
+          end;
+
+          DataSource2.DataSet.Close;
+          DataSource2.DataSet.Open;
+      end;
+
   end;
-
-  //Atribui valores na matriz
-  i := 0;
-  while not DModule.qAux.eof do
-  begin
-    //idOrdem
-    matriz[i][0] := ClientDataSet1idOrdem.AsInteger;
-
-    //IdFase
-    matriz[i][1] := DModule.qAux.FieldByName('idfase').AsInteger;
-
-    //QtdOriginal
-    matriz[i][2] := ClientDataSet1qtdOriginal.AsInteger;
-
-    //qtdPrevisto
-    IF(i = 0)THEN
-    BEGIN
-      matriz[i][3] := 0;
-    END ELSE
-      matriz[i][3] := ClientDataSet1qtdOriginal.AsInteger;
-
-    //QtdFinalizado
-    matriz[i][4] := 0;
-
-    //QtdProduzindo
-    IF(i = 0)THEN
-    BEGIN
-    matriz[i][5] := ClientDataSet1qtdOriginal.AsInteger;;
-    END ELSE
-    matriz[i][5] := 0;
-
-    //Sequencia
-    matriz[i][6] := DModule.qAux.FieldByName('sequencia').AsInteger;
-
-    i := i+1;
-    DModule.qAux.next;
-  end;
-
-  for i := 0 to (Length(matriz)-1) do
-  begin
-    // DataSource2 = ordem_has_fase
-    ClientDataSet2.Open;
-    ClientDataSet2.Append;
-    ClientDataSet2idOrdem.Value := matriz[i][0];
-    ClientDataSet2idFase.Value := matriz[i][1];
-    ClientDataSet2qtdOriginal.Value := matriz[i][2];
-    ClientDataSet2qtdPrevista.Value := matriz[i][3];
-    ClientDataSet2qtdFinalizada.Value := matriz[i][4];
-    ClientDataSet2qtdProduzindo.Value := matriz[i][5];
-    ClientDataSet2sequencia.Value := matriz[i][6];
-    ClientDataSet2.Post;
-
-  end;
-
-  DataSource2.DataSet.Close;
-  DataSource2.DataSet.Open;
 
 end;
 
