@@ -110,7 +110,7 @@ inherited Create(AOwner);
   ParIdOF:= pParm1;
 
   FDQuery1.Close;
-  FDQuery1.SQL.Text := 'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
+  FDQuery1.SQL.Text := 'select m.*, o.* , tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
   FDQuery1.SQL.add('left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao ');
   FDQuery1.SQL.add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_has_fase ');
   FDQuery1.SQL.add('left outer join fase f on f.idfase = ohf.idfase ');
@@ -118,6 +118,11 @@ inherited Create(AOwner);
   FDQuery1.SQL.Add('where ohf.idOrdem_has_fase = ' + inttostr(ParIdOF));
   FDQuery1.Open;
   BPesquisar.Click;
+
+
+
+
+
 
   Width := 857;
   Height := 430;
@@ -555,7 +560,7 @@ begin
   end;
 end;
 
-procedure TF02002.Edit1Change(Sender: TObject);
+Procedure TF02002.Edit1Change(Sender: TObject);
 begin
   inherited;
       if((edit1.Text = '')or (edit1.Text = ' '))then

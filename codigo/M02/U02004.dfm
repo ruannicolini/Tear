@@ -16,7 +16,7 @@ inherited F02004: TF02004
           Left = 2
           Top = 15
           Width = 806
-          Height = 58
+          Height = 74
           Align = alTop
           Color = clSkyBlue
           ParentBackground = False
