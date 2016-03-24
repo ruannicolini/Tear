@@ -32,8 +32,11 @@ type
     ClientDataSet1incrementar: TBooleanField;
     ClientDataSet1decrementar: TBooleanField;
     ClientDataSet1finalizar: TBooleanField;
-    FDQuery1dividirOrdem: TBooleanField;
-    ClientDataSet1dividirOrdem: TBooleanField;
+    FDQuery1dividirOrdemAvancar: TBooleanField;
+    FDQuery1dividirOrdemRetrabalho: TBooleanField;
+    ClientDataSet1dividirOrdemAvancar: TBooleanField;
+    ClientDataSet1dividirOrdemRetrabalho: TBooleanField;
+    DBCheckBox1: TDBCheckBox;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);

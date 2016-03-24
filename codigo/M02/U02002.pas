@@ -84,15 +84,13 @@ type
     procedure DBEdit5Exit(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure DBEditBeleza2Change(Sender: TObject);
-    procedure ClientDataSet1AfterApplyUpdates(Sender: TObject;
-      var OwnerData: OleVariant);
   private
     { Private declarations }
   public
     { Public declarations }
     constructor CreateMov(AOwner : TComponent; pParm1 : integer);
     constructor CreateOrdemFase(AOwner : TComponent; pParm1 : integer);
-    procedure calculoMovimentcao(idOrd: integer);
+    //procedure calculoMovimentcao(idOrd: integer);
   end;
 
 var
@@ -218,10 +216,9 @@ end;
 
 procedure TF02002.BSalvarClick(Sender: TObject);
 var
-idProd, idN, NOrdem, qtd : Integer;
+idProd, idN, NOrdem, qtd, idOrdem : Integer;
 obs : string;
 begin
-
   DBEdit1.Color := clWindow;
   DBEdit2.Color := $00EFEFEF;
   DBEdit6.Color := $00EFEFEF;
@@ -242,7 +239,7 @@ begin
     DModule.qAux.ParamByName('id').AsInteger := ClientDataSet1idTipoMovimentacao.AsInteger;
     DModule.qAux.Open;
 
-    if(DModule.qAux.FieldByName('dividirOrdem').AsBoolean = true)then
+    if(DModule.qAux.FieldByName('dividirOrdemAvancar').AsBoolean = true)then
     begin
         //ShowMessage('DividirOrdem');
 
@@ -278,7 +275,6 @@ begin
 
         end;
   end;
-
   inherited;
 end;
 
@@ -314,7 +310,7 @@ begin
   BPesquisar.Click;
 
 end;
-
+{
 procedure TF02002.calculoMovimentcao(idOrd: integer);
 var
 contRegistros : integer;
@@ -345,6 +341,8 @@ begin
   qAux2.ParamByName('IDOHS').value:= DModule.qAux.FieldByName('idO_H_S').AsInteger;
   qAux2.ExecSQL;
 
+  ShowMessage('Ok calculo MOV');
+
   //Atribuição dos valores
   qtdOriginal := DModule.qAux.FieldByName('qORI').AsInteger;
   qtdFinalizado := DModule.qAux.FieldByName('qORI').AsInteger;
@@ -363,7 +361,7 @@ begin
                   'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));}
 
       //busca movimentações da ordem_has_fase corrente
-      qAux2.Close;
+{      qAux2.Close;
       qAux2.SQL.Text := 'select ohf.*, tm.*, m.* from movimentacao m ';
       qAux2.SQL.Add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase ');
       qAux2.SQL.Add('left outer join tipo_movimentacao tm on tm.idTipo_movimentacao = m.idTipoMovimentacao');
@@ -386,10 +384,6 @@ begin
           end;
           //Add quantidade finalizada
           qtdFinalizado := qtdFinalizado + qAux2.FieldByName('QTD').AsInteger;
-
-          {ShowMessage('HBO' + #13+ 'qtd Original: ' + inttostr(qtdOriginal) + #13 + 'qtd Produzindo: ' + inttostr(qtdProduzindo) + #13 +
-                  'qtd Previsto: ' + inttostr(qtdPrevisto) + #13 + 'qtd Finalizado: ' + inttostr(qtdFinalizado));
-          }
         end;
 
         //
@@ -407,7 +401,7 @@ begin
         end;
 
         //
-        if(qAux2.FieldByName('dividirOrdem').AsBoolean = true)then
+        if(qAux2.FieldByName('dividirOrdemAvancar').AsBoolean = true)then
         begin
           //ShowMessage('DividirOrdem fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
 
@@ -431,13 +425,7 @@ begin
   end;
 
 end;
-
-procedure TF02002.ClientDataSet1AfterApplyUpdates(Sender: TObject;
-  var OwnerData: OleVariant);
-begin
-  inherited;
-  calculoMovimentcao(ClientDataSet1idOrdem.AsInteger);
-end;
+}
 
 procedure TF02002.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin

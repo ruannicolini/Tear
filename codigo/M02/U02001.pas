@@ -282,14 +282,18 @@ begin
 end;
 
 procedure TF02001.DBGridBeleza2DblClick(Sender: TObject);
+var
+idOrdem : integer;
 begin
+  idOrdem := ClientDataSet1idOrdem.AsInteger;
   inherited;
   With TF02002.CreateOrdemFase(self, ClientDataSet2idOrdem_has_fase.value) do
   Begin
     ShowModal;
+    DModule.calculoMovimentcao(idordem);
     Free;
   End;
-  DS.OnDataChange(NIL, NIL);
+  DS.OnDataChange(self, NIL);
 end;
 
 procedure TF02001.DBGridBeleza2DrawColumnCell(Sender: TObject;

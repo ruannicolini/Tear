@@ -5,7 +5,6 @@ inherited F02003: TF02003
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -80,12 +79,22 @@ inherited F02003: TF02003
         object CHKDIVIDIR: TDBCheckBox
           Left = 40
           Top = 178
-          Width = 97
+          Width = 193
           Height = 17
-          Caption = 'DIVIDIR ORDEM'
-          DataField = 'dividirOrdem'
+          Caption = 'DIVIDIR ORDEM (AVAN'#199'AR)'
+          DataField = 'dividirOrdemAvancar'
           DataSource = DS
           TabOrder = 5
+        end
+        object DBCheckBox1: TDBCheckBox
+          Left = 40
+          Top = 201
+          Width = 193
+          Height = 17
+          Caption = 'DIVIDIR ORDEM (RETRABALHO)'
+          DataField = 'dividirOrdemRetrabalho'
+          DataSource = DS
+          TabOrder = 6
         end
       end
     end
@@ -131,8 +140,11 @@ inherited F02003: TF02003
     object ClientDataSet1finalizar: TBooleanField
       FieldName = 'finalizar'
     end
-    object ClientDataSet1dividirOrdem: TBooleanField
-      FieldName = 'dividirOrdem'
+    object ClientDataSet1dividirOrdemAvancar: TBooleanField
+      FieldName = 'dividirOrdemAvancar'
+    end
+    object ClientDataSet1dividirOrdemRetrabalho: TBooleanField
+      FieldName = 'dividirOrdemRetrabalho'
     end
   end
   inherited FDQuery1: TFDQuery
@@ -165,15 +177,20 @@ inherited F02003: TF02003
       FieldName = 'finalizar'
       Origin = 'finalizar'
     end
-    object FDQuery1dividirOrdem: TBooleanField
+    object FDQuery1dividirOrdemAvancar: TBooleanField
       AutoGenerateValue = arDefault
-      FieldName = 'dividirOrdem'
-      Origin = 'dividirOrdem'
+      FieldName = 'dividirOrdemAvancar'
+      Origin = 'dividirOrdemAvancar'
+    end
+    object FDQuery1dividirOrdemRetrabalho: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'dividirOrdemRetrabalho'
+      Origin = 'dividirOrdemRetrabalho'
     end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010E002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00300110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
