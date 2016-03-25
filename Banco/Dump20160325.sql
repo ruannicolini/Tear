@@ -65,7 +65,7 @@ CREATE TABLE `batida` (
 
 LOCK TABLES `batida` WRITE;
 /*!40000 ALTER TABLE `batida` DISABLE KEYS */;
-INSERT INTO `batida` VALUES (48,0,4,344,1,NULL),(49,0,14,204,1,NULL),(50,0,1,937,1,NULL),(51,0,3,140,1,NULL),(52,NULL,NULL,NULL,1,NULL),(53,0,14,562,1,NULL),(54,0,2,250,1,NULL),(55,0,6,281,1,NULL),(56,0,0,485,1,NULL),(57,0,3,32,1,NULL),(58,0,4,985,1,NULL),(59,0,0,578,1,NULL),(61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(70,NULL,NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,NULL,NULL),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188),(244,0,1,859,1,167),(245,0,1,782,1,167),(246,0,2,312,1,167),(247,0,2,31,1,167),(248,0,1,828,1,167),(249,0,2,547,1,167),(250,0,2,375,1,167),(251,0,3,688,1,167),(252,0,2,937,1,153),(253,0,3,735,1,153),(254,0,3,0,1,153),(255,0,4,125,1,153),(256,0,1,734,1,153),(257,0,1,953,1,194),(258,0,3,641,1,194),(260,0,2,391,1,194),(261,0,2,672,1,194),(262,0,3,187,1,194),(279,0,3,672,1,200),(280,0,3,656,1,200),(281,0,2,781,1,200),(282,0,2,157,1,200),(283,0,2,781,1,200),(292,0,2,562,1,191);
+INSERT INTO `batida` VALUES (61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188),(244,0,1,859,1,167),(245,0,1,782,1,167),(246,0,2,312,1,167),(247,0,2,31,1,167),(248,0,1,828,1,167),(249,0,2,547,1,167),(250,0,2,375,1,167),(251,0,3,688,1,167),(252,0,2,937,1,153),(253,0,3,735,1,153),(254,0,3,0,1,153),(255,0,4,125,1,153),(256,0,1,734,1,153),(257,0,1,953,1,194),(258,0,3,641,1,194),(260,0,2,391,1,194),(261,0,2,672,1,194),(262,0,3,187,1,194),(279,0,3,672,1,200),(280,0,3,656,1,200),(281,0,2,781,1,200),(282,0,2,157,1,200),(283,0,2,781,1,200),(293,0,1,656,1,191),(294,0,2,297,1,191),(295,0,2,0,1,191),(296,0,1,969,1,191),(297,0,2,609,1,191),(298,0,3,391,1,191),(314,0,0,925,1,236),(315,0,1,386,1,236),(316,0,1,633,1,236),(317,0,1,921,1,236);
 /*!40000 ALTER TABLE `batida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,8 +90,8 @@ CREATE TABLE `cronometragem` (
   `idTecido` int(11) DEFAULT NULL,
   `idOperacao` int(11) DEFAULT NULL,
   `idOperador` int(11) DEFAULT NULL,
-  `prioridade` int(11) DEFAULT NULL,
   `tempoPadraoFinal` float DEFAULT '0',
+  `dataCronometragem` date DEFAULT NULL,
   PRIMARY KEY (`idcronometragem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -102,7 +102,7 @@ CREATE TABLE `cronometragem` (
 
 LOCK TABLES `cronometragem` WRITE;
 /*!40000 ALTER TABLE `cronometragem` DISABLE KEYS */;
-INSERT INTO `cronometragem` VALUES (153,1,1,80,1,10,5,4,8,1,2,5,45,1,2733.46),(167,1,1,80,1,10,1,2,43,8,2,26,52,NULL,2026.42),(191,0,0,90,1,10,10,1,7,NULL,NULL,26,NULL,2,2536.38),(192,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,9,NULL,1,NULL),(194,1,0,80,1,20,NULL,1,7,NULL,NULL,5,NULL,3,2658.05),(200,NULL,NULL,NULL,NULL,NULL,NULL,NULL,71,NULL,NULL,22,NULL,1,0);
+INSERT INTO `cronometragem` VALUES (153,1,1,80,1,10,5,4,8,1,2,5,45,2733.46,NULL),(167,1,1,80,1,10,1,2,43,8,2,26,52,2026.42,NULL),(191,0,0,90,1,10,10,1,7,NULL,NULL,26,NULL,2297.13,NULL),(192,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,9,NULL,NULL,NULL),(194,1,0,80,1,20,NULL,1,7,NULL,NULL,5,NULL,2658.05,NULL),(200,NULL,NULL,NULL,NULL,NULL,NULL,NULL,71,NULL,NULL,22,NULL,0,NULL),(236,0,0,80,1,15,35,1,8,102,2,26,34,1348.95,'0000-00-00');
 /*!40000 ALTER TABLE `cronometragem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -121,6 +121,8 @@ BEGIN
 	DELETE FROM cronometragem_has_tipo_recurso WHERE cronometragem_has_tipo_recurso.idCronometragem = old.idCronometragem;
     -- Exclui Batida
     DELETE FROM batida WHERE batida.idCronometragem = old.idCronometragem;
+    -- Exclui Dependencias
+    DELETE FROM dependencia WHERE dependencia.idCronometragem = old.idCronometragem;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -148,7 +150,7 @@ CREATE TABLE `cronometragem_has_tipo_recurso` (
 
 LOCK TABLES `cronometragem_has_tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` DISABLE KEYS */;
-INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4),(153,3),(167,1),(167,5),(191,6),(194,4);
+INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4),(153,3),(167,1),(167,5),(191,6),(194,4),(236,3);
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +246,7 @@ CREATE TABLE `fase_has_grupo` (
 
 LOCK TABLES `fase_has_grupo` WRITE;
 /*!40000 ALTER TABLE `fase_has_grupo` DISABLE KEYS */;
-INSERT INTO `fase_has_grupo` VALUES (1,8),(5,14),(6,1),(7,1),(8,1),(8,15);
+INSERT INTO `fase_has_grupo` VALUES (1,8),(5,22),(6,1),(7,1),(8,1),(8,21);
 /*!40000 ALTER TABLE `fase_has_grupo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +270,7 @@ CREATE TABLE `grupo` (
 
 LOCK TABLES `grupo` WRITE;
 /*!40000 ALTER TABLE `grupo` DISABLE KEYS */;
-INSERT INTO `grupo` VALUES (1,'grupo 1'),(8,'Test *');
+INSERT INTO `grupo` VALUES (1,'grupo 1'),(8,'Test *'),(21,'TESTE 21'),(22,'GRUPO 22');
 /*!40000 ALTER TABLE `grupo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -330,7 +332,7 @@ CREATE TABLE `interface` (
   `icone` int(11) DEFAULT NULL,
   `tela` varchar(5) NOT NULL,
   PRIMARY KEY (`idinterface`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,7 +341,7 @@ CREATE TABLE `interface` (
 
 LOCK TABLES `interface` WRITE;
 /*!40000 ALTER TABLE `interface` DISABLE KEYS */;
-INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001'),(2,1,NULL,'Produto',7,'01007'),(3,1,NULL,'G. Produtos',9,'01009'),(4,1,NULL,'Recurso',6,'01006'),(5,1,NULL,'Tipo de Recurso',4,'01004'),(6,1,NULL,'Cronometrista',2,'01002'),(7,1,NULL,'Tecido',5,'01005'),(8,1,NULL,'Operação',8,'01008'),(9,1,NULL,'G. Operadores',3,'01003'),(10,1,NULL,'Operador',10,'01010'),(11,1,NULL,'Fase',11,'01011'),(12,1,NULL,'Parte',12,'01012'),(13,4,NULL,'Telas',4,'03001'),(14,4,NULL,'Modulo',4,'03002'),(15,1,NULL,'Cronometragem',0,'01013'),(16,2,NULL,'Ordem',13,'02001'),(17,2,NULL,'Movimentação',14,'02002'),(18,2,NULL,'Tipo Mov.',4,'02003');
+INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001'),(2,1,NULL,'Produto',7,'01007'),(3,1,NULL,'G. Produtos',9,'01009'),(4,1,NULL,'Recurso',6,'01006'),(5,1,NULL,'Tipo de Recurso',4,'01004'),(6,1,NULL,'Cronometrista',2,'01002'),(7,1,NULL,'Tecido',5,'01005'),(8,1,NULL,'Operação',8,'01008'),(9,1,NULL,'G. Operadores',3,'01003'),(10,1,NULL,'Operador',10,'01010'),(11,1,NULL,'Fase',11,'01011'),(12,1,NULL,'Parte',12,'01012'),(13,4,NULL,'Telas',4,'03001'),(14,4,NULL,'Modulo',4,'03002'),(16,2,NULL,'Ordem',13,'02001'),(17,2,NULL,'Movimentação',14,'02002'),(18,2,NULL,'Tipo Mov.',4,'02003'),(19,1,NULL,'APP',15,'01014'),(20,2,NULL,'Balanceamento',0,'02004');
 /*!40000 ALTER TABLE `interface` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -393,7 +395,7 @@ CREATE TABLE `movimentacao` (
 
 LOCK TABLES `movimentacao` WRITE;
 /*!40000 ALTER TABLE `movimentacao` DISABLE KEYS */;
-INSERT INTO `movimentacao` VALUES (8,33,'2016-03-08','RUAN',2,5,NULL),(17,31,NULL,NULL,10,1,NULL),(18,32,'2016-03-10',NULL,5,1,NULL),(19,31,'2016-03-10',NULL,2,2,NULL),(20,31,'2016-03-10',NULL,16,1,NULL),(73,31,'2016-03-12',NULL,1,11,NULL);
+INSERT INTO `movimentacao` VALUES (8,33,'2016-03-08','RUAN',2,5,NULL),(17,31,NULL,NULL,10,1,NULL),(18,32,'2016-03-10',NULL,5,1,NULL),(19,31,'2016-03-10',NULL,2,2,NULL),(20,31,'2016-03-10',NULL,16,1,NULL),(75,31,'2016-03-14',NULL,1,11,NULL),(84,NULL,NULL,NULL,NULL,NULL,NULL),(151,88,NULL,NULL,4,12,NULL),(152,88,NULL,NULL,6,1,NULL),(155,89,NULL,NULL,2,11,NULL),(156,89,NULL,NULL,4,1,NULL);
 /*!40000 ALTER TABLE `movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,7 +521,7 @@ CREATE TABLE `ordem_has_fase` (
 
 LOCK TABLES `ordem_has_fase` WRITE;
 /*!40000 ALTER TABLE `ordem_has_fase` DISABLE KEYS */;
-INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0);
+INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0),(88,35,8,10,0,0,1,1,10),(89,35,1,10,0,0,8,2,4),(90,35,5,10,0,4,22,3,0),(114,84,1,4,0,4,8,2,0),(115,84,5,4,4,0,22,3,0),(116,85,8,2,0,2,1,1,0),(117,85,1,2,2,0,8,2,0),(118,85,5,2,2,0,22,3,0);
 /*!40000 ALTER TABLE `ordem_has_fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -547,9 +549,28 @@ CREATE TABLE `ordem_producao` (
 
 LOCK TABLES `ordem_producao` WRITE;
 /*!40000 ALTER TABLE `ordem_producao` DISABLE KEYS */;
-INSERT INTO `ordem_producao` VALUES (7,12345,7,25,'2016-03-03','Teste de observações'),(30,12345,7,1,'2016-03-12','Retrabalho da ordem 12345');
+INSERT INTO `ordem_producao` VALUES (7,12345,7,25,'2016-03-03','Teste de observações'),(35,35,7,10,'2016-03-23',NULL),(84,35,7,4,'2016-03-25','Finalização Parcial da Ordem 35'),(85,35,7,2,'2016-03-25','Retrabalho da Ordem 35');
 /*!40000 ALTER TABLE `ordem_producao` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRIGGER_Ordem_delete 
+AFTER DELETE ON ordem_producao for each row
+BEGIN
+	DELETE FROM ordem_has_fase WHERE ordem_has_fase.idOrdem = old.idOrdem;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `parametros`
@@ -572,7 +593,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,293),('seqCelula',NULL,21),('seqCronometragem',NULL,223),('seqCronometrista',NULL,11),('seqFase',NULL,16),('seqGrupoProduto',NULL,15),('seqMovimentacao',NULL,74),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,37),('seqOrdemProducao',NULL,31),('seqParte',NULL,6),('seqProduto',NULL,103),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,12),('seqTipoRecurso',NULL,14);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,318),('seqCelula',NULL,23),('seqCronometragem',NULL,237),('seqCronometrista',NULL,11),('seqFase',NULL,17),('seqGrupoProduto',NULL,15),('seqMovimentacao',NULL,157),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,119),('seqOrdemProducao',NULL,86),('seqParte',NULL,6),('seqProduto',NULL,104),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,14);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -625,6 +646,25 @@ LOCK TABLES `produto` WRITE;
 INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',3),(8,'PRODUTO 2 TESTE','2015-09-04',1),(43,'produto teste','2015-12-15',4),(47,'TESTE 47','2016-01-05',4),(56,'TESTE 56','2016-01-27',2),(57,'TESTE 57','2016-01-27',3),(71,'TESTE 4','2016-02-18',4),(90,'323',NULL,4),(91,'XCVB',NULL,2);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRIGGER_Produto_delete 
+AFTER DELETE ON produto for each row
+BEGIN
+	DELETE FROM produto_has_fase WHERE produto_has_fase.idProduto = old.idProduto;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `produto_has_fase`
@@ -647,7 +687,7 @@ CREATE TABLE `produto_has_fase` (
 
 LOCK TABLES `produto_has_fase` WRITE;
 /*!40000 ALTER TABLE `produto_has_fase` DISABLE KEYS */;
-INSERT INTO `produto_has_fase` VALUES (7,1,2),(7,5,3),(7,8,1),(8,5,1),(43,8,1),(71,6,1),(101,5,2),(101,8,1);
+INSERT INTO `produto_has_fase` VALUES (7,1,2),(7,5,3),(7,8,1),(8,5,1),(8,8,2),(43,8,1),(71,6,1),(101,5,2),(101,8,1);
 /*!40000 ALTER TABLE `produto_has_fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -716,10 +756,12 @@ DROP TABLE IF EXISTS `tipo_movimentacao`;
 CREATE TABLE `tipo_movimentacao` (
   `idtipo_Movimentacao` int(11) NOT NULL,
   `descricao` varchar(45) DEFAULT NULL,
-  `incrementar` tinyint(1) DEFAULT NULL,
-  `decrementar` tinyint(1) DEFAULT NULL,
-  `finalizar` tinyint(1) DEFAULT NULL,
-  `dividirOrdem` tinyint(1) DEFAULT NULL,
+  `incrementar` tinyint(1) DEFAULT '0',
+  `decrementar` tinyint(1) DEFAULT '0',
+  `finalizarTotal` tinyint(1) DEFAULT '0',
+  `dividirOrdemAvancar` tinyint(1) DEFAULT '0',
+  `dividirOrdemRetrabalho` tinyint(1) DEFAULT '0',
+  `finalizarParcial` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idtipo_Movimentacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -730,7 +772,7 @@ CREATE TABLE `tipo_movimentacao` (
 
 LOCK TABLES `tipo_movimentacao` WRITE;
 /*!40000 ALTER TABLE `tipo_movimentacao` DISABLE KEYS */;
-INSERT INTO `tipo_movimentacao` VALUES (1,'Finalização',0,0,1,0),(2,'Incremento',1,0,0,0),(3,'Cancelamento',0,1,0,0),(4,'Extravio',0,1,0,0),(5,'Perda',0,1,0,0),(11,'RETRABALHO',0,1,0,1);
+INSERT INTO `tipo_movimentacao` VALUES (1,'Finalização TOTAL',0,0,1,0,0,0),(2,'Incremento',1,0,0,0,0,0),(3,'Cancelamento',0,1,0,0,0,0),(4,'Extravio',0,1,0,0,0,0),(5,'Perda',0,1,0,0,0,0),(11,'RETRABALHO',0,1,0,0,1,0),(12,'Finalização PARCIAL',0,0,0,1,0,1);
 /*!40000 ALTER TABLE `tipo_movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -775,4 +817,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-12 18:40:59
+-- Dump completed on 2016-03-25 16:42:59
