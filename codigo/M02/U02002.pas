@@ -686,8 +686,8 @@ begin
              qaux2.Connection := DModule.FDConnection;
              qaux2.sql.Text := 'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf ';
              qaux2.sql.Add('left outer join fase f on ohf.idfase =  f.idfase ');
-             qaux2.sql.Add('where ohf.qtdProduzindo > 0 ');
-             qaux2.sql.Add('and ohf.idOrdem_has_fase in (select distinct idOrdem_has_fase from ordem_has_fase where idOrdem =:x) ');
+             qaux2.sql.Add('where ');
+             qaux2.sql.Add('ohf.idOrdem_has_fase in (select distinct idOrdem_has_fase from ordem_has_fase where idOrdem =:x) ');
              qaux2.sql.Add('and ohf.idOrdem_has_fase < :idordF');
              qaux2.ParamByName('x').AsInteger :=  (ClientDataSet1idOrdem.AsInteger);
              qaux2.ParamByName('idordF').AsInteger := (ClientDataSet1idOrdem_has_fase.AsInteger);

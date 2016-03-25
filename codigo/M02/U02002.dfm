@@ -289,7 +289,7 @@ inherited F02002: TF02002
           sql.Strings = (
             'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf'
             'left outer join fase f on ohf.idfase =  f.idfase '
-            'where ohf.qtdProduzindo > 0  and f.descricao like :varDescricao '
+            'where f.descricao like :varDescricao '
             
               'and ohf.idOrdem_has_fase in (select distinct idOrdem_has_fase fr' +
               'om ordem_has_fase where idOrdem =:x)'
@@ -652,7 +652,7 @@ inherited F02002: TF02002
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C00600110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00640110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

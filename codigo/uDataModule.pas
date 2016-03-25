@@ -114,9 +114,9 @@ end;
 procedure TDModule.calculoMovimentcao(idOrd: integer);
 var
 contRegistros : integer;
-qtdOriginal, qtdPrevisto, qtdProduzindo, qtdFinalizado : Integer;
+qtdOriginal, qtdPrevisto, qtdProduzindo, qtdFinalizado, ParQtdDividirOrdemAvancar : Integer;
 qAux2, qAux3: TFDQuery;
-teste :boolean;
+teste, ParDividirOrdemAvancar :boolean;
 begin
   qAux2 := TFDQuery.Create(DModule);
   qAux2.Connection := DModule.FDConnection;
@@ -159,15 +159,15 @@ begin
       qAux2.Open;
       qAux2.first;
 
-      //Atribuição dos valores
+      //Atribuição dos valores para o recalculo
       qtdPrevisto := qtdPrevisto + qtdProduzindo; // é a soma da qtdPrevista + qtdProduzindo da fase anterior;
       qtdProduzindo := qtdFinalizado; //qtdFinalizado da fase anterior
-
       qtdFinalizado := 0; // Cada Fase calcula sua qtdFinalizado a seguir
 
       while not qaux2.Eof do
       begin
-        if(qAux2.FieldByName('finalizarTotal').AsBoolean = true)then
+
+        if((qAux2.FieldByName('finalizarTotal').AsBoolean = true) or (qAux2.FieldByName('finalizarParcial').AsBoolean = true))then
         begin
           //subtrai movimentacao.qtd de qtdProduzindo
           IF(qtdProduzindo > 0)THEN
@@ -176,53 +176,37 @@ begin
           end;
           //Add quantidade finalizada
           qtdFinalizado := qtdFinalizado + qAux2.FieldByName('QTD').AsInteger;
-        end;
-
-        if(qAux2.FieldByName('finalizarParcial').AsBoolean = true)then
-        begin
-          //subtrai movimentacao.qtd de qtdProduzindo
-          IF(qtdProduzindo > 0)THEN
-          begin
-          qtdProduzindo := qtdProduzindo - qAux2.FieldByName('qtd').AsInteger;
-          end;
-          //Add quantidade finalizada
-          qtdFinalizado := qtdFinalizado + qAux2.FieldByName('QTD').AsInteger;
-
         end;
 
         //
         if(qAux2.FieldByName('incrementar').AsBoolean = true)then
         begin
-          //ShowMessage('incrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
           qtdProduzindo := qtdProduzindo + qAux2.FieldByName('qtd').AsInteger;
         end;
 
         //
         if(qAux2.FieldByName('decrementar').AsBoolean = true)then
         begin
-          //ShowMessage('Decrementar fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
           qtdProduzindo := qtdProduzindo - qAux2.FieldByName('qtd').AsInteger;
         end;
 
         //
         if(qAux2.FieldByName('dividirOrdemAvancar').AsBoolean = true)then
         begin
-          //ShowMessage('DividirOrdem fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
-
-          //Esta sendo tratado ao salvar uma nova movimentcao
+          //A qtd indormada de dividiu em outra ordem para a proxima fase,
+          //Nesse caso, na proxima fase não é esperado esse valor em qtdPrevisto
+          //As 2 variaveis abaixo cuidam para q o valor seja descontado apos o update da fase atual
+          parDividirOrdemAvancar := true;
+          ParQtdDividirOrdemAvancar := qAux2.FieldByName('QTD').AsInteger
 
         end;
 
         //
         if(qAux2.FieldByName('dividirOrdemRetrabalho').AsBoolean = true)then
         begin
-          //ShowMessage('DividirOrdem fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
-
           //Esta sendo tratado ao salvar uma nova movimentcao
 
         end;
-
-
         qaux2.Next;
       end;
 
@@ -236,6 +220,12 @@ begin
       qAux2.ParamByName('IDOHS').value:= DModule.qAux.FieldByName('idO_H_S').AsInteger;
       qAux2.ExecSQL;
 
+      //Se dividirOrdemAvancar = true, a proxima fase não recebe aquele valor para qtdPrevisto
+      if(parDividirOrdemAvancar = true)then
+      begin
+        qtdFinalizado := qtdFinalizado - ParQtdDividirOrdemAvancar;
+        parDividirOrdemAvancar := false;
+      end;
       DModule.qAux.next;
   end;
 
