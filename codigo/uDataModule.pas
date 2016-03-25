@@ -167,7 +167,18 @@ begin
 
       while not qaux2.Eof do
       begin
-        if(qAux2.FieldByName('finalizar').AsBoolean = true)then
+        if(qAux2.FieldByName('finalizarTotal').AsBoolean = true)then
+        begin
+          //subtrai movimentacao.qtd de qtdProduzindo
+          IF(qtdProduzindo > 0)THEN
+          begin
+          qtdProduzindo := qtdProduzindo - qAux2.FieldByName('qtd').AsInteger;
+          end;
+          //Add quantidade finalizada
+          qtdFinalizado := qtdFinalizado + qAux2.FieldByName('QTD').AsInteger;
+        end;
+
+        if(qAux2.FieldByName('finalizarParcial').AsBoolean = true)then
         begin
           //subtrai movimentacao.qtd de qtdProduzindo
           IF(qtdProduzindo > 0)THEN

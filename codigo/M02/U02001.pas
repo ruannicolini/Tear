@@ -387,6 +387,7 @@ begin
             if (Application.MessageBox('Deseja Deletar ?', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
             begin
               datasource2.DataSet.Delete;
+              DModule.calculoMovimentcao(ClientDataSet1idOrdem.AsInteger);
             end;
         end
         else

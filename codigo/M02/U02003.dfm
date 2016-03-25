@@ -69,16 +69,16 @@ inherited F02003: TF02003
         object CHKFINALIZAR: TDBCheckBox
           Left = 40
           Top = 155
-          Width = 97
+          Width = 173
           Height = 17
-          Caption = 'FINALIZAR'
-          DataField = 'finalizar'
+          Caption = 'FINALIZAR (TOTAL)'
+          DataField = 'finalizarTotal'
           DataSource = DS
           TabOrder = 4
         end
         object CHKDIVIDIR: TDBCheckBox
           Left = 40
-          Top = 178
+          Top = 199
           Width = 193
           Height = 17
           Caption = 'DIVIDIR ORDEM (AVAN'#199'AR)'
@@ -88,13 +88,23 @@ inherited F02003: TF02003
         end
         object DBCheckBox1: TDBCheckBox
           Left = 40
-          Top = 201
+          Top = 222
           Width = 193
           Height = 17
           Caption = 'DIVIDIR ORDEM (RETRABALHO)'
           DataField = 'dividirOrdemRetrabalho'
           DataSource = DS
           TabOrder = 6
+        end
+        object DBCheckBox2: TDBCheckBox
+          Left = 40
+          Top = 176
+          Width = 209
+          Height = 17
+          Caption = 'FINALIZAR (PARCIAL)'
+          DataField = 'finalizarParcial'
+          DataSource = DS
+          TabOrder = 7
         end
       end
     end
@@ -137,14 +147,17 @@ inherited F02003: TF02003
     object ClientDataSet1decrementar: TBooleanField
       FieldName = 'decrementar'
     end
-    object ClientDataSet1finalizar: TBooleanField
-      FieldName = 'finalizar'
-    end
     object ClientDataSet1dividirOrdemAvancar: TBooleanField
       FieldName = 'dividirOrdemAvancar'
     end
     object ClientDataSet1dividirOrdemRetrabalho: TBooleanField
       FieldName = 'dividirOrdemRetrabalho'
+    end
+    object ClientDataSet1finalizarTotal: TBooleanField
+      FieldName = 'finalizarTotal'
+    end
+    object ClientDataSet1finalizarParcial: TBooleanField
+      FieldName = 'finalizarParcial'
     end
   end
   inherited FDQuery1: TFDQuery
@@ -172,11 +185,6 @@ inherited F02003: TF02003
       FieldName = 'decrementar'
       Origin = 'decrementar'
     end
-    object FDQuery1finalizar: TBooleanField
-      AutoGenerateValue = arDefault
-      FieldName = 'finalizar'
-      Origin = 'finalizar'
-    end
     object FDQuery1dividirOrdemAvancar: TBooleanField
       AutoGenerateValue = arDefault
       FieldName = 'dividirOrdemAvancar'
@@ -187,10 +195,20 @@ inherited F02003: TF02003
       FieldName = 'dividirOrdemRetrabalho'
       Origin = 'dividirOrdemRetrabalho'
     end
+    object FDQuery1finalizarTotal: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'finalizarTotal'
+      Origin = 'finalizarTotal'
+    end
+    object FDQuery1finalizarParcial: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'finalizarParcial'
+      Origin = 'finalizarParcial'
+    end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010E002C00340110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00380110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -16,6 +16,8 @@ inherited F02002: TF02002
       ExplicitHeight = 494
       inherited grDados: TGroupBox
         Height = 494
+        ExplicitLeft = -3
+        ExplicitTop = 3
         ExplicitHeight = 494
         object Label1: TLabel
           Left = 38
@@ -35,21 +37,21 @@ inherited F02002: TF02002
         end
         object Label3: TLabel
           Left = 38
-          Top = 120
+          Top = 166
           Width = 27
           Height = 13
           Caption = 'DATA'
         end
         object Label4: TLabel
-          Left = 38
-          Top = 164
+          Left = 182
+          Top = 166
           Width = 70
           Height = 13
           Caption = 'RESPONS'#193'VEL'
           FocusControl = DBEdit4
         end
         object Label5: TLabel
-          Left = 488
+          Left = 331
           Top = 120
           Width = 66
           Height = 13
@@ -57,7 +59,7 @@ inherited F02002: TF02002
           FocusControl = DBEdit5
         end
         object Label6: TLabel
-          Left = 184
+          Left = 38
           Top = 120
           Width = 125
           Height = 13
@@ -87,6 +89,13 @@ inherited F02002: TF02002
           Caption = 'N'#186' ORDEM'
           FocusControl = DBEdit9
         end
+        object Label10: TLabel
+          Left = 475
+          Top = 120
+          Width = 94
+          Height = 13
+          Caption = 'FASE RETRABALHO'
+        end
         object DBEdit1: TDBEdit
           Left = 38
           Top = 47
@@ -95,7 +104,7 @@ inherited F02002: TF02002
           DataField = 'idmovimentacao'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 0
+          TabOrder = 8
         end
         object DBEdit2: TDBEdit
           Left = 331
@@ -106,20 +115,20 @@ inherited F02002: TF02002
           DataField = 'idOrdem_has_fase'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 1
+          TabOrder = 9
           OnChange = DBEdit2Change
         end
         object DBEdit4: TDBEdit
-          Left = 38
-          Top = 180
-          Width = 584
+          Left = 182
+          Top = 182
+          Width = 427
           Height = 21
           DataField = 'responsavel'
           DataSource = DS
-          TabOrder = 2
+          TabOrder = 6
         end
         object DBEdit5: TDBEdit
-          Left = 488
+          Left = 331
           Top = 136
           Width = 134
           Height = 21
@@ -129,7 +138,7 @@ inherited F02002: TF02002
           OnExit = DBEdit5Exit
         end
         object DBEdit6: TDBEdit
-          Left = 184
+          Left = 38
           Top = 136
           Width = 26
           Height = 21
@@ -137,7 +146,7 @@ inherited F02002: TF02002
           DataField = 'idTipoMovimentacao'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 4
+          TabOrder = 10
           OnChange = DBEdit6Change
         end
         object DBEdit8: TDBEdit
@@ -147,23 +156,23 @@ inherited F02002: TF02002
           Height = 21
           DataField = 'idOrdem'
           DataSource = DS
-          TabOrder = 5
+          TabOrder = 0
           OnExit = DBEdit8Exit
         end
         object DBEdit9: TDBEdit
           Left = 185
           Top = 91
-          Width = 134
+          Width = 136
           Height = 21
           DataField = 'numOrdem'
           DataSource = DS
           ReadOnly = True
-          TabOrder = 6
+          TabOrder = 11
         end
         object DBEditBeleza1: TDBEditBeleza
-          Left = 210
+          Left = 64
           Top = 136
-          Width = 272
+          Width = 257
           Height = 21
           Color = 15724527
           DataField = 'tipoMovimentacao'
@@ -174,7 +183,7 @@ inherited F02002: TF02002
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 2
           OnChange = DBEditBeleza1Change
           Ativar_Pesquisa = True
           mostrar_Botao = True
@@ -192,7 +201,7 @@ inherited F02002: TF02002
         object DBEditBeleza2: TDBEditBeleza
           Left = 358
           Top = 91
-          Width = 264
+          Width = 251
           Height = 21
           Color = 15724527
           DataField = 'fase'
@@ -203,7 +212,7 @@ inherited F02002: TF02002
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 1
           OnChange = DBEditBeleza2Change
           Ativar_Pesquisa = True
           mostrar_Botao = True
@@ -226,7 +235,7 @@ inherited F02002: TF02002
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
           Left = 38
-          Top = 136
+          Top = 182
           Width = 134
           Height = 21
           Hint = 'Duplo Clique para Buscar a data de hoje!'
@@ -234,13 +243,13 @@ inherited F02002: TF02002
           DataSource = DS
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 9
+          TabOrder = 5
           Formato_Data = 'dd/mm/yy'
         end
         object DBRichEdit1: TDBRichEdit
           Left = 38
           Top = 228
-          Width = 584
+          Width = 571
           Height = 74
           DataField = 'observacao'
           DataSource = DS
@@ -249,8 +258,52 @@ inherited F02002: TF02002
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          TabOrder = 10
+          TabOrder = 7
           Zoom = 100
+        end
+        object Edit3: TEdit
+          Left = 475
+          Top = 136
+          Width = 24
+          Height = 21
+          Color = 15724527
+          ReadOnly = True
+          TabOrder = 12
+          OnChange = Edit3Change
+        end
+        object EditBeleza2: TEditBeleza
+          Left = 499
+          Top = 136
+          Width = 110
+          Height = 21
+          Color = 15724527
+          Enabled = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Ativar_Pesquisa = True
+          Ativar_MultiSelecao = False
+          mostrar_Botao = True
+          sql.Strings = (
+            'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf'
+            'left outer join fase f on ohf.idfase =  f.idfase '
+            'where ohf.qtdProduzindo > 0  and f.descricao like :varDescricao '
+            
+              'and ohf.idOrdem_has_fase in (select distinct idOrdem_has_fase fr' +
+              'om ordem_has_fase where idOrdem =:x)'
+            'and ohf.idOrdem_has_fase < :idordF')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = Edit3
+          campo_outro_edit = 'idOrdem_has_fase'
+          CorBorda = clGray
+          NovoLayout = False
+          OnButtonClick = EditBeleza2ButtonClick
         end
       end
     end

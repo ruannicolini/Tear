@@ -69,6 +69,9 @@ type
     Edit2: TEdit;
     FDQuery1SEQUENCIA: TIntegerField;
     ClientDataSet1SEQUENCIA: TIntegerField;
+    Edit3: TEdit;
+    EditBeleza2: TEditBeleza;
+    Label10: TLabel;
     procedure DBEditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -88,6 +91,9 @@ type
     procedure DBEditBeleza2Change(Sender: TObject);
     procedure DBEditBeleza2DepoisPesquisa(Sender: TObject;
       var query_result: TDataSet);
+    procedure EditBeleza2ButtonClick(Sender: TObject;
+      var query_result: TFDQuery);
+    procedure Edit3Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -95,6 +101,7 @@ type
     constructor CreateMov(AOwner : TComponent; pParm1 : integer);
     constructor CreateOrdemFase(AOwner : TComponent; pParm1 : integer);
     //procedure calculoMovimentcao(idOrd: integer);
+    public sequenciaRetrabalho : integer;
   end;
 
 var
@@ -231,7 +238,7 @@ qtdInsereMatriz : integer;
 QTD_PRODUZINDO, QTD_PREVISTA, QTD_FINALIZADA, QTD_Original, I, IDFASE, IDGRUPO, SEQUENCIA: INTEGER;
 obs : string;
 QAUX2: TFDQUERY;
-status : boolean;
+status,dividirAvancar, dividirRetrabalho : boolean;
 begin
   DBEdit1.Color := clWindow;
   DBEdit2.Color := $00EFEFEF;
@@ -253,7 +260,10 @@ begin
     DModule.qAux.ParamByName('id').AsInteger := ClientDataSet1idTipoMovimentacao.AsInteger;
     DModule.qAux.Open;
 
-    if(DModule.qAux.FieldByName('dividirOrdemAvancar').AsBoolean = true)then
+    dividirAvancar := DModule.qAux.FieldByName('dividirOrdemAvancar').AsBoolean;
+    dividirRetrabalho := DModule.qAux.FieldByName('dividirOrdemRetrabalho').AsBoolean;
+
+    if(dividirAvancar = true)or(dividirRetrabalho = true)then
     begin
         //ShowMessage('DividirOrdem');
         QAUX2 := TFDQuery.Create(SELF);
@@ -269,7 +279,12 @@ begin
 
         //Obtenção dos valores das variáveis
         idProd := DModule.qAux.FieldByName('idProduto').AsInteger;
-        obs := 'Finalização Parcial da Ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger);
+        IF(dividirAvancar = TRUE)THEN
+        BEGIN
+          obs := 'Finalização Parcial da Ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger);
+        END ELSE
+          obs := 'Retrabalho da Ordem ' + inttostr(DModule.qAux.FieldByName('numOrdem').AsInteger);
+
         idN := DModule.buscaProximoParametro('seqOrdemProducao');
         NOrdem := ClientDataSet1numOrdem.AsInteger;
         qtd := ClientDataSet1qtd.AsInteger;
@@ -313,9 +328,23 @@ begin
             //Declaração do tamanho da Matriz
             for i := 0 to (DModule.qAux.RecordCount -1) do
             begin
-              if(DModule.qAux.FieldByName('sequencia').AsInteger > ClientDataSet1SEQUENCIA.AsInteger)then
+              //DIVIDIR ORDEM AVANCAR
+              if(dividirAvancar = true)then
               begin
-                qtdInsereMatriz := qtdInsereMatriz +1;
+                  if(DModule.qAux.FieldByName('sequencia').AsInteger > ClientDataSet1SEQUENCIA.AsInteger)then
+                  begin
+                    qtdInsereMatriz := qtdInsereMatriz +1;
+                  end;
+              end else
+              begin
+                //DIVIDIR ORDEM RETRABALHO
+                if(dividirRetrabalho = true)then
+                begin
+                    if(DModule.qAux.FieldByName('sequencia').AsInteger >= sequenciaRetrabalho )then
+                    begin
+                      qtdInsereMatriz := qtdInsereMatriz +1;
+                    end;
+                end;
               end;
               DModule.qAux.Next;
             end;
@@ -331,43 +360,85 @@ begin
             i := 0;
             while not DModule.qAux.eof do
             begin
+                if(dividirAvancar = true)then
+                begin
+                    if(DModule.qAux.FieldByName('sequencia').AsInteger > ClientDataSet1SEQUENCIA.AsInteger)then
+                    begin
+                        //idOrdem
+                        matriz[i][0] := idn;
 
-              if(DModule.qAux.FieldByName('sequencia').AsInteger > ClientDataSet1SEQUENCIA.AsInteger)then
-              begin
-                  //idOrdem
-                  matriz[i][0] := idn;
+                        //IdFase
+                        matriz[i][1] := DModule.qAux.FieldByName('idfase').AsInteger;
 
-                  //IdFase
-                  matriz[i][1] := DModule.qAux.FieldByName('idfase').AsInteger;
+                        //QtdOriginal
+                        matriz[i][2] := ClientDataSet1qtd.AsInteger;
 
-                  //QtdOriginal
-                  matriz[i][2] := ClientDataSet1qtd.AsInteger;
+                        //qtdPrevisto
+                        IF(i = 0)THEN
+                        BEGIN
+                          matriz[i][3] := 0;
+                        END ELSE
+                          matriz[i][3] := ClientDataSet1qtd.AsInteger;
 
-                  //qtdPrevisto
-                  IF(i = 0)THEN
-                  BEGIN
-                    matriz[i][3] := 0;
-                  END ELSE
-                    matriz[i][3] := ClientDataSet1qtd.AsInteger;
+                        //QtdFinalizado
+                        matriz[i][4] := 0;
 
-                  //QtdFinalizado
-                  matriz[i][4] := 0;
+                        //QtdProduzindo
+                        IF(i = 0)THEN
+                        BEGIN
+                        matriz[i][5] := ClientDataSet1qtd.AsInteger;;
+                        END ELSE
+                        matriz[i][5] := 0;
 
-                  //QtdProduzindo
-                  IF(i = 0)THEN
-                  BEGIN
-                  matriz[i][5] := ClientDataSet1qtd.AsInteger;;
-                  END ELSE
-                  matriz[i][5] := 0;
+                        //Sequencia
+                        matriz[i][6] := DModule.qAux.FieldByName('sequencia').AsInteger;
 
-                  //Sequencia
-                  matriz[i][6] := DModule.qAux.FieldByName('sequencia').AsInteger;
+                        //Grupo Selecionado aleatoriamente para produzir
+                        matriz[i][7] := DModule.qAux.FieldByName('idGrupo').AsInteger;
+                        i := i+1;
+                    end;
+                end else
+                begin
+                  if(dividirRetrabalho = true)then
+                  begin
+                      if(DModule.qAux.FieldByName('sequencia').AsInteger >= sequenciaRetrabalho)then
+                      begin
+                        //idOrdem
+                        matriz[i][0] := idn;
 
-                  //Grupo Selecionado aleatoriamente para produzir
-                  matriz[i][7] := DModule.qAux.FieldByName('idGrupo').AsInteger;
-                  i := i+1;
-              end;
-              DModule.qAux.next;
+                        //IdFase
+                        matriz[i][1] := DModule.qAux.FieldByName('idfase').AsInteger;
+
+                        //QtdOriginal
+                        matriz[i][2] := ClientDataSet1qtd.AsInteger;
+
+                        //qtdPrevisto
+                        IF(i = 0)THEN
+                        BEGIN
+                          matriz[i][3] := 0;
+                        END ELSE
+                          matriz[i][3] := ClientDataSet1qtd.AsInteger;
+
+                        //QtdFinalizado
+                        matriz[i][4] := 0;
+
+                        //QtdProduzindo
+                        IF(i = 0)THEN
+                        BEGIN
+                        matriz[i][5] := ClientDataSet1qtd.AsInteger;;
+                        END ELSE
+                        matriz[i][5] := 0;
+
+                        //Sequencia
+                        matriz[i][6] := DModule.qAux.FieldByName('sequencia').AsInteger;
+
+                        //Grupo Selecionado aleatoriamente para produzir
+                        matriz[i][7] := DModule.qAux.FieldByName('idGrupo').AsInteger;
+                        i := i+1;
+                      end;
+                  end;
+                end;
+                DModule.qAux.next;
             end;
 
             //Cria Registro de Ordem_has_fase da nova fase.
@@ -390,6 +461,12 @@ begin
             end;
         end;
 
+    end else
+    begin
+        if(dividirRetrabalho = true)then
+        begin
+
+        end;
     end;
   end;
   inherited;
@@ -598,12 +675,31 @@ end;
 procedure TF02002.DBEdit6Change(Sender: TObject);
 begin
   inherited;
-  //
-  DModule.qAux.Close;
-  DModule.qAux.SQL.Text := 'select * from ordem_producao where idordem =:id';
-  DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
-  DModule.qAux.Open;
-  DModule.qAux.first;
+  IF TRIM(DBEDIT6.Text) <> '' THEN
+  BEGIN
+      DModule.qAux.Close;
+      DModule.qAux.SQL.Text := 'select * from TIPO_MOVIMENTACAO where idTIPO_MOVIMENTACAO =:id';
+      DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idTipoMovimentacao.AsInteger);
+      DModule.qAux.Open;
+      DModule.qAux.first;
+      IF(DModule.qAux.FieldByName('dividirOrdemRetrabalho').AsBoolean = TRUE)THEN
+      begin
+           Edit3.Clear;
+           EditBeleza2.enabled := true;
+      END else
+      begin
+          Edit3.Clear;
+          EditBeleza2.Clear;
+          EditBeleza2.enabled := false;
+      end;
+
+  END else
+  begin
+        Edit3.Clear;
+        EditBeleza2.Clear;
+        EditBeleza2.enabled := false;
+  end;
+
 end;
 
 procedure TF02002.DBEdit8Exit(Sender: TObject);
@@ -625,6 +721,7 @@ begin
     if NOT(ClientDataSet1idOrdem.IsNull)then
     begin
       ShowMessage('CÓDIGO NÃO ENCONTRADO');
+      DBEdit8.SetFocus;
     end;
   end else
   begin
@@ -690,6 +787,29 @@ begin
     chkCodOrdem.Checked := false;
   end else
     chkCodOrdem.Checked := true;
+end;
+
+procedure TF02002.Edit3Change(Sender: TObject);
+begin
+  inherited;
+  //
+  if Trim(EDIT3.Text) <> '' then
+  begin
+    DModule.qAux.Close;
+    DModule.qAux.sql.Text := 'select sequencia from ordem_has_fase where idOrdem_has_fase = :idOHF';
+    DModule.qAux.ParamByName('idOHF').AsInteger := STRTOINT(EDIT3.Text);
+    DModule.qAux.Open();
+    sequenciaRetrabalho := DModule.qAux.FieldByName('sequencia').AsInteger;
+  end else
+    sequenciaRetrabalho := 0;
+end;
+
+procedure TF02002.EditBeleza2ButtonClick(Sender: TObject;
+  var query_result: TFDQuery);
+begin
+  inherited;
+  query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
+  query_result.ParamByName('idordF').Value := (ClientDataSet1idOrdem_has_fase.AsInteger);
 end;
 
 Initialization
