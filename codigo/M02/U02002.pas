@@ -301,6 +301,7 @@ begin
         DModule.qAux.ParamByName('d').AsDate := Date();
         DModule.qAux.ParamByName('obs').AsString := obs;
         DModule.qAux.ExecSQL;
+        ShowMessage('Ordem de produção criada com sucesso!');
 
         //Pega as fases do produto selecionado e trás um idGRUPO habilitado a realizar a fase sorteado aleatório
         DModule.qAux.Close;
@@ -459,13 +460,6 @@ begin
               ')';
               QAUX2.ExecSQL;
             end;
-        end;
-
-    end else
-    begin
-        if(dividirRetrabalho = true)then
-        begin
-
         end;
     end;
   end;
@@ -649,19 +643,18 @@ begin
       DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idTipoMovimentacao.AsInteger);
       DModule.qAux.Open;
       DModule.qAux.first;
-
       if (DModule.qAux.FieldByName('incrementar').AsBoolean = false) then
       begin
-        DModule.qAux.Close;
-        DModule.qAux.SQL.Text := 'select * from ORDEM_HAS_FASE where idordem_HAS_FASE =:id';
-        DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem_has_fase.AsInteger);
-        DModule.qAux.Open;
-        DModule.qAux.first;
-        IF(ClientDataSet1qtd.AsInteger > StrToInt(DModule.qAux.FieldByName('QTDPRODUZINDO').AsString))THEN
-        BEGIN
-          ShowMessage('INFORME UMA QUANTIDADE MENOR '+ 'QUE A QUANTIDADE PRODUZINDO (' + DModule.qAux.FieldByName('QTDPRODUZINDO').AsString+ ')');
-          ClientDataSet1qtd.Clear;
-        END;
+              DModule.qAux.Close;
+              DModule.qAux.SQL.Text := 'select * from ORDEM_HAS_FASE where idordem_HAS_FASE =:id';
+              DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem_has_fase.AsInteger);
+              DModule.qAux.Open;
+              DModule.qAux.first;
+              IF(ClientDataSet1qtd.AsInteger > StrToInt(DModule.qAux.FieldByName('QTDPRODUZINDO').AsString))THEN
+              BEGIN
+                ShowMessage('INFORME UMA QUANTIDADE MENOR '+ 'QUE A QUANTIDADE PRODUZINDO (' + DModule.qAux.FieldByName('QTDPRODUZINDO').AsString+ ')');
+                ClientDataSet1qtd.Clear;
+              END;
       END;
     END ELSE
       BEGIN
@@ -673,24 +666,64 @@ begin
 end;
 
 procedure TF02002.DBEdit6Change(Sender: TObject);
+var
+qaux2 : TFDQuery;
 begin
   inherited;
   IF TRIM(DBEDIT6.Text) <> '' THEN
   BEGIN
-      DModule.qAux.Close;
-      DModule.qAux.SQL.Text := 'select * from TIPO_MOVIMENTACAO where idTIPO_MOVIMENTACAO =:id';
-      DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idTipoMovimentacao.AsInteger);
-      DModule.qAux.Open;
-      DModule.qAux.first;
-      IF(DModule.qAux.FieldByName('dividirOrdemRetrabalho').AsBoolean = TRUE)THEN
+      if DS.DataSet.State=dsInsert then
       begin
-           Edit3.Clear;
-           EditBeleza2.enabled := true;
-      END else
-      begin
-          Edit3.Clear;
-          EditBeleza2.Clear;
-          EditBeleza2.enabled := false;
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Text := 'select * from TIPO_MOVIMENTACAO where idTIPO_MOVIMENTACAO =:id';
+        DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idTipoMovimentacao.AsInteger);
+        DModule.qAux.Open;
+        DModule.qAux.first;
+        IF(DModule.qAux.FieldByName('dividirOrdemRetrabalho').AsBoolean = TRUE)THEN
+        begin
+              //verifica se existem fases anteriores para fazer o retrabalho
+             qaux2 := TFDQuery.Create(self);
+             qaux2.Connection := DModule.FDConnection;
+             qaux2.sql.Text := 'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf ';
+             qaux2.sql.Add('left outer join fase f on ohf.idfase =  f.idfase ');
+             qaux2.sql.Add('where ohf.qtdProduzindo > 0 ');
+             qaux2.sql.Add('and ohf.idOrdem_has_fase in (select distinct idOrdem_has_fase from ordem_has_fase where idOrdem =:x) ');
+             qaux2.sql.Add('and ohf.idOrdem_has_fase < :idordF');
+             qaux2.ParamByName('x').AsInteger :=  (ClientDataSet1idOrdem.AsInteger);
+             qaux2.ParamByName('idordF').AsInteger := (ClientDataSet1idOrdem_has_fase.AsInteger);
+             qaux2.open;
+
+             if not(qaux2.IsEmpty)then
+             begin
+                Edit3.Clear;
+                EditBeleza2.enabled := true;
+             end else
+                begin
+                DBEdit6.Clear;
+                DBEditBeleza1.Clear;
+                ShowMessage('Não há fases anteriores habilitadas para Retrabalho');
+                DBEditBeleza1.SetFocus;
+                end;
+        END else
+        begin
+            Edit3.Clear;
+            EditBeleza2.Clear;
+            EditBeleza2.enabled := false;
+        end;
+
+
+        if (DModule.qAux.FieldByName('finalizarTotal').AsBoolean = true) then
+        begin
+            DModule.qAux.Close;
+            DModule.qAux.SQL.Text := 'select * from ORDEM_HAS_FASE where idordem_HAS_FASE =:id';
+            DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem_has_fase.AsInteger);
+            DModule.qAux.Open;
+            ShowMessage('oi');
+            DBEdit5.Text := DModule.qAux.FieldByName('qtdProduzindo').AsString;
+            ClientDataSet1qtd.AsInteger := DModule.qAux.FieldByName('qtdProduzindo').AsInteger;
+            DBEdit5.Enabled := false;
+        end else
+          DBEdit5.Enabled := true;
       end;
 
   END else

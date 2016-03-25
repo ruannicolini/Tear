@@ -213,6 +213,16 @@ begin
 
         end;
 
+        //
+        if(qAux2.FieldByName('dividirOrdemRetrabalho').AsBoolean = true)then
+        begin
+          //ShowMessage('DividirOrdem fase ' + qAux2.FieldByName('idOrdem_has_fase').AsString);
+
+          //Esta sendo tratado ao salvar uma nova movimentcao
+
+        end;
+
+
         qaux2.Next;
       end;
 
