@@ -222,6 +222,7 @@ inherited F02002: TF02002
           CorBorda = clGray
           NovoLayout = False
           OnButtonClick = DBEditBeleza2ButtonClick
+          DepoisPesquisa = DBEditBeleza2DepoisPesquisa
         end
         object DBEdit_Calendario1: TDBEdit_Calendario
           Left = 38
@@ -471,6 +472,9 @@ inherited F02002: TF02002
       FieldName = 'fase'
       Size = 45
     end
+    object ClientDataSet1SEQUENCIA: TIntegerField
+      FieldName = 'SEQUENCIA'
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 480
@@ -478,11 +482,16 @@ inherited F02002: TF02002
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      'select m.*, o.* , tm.descricao as tipoMovimentacao,'
+      
+        'select m.*,OHF.SEQUENCIA, o.* , tm.descricao as tipoMovimentacao' +
+        ','
       'f.descricao as fase from movimentacao m '#10#10
       
         'left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao =' +
         ' m.idTipoMovimentacao '#13#10#10
+      ''
+      ''
+      ''
       ' '#10#10#10
       ''
       
@@ -490,7 +499,7 @@ inherited F02002: TF02002
         'dORdem_has_fase '
       'left outer join fase f on f.idfase = ohf.idfase '#10#10#10
       'left outer join ordem_producao o on o.idOrdem = ohf.idORdem;')
-    Left = 448
+    Left = 456
     Top = 8
     object FDQuery1idmovimentacao: TIntegerField
       FieldName = 'idmovimentacao'
@@ -581,12 +590,18 @@ inherited F02002: TF02002
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery1SEQUENCIA: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'SEQUENCIA'
+      Origin = 'sequencia'
+      ProviderFlags = []
+    end
   end
   inherited ImageListBase: TImageList
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C00540110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C005C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
