@@ -5,6 +5,8 @@ inherited F02004: TF02004
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
+    Top = 93
+    Height = 425
     ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
@@ -12,15 +14,56 @@ inherited F02004: TF02004
       ExplicitWidth = 810
       ExplicitHeight = 455
       inherited grDados: TGroupBox
-        object Panel3: TPanel
+        Height = 397
+        object ScrollBox1: TScrollBox
+          AlignWithMargins = True
           Left = 2
           Top = 15
-          Width = 806
-          Height = 74
-          Align = alTop
-          Color = clSkyBlue
-          ParentBackground = False
+          Width = 230
+          Height = 380
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          HorzScrollBar.Color = clSilver
+          HorzScrollBar.ParentColor = False
+          Align = alLeft
+          BevelInner = bvNone
+          BevelOuter = bvNone
+          BorderStyle = bsNone
+          Color = clMenuBar
+          ParentColor = False
           TabOrder = 0
+          ExplicitHeight = 90
+          object Panel5: TPanel
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 224
+            Height = 60
+            Align = alTop
+            BevelInner = bvLowered
+            Caption = 'Panel4'
+            Color = 15395304
+            ParentBackground = False
+            TabOrder = 0
+            ExplicitLeft = 0
+            ExplicitTop = 8
+            ExplicitWidth = 230
+          end
+        end
+        object PanelLinhadeProducao: TPanel
+          Left = 232
+          Top = 15
+          Width = 576
+          Height = 380
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 1
+          ExplicitLeft = 552
+          ExplicitTop = 136
+          ExplicitWidth = 185
+          ExplicitHeight = 41
         end
       end
     end
@@ -29,11 +72,34 @@ inherited F02004: TF02004
       ExplicitTop = 24
       ExplicitWidth = 810
       ExplicitHeight = 455
+      inherited DBGridBeleza1: TDBGridBeleza
+        Height = 286
+      end
+    end
+  end
+  object Panel3: TPanel [2]
+    Left = 0
+    Top = 35
+    Width = 818
+    Height = 58
+    Align = alTop
+    BevelKind = bkFlat
+    BevelOuter = bvNone
+    Color = 15395304
+    ParentBackground = False
+    TabOrder = 2
+    object SpeedButton1: TSpeedButton
+      Left = 400
+      Top = 4
+      Width = 169
+      Height = 46
+      Caption = 'DISTRIBUIR OPERA'#199#213'ES'
+      OnClick = SpeedButton1Click
     end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010E002C00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
