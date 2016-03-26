@@ -19,6 +19,15 @@ type
     SpeedButton1: TSpeedButton;
     Panel5: TPanel;
     PanelLinhadeProducao: TPanel;
+    Panel4: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    ProgressBar2: TProgressBar;
+    ProgressBar3: TProgressBar;
+    Panel8: TPanel;
+    ProgressBar1: TProgressBar;
+    Image1: TImage;
+    Panel9: TPanel;
     procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
@@ -37,6 +46,8 @@ implementation
 {$R *.dfm}
 
 procedure TF02004.montaPanelLinhaDeProducao;
+var
+numOperacoes, numOperadores, numFilas, quebraFila :integer;
 begin
   //
 

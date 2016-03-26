@@ -64,6 +64,101 @@ inherited F02004: TF02004
           ExplicitTop = 136
           ExplicitWidth = 185
           ExplicitHeight = 41
+          object Panel4: TPanel
+            Left = 20
+            Top = 24
+            Width = 185
+            Height = 219
+            Alignment = taLeftJustify
+            BevelInner = bvLowered
+            BiDiMode = bdLeftToRight
+            BorderStyle = bsSingle
+            Color = clGrayText
+            ParentBiDiMode = False
+            ParentBackground = False
+            TabOrder = 0
+            object Panel6: TPanel
+              Left = 6
+              Top = 10
+              Width = 170
+              Height = 54
+              Caption = 'Panel6'
+              Color = clSilver
+              ParentBackground = False
+              TabOrder = 0
+              object ProgressBar2: TProgressBar
+                Left = 1
+                Top = 43
+                Width = 168
+                Height = 10
+                Align = alBottom
+                TabOrder = 0
+                ExplicitTop = 36
+              end
+            end
+            object Panel7: TPanel
+              Left = 5
+              Top = 154
+              Width = 170
+              Height = 54
+              Caption = 'Panel6'
+              Color = clSilver
+              ParentBackground = False
+              TabOrder = 1
+              object ProgressBar3: TProgressBar
+                Left = 1
+                Top = 43
+                Width = 168
+                Height = 10
+                Align = alBottom
+                TabOrder = 0
+                ExplicitLeft = 96
+                ExplicitTop = 24
+                ExplicitWidth = 150
+              end
+            end
+            object Panel8: TPanel
+              Left = 6
+              Top = 69
+              Width = 170
+              Height = 78
+              Alignment = taLeftJustify
+              Color = clGrayText
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 2
+              object Image1: TImage
+                Left = 30
+                Top = 3
+                Width = 126
+                Height = 72
+              end
+              object ProgressBar1: TProgressBar
+                Left = 157
+                Top = 3
+                Width = 9
+                Height = 72
+                Orientation = pbVertical
+                Position = 50
+                TabOrder = 0
+              end
+              object Panel9: TPanel
+                Left = 5
+                Top = 24
+                Width = 21
+                Height = 22
+                Caption = '1'
+                Color = clInfoBk
+                ParentBackground = False
+                TabOrder = 1
+              end
+            end
+          end
         end
       end
     end
@@ -97,7 +192,25 @@ inherited F02004: TF02004
       OnClick = SpeedButton1Click
     end
   end
+  inherited DS: TDataSource
+    Left = 736
+    Top = 40
+  end
+  inherited ClientDataSet1: TClientDataSet
+    Left = 704
+    Top = 40
+  end
+  inherited DataSetProvider1: TDataSetProvider
+    Left = 672
+    Top = 40
+  end
+  inherited FDQuery1: TFDQuery
+    Left = 640
+    Top = 40
+  end
   inherited ImageListBase: TImageList
+    Left = 608
+    Top = 40
     Bitmap = {
       494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
@@ -633,5 +746,9 @@ inherited F02004: TF02004
       E067E067FE17FE17E047E047FFA3FFA3E00FE00FFFC3FFC3E01FE01FFFE7FFE7
       E03FE03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited Acoes: TActionList
+    Left = 576
+    Top = 40
   end
 end
