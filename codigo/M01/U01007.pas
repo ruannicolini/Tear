@@ -350,6 +350,8 @@ begin
   Begin
     ShowModal;
     Free;
+    DataSource3.DataSet.Refresh;
+
   End;
 end;
 
@@ -576,6 +578,7 @@ begin
   Begin
     ShowModal;
     Free;
+    DataSource3.DataSet.Refresh;
   End;
 
 end;

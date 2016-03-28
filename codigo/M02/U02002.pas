@@ -94,6 +94,9 @@ type
     procedure EditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
     procedure Edit3Change(Sender: TObject);
+    procedure ClientDataSet1AfterApplyUpdates(Sender: TObject;
+      var OwnerData: OleVariant);
+    procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -614,6 +617,19 @@ begin
 
 end;
 }
+
+procedure TF02002.ClientDataSet1AfterApplyUpdates(Sender: TObject;
+  var OwnerData: OleVariant);
+begin
+  inherited;
+  DModule.calculoMovimentcao(ClientDataSet1idOrdem.AsInteger);
+end;
+
+procedure TF02002.ClientDataSet1AfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  //
+end;
 
 procedure TF02002.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin

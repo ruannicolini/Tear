@@ -65,10 +65,10 @@ inherited F02004: TF02004
           ExplicitWidth = 185
           ExplicitHeight = 41
           object Panel4: TPanel
-            Left = 20
-            Top = 24
-            Width = 185
-            Height = 219
+            Left = 340
+            Top = 2
+            Width = 134
+            Height = 192
             Alignment = taLeftJustify
             BevelInner = bvLowered
             BiDiMode = bdLeftToRight
@@ -78,9 +78,9 @@ inherited F02004: TF02004
             ParentBackground = False
             TabOrder = 0
             object Panel6: TPanel
-              Left = 6
-              Top = 10
-              Width = 170
+              Left = 3
+              Top = 2
+              Width = 123
               Height = 54
               Caption = 'Panel6'
               Color = clSilver
@@ -89,17 +89,17 @@ inherited F02004: TF02004
               object ProgressBar2: TProgressBar
                 Left = 1
                 Top = 43
-                Width = 168
+                Width = 121
                 Height = 10
                 Align = alBottom
                 TabOrder = 0
-                ExplicitTop = 36
+                ExplicitWidth = 167
               end
             end
             object Panel7: TPanel
-              Left = 5
-              Top = 154
-              Width = 170
+              Left = 2
+              Top = 130
+              Width = 124
               Height = 54
               Caption = 'Panel6'
               Color = clSilver
@@ -108,20 +108,19 @@ inherited F02004: TF02004
               object ProgressBar3: TProgressBar
                 Left = 1
                 Top = 43
-                Width = 168
+                Width = 122
                 Height = 10
                 Align = alBottom
                 TabOrder = 0
-                ExplicitLeft = 96
-                ExplicitTop = 24
-                ExplicitWidth = 150
+                ExplicitTop = 42
+                ExplicitWidth = 146
               end
             end
             object Panel8: TPanel
-              Left = 6
-              Top = 69
-              Width = 170
-              Height = 78
+              Left = 3
+              Top = 58
+              Width = 123
+              Height = 69
               Alignment = taLeftJustify
               Color = clGrayText
               Font.Charset = DEFAULT_CHARSET
@@ -133,22 +132,22 @@ inherited F02004: TF02004
               ParentFont = False
               TabOrder = 2
               object Image1: TImage
-                Left = 30
+                Left = 25
                 Top = 3
-                Width = 126
-                Height = 72
+                Width = 86
+                Height = 63
               end
               object ProgressBar1: TProgressBar
-                Left = 157
+                Left = 112
                 Top = 3
                 Width = 9
-                Height = 72
+                Height = 63
                 Orientation = pbVertical
                 Position = 50
                 TabOrder = 0
               end
               object Panel9: TPanel
-                Left = 5
+                Left = 2
                 Top = 24
                 Width = 21
                 Height = 22

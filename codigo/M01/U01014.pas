@@ -182,27 +182,23 @@ begin
 
 
   finally
+
     memo1.Clear;
     memo1.Lines.Add(arqCompleto.ToString);
     SelectDirectory('SALVA EM: ','',pasta);
-    Assignfile(arq,pasta+'\dados.json');
-    //showmessage(pasta+'\dados.json');
-    Rewrite(arq);
-    Write( arq,arqCompleto.ToString);
-    CloseFile(arq);
+    if (Trim(Pasta) <> '') then
+    begin
+      Assignfile(arq,pasta+'\dados.json');
+      //showmessage(pasta+'\dados.json');
+      Rewrite(arq);
+      Write( arq,arqCompleto.ToString);
+      CloseFile(arq);
+    end;
     //showmessage(arqCompleto.ToString);
     arqCompleto.FreeInstance;
 
-    {SelectDirectory('SALVA EM: ','',pasta);
-    if (Trim(Pasta) <> '') then
-    begin
-      if (Pasta[Length(Pasta)] <> '\') then
-        Pasta := Pasta + '\';
-    end;
-    }
-
+    ShowMessage('Arquivo Salvo com Sucesso.');
   end;
-  ShowMessage('ok');
 
 end;
 

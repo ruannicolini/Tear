@@ -50,6 +50,13 @@ var
 numOperacoes, numOperadores, numFilas, quebraFila :integer;
 begin
   //
+  Panel := TPanel.Create(PanelLinhadeProducao);
+  Panel.Parent := (PanelLinhadeProducao);
+  panel.Width := 134;
+  panel.Height := 193;
+  panel.Color := clMenu;
+  panel.BevelInner := bvLowered;
+  Panel.ParentBackground := false;
 
 end;
 
@@ -92,6 +99,7 @@ begin
   end;
 
   //Monta PanelLinhadeProducao
+  montaPanelLinhaDeProducao;
 end;
 
 Initialization
