@@ -8,13 +8,16 @@ inherited F02004: TF02004
     Top = 93
     Height = 425
     ActivePage = TbDados
+    ExplicitTop = 93
+    ExplicitHeight = 425
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 810
-      ExplicitHeight = 455
+      ExplicitHeight = 397
       inherited grDados: TGroupBox
         Height = 397
+        ExplicitHeight = 397
         object ScrollBox1: TScrollBox
           AlignWithMargins = True
           Left = 2
@@ -34,7 +37,6 @@ inherited F02004: TF02004
           Color = clMenuBar
           ParentColor = False
           TabOrder = 0
-          ExplicitHeight = 90
           object Panel5: TPanel
             AlignWithMargins = True
             Left = 3
@@ -47,9 +49,6 @@ inherited F02004: TF02004
             Color = 15395304
             ParentBackground = False
             TabOrder = 0
-            ExplicitLeft = 0
-            ExplicitTop = 8
-            ExplicitWidth = 230
           end
         end
         object PanelLinhadeProducao: TPanel
@@ -60,10 +59,6 @@ inherited F02004: TF02004
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitLeft = 552
-          ExplicitTop = 136
-          ExplicitWidth = 185
-          ExplicitHeight = 41
           object Panel4: TPanel
             Left = 340
             Top = 2
@@ -93,7 +88,6 @@ inherited F02004: TF02004
                 Height = 10
                 Align = alBottom
                 TabOrder = 0
-                ExplicitWidth = 167
               end
             end
             object Panel7: TPanel
@@ -112,8 +106,6 @@ inherited F02004: TF02004
                 Height = 10
                 Align = alBottom
                 TabOrder = 0
-                ExplicitTop = 42
-                ExplicitWidth = 146
               end
             end
             object Panel8: TPanel
@@ -211,7 +203,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 40
     Bitmap = {
-      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
