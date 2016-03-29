@@ -164,14 +164,19 @@ type
     ClientDataSet1produto: TStringField;
     FDQuery2idLayoutOperacao: TIntegerField;
     FDQuery2idLayoutFase: TIntegerField;
-    FDQuery2tempoOperacao: TIntegerField;
     FDQuery2idCronometragem: TIntegerField;
     FDQuery2operacao: TStringField;
     moperacoesidLayoutOperacao: TIntegerField;
     moperacoesidLayoutFase: TIntegerField;
-    moperacoestempoOperacao: TIntegerField;
     moperacoesidCronometragem: TIntegerField;
     moperacoesoperacao: TStringField;
+    FDQuery2tempoOperacao: TSingleField;
+    moperacoestempoOperacao: TSingleField;
+    img: TImage;
+    moperacoescota: TFloatField;
+    moperacoescotaPendente: TFloatField;
+    ed_metaHora: TEdit;
+    Ed_tempo: TEdit;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -193,11 +198,14 @@ type
     Panel : TPANEL;
     ProgressBar : TProgressBar;
     procedure montaPanelLinhaDeProducao();
+    procedure CalculaMetaHora();
   end;
 
 var
   F02004: TF02004;
   Layout: TLayout;
+  TempoTotal : real;
+  MetaHora   : integer;
 
 implementation
 
@@ -226,6 +234,51 @@ procedure TF02004.BSalvarClick(Sender: TObject);
 begin
   inherited;
   Panel3.Enabled := false;
+end;
+
+procedure TF02004.CalculaMetaHora;
+begin
+  //
+  TempoTotal := 0;
+  Dmodule.QAux.sql.Text := 'select sum(tempoOperacao) from LayOutOperacao where IdLayoutFase =:IdLF ';
+  Dmodule.QAux.ParamByName('IdLF').AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+  Dmodule.QAux.open;
+
+  //showmessage(FloatToStr(Dmodule.qaux.Fields[0].AsFloat));
+  TempoTotal := (Dmodule.qaux.Fields[0].AsFloat)/1000; //converte de milesegundos para segundos
+
+  //calculando a cota por operacao
+  MOperacoes.close;
+  fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+  MOperacoes.Open;
+
+
+  if TempoTotal > 0 then
+  begin
+      //meta hora calculo
+      MetaHora := trunc((60/TempoTotal)* ClientDataSet1numOperadores.AsInteger);
+      //showmessage('Tempo total '+floattostr(TempoTotal)+' meta hora '+inttostr(MetaHora));
+
+      //showmessage('Montou pro layout  '+inttostr(MLayoutIdLayout.AsInteger));
+      //calculando a cota por operacao
+      MOperacoes.close;
+      fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+      MOperacoes.Open;
+
+      MOperacoes.First;
+      while not(moperacoes.Eof) do
+      begin
+          moperacoes.Edit;
+          MOperacoesCota.AsFloat         := (MetaHora/(60/moperacoestempoOperacao.AsFloat))*100;
+          MOperacoesCotaPendente.AsFloat := MOperacoesCota.AsFloat;
+          MOperacoes.Next;
+      end;
+  end;
+
+  ed_metaHora.text := Integer.ToString(MetaHora);
+  Ed_tempo.text    := Double.ToString(TempoTotal);
+
+  ShowMessage(' CalculaMetaHora ok');
 end;
 
 procedure TF02004.ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -299,7 +352,7 @@ end;
 procedure TF02004.moperacoesAfterInsert(DataSet: TDataSet);
 begin
   inherited;
-  ClientDataSet1idOrdem.AsInteger := DModule.buscaProximoParametro('seqLayoutOperacao');
+  moperacoesidLayoutOperacao.AsInteger := DModule.buscaProximoParametro('seqLayoutOperacao');
 end;
 
 procedure TF02004.moperacoesAfterPost(DataSet: TDataSet);
@@ -312,6 +365,7 @@ procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
 i : integer;
 matriz: array of array of integer;
+vetorTPF: array of double;
 begin
   inherited;
   //Apaga registros LayoutOperaçoes existentes
@@ -337,9 +391,11 @@ begin
 
   //Declaração do tamanho da Matriz
   SetLength(matriz, DModule.qAux.RecordCount);
+  SetLength(vetorTPF, DModule.qAux.RecordCount);
+
   for i := 0 to (DModule.qAux.RecordCount -1) do
   begin
-     SetLength(matriz[i], 3);
+     SetLength(matriz[i], 2);
   end;
 
   //INSERI EM LAYOUTOPERAÇÕES
@@ -348,7 +404,7 @@ begin
   BEGIN
     matriz[i][0] := ClientDataSet1idLayoutFase.AsInteger;
     matriz[i][1] := DModule.qAux.FieldByName('idCronometragem').AsInteger;
-    matriz[i][2] := DModule.qAux.FieldByName('tempopadraofinal').AsInteger;
+    vetorTPF[i] := DModule.qAux.FieldByName('tempopadraofinal').AsInteger;
     i := i+1;
     DModule.qAux.next;
   END;
@@ -357,21 +413,22 @@ begin
     moperacoes.Insert;
     moperacoesidLayoutFase.Value := matriz[i][0];
     moperacoesidCronometragem.Value := matriz[i][1];
-    moperacoestempoOperacao.Value := matriz[i][2];
+    moperacoestempoOperacao.Value := vetorTPF[i];
     moperacoes.Post;
   END;
 
   //CALCULA META HORA
-  //CalculaMetaHora;
+  CalculaMetaHora;
 
   //MOSTA LAYOUT
-   //if not(MOperacoes.IsEmpty) then
-   //begin
+  if not(MOperacoes.IsEmpty) then
+  begin
     //apaga os paineis dentro do scrollbox
     ScrollBox1.DestroyComponents;
     ScrollLinhadeProducao.DestroyComponents;
-    //Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, MLayoutidCronometragem.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
-   //end;
+    ShowMessage('Antes de criar layout');                                                                                                                                             // MLayoutidCronometragem.AsInteger
+    Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
+  end;
 
   //TESTE
   i:= 0;
@@ -404,7 +461,7 @@ begin
   end;
 
   //Monta PanelLinhadeProducao
-  montaPanelLinhaDeProducao;
+  //montaPanelLinhaDeProducao;
 
   //Apaga dados obtidos anteriormente
  { DModule.qaux.Close;
@@ -686,7 +743,7 @@ begin
        inc(NOperacoes);
        Operacoes[NOperacoes]                        := TOperacao.Create(telaop);
        Operacoes[NOperacoes].Parent                 := LocalOP;
-       Operacoes[NOperacoes].IdLayOutOperacoes      := dados.fieldbyname('IdLayOutOperacoes').AsInteger;
+       Operacoes[NOperacoes].IdLayOutOperacoes      := dados.fieldbyname('IdLayOutOperacao').AsInteger;
        Operacoes[NOperacoes].idTipoRecurso          := dados.fieldbyname('idTipoRecurso').AsInteger;
        Operacoes[NOperacoes].idOperacaoTempo        := dados.fieldbyname('idOperacaoTempo').AsInteger;
        Operacoes[NOperacoes].Cota                   := dados.fieldbyname('Cota').AsInteger;
@@ -722,8 +779,6 @@ begin
        Operadores[i].Posicao              := i;
        operadores[i].Imagem.Picture       := img;
        operadores[i].LbPosicao.Caption    := inttostr(i);
-
-
 
        inc(NumNaFila);
 

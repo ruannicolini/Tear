@@ -1,7 +1,6 @@
 inherited F02004: TF02004
   Caption = 'F02004'
   ClientWidth = 1031
-  ExplicitLeft = -260
   ExplicitWidth = 1047
   PixelsPerInch = 96
   TextHeight = 13
@@ -48,6 +47,12 @@ inherited F02004: TF02004
           Height = 380
           Align = alClient
           TabOrder = 1
+          object img: TImage
+            Left = 584
+            Top = 32
+            Width = 105
+            Height = 105
+          end
           object Panel4: TPanel
             Left = 364
             Top = 2
@@ -358,6 +363,22 @@ inherited F02004: TF02004
       DataSource = DS
       ReadOnly = True
       TabOrder = 7
+    end
+    object ed_metaHora: TEdit
+      Left = 715
+      Top = 4
+      Width = 121
+      Height = 21
+      TabOrder = 8
+      Text = 'ed_metaHora'
+    end
+    object Ed_tempo: TEdit
+      Left = 715
+      Top = 29
+      Width = 121
+      Height = 21
+      TabOrder = 9
+      Text = 'Ed_tempo'
     end
   end
   inherited DS: TDataSource
@@ -1067,6 +1088,7 @@ inherited F02004: TF02004
         Name = 'IDLF'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object FDQuery2idLayoutOperacao: TIntegerField
       AutoGenerateValue = arDefault
@@ -1077,11 +1099,6 @@ inherited F02004: TF02004
       AutoGenerateValue = arDefault
       FieldName = 'idLayoutFase'
       Origin = 'idLayoutFase'
-    end
-    object FDQuery2tempoOperacao: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'tempoOperacao'
-      Origin = 'tempoOperacao'
     end
     object FDQuery2idCronometragem: TIntegerField
       AutoGenerateValue = arDefault
@@ -1094,6 +1111,11 @@ inherited F02004: TF02004
       Origin = 'descricao'
       ProviderFlags = []
       Size = 45
+    end
+    object FDQuery2tempoOperacao: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoOperacao'
+      Origin = 'tempoOperacao'
     end
   end
   object DataSetProvider2: TDataSetProvider
@@ -1117,15 +1139,23 @@ inherited F02004: TF02004
     object moperacoesidLayoutFase: TIntegerField
       FieldName = 'idLayoutFase'
     end
-    object moperacoestempoOperacao: TIntegerField
-      FieldName = 'tempoOperacao'
-    end
     object moperacoesidCronometragem: TIntegerField
       FieldName = 'idCronometragem'
     end
     object moperacoesoperacao: TStringField
       FieldName = 'operacao'
       Size = 45
+    end
+    object moperacoestempoOperacao: TSingleField
+      FieldName = 'tempoOperacao'
+    end
+    object moperacoescota: TFloatField
+      FieldKind = fkInternalCalc
+      FieldName = 'cota'
+    end
+    object moperacoescotaPendente: TFloatField
+      FieldKind = fkInternalCalc
+      FieldName = 'cotaPendente'
     end
   end
 end
