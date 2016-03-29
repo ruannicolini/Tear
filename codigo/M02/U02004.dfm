@@ -1,22 +1,25 @@
 inherited F02004: TF02004
   Caption = 'F02004'
-  ExplicitWidth = 834
-  ExplicitHeight = 557
+  ClientWidth = 1031
+  ExplicitLeft = -260
+  ExplicitWidth = 1047
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     Top = 93
+    Width = 1031
     Height = 425
     ActivePage = TbDados
     ExplicitTop = 93
+    ExplicitWidth = 1031
     ExplicitHeight = 425
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
+      ExplicitWidth = 1023
       ExplicitHeight = 397
       inherited grDados: TGroupBox
+        Width = 1023
         Height = 397
+        ExplicitWidth = 1023
         ExplicitHeight = 397
         object ScrollBox1: TScrollBox
           AlignWithMargins = True
@@ -37,30 +40,16 @@ inherited F02004: TF02004
           Color = clMenuBar
           ParentColor = False
           TabOrder = 0
-          object Panel5: TPanel
-            AlignWithMargins = True
-            Left = 3
-            Top = 3
-            Width = 224
-            Height = 60
-            Align = alTop
-            BevelInner = bvLowered
-            Caption = 'Panel4'
-            Color = 15395304
-            ParentBackground = False
-            TabOrder = 0
-          end
         end
-        object PanelLinhadeProducao: TPanel
+        object ScrollLinhadeProducao: TScrollBox
           Left = 232
           Top = 15
-          Width = 576
+          Width = 789
           Height = 380
           Align = alClient
-          BevelOuter = bvNone
           TabOrder = 1
           object Panel4: TPanel
-            Left = 340
+            Left = 364
             Top = 2
             Width = 134
             Height = 192
@@ -154,56 +143,360 @@ inherited F02004: TF02004
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
+      ExplicitWidth = 1023
+      ExplicitHeight = 397
+      inherited GBFiltros: TGroupBox
+        Width = 1023
+        ExplicitWidth = 1023
+        inherited Panel1: TPanel
+          Width = 1014
+          ExplicitWidth = 1014
+          inherited BtnLimparFiltros: TButton
+            Left = 969
+            ExplicitLeft = 969
+          end
+        end
+      end
       inherited DBGridBeleza1: TDBGridBeleza
+        Width = 1023
         Height = 286
       end
+      inherited PanelFiltros: TPanel
+        Width = 1023
+        ExplicitWidth = 1023
+        inherited btnFiltrar: TButton
+          Left = 972
+          ExplicitLeft = 972
+        end
+      end
+    end
+  end
+  inherited Panel2: TPanel
+    Width = 1031
+    ExplicitWidth = 1031
+    inherited BFechar: TSpeedButton
+      Left = 997
+      ExplicitLeft = 997
     end
   end
   object Panel3: TPanel [2]
     Left = 0
     Top = 35
-    Width = 818
+    Width = 1031
     Height = 58
     Align = alTop
     BevelKind = bkFlat
     BevelOuter = bvNone
     Color = 15395304
+    Enabled = False
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 400
+      Left = 842
       Top = 4
       Width = 169
-      Height = 46
+      Height = 34
+      Align = alCustom
+      Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
       OnClick = SpeedButton1Click
+      ExplicitLeft = 641
+      ExplicitHeight = 46
+    end
+    object Label1: TLabel
+      Left = 13
+      Top = 8
+      Width = 64
+      Height = 13
+      Caption = 'COD LAYOUT'
+      FocusControl = DBEdit1
+    end
+    object Label2: TLabel
+      Left = 252
+      Top = 8
+      Width = 25
+      Height = 13
+      Caption = 'FASE'
+      FocusControl = DBEdit2
+    end
+    object Label3: TLabel
+      Left = 460
+      Top = 8
+      Width = 83
+      Height = 13
+      Caption = 'N'#186' OPERADORES'
+      FocusControl = DBEdit3
+    end
+    object Label4: TLabel
+      Left = 550
+      Top = 8
+      Width = 43
+      Height = 13
+      Caption = 'N'#186' FILAS'
+      FocusControl = DBEdit4
+    end
+    object Label5: TLabel
+      Left = 628
+      Top = 8
+      Width = 70
+      Height = 13
+      Caption = 'RESPONS'#193'VEL'
+      FocusControl = DBEdit5
+    end
+    object Label6: TLabel
+      Left = 89
+      Top = 8
+      Width = 61
+      Height = 13
+      Caption = 'COD ORDEM'
+      FocusControl = DBEdit6
+    end
+    object Label7: TLabel
+      Left = 168
+      Top = 8
+      Width = 51
+      Height = 13
+      Caption = 'N'#186' ORDEM'
+      FocusControl = DBEdit7
+    end
+    object DBEdit1: TDBEdit
+      Left = 13
+      Top = 24
+      Width = 57
+      Height = 21
+      DataField = 'idLayoutFase'
+      DataSource = DS
+      TabOrder = 0
+    end
+    object DBEdit2: TDBEdit
+      Left = 252
+      Top = 24
+      Width = 35
+      Height = 21
+      DataField = 'idOrdem_has_fase'
+      DataSource = DS
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object DBEdit3: TDBEdit
+      Left = 460
+      Top = 24
+      Width = 69
+      Height = 21
+      DataField = 'numOperadores'
+      DataSource = DS
+      TabOrder = 2
+    end
+    object DBEdit4: TDBEdit
+      Left = 550
+      Top = 24
+      Width = 57
+      Height = 21
+      DataField = 'numFilas'
+      DataSource = DS
+      TabOrder = 3
+    end
+    object DBEdit5: TDBEdit
+      Left = 628
+      Top = 24
+      Width = 65
+      Height = 21
+      DataField = 'responsavel'
+      DataSource = DS
+      TabOrder = 4
+    end
+    object DBEdit6: TDBEdit
+      Left = 89
+      Top = 24
+      Width = 59
+      Height = 21
+      DataField = 'idordem'
+      DataSource = DS
+      TabOrder = 5
+      OnExit = DBEdit6Exit
+    end
+    object DBEditBeleza1: TDBEditBeleza
+      Left = 285
+      Top = 24
+      Width = 155
+      Height = 21
+      Color = 14737361
+      DataField = 'fase'
+      DataSource = DS
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 6
+      Ativar_Pesquisa = True
+      mostrar_Botao = True
+      sql.Strings = (
+        'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf'
+        'left outer join fase f on ohf.idfase =  f.idfase '
+        
+          'where f.descricao like :varDescricao and ohf.idOrdem_has_fase in' +
+          ' (select distinct idOrdem_has_fase from ordem_has_fase where idO' +
+          'rdem =:x)')
+      database = 'balay'
+      campo = 'descricao'
+      Sempre_Mostrar_Janela = False
+      Outro_Edit = DBEdit2
+      campo_outro_edit = 'idOrdem_has_fase'
+      CorBorda = clGray
+      NovoLayout = False
+      OnButtonClick = DBEditBeleza1ButtonClick
+    end
+    object DBEdit7: TDBEdit
+      Left = 168
+      Top = 24
+      Width = 64
+      Height = 21
+      DataField = 'numOrdem'
+      DataSource = DS
+      ReadOnly = True
+      TabOrder = 7
     end
   end
   inherited DS: TDataSource
     Left = 736
-    Top = 40
+    Top = 0
   end
   inherited ClientDataSet1: TClientDataSet
     Left = 704
-    Top = 40
+    Top = 0
+    object ClientDataSet1idLayoutFase: TIntegerField
+      FieldName = 'idLayoutFase'
+    end
+    object ClientDataSet1idOrdem_has_fase: TIntegerField
+      FieldName = 'idOrdem_has_fase'
+    end
+    object ClientDataSet1numOperadores: TIntegerField
+      FieldName = 'numOperadores'
+    end
+    object ClientDataSet1numFilas: TIntegerField
+      FieldName = 'numFilas'
+    end
+    object ClientDataSet1dataLayout: TDateField
+      FieldName = 'dataLayout'
+    end
+    object ClientDataSet1responsavel: TStringField
+      FieldName = 'responsavel'
+      Size = 50
+    end
+    object ClientDataSet1fase: TStringField
+      FieldName = 'fase'
+      Size = 45
+    end
+    object ClientDataSet1grupo: TStringField
+      FieldName = 'grupo'
+      Size = 45
+    end
+    object ClientDataSet1idordem: TIntegerField
+      FieldName = 'idordem'
+    end
+    object ClientDataSet1numOrdem: TIntegerField
+      FieldName = 'numOrdem'
+    end
+    object ClientDataSet1produto: TStringField
+      FieldName = 'produto'
+      Size = 45
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 672
-    Top = 40
+    Top = 0
   end
   inherited FDQuery1: TFDQuery
+    SQL.Strings = (
+      
+        'select lf.*, prod.descricao as produto, op.numOrdem, f.descricao' +
+        ' as fase, ohf.idordem, g.descricao as grupo from layoutfase lf '#13 +
+        #10#10
+      ''
+      
+        'left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = lf.' +
+        'idOrdem_has_fase '#13#10#10
+      ''
+      'left outer join ordem_producao op on op.idOrdem = ohf.idordem'
+      'left outer join produto prod on prod.idProduto = op.idproduto'
+      'left outer join fase f on f.idfase = ohf.idfase '#13#10#10
+      ''
+      'left outer join grupo g on g.idgrupo = ohf.idLinhaProducao;')
     Left = 640
-    Top = 40
+    Top = 0
+    object FDQuery1idLayoutFase: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idLayoutFase'
+      Origin = 'idLayoutFase'
+    end
+    object FDQuery1idOrdem_has_fase: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOrdem_has_fase'
+      Origin = 'idOrdem_has_fase'
+    end
+    object FDQuery1numOperadores: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOperadores'
+      Origin = 'numOperadores'
+    end
+    object FDQuery1numFilas: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numFilas'
+      Origin = 'numFilas'
+    end
+    object FDQuery1dataLayout: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'dataLayout'
+      Origin = 'dataLayout'
+    end
+    object FDQuery1responsavel: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'responsavel'
+      Origin = 'responsavel'
+      Size = 50
+    end
+    object FDQuery1fase: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'fase'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery1grupo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'grupo'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery1idordem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idordem'
+      Origin = 'idOrdem'
+      ProviderFlags = []
+    end
+    object FDQuery1numOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOrdem'
+      Origin = 'numOrdem'
+      ProviderFlags = []
+    end
+    object FDQuery1produto: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'produto'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
   end
   inherited ImageListBase: TImageList
     Left = 608
-    Top = 40
+    Top = 0
     Bitmap = {
-      494C01010E002C00180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -740,6 +1033,99 @@ inherited F02004: TF02004
   end
   inherited Acoes: TActionList
     Left = 576
-    Top = 40
+    Top = 0
+  end
+  object FDQuery2: TFDQuery
+    Connection = DModule.FDConnection
+    SQL.Strings = (
+      'SELECT LO.*, o.descricao as operacao FROM layoutoperacao LO'#10' '
+      
+        'LEFT OUTER JOIN LayoutFase LF ON LF.idLayoutFase = LO.IDLAYOUTFA' +
+        'SE '#13#10#10
+      ''
+      
+        'left outer join cronometragem c on c.idCRONOMETRAGEM = LO.idCRON' +
+        'OMETRAGEM '#13#10#10
+      ''
+      'LEFT OUTER JOIN OPERACAO O ON O.IDOPERACAO = C.idoperacao '#13#10#10
+      ''
+      'left outer join produto p on p.idproduto = c.idProduto '#13#10#10
+      ''
+      
+        'left outer join ordem_producao op on op.idproduto = p.idproduto ' +
+        #13#10#10
+      ''
+      
+        'left outer join ordem_has_fase ohf on ohf.idordem = op.idOrdem a' +
+        'nd ohf.idfase = o.idfase '#13#10#10
+      ''
+      'where LF.idLayoutFase =:idLF;')
+    Left = 380
+    Top = 188
+    ParamData = <
+      item
+        Name = 'IDLF'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object FDQuery2idLayoutOperacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idLayoutOperacao'
+      Origin = 'idLayoutOperacao'
+    end
+    object FDQuery2idLayoutFase: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idLayoutFase'
+      Origin = 'idLayoutFase'
+    end
+    object FDQuery2tempoOperacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoOperacao'
+      Origin = 'tempoOperacao'
+    end
+    object FDQuery2idCronometragem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idCronometragem'
+      Origin = 'idCronometragem'
+    end
+    object FDQuery2operacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'operacao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+  end
+  object DataSetProvider2: TDataSetProvider
+    DataSet = FDQuery2
+    Left = 412
+    Top = 188
+  end
+  object moperacoes: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider2'
+    AfterInsert = moperacoesAfterInsert
+    AfterPost = moperacoesAfterPost
+    AfterCancel = moperacoesAfterCancel
+    AfterDelete = moperacoesAfterDelete
+    Left = 444
+    Top = 188
+    object moperacoesidLayoutOperacao: TIntegerField
+      FieldName = 'idLayoutOperacao'
+    end
+    object moperacoesidLayoutFase: TIntegerField
+      FieldName = 'idLayoutFase'
+    end
+    object moperacoestempoOperacao: TIntegerField
+      FieldName = 'tempoOperacao'
+    end
+    object moperacoesidCronometragem: TIntegerField
+      FieldName = 'idCronometragem'
+    end
+    object moperacoesoperacao: TStringField
+      FieldName = 'operacao'
+      Size = 45
+    end
   end
 end

@@ -10,7 +10,8 @@ uses
   System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider,
   Datasnap.DBClient, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, DBGridBeleza,
-  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls;
+  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Menus, Vcl.Mask, Vcl.DBCtrls,
+  DBEditBeleza;
 
 
 type TOperacao =  class(TPanel)
@@ -111,8 +112,6 @@ type
     Panel3: TPanel;
     ScrollBox1: TScrollBox;
     SpeedButton1: TSpeedButton;
-    Panel5: TPanel;
-    PanelLinhadeProducao: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
@@ -122,7 +121,71 @@ type
     ProgressBar1: TProgressBar;
     Image1: TImage;
     Panel9: TPanel;
+    ScrollLinhadeProducao: TScrollBox;
+    FDQuery1idLayoutFase: TIntegerField;
+    FDQuery1idOrdem_has_fase: TIntegerField;
+    FDQuery1numOperadores: TIntegerField;
+    FDQuery1numFilas: TIntegerField;
+    FDQuery1dataLayout: TDateField;
+    FDQuery1responsavel: TStringField;
+    FDQuery1fase: TStringField;
+    FDQuery1grupo: TStringField;
+    ClientDataSet1idLayoutFase: TIntegerField;
+    ClientDataSet1idOrdem_has_fase: TIntegerField;
+    ClientDataSet1numOperadores: TIntegerField;
+    ClientDataSet1numFilas: TIntegerField;
+    ClientDataSet1dataLayout: TDateField;
+    ClientDataSet1responsavel: TStringField;
+    ClientDataSet1fase: TStringField;
+    ClientDataSet1grupo: TStringField;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    Label5: TLabel;
+    DBEdit5: TDBEdit;
+    FDQuery1idordem: TIntegerField;
+    ClientDataSet1idordem: TIntegerField;
+    Label6: TLabel;
+    DBEdit6: TDBEdit;
+    DBEditBeleza1: TDBEditBeleza;
+    FDQuery1numOrdem: TIntegerField;
+    ClientDataSet1numOrdem: TIntegerField;
+    Label7: TLabel;
+    DBEdit7: TDBEdit;
+    FDQuery2: TFDQuery;
+    DataSetProvider2: TDataSetProvider;
+    moperacoes: TClientDataSet;
+    FDQuery1produto: TStringField;
+    ClientDataSet1produto: TStringField;
+    FDQuery2idLayoutOperacao: TIntegerField;
+    FDQuery2idLayoutFase: TIntegerField;
+    FDQuery2tempoOperacao: TIntegerField;
+    FDQuery2idCronometragem: TIntegerField;
+    FDQuery2operacao: TStringField;
+    moperacoesidLayoutOperacao: TIntegerField;
+    moperacoesidLayoutFase: TIntegerField;
+    moperacoestempoOperacao: TIntegerField;
+    moperacoesidCronometragem: TIntegerField;
+    moperacoesoperacao: TStringField;
     procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure BInserirClick(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
+    procedure BEditarClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
+    procedure DBEditBeleza1ButtonClick(Sender: TObject;
+      var query_result: TFDQuery);
+    procedure DBEdit6Exit(Sender: TObject);
+    procedure moperacoesAfterDelete(DataSet: TDataSet);
+    procedure moperacoesAfterPost(DataSet: TDataSet);
+    procedure moperacoesAfterCancel(DataSet: TDataSet);
+    procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
+    procedure moperacoesAfterInsert(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -134,18 +197,85 @@ type
 
 var
   F02004: TF02004;
+  Layout: TLayout;
 
 implementation
 
 {$R *.dfm}
+uses UDataModule;
+
+procedure TF02004.Action5Execute(Sender: TObject);
+begin
+  inherited;
+  panel3.Enabled := false;
+end;
+
+procedure TF02004.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  Panel3.Enabled := true;
+end;
+
+procedure TF02004.BInserirClick(Sender: TObject);
+begin
+  inherited;
+  Panel3.Enabled := true;
+end;
+
+procedure TF02004.BSalvarClick(Sender: TObject);
+begin
+  inherited;
+  Panel3.Enabled := false;
+end;
+
+procedure TF02004.ClientDataSet1AfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet1idLayoutFase.AsInteger := DModule.buscaProximoParametro('seqLayoutFase');
+end;
+
+procedure TF02004.DBEdit6Exit(Sender: TObject);
+begin
+  inherited;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from ordem_producao where idordem =:id';
+  DModule.qAux.ParamByName('id').AsInteger:= (ClientDataSet1idOrdem.AsInteger);
+  DModule.qAux.Open;
+  DModule.qAux.first;
+
+  if(DModule.qAux.IsEmpty)then
+  begin
+    DBEditBeleza1.Enabled := FALSE;
+    DBEditBeleza1.Clear;
+    DBEdit2.Clear;
+    if NOT(ClientDataSet1idOrdem.IsNull)then
+    begin
+      ShowMessage('CÓDIGO NÃO ENCONTRADO');
+      DBEdit6.SetFocus;
+    end;
+  end else
+  begin
+    DBEditBeleza1.Enabled := TRUE;
+    ClientDataSet1numOrdem.Value := StrToInt(DModule.qAux.FieldByName('numOrdem').AsString);
+
+  end;
+
+end;
+
+procedure TF02004.DBEditBeleza1ButtonClick(Sender: TObject;
+  var query_result: TFDQuery);
+begin
+  inherited;
+  query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
+end;
 
 procedure TF02004.montaPanelLinhaDeProducao;
 var
 numOperacoes, numOperadores, numFilas, quebraFila :integer;
 begin
   //
-  Panel := TPanel.Create(PanelLinhadeProducao);
-  Panel.Parent := (PanelLinhadeProducao);
+  Panel := TPanel.Create(ScrollLinhadeProducao);
+  Panel.Parent := (ScrollLinhadeProducao);
   panel.Width := 134;
   panel.Height := 193;
   panel.Color := clMenu;
@@ -154,20 +284,101 @@ begin
 
 end;
 
+procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  moperacoes.CancelUpdates;
+end;
+
+procedure TF02004.moperacoesAfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  moperacoes.ApplyUpdates(-1);
+end;
+
+procedure TF02004.moperacoesAfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSet1idOrdem.AsInteger := DModule.buscaProximoParametro('seqLayoutOperacao');
+end;
+
+procedure TF02004.moperacoesAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  moperacoes.ApplyUpdates(-1);
+end;
+
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
 i : integer;
+matriz: array of array of integer;
 begin
   inherited;
+  //Apaga registros LayoutOperaçoes existentes
+  fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+  moperacoes.Open;
+  MOperacoes.First;
+  while not(MOperacoes.Eof) do
+  begin
+     moperacoes.delete;
+     moperacoes.First;
+  end;
 
-  //apaga os paineis dentro do scrollbox
-  ScrollBox1.DestroyComponents;
+  //Consulta operações da fase
+  DModule.qAux.close;
+  DModule.qAux.SQL.Text := 'select c.* from operacao o ';
+  DModule.qAux.SQL.add('left outer join cronometragem c on c.idOperacao = o.idOperacao ');
+  DModule.qAux.SQL.add('left outer join produto p on p.idproduto = c.idProduto ');
+  DModule.qAux.SQL.add('left outer join ordem_producao op on op.idproduto = p.idproduto ');
+  DModule.qAux.SQL.add('left outer join ordem_has_fase ohf on ohf.idordem = op.idOrdem and ohf.idfase = o.idfase ');
+  DModule.qAux.SQL.add('where ohf.idOrdem_has_fase =:idOHF ');
+  DModule.qAux.ParamByName('idOHF').AsInteger := ClientDataSet1idOrdem_has_fase.AsInteger;
+  DModule.qAux.open;
 
+  //Declaração do tamanho da Matriz
+  SetLength(matriz, DModule.qAux.RecordCount);
+  for i := 0 to (DModule.qAux.RecordCount -1) do
+  begin
+     SetLength(matriz[i], 3);
+  end;
+
+  //INSERI EM LAYOUTOPERAÇÕES
+  i := 0;
+  WHILE NOT(DModule.qAux.EOF) DO
+  BEGIN
+    matriz[i][0] := ClientDataSet1idLayoutFase.AsInteger;
+    matriz[i][1] := DModule.qAux.FieldByName('idCronometragem').AsInteger;
+    matriz[i][2] := DModule.qAux.FieldByName('tempopadraofinal').AsInteger;
+    i := i+1;
+    DModule.qAux.next;
+  END;
+  for I := 0 to (Length(matriz)-1) do
+  begin
+    moperacoes.Insert;
+    moperacoesidLayoutFase.Value := matriz[i][0];
+    moperacoesidCronometragem.Value := matriz[i][1];
+    moperacoestempoOperacao.Value := matriz[i][2];
+    moperacoes.Post;
+  END;
+
+  //CALCULA META HORA
+  //CalculaMetaHora;
+
+  //MOSTA LAYOUT
+   //if not(MOperacoes.IsEmpty) then
+   //begin
+    //apaga os paineis dentro do scrollbox
+    ScrollBox1.DestroyComponents;
+    ScrollLinhadeProducao.DestroyComponents;
+    //Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, MLayoutidCronometragem.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
+   //end;
+
+  //TESTE
   i:= 0;
   while i<10 do
   begin
     //cria painel de operações
-    //OBS: O SCROLLBOX SEMPRE ADD O NOVO PANEL EM CIMA
+    {//OBS: O SCROLLBOX SEMPRE ADD O NOVO PANEL EM CIMA
     panel := TPanel.Create(ScrollBox1);
     panel.Parent := ScrollBox1;
     panel.Align := alTop;
@@ -188,20 +399,118 @@ begin
     ProgressBar.Smooth := true;
     ProgressBar.Height := 7;
     ProgressBar.Position := i * 10;
-
+    }
     i := i+1;
   end;
 
   //Monta PanelLinhadeProducao
   montaPanelLinhaDeProducao;
+
+  //Apaga dados obtidos anteriormente
+ { DModule.qaux.Close;
+  DModule.qaux.sql.Text := 'delete from LayOutOperacao where idlayoutFase = :idlayout';
+  DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+  DModule.qaux.ExecSQL;
+
+  DModule.qaux.Close;
+  DModule.qaux.sql.Text := 'delete from LayOutMaquina where idlayoutFase = :idlayout';
+  DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+  DModule.qaux.ExecSQL;
+  }
+end;
+
+procedure TF02004.SpeedButton2Click(Sender: TObject);
+begin
+  inherited;
+  //
+  if Application.MessageBox('Confirma Processar LayOut?','Processamento',mb_yesno+mb_iconquestion) = id_yes then
+  begin
+      {QSelOperacao.Params[0].AsInteger := MLayoutidCronometragem.AsInteger;
+      MSelOperacao.Open;
+      MSelOperacao.First;
+      while not(MSelOperacao.Eof) do
+      begin
+          MSelOperacao.Edit;
+          MSelOperacaoSel.value      := chr(168);
+          MSelOperacao.Post;
+          MSelOperacao.Next;
+      end;
+      MSelOperacao.First;
+      GrSelecao.Visible := true;
+
+      qaux.sql.Text := 'delete LayOutOperacoes where idlayout = :idlayout';
+      qaux.params[0].AsInteger := MLayoutIdLayout.AsInteger;
+      qaux.ExecSQL;
+
+      qaux.sql.Text := 'delete LayOutMaquinas where idlayout = :idlayout';
+      qaux.params[0].AsInteger := MLayoutIdLayout.AsInteger;
+      qaux.ExecSQL;
+       }
+  end;
 end;
 
 { TOperacao }
 
 constructor TOperacao.Create(AOwner: TComponent);
 begin
-  inherited;
-  //
+    inherited;
+
+    //Panel
+    Align := alTop;
+    Height := 60;
+    AlignWithMargins := true;
+    Margins.Top := 5;
+    Margins.Bottom := 0;
+    Color := $00EAE9E8;
+    BevelInner := bvLowered;
+    ParentBackground := false;
+    //
+    //Width                   := 300;
+    //Height                  := 73;
+    //Color                   := $00A7F8BF;
+    DragMode                := dmAutomatic;
+    hint                    := 'Executado Por:';
+    Cursor                  := crHandPoint;
+
+
+    //ProgressBar do Panel
+    GCotaPendente := TProgressBar.Create(self);
+    GCotaPendente.Parent := self;
+    GCotaPendente.Align := alBottom;
+    GCotaPendente.Smooth := true;
+    //GCotaPendente.Height := 7;
+    GCotaPendente.Position := 60;
+    //Original
+    GCotaPendente.Height    := 8;
+    //GCotaPendente.ForeColor := $004AA5FF;
+    //GCotaPendente.ShowText  := false;
+    GCotaPendente.Max  := round(cotapendente);
+
+
+    LbRecurso               := TLabel.Create(self);
+    LbRecurso.Parent        := self;
+    LbRecurso.Font.Style    := [fsbold];
+    LbRecurso.Left          := 5;
+    LbRecurso.Top           := 3;
+
+    LbOperacao              := TLabel.Create(self);
+    LbOperacao.Parent       := self;
+    LbOperacao.Font.Name    := 'tahoma';
+    LbOperacao.Font.Size    := 7;
+    LbOperacao.Left         := 5;
+    LbOperacao.Top          := 19;
+
+
+    LbCota                  := TLabel.Create(self);
+    LbCota.Parent           := self;
+    LbCota.Left             := 5;
+    LbCota.Top              := 35;
+
+    LbCotaPendente          := TLabel.Create(self);
+    LbCotaPendente.Parent   := self;
+    LbCotaPendente.Left     := 5;
+    LbCotaPendente.Top      := 51;
+
 end;
 
 procedure TOperacao.RetiraOperacao(Per: real);
@@ -219,6 +528,21 @@ end;
 constructor TMaquina.Create(AOwner: TComponent);
 begin
   inherited;
+  GOcupacao          := TProgressBar.create(Self);
+    GOcupacao.Parent   := self;
+    GOcupacao.Align    := alBottom;
+    GOcupacao.Height   := 8;
+    //GOcupacao.ForeColor:= $004AA5FF;
+    //GOcupacao.ShowText := false;
+    NumOperacoes       := 0;
+
+    DragMode           := dmAutomatic;
+
+    Width              :=95;
+    Height             :=60;
+    Color              := $00A7F8BF;
+    Ocupacao           := 0;
+    hint               := 'Operações:';
 
 end;
 
@@ -235,10 +559,88 @@ begin
 end;
 
 constructor TOperador.Create(AOwner: TComponent);
+var
+    p : TPopupMenu;
+    i : TMenuItem;
 begin
   inherited;
+  //cria popupmenu
+  p := TPopupMenu.Create(Self);
+
+
+  i := TMenuItem.Create(Self);
+  i.Caption := 'Remove Operações';
+  //i.OnClick   := RemoveOperacoes;
+  p.Items.Add(i);
+  TOperador(Self).PopupMenu := p;
+
+  Height                := 190;
+  Width                 := 128;
+  color                 := $00C6E2FF;
+  Caption               := '';
+  DragMode              := dmAutomatic;
+  //OnDragDrop            := dragDropx;
+  //OnDragOver            := dragOverx;
+  Ocupacao              := 0;
+  Cursor                := crHandPoint;
+
+
+  Maquina1              := TMaquina.create(Self);
+  Maquina1.Parent       := self;
+  Maquina1.Top          := 5;
+  Maquina1.Left         := 27;
+
+
+  Maquina2              := TMaquina.create(Self);
+  Maquina2.Parent       := self;
+  Maquina2.Top          := 125;
+  Maquina2.Left         := 27;
+
+
+  Imagem                := TImage.Create(self);
+  Imagem.Parent         := self;
+  imagem.Width          := 73;
+  imagem.Height         := 50;
+  imagem.Top            := 69;
+  imagem.Left           := 38;
+  imagem.Proportional   := true;
+  imagem.Stretch        := true;
+  imagem.AutoSize       := false;
+
+  lbOcupacao             := TLabel.Create(self);
+  lbOcupacao.Parent      := self;
+  lbOcupacao.Font.Name   := 'Tahoma';
+  lbOcupacao.Font.Size   := 7;
+  lbOcupacao.Width       := 10;
+  lbOcupacao.Top         := 67;
+  lbOcupacao.Left        := 110;
+  lbOcupacao.Caption     := '0';
+
+  LbPosicao             := TLabel.Create(self);
+  LbPosicao.Parent      := self;
+  LbPosicao.Font.Name   := 'Tahoma';
+  LbPosicao.Font.Size   := 12;
+  LbPosicao.Font.Style  := [fsbold];
+  LbPosicao.Top         := round(Height /2) - 5;
+  LbPosicao.Left        := 5;
+  LbPosicao.Color       := $00C7FEFB;
+  lbposicao.AutoSize    := false;
+  lbposicao.Width       := LbPosicao.Height;
+  lbposicao.Alignment   := taCenter;
+
+
+  Gocupacao             := TProgressBar.Create(self);
+  Gocupacao.Parent      := self;
+  //Gocupacao.ForeColor   := $004AA5FF;
+  Gocupacao.Orientation := pbVertical;
+  Gocupacao.Height      := 45;
+  Gocupacao.Width       := 9;
+  Gocupacao.Top         := 77;
+  Gocupacao.Left        := 113;
+  //Gocupacao.ShowText    := false;
 
 end;
+
 
 procedure TOperador.SetaRecurso(Maquina, codigoRecurso: integer;
   Recurso: string);
@@ -257,9 +659,122 @@ constructor TLayout.Create(Local: TScrollBox; Dados: TClientDataSet;
   NumerodeOperadores: integer; Tempo: real; MetaPorHora: integer; img: TPicture;
   Query: TFDQuery; CodigoLayOut, CodigoCronometragem: integer; Resp: String;
   dt: Tdatetime; ref: string; nfila: integer; LocalOP: TScrollBox);
+var
+vertical,i, horizontal, PorFila, NumNaFila, countFilas :integer;
+Direcao : boolean;
+Caminho  : TShape;
 begin
+   q                     := Query;
+   Tela                  := local;
+   TelaOp                := LocalOP;
+   NOperadores           := NumerodeOperadores;
+   NumFilas              := nfila;
+   TempoTotal            := tempo;
+   MetaHora              := MetaPorHora;
+   idlayout              := CodigoLayOut;
+   idcronometragem       := CodigoCronometragem;
+   Responsavel           := Resp;
+   data                  := dt;
+   Referencia            := ref;
 
+   //adiciona Operacoes
+   NOperacoes            := 0;
+   vertical              := 10;
+   dados.First;
+   while not(dados.eof) do
+   begin
+       inc(NOperacoes);
+       Operacoes[NOperacoes]                        := TOperacao.Create(telaop);
+       Operacoes[NOperacoes].Parent                 := LocalOP;
+       Operacoes[NOperacoes].IdLayOutOperacoes      := dados.fieldbyname('IdLayOutOperacoes').AsInteger;
+       Operacoes[NOperacoes].idTipoRecurso          := dados.fieldbyname('idTipoRecurso').AsInteger;
+       Operacoes[NOperacoes].idOperacaoTempo        := dados.fieldbyname('idOperacaoTempo').AsInteger;
+       Operacoes[NOperacoes].Cota                   := dados.fieldbyname('Cota').AsInteger;
+       Operacoes[NOperacoes].CotaPendente           := dados.fieldbyname('CotaPendente').AsInteger;
+       Operacoes[NOperacoes].tipoRecurso            := dados.fieldbyname('tipoRecurso').AsString;
+       Operacoes[NOperacoes].Operacao               := dados.fieldbyname('Operacao').AsString;
+       Operacoes[NOperacoes].LbOperacao.Caption     := dados.fieldbyname('Operacao').AsString;
+       Operacoes[NOperacoes].LbCota.Caption         := 'Cota: '+Floattostr(Operacoes[NOperacoes].Cota);
+       Operacoes[NOperacoes].LbCotaPendente.Caption := 'Cota Pendente: '+Floattostr(Operacoes[NOperacoes].CotaPendente);
+       Operacoes[NOperacoes].LbRecurso.Caption      := dados.fieldbyname('tipoRecurso').AsString ;
+       Operacoes[NOperacoes].GCotaPendente.Max :=  round(Operacoes[NOperacoes].CotaPendente) ;
+       Operacoes[NOperacoes].Top                    := vertical;
+       Operacoes[NOperacoes].Left                   := 5;
+
+       vertical := vertical + Operacoes[NOperacoes].Height + 5;
+       dados.Next;
+   end;
+
+
+   //adiciona operadores
+   horizontal := 10;
+   Vertical   := 10;
+   PorFila    := round(noperadores/NumFilas);
+   NumNaFila  := 0;
+   direcao    := true;
+   countFilas := 0;
+   for i := 1 to NOperadores do
+   begin
+       Operadores[i]                      := TOperador.Create(tela);
+       Operadores[i].Parent               := tela;
+       Operadores[i].Left                 := horizontal;
+       Operadores[i].Top                  := vertical;
+       Operadores[i].Posicao              := i;
+       operadores[i].Imagem.Picture       := img;
+       operadores[i].LbPosicao.Caption    := inttostr(i);
+
+
+
+       inc(NumNaFila);
+
+       if NumNaFila >= PorFila then
+       begin
+           inc(countFilas);
+           //testa se tem mais filas ainda antes de colocar o caminho
+           if NumFilas > countFilas then
+           begin
+               caminho                      := tshape.Create(tela);
+               caminho.Parent               := tela;
+               caminho.Left                 := horizontal  + round(Operadores[i].Width / 2 ) - 10 ;
+               caminho.Top                  := vertical + Operadores[i].Height - 10 ;
+               caminho.Height               := 40;
+               caminho.Width                := 25;
+               Caminho.Brush.Color          := $008080FF;
+           end;
+
+           if not direcao then
+              horizontal := 10;
+
+           vertical   := vertical + Operadores[i].Height + 20;
+           NumNaFila  := 0;
+           direcao := not direcao;
+
+       end
+       else
+       begin
+           if direcao then
+              horizontal  := horizontal +  Operadores[i].Width + 10
+           else
+              horizontal  := horizontal - (Operadores[i].Width + 10);
+
+
+           caminho            := tshape.Create(tela);
+           caminho.Parent     := tela;
+           if direcao then
+               caminho.Left   := horizontal - 20
+           else
+               caminho.Left   := horizontal + Operadores[i].Width - 20;
+           caminho.Top        := vertical + round(Operadores[i].Height / 2 ) - 10 ;
+           caminho.Height     := 25;
+           caminho.Width      := 40;
+           Caminho.Brush.Color := $008080FF;
+       end;
+
+
+   end;
+   BuscaDados;
 end;
+
 
 procedure TLayout.GravaDados;
 begin

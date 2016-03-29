@@ -1,16 +1,10 @@
 inherited F02001: TF02001
   Caption = 'F02001'
-  ExplicitWidth = 834
-  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     ActivePage = TbDados
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       inherited grDados: TGroupBox
         Margins.Left = 0
         Margins.Top = 0
@@ -557,10 +551,6 @@ inherited F02001: TF02001
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       object DBText1: TDBText [0]
         Left = 456
         Top = 136
@@ -795,7 +785,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C005C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00600110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
