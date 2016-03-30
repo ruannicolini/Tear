@@ -197,10 +197,10 @@ inherited F02004: TF02004
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 842
+      Left = 838
       Top = 4
       Width = 169
-      Height = 34
+      Height = 30
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
@@ -517,7 +517,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1059,27 +1059,24 @@ inherited F02004: TF02004
   object FDQuery2: TFDQuery
     Connection = DModule.FDConnection
     SQL.Strings = (
-      'SELECT LO.*, o.descricao as operacao FROM layoutoperacao LO'#10' '
+      
+        'select lo.*, tr.idTipo_Recurso, tr.descricao as tipo_Recurso, o.' +
+        'descricao as operacao from layoutoperacao lo '#10
       
         'LEFT OUTER JOIN LayoutFase LF ON LF.idLayoutFase = LO.IDLAYOUTFA' +
-        'SE '#13#10#10
+        'SE '#10
+      
+        'left outer join cronometragem c on c.idcronometragem = lo.idcron' +
+        'ometragem '#13#10#10
+      ''
+      'LEFT OUTER JOIN OPERACAO O ON O.IDOPERACAO = C.idoperacao'#10' '
+      
+        'left outer join cronometragem_has_tipo_recurso chtr on chtr.idCR' +
+        'ONOMETRAGEM = c.idCRONOMETRAGEM '#13#10#10
       ''
       
-        'left outer join cronometragem c on c.idCRONOMETRAGEM = LO.idCRON' +
-        'OMETRAGEM '#13#10#10
-      ''
-      'LEFT OUTER JOIN OPERACAO O ON O.IDOPERACAO = C.idoperacao '#13#10#10
-      ''
-      'left outer join produto p on p.idproduto = c.idProduto '#13#10#10
-      ''
-      
-        'left outer join ordem_producao op on op.idproduto = p.idproduto ' +
-        #13#10#10
-      ''
-      
-        'left outer join ordem_has_fase ohf on ohf.idordem = op.idOrdem a' +
-        'nd ohf.idfase = o.idfase '#13#10#10
-      ''
+        'left outer join tipo_recurso tr on tr.idtipo_recurso = chtr.idTi' +
+        'poRecurso '
       'where LF.idLayoutFase =:idLF;')
     Left = 380
     Top = 188
@@ -1100,10 +1097,28 @@ inherited F02004: TF02004
       FieldName = 'idLayoutFase'
       Origin = 'idLayoutFase'
     end
+    object FDQuery2tempoOperacao: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoOperacao'
+      Origin = 'tempoOperacao'
+    end
     object FDQuery2idCronometragem: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idCronometragem'
       Origin = 'idCronometragem'
+    end
+    object FDQuery2idTipo_Recurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idTipo_Recurso'
+      Origin = 'idtipo_recurso'
+      ProviderFlags = []
+    end
+    object FDQuery2tipo_Recurso: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipo_Recurso'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
     end
     object FDQuery2operacao: TStringField
       AutoGenerateValue = arDefault
@@ -1111,11 +1126,6 @@ inherited F02004: TF02004
       Origin = 'descricao'
       ProviderFlags = []
       Size = 45
-    end
-    object FDQuery2tempoOperacao: TSingleField
-      AutoGenerateValue = arDefault
-      FieldName = 'tempoOperacao'
-      Origin = 'tempoOperacao'
     end
   end
   object DataSetProvider2: TDataSetProvider
@@ -1133,22 +1143,6 @@ inherited F02004: TF02004
     AfterDelete = moperacoesAfterDelete
     Left = 444
     Top = 188
-    object moperacoesidLayoutOperacao: TIntegerField
-      FieldName = 'idLayoutOperacao'
-    end
-    object moperacoesidLayoutFase: TIntegerField
-      FieldName = 'idLayoutFase'
-    end
-    object moperacoesidCronometragem: TIntegerField
-      FieldName = 'idCronometragem'
-    end
-    object moperacoesoperacao: TStringField
-      FieldName = 'operacao'
-      Size = 45
-    end
-    object moperacoestempoOperacao: TSingleField
-      FieldName = 'tempoOperacao'
-    end
     object moperacoescota: TFloatField
       FieldKind = fkInternalCalc
       FieldName = 'cota'
@@ -1156,6 +1150,29 @@ inherited F02004: TF02004
     object moperacoescotaPendente: TFloatField
       FieldKind = fkInternalCalc
       FieldName = 'cotaPendente'
+    end
+    object moperacoesidLayoutOperacao: TIntegerField
+      FieldName = 'idLayoutOperacao'
+    end
+    object moperacoesidLayoutFase: TIntegerField
+      FieldName = 'idLayoutFase'
+    end
+    object moperacoestempoOperacao: TSingleField
+      FieldName = 'tempoOperacao'
+    end
+    object moperacoesidCronometragem: TIntegerField
+      FieldName = 'idCronometragem'
+    end
+    object moperacoesidTipo_Recurso: TIntegerField
+      FieldName = 'idTipo_Recurso'
+    end
+    object moperacoestipo_Recurso: TStringField
+      FieldName = 'tipo_Recurso'
+      Size = 45
+    end
+    object moperacoesoperacao: TStringField
+      FieldName = 'operacao'
+      Size = 45
     end
   end
 end

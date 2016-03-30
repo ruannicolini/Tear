@@ -18,7 +18,7 @@ type TOperacao =  class(TPanel)
    public
    IdLayOutOperacoes   : integer;
    idTipoRecurso       : integer;
-   idOperacaoTempo     : integer;
+   idCronometragem     : integer;
    Cota                : real;
    CotaPendente        : real;
    tipoRecurso         : string;
@@ -162,21 +162,25 @@ type
     moperacoes: TClientDataSet;
     FDQuery1produto: TStringField;
     ClientDataSet1produto: TStringField;
-    FDQuery2idLayoutOperacao: TIntegerField;
-    FDQuery2idLayoutFase: TIntegerField;
-    FDQuery2idCronometragem: TIntegerField;
-    FDQuery2operacao: TStringField;
-    moperacoesidLayoutOperacao: TIntegerField;
-    moperacoesidLayoutFase: TIntegerField;
-    moperacoesidCronometragem: TIntegerField;
-    moperacoesoperacao: TStringField;
-    FDQuery2tempoOperacao: TSingleField;
-    moperacoestempoOperacao: TSingleField;
     img: TImage;
     moperacoescota: TFloatField;
     moperacoescotaPendente: TFloatField;
     ed_metaHora: TEdit;
     Ed_tempo: TEdit;
+    FDQuery2idLayoutOperacao: TIntegerField;
+    FDQuery2idLayoutFase: TIntegerField;
+    FDQuery2tempoOperacao: TSingleField;
+    FDQuery2idCronometragem: TIntegerField;
+    FDQuery2idTipo_Recurso: TIntegerField;
+    FDQuery2tipo_Recurso: TStringField;
+    FDQuery2operacao: TStringField;
+    moperacoesidLayoutOperacao: TIntegerField;
+    moperacoesidLayoutFase: TIntegerField;
+    moperacoestempoOperacao: TSingleField;
+    moperacoesidCronometragem: TIntegerField;
+    moperacoesidTipo_Recurso: TIntegerField;
+    moperacoestipo_Recurso: TStringField;
+    moperacoesoperacao: TStringField;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -197,7 +201,6 @@ type
     { Public declarations }
     Panel : TPANEL;
     ProgressBar : TProgressBar;
-    procedure montaPanelLinhaDeProducao();
     procedure CalculaMetaHora();
   end;
 
@@ -322,21 +325,6 @@ begin
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
 end;
 
-procedure TF02004.montaPanelLinhaDeProducao;
-var
-numOperacoes, numOperadores, numFilas, quebraFila :integer;
-begin
-  //
-  Panel := TPanel.Create(ScrollLinhadeProducao);
-  Panel.Parent := (ScrollLinhadeProducao);
-  panel.Width := 134;
-  panel.Height := 193;
-  panel.Color := clMenu;
-  panel.BevelInner := bvLowered;
-  Panel.ParentBackground := false;
-
-end;
-
 procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
 begin
   inherited;
@@ -425,8 +413,7 @@ begin
   begin
     //apaga os paineis dentro do scrollbox
     ScrollBox1.DestroyComponents;
-    ScrollLinhadeProducao.DestroyComponents;
-    ShowMessage('Antes de criar layout');                                                                                                                                             // MLayoutidCronometragem.AsInteger
+    ScrollLinhadeProducao.DestroyComponents;                                                                                                                                             // MLayoutidCronometragem.AsInteger
     Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
   end;
 
@@ -459,9 +446,6 @@ begin
     }
     i := i+1;
   end;
-
-  //Monta PanelLinhadeProducao
-  //montaPanelLinhaDeProducao;
 
   //Apaga dados obtidos anteriormente
  { DModule.qaux.Close;
@@ -514,21 +498,16 @@ begin
 
     //Panel
     Align := alTop;
-    Height := 60;
+    Height :=  80;
     AlignWithMargins := true;
     Margins.Top := 5;
     Margins.Bottom := 0;
     Color := $00EAE9E8;
     BevelInner := bvLowered;
     ParentBackground := false;
-    //
-    //Width                   := 300;
-    //Height                  := 73;
-    //Color                   := $00A7F8BF;
     DragMode                := dmAutomatic;
     hint                    := 'Executado Por:';
     Cursor                  := crHandPoint;
-
 
     //ProgressBar do Panel
     GCotaPendente := TProgressBar.Create(self);
@@ -543,7 +522,6 @@ begin
     //GCotaPendente.ShowText  := false;
     GCotaPendente.Max  := round(cotapendente);
 
-
     LbRecurso               := TLabel.Create(self);
     LbRecurso.Parent        := self;
     LbRecurso.Font.Style    := [fsbold];
@@ -557,7 +535,6 @@ begin
     LbOperacao.Left         := 5;
     LbOperacao.Top          := 19;
 
-
     LbCota                  := TLabel.Create(self);
     LbCota.Parent           := self;
     LbCota.Left             := 5;
@@ -567,7 +544,6 @@ begin
     LbCotaPendente.Parent   := self;
     LbCotaPendente.Left     := 5;
     LbCotaPendente.Top      := 51;
-
 end;
 
 procedure TOperacao.RetiraOperacao(Per: real);
@@ -586,20 +562,21 @@ constructor TMaquina.Create(AOwner: TComponent);
 begin
   inherited;
   GOcupacao          := TProgressBar.create(Self);
-    GOcupacao.Parent   := self;
-    GOcupacao.Align    := alBottom;
-    GOcupacao.Height   := 8;
+  GOcupacao.Parent   := self;
+  GOcupacao.Align    := alBottom;
+  GOcupacao.Height   := 8;
     //GOcupacao.ForeColor:= $004AA5FF;
     //GOcupacao.ShowText := false;
-    NumOperacoes       := 0;
+  NumOperacoes       := 0;
 
-    DragMode           := dmAutomatic;
+  DragMode           := dmAutomatic;
 
-    Width              :=95;
-    Height             :=60;
-    Color              := $00A7F8BF;
-    Ocupacao           := 0;
-    hint               := 'Operações:';
+  Width              :=95;
+  Height             :=60;
+  Color              := clSilver; //$00A7F8BF;
+  ParentBackground   := false;
+  Ocupacao           := 0;
+  hint               := 'Operações:';
 
 end;
 
@@ -633,7 +610,8 @@ begin
 
   Height                := 190;
   Width                 := 128;
-  color                 := $00C6E2FF;
+  color                 :=  clMenu;; //$00C6E2FF;
+  ParentBackground      := false;
   Caption               := '';
   DragMode              := dmAutomatic;
   //OnDragDrop            := dragDropx;
@@ -641,17 +619,26 @@ begin
   Ocupacao              := 0;
   Cursor                := crHandPoint;
 
-
-  Maquina1              := TMaquina.create(Self);
+  //  original IGOR
+  {Maquina1              := TMaquina.create(Self);
   Maquina1.Parent       := self;
   Maquina1.Top          := 5;
   Maquina1.Left         := 27;
-
 
   Maquina2              := TMaquina.create(Self);
   Maquina2.Parent       := self;
   Maquina2.Top          := 125;
   Maquina2.Left         := 27;
+  }
+
+  Maquina1              := TMaquina.create(Self);
+  Maquina1.Parent       := self;
+  //Maquina1.Left         := 27;
+  Maquina1.Align := alTop;
+  Maquina2              := TMaquina.create(Self);
+  Maquina2.Parent       := self;
+  //Maquina2.Left         := 27;
+  Maquina2.Align := alBottom;
 
 
   Imagem                := TImage.Create(self);
@@ -744,21 +731,22 @@ begin
        Operacoes[NOperacoes]                        := TOperacao.Create(telaop);
        Operacoes[NOperacoes].Parent                 := LocalOP;
        Operacoes[NOperacoes].IdLayOutOperacoes      := dados.fieldbyname('IdLayOutOperacao').AsInteger;
-       Operacoes[NOperacoes].idTipoRecurso          := dados.fieldbyname('idTipoRecurso').AsInteger;
-       Operacoes[NOperacoes].idOperacaoTempo        := dados.fieldbyname('idOperacaoTempo').AsInteger;
+       Operacoes[NOperacoes].idTipoRecurso          := dados.fieldbyname('idTipo_Recurso').AsInteger;
+       Operacoes[NOperacoes].idCronometragem        := dados.fieldbyname('idCronometragem').AsInteger;
        Operacoes[NOperacoes].Cota                   := dados.fieldbyname('Cota').AsInteger;
        Operacoes[NOperacoes].CotaPendente           := dados.fieldbyname('CotaPendente').AsInteger;
-       Operacoes[NOperacoes].tipoRecurso            := dados.fieldbyname('tipoRecurso').AsString;
+       Operacoes[NOperacoes].tipoRecurso            := dados.fieldbyname('tipo_Recurso').AsString;
        Operacoes[NOperacoes].Operacao               := dados.fieldbyname('Operacao').AsString;
        Operacoes[NOperacoes].LbOperacao.Caption     := dados.fieldbyname('Operacao').AsString;
        Operacoes[NOperacoes].LbCota.Caption         := 'Cota: '+Floattostr(Operacoes[NOperacoes].Cota);
        Operacoes[NOperacoes].LbCotaPendente.Caption := 'Cota Pendente: '+Floattostr(Operacoes[NOperacoes].CotaPendente);
-       Operacoes[NOperacoes].LbRecurso.Caption      := dados.fieldbyname('tipoRecurso').AsString ;
+       Operacoes[NOperacoes].LbRecurso.Caption      := dados.fieldbyname('tipo_Recurso').AsString ;
        Operacoes[NOperacoes].GCotaPendente.Max :=  round(Operacoes[NOperacoes].CotaPendente) ;
        Operacoes[NOperacoes].Top                    := vertical;
        Operacoes[NOperacoes].Left                   := 5;
 
        vertical := vertical + Operacoes[NOperacoes].Height + 5;
+       showmessage('Teste Operacoes em Create Layout');
        dados.Next;
    end;
 
