@@ -181,6 +181,10 @@ type
     moperacoesidTipo_Recurso: TIntegerField;
     moperacoestipo_Recurso: TStringField;
     moperacoesoperacao: TStringField;
+    FDQuery1idgrupo: TIntegerField;
+    ClientDataSet1idgrupo: TIntegerField;
+    Label8: TLabel;
+    DBEdit8: TDBEdit;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -195,6 +199,8 @@ type
     procedure moperacoesAfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure moperacoesAfterInsert(DataSet: TDataSet);
+    procedure DBEdit2Change(Sender: TObject);
+    procedure DBEdit8Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -231,6 +237,7 @@ procedure TF02004.BInserirClick(Sender: TObject);
 begin
   inherited;
   Panel3.Enabled := true;
+  ClientDataSet1numFilas.Value := 2;
 end;
 
 procedure TF02004.BSalvarClick(Sender: TObject);
@@ -290,6 +297,27 @@ begin
   ClientDataSet1idLayoutFase.AsInteger := DModule.buscaProximoParametro('seqLayoutFase');
 end;
 
+procedure TF02004.DBEdit2Change(Sender: TObject);
+begin
+  inherited;
+  //
+  if (DS.DataSet.State=dsInsert) or (dS.DataSet.State = dsEdit)then
+  begin
+    DModule.qAux.CLOSE;
+    DModule.qAux.SQL.Text := 'select idLinhaProducao from ordem_has_fase ohf where ohf.idOrdem_has_fase =:idOHF';
+    DModule.qAux.ParamByName('idOHF').Value := ClientDataSet1idOrdem_has_fase.AsInteger;
+    DModule.qAux.OPEN;
+
+    if not(DModule.qAux.IsEmpty)then
+    begin
+      ClientDataSet1idGrupo.asinteger := DModule.qAux.FieldByName('idLinhaProducao').AsInteger;
+      ShowMessage('ok');
+    end else
+      ClientDataSet1idGrupo.Clear;
+
+  end;
+end;
+
 procedure TF02004.DBEdit6Exit(Sender: TObject);
 begin
   inherited;
@@ -316,6 +344,28 @@ begin
 
   end;
 
+end;
+
+
+
+procedure TF02004.DBEdit8Change(Sender: TObject);
+begin
+  inherited;
+  //
+  if (DS.DataSet.State=dsInsert) or (dS.DataSet.State = dsEdit)then
+  begin
+    DModule.qAux.CLOSE;
+    DModule.qAux.SQL.Text := 'select * from operador where idGrupo =:idG';
+    DModule.qAux.ParamByName('idG').Value := ClientDataSet1idGrupo.AsInteger;
+    DModule.qAux.OPEN;
+
+    if not(DModule.qAux.IsEmpty)then
+    begin
+      ClientDataSet1numOperadores.asinteger := DModule.qAux.RecordCount;
+      ShowMessage('ok num grupo');
+    end else
+      ClientDataSet1numOperadores.Clear;
+  end;
 end;
 
 procedure TF02004.DBEditBeleza1ButtonClick(Sender: TObject;

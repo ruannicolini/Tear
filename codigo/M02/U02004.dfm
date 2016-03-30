@@ -2,6 +2,7 @@ inherited F02004: TF02004
   Caption = 'F02004'
   ClientWidth = 1031
   ExplicitWidth = 1047
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
@@ -13,6 +14,8 @@ inherited F02004: TF02004
     ExplicitWidth = 1031
     ExplicitHeight = 425
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1023
       ExplicitHeight = 397
       inherited grDados: TGroupBox
@@ -148,6 +151,8 @@ inherited F02004: TF02004
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1023
       ExplicitHeight = 397
       inherited GBFiltros: TGroupBox
@@ -197,10 +202,10 @@ inherited F02004: TF02004
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 838
+      Left = 834
       Top = 4
       Width = 169
-      Height = 30
+      Height = 26
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
@@ -217,7 +222,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit1
     end
     object Label2: TLabel
-      Left = 252
+      Left = 220
       Top = 8
       Width = 25
       Height = 13
@@ -225,7 +230,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit2
     end
     object Label3: TLabel
-      Left = 460
+      Left = 490
       Top = 8
       Width = 83
       Height = 13
@@ -233,7 +238,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit3
     end
     object Label4: TLabel
-      Left = 550
+      Left = 577
       Top = 8
       Width = 43
       Height = 13
@@ -241,7 +246,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit4
     end
     object Label5: TLabel
-      Left = 628
+      Left = 638
       Top = 8
       Width = 70
       Height = 13
@@ -249,7 +254,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit5
     end
     object Label6: TLabel
-      Left = 89
+      Left = 81
       Top = 8
       Width = 61
       Height = 13
@@ -257,12 +262,20 @@ inherited F02004: TF02004
       FocusControl = DBEdit6
     end
     object Label7: TLabel
-      Left = 168
+      Left = 150
       Top = 8
       Width = 51
       Height = 13
       Caption = 'N'#186' ORDEM'
       FocusControl = DBEdit7
+    end
+    object Label8: TLabel
+      Left = 424
+      Top = 8
+      Width = 36
+      Height = 13
+      Caption = 'idgrupo'
+      FocusControl = DBEdit8
     end
     object DBEdit1: TDBEdit
       Left = 13
@@ -274,7 +287,7 @@ inherited F02004: TF02004
       TabOrder = 0
     end
     object DBEdit2: TDBEdit
-      Left = 252
+      Left = 220
       Top = 24
       Width = 35
       Height = 21
@@ -282,9 +295,10 @@ inherited F02004: TF02004
       DataSource = DS
       ReadOnly = True
       TabOrder = 1
+      OnChange = DBEdit2Change
     end
     object DBEdit3: TDBEdit
-      Left = 460
+      Left = 490
       Top = 24
       Width = 69
       Height = 21
@@ -293,7 +307,7 @@ inherited F02004: TF02004
       TabOrder = 2
     end
     object DBEdit4: TDBEdit
-      Left = 550
+      Left = 577
       Top = 24
       Width = 57
       Height = 21
@@ -302,7 +316,7 @@ inherited F02004: TF02004
       TabOrder = 3
     end
     object DBEdit5: TDBEdit
-      Left = 628
+      Left = 638
       Top = 24
       Width = 65
       Height = 21
@@ -311,7 +325,7 @@ inherited F02004: TF02004
       TabOrder = 4
     end
     object DBEdit6: TDBEdit
-      Left = 89
+      Left = 81
       Top = 24
       Width = 59
       Height = 21
@@ -321,7 +335,7 @@ inherited F02004: TF02004
       OnExit = DBEdit6Exit
     end
     object DBEditBeleza1: TDBEditBeleza
-      Left = 285
+      Left = 253
       Top = 24
       Width = 155
       Height = 21
@@ -355,7 +369,7 @@ inherited F02004: TF02004
       OnButtonClick = DBEditBeleza1ButtonClick
     end
     object DBEdit7: TDBEdit
-      Left = 168
+      Left = 150
       Top = 24
       Width = 64
       Height = 21
@@ -379,6 +393,16 @@ inherited F02004: TF02004
       Height = 21
       TabOrder = 9
       Text = 'Ed_tempo'
+    end
+    object DBEdit8: TDBEdit
+      Left = 424
+      Top = 24
+      Width = 49
+      Height = 21
+      DataField = 'idgrupo'
+      DataSource = DS
+      TabOrder = 10
+      OnChange = DBEdit8Change
     end
   end
   inherited DS: TDataSource
@@ -425,6 +449,9 @@ inherited F02004: TF02004
       FieldName = 'produto'
       Size = 45
     end
+    object ClientDataSet1idgrupo: TIntegerField
+      FieldName = 'idgrupo'
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 672
@@ -434,16 +461,19 @@ inherited F02004: TF02004
     SQL.Strings = (
       
         'select lf.*, prod.descricao as produto, op.numOrdem, f.descricao' +
-        ' as fase, ohf.idordem, g.descricao as grupo from layoutfase lf '#13 +
-        #10#10
+        ' as fase, ohf.idordem, g.descricao as grupo, g.idgrupo from layo' +
+        'utfase lf '#13#10#10
+      ''
       ''
       
         'left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = lf.' +
         'idOrdem_has_fase '#13#10#10
       ''
+      ''
       'left outer join ordem_producao op on op.idOrdem = ohf.idordem'
       'left outer join produto prod on prod.idProduto = op.idproduto'
       'left outer join fase f on f.idfase = ohf.idfase '#13#10#10
+      ''
       ''
       'left outer join grupo g on g.idgrupo = ohf.idLinhaProducao;')
     Left = 640
@@ -512,12 +542,18 @@ inherited F02004: TF02004
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery1idgrupo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idgrupo'
+      Origin = 'idgrupo'
+      ProviderFlags = []
+    end
   end
   inherited ImageListBase: TImageList
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C002C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
