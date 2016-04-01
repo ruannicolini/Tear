@@ -11,7 +11,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider,
   Datasnap.DBClient, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, DBGridBeleza,
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Menus, Vcl.Mask, Vcl.DBCtrls,
-  DBEditBeleza;
+  DBEditBeleza, Vcl.Imaging.pngimage;
 
 
 type TOperacao =  class(TPanel)
@@ -98,9 +98,11 @@ type TLayout = class
     Responsavel: string;
     NumFilas   : integer;
     data       : tdatetime;
-    idcronometragem : integer;
+    idProduto : integer;
 
-    constructor Create(Local:TScrollBox;Dados:TClientDataSet;NumerodeOperadores : integer;Tempo:real;MetaPorHora:integer;img : TPicture;Query : TFDQuery;CodigoLayOut: integer;CodigoCronometragem: integer;Resp: String;dt: Tdatetime;ref :string;nfila : integer;LocalOP:TScrollBox);
+    constructor Create(Local:TScrollBox;Dados:TClientDataSet;NumerodeOperadores : integer;Tempo:real;MetaPorHora:integer;
+    img : TPicture;Query : TFDQuery;CodigoLayOut: integer;CodigoProduto: integer;Resp: String;dt: Tdatetime;
+    ref :string;nfila : integer;LocalOP:TScrollBox);
     Procedure   Imprime(var ImpLayOut: tclientdataset;var ImpOperacao: tclientdataset;var ImpOperadores: tclientdataset);
     Procedure   BuscaDados;
     procedure   GravaDados;
@@ -112,15 +114,6 @@ type
     Panel3: TPanel;
     ScrollBox1: TScrollBox;
     SpeedButton1: TSpeedButton;
-    Panel4: TPanel;
-    Panel6: TPanel;
-    Panel7: TPanel;
-    ProgressBar2: TProgressBar;
-    ProgressBar3: TProgressBar;
-    Panel8: TPanel;
-    ProgressBar1: TProgressBar;
-    Image1: TImage;
-    Panel9: TPanel;
     ScrollLinhadeProducao: TScrollBox;
     FDQuery1idLayoutFase: TIntegerField;
     FDQuery1idOrdem_has_fase: TIntegerField;
@@ -185,6 +178,8 @@ type
     ClientDataSet1idgrupo: TIntegerField;
     Label8: TLabel;
     DBEdit8: TDBEdit;
+    Label9: TLabel;
+    Label10: TLabel;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -279,7 +274,7 @@ begin
       while not(moperacoes.Eof) do
       begin
           moperacoes.Edit;
-          MOperacoesCota.AsFloat         := (MetaHora/(60/moperacoestempoOperacao.AsFloat))*100;
+          MOperacoesCota.AsFloat         := (MetaHora/(60/ (moperacoestempoOperacao.AsFloat/1000)))*100; // OBS: tempo operação é dividido por 1000 para passar de milesegundos para segundos
           MOperacoesCotaPendente.AsFloat := MOperacoesCota.AsFloat;
           MOperacoes.Next;
       end;
@@ -288,7 +283,6 @@ begin
   ed_metaHora.text := Integer.ToString(MetaHora);
   Ed_tempo.text    := Double.ToString(TempoTotal);
 
-  ShowMessage(' CalculaMetaHora ok');
 end;
 
 procedure TF02004.ClientDataSet1AfterInsert(DataSet: TDataSet);
@@ -467,36 +461,6 @@ begin
     Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
   end;
 
-  //TESTE
-  i:= 0;
-  while i<10 do
-  begin
-    //cria painel de operações
-    {//OBS: O SCROLLBOX SEMPRE ADD O NOVO PANEL EM CIMA
-    panel := TPanel.Create(ScrollBox1);
-    panel.Parent := ScrollBox1;
-    panel.Align := alTop;
-    panel.Tag := i;
-    panel.Caption := inttostr(i);
-    panel.Height := 60;
-    panel.AlignWithMargins := true;
-    panel.Margins.Top := 5;
-    panel.Margins.Bottom := 0;
-    panel.Color := $00EAE9E8;
-    panel.BevelInner := bvLowered;
-    panel.ParentBackground := false;
-
-    //ProgressBar do Panel
-    ProgressBar := TProgressBar.Create(panel);
-    ProgressBar.Parent := Panel;
-    ProgressBar.Align := alBottom;
-    ProgressBar.Smooth := true;
-    ProgressBar.Height := 7;
-    ProgressBar.Position := i * 10;
-    }
-    i := i+1;
-  end;
-
   //Apaga dados obtidos anteriormente
  { DModule.qaux.Close;
   DModule.qaux.sql.Text := 'delete from LayOutOperacao where idlayoutFase = :idlayout';
@@ -508,6 +472,11 @@ begin
   DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
   DModule.qaux.ExecSQL;
   }
+
+  //Balancear Célula
+  // FUNÇÃO AQUI!
+
+
 end;
 
 procedure TF02004.SpeedButton2Click(Sender: TObject);
@@ -751,7 +720,7 @@ end;
 
 constructor TLayout.Create(Local: TScrollBox; Dados: TClientDataSet;
   NumerodeOperadores: integer; Tempo: real; MetaPorHora: integer; img: TPicture;
-  Query: TFDQuery; CodigoLayOut, CodigoCronometragem: integer; Resp: String;
+  Query: TFDQuery; CodigoLayOut, CodigoProduto: integer; Resp: String;
   dt: Tdatetime; ref: string; nfila: integer; LocalOP: TScrollBox);
 var
 vertical,i, horizontal, PorFila, NumNaFila, countFilas :integer;
@@ -766,7 +735,7 @@ begin
    TempoTotal            := tempo;
    MetaHora              := MetaPorHora;
    idlayout              := CodigoLayOut;
-   idcronometragem       := CodigoCronometragem;
+   idProduto             := CodigoProduto;
    Responsavel           := Resp;
    data                  := dt;
    Referencia            := ref;
@@ -796,7 +765,6 @@ begin
        Operacoes[NOperacoes].Left                   := 5;
 
        vertical := vertical + Operacoes[NOperacoes].Height + 5;
-       showmessage('Teste Operacoes em Create Layout');
        dados.Next;
    end;
 

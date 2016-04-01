@@ -51,101 +51,34 @@ inherited F02004: TF02004
           Align = alClient
           TabOrder = 1
           object img: TImage
-            Left = 584
-            Top = 32
+            Left = 677
+            Top = 3
             Width = 105
             Height = 105
-          end
-          object Panel4: TPanel
-            Left = 364
-            Top = 2
-            Width = 134
-            Height = 192
-            Alignment = taLeftJustify
-            BevelInner = bvLowered
-            BiDiMode = bdLeftToRight
-            BorderStyle = bsSingle
-            Color = clGrayText
-            ParentBiDiMode = False
-            ParentBackground = False
-            TabOrder = 0
-            object Panel6: TPanel
-              Left = 3
-              Top = 2
-              Width = 123
-              Height = 54
-              Caption = 'Panel6'
-              Color = clSilver
-              ParentBackground = False
-              TabOrder = 0
-              object ProgressBar2: TProgressBar
-                Left = 1
-                Top = 43
-                Width = 121
-                Height = 10
-                Align = alBottom
-                TabOrder = 0
-              end
-            end
-            object Panel7: TPanel
-              Left = 2
-              Top = 130
-              Width = 124
-              Height = 54
-              Caption = 'Panel6'
-              Color = clSilver
-              ParentBackground = False
-              TabOrder = 1
-              object ProgressBar3: TProgressBar
-                Left = 1
-                Top = 43
-                Width = 122
-                Height = 10
-                Align = alBottom
-                TabOrder = 0
-              end
-            end
-            object Panel8: TPanel
-              Left = 3
-              Top = 58
-              Width = 123
-              Height = 69
-              Alignment = taLeftJustify
-              Color = clGrayText
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentBackground = False
-              ParentFont = False
-              TabOrder = 2
-              object Image1: TImage
-                Left = 25
-                Top = 3
-                Width = 86
-                Height = 63
-              end
-              object ProgressBar1: TProgressBar
-                Left = 112
-                Top = 3
-                Width = 9
-                Height = 63
-                Orientation = pbVertical
-                Position = 50
-                TabOrder = 0
-              end
-              object Panel9: TPanel
-                Left = 2
-                Top = 24
-                Width = 21
-                Height = 22
-                Caption = '1'
-                Color = clInfoBk
-                ParentBackground = False
-                TabOrder = 1
-              end
-            end
+            Picture.Data = {
+              0954506E67496D61676589504E470D0A1A0A0000000D494844520000004D0000
+              0037080600000049B0C717000000097048597300000EC300000EC301C76FA864
+              0000022E4944415478DAED9B414EC3301045930DB02A02B12B4B0EC0213842AF
+              002B0ED143B0822BF4081C8203B06C7715888A05B00139C85264E2783C9E194F
+              CAFC6D244FFEEB77E364ECF67DBBFE6E4C596A0D5ABE0C1A42206817370FCDE5
+              C1267AFDE96BDE3CDF5FD7F6922DACAF5168FD411FB7A7D1C1AFCE5E9285B428
+              0405F1157A1A85B6B85D8E0E1A2BB4BA5BD666131585278386F064D0109E0C1A
+              C2934143783268084F060DE189149A1B7C2AEBB45C5FACD034A78CCA974143F8
+              3268085F060DE12B0A8DE20F53AB4A1F705168FBB8DCA0F266D010DE0C1AC29B
+              4143782387B68F6F04DE1B0BB470708DA2F0C5024D6BDAB029F3BED8A0850528
+              4C52FD08549ED8A0418CA65A684EEE1EFADDAE21E5D4520BCD1781A8A486642D
+              1168255ACC5FA3D7569B932AF7A4169A87B5FB689BF3E3BFD7D76F4D333BFABD
+              5D6978EAA0A56085F2F024C1A982E6804161F5250D4E0D342C302F4970AAA0CD
+              0EDBA231A4C0A980569AB2BE769FFF085A69CABC24D2561D1A65CABCB8D3A602
+              1A55CABC54402B7D571BD3D4A0811B2B9D39A6B44D111AEB061888F61A1AD714
+              9D12B4A1CF5CC92DF11C69A37E7A722E39863EA85681D68D4B9836C9943925A1
+              714E518AB449A70C04CD493338E99481A1750619A729165C8D943981A1712F76
+              73C0717FC14D3586B24EE17183734AC1E37E398774D2B28F2E420F996135D654
+              F1E24A9713A41D883EEFC9993A69E5EE0A283A243BD4EC9D02C4B04F9ADBC127
+              3D590CE9986B50E936073B8E8D904143E8073994664A7A9B7314000000004945
+              4E44AE426082}
+            Proportional = True
+            Visible = False
           end
         end
       end
@@ -202,19 +135,19 @@ inherited F02004: TF02004
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 834
+      Left = 879
       Top = 4
-      Width = 169
-      Height = 26
+      Width = 136
+      Height = 38
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
       OnClick = SpeedButton1Click
-      ExplicitLeft = 641
+      ExplicitLeft = 887
       ExplicitHeight = 46
     end
     object Label1: TLabel
-      Left = 13
+      Left = 9
       Top = 8
       Width = 64
       Height = 13
@@ -222,7 +155,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit1
     end
     object Label2: TLabel
-      Left = 220
+      Left = 227
       Top = 8
       Width = 25
       Height = 13
@@ -232,13 +165,13 @@ inherited F02004: TF02004
     object Label3: TLabel
       Left = 490
       Top = 8
-      Width = 83
+      Width = 39
       Height = 13
-      Caption = 'N'#186' OPERADORES'
+      Caption = 'N'#186' OPE.'
       FocusControl = DBEdit3
     end
     object Label4: TLabel
-      Left = 577
+      Left = 572
       Top = 8
       Width = 43
       Height = 13
@@ -254,7 +187,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit5
     end
     object Label6: TLabel
-      Left = 81
+      Left = 79
       Top = 8
       Width = 61
       Height = 13
@@ -262,7 +195,7 @@ inherited F02004: TF02004
       FocusControl = DBEdit6
     end
     object Label7: TLabel
-      Left = 150
+      Left = 151
       Top = 8
       Width = 51
       Height = 13
@@ -270,15 +203,29 @@ inherited F02004: TF02004
       FocusControl = DBEdit7
     end
     object Label8: TLabel
-      Left = 424
+      Left = 429
       Top = 8
       Width = 36
       Height = 13
       Caption = 'idgrupo'
       FocusControl = DBEdit8
     end
+    object Label9: TLabel
+      Left = 716
+      Top = 8
+      Width = 59
+      Height = 13
+      Caption = 'META HORA'
+    end
+    object Label10: TLabel
+      Left = 791
+      Top = 8
+      Width = 34
+      Height = 13
+      Caption = 'TEMPO'
+    end
     object DBEdit1: TDBEdit
-      Left = 13
+      Left = 9
       Top = 24
       Width = 57
       Height = 21
@@ -287,7 +234,7 @@ inherited F02004: TF02004
       TabOrder = 0
     end
     object DBEdit2: TDBEdit
-      Left = 220
+      Left = 227
       Top = 24
       Width = 35
       Height = 21
@@ -307,7 +254,7 @@ inherited F02004: TF02004
       TabOrder = 2
     end
     object DBEdit4: TDBEdit
-      Left = 577
+      Left = 572
       Top = 24
       Width = 57
       Height = 21
@@ -325,7 +272,7 @@ inherited F02004: TF02004
       TabOrder = 4
     end
     object DBEdit6: TDBEdit
-      Left = 81
+      Left = 79
       Top = 24
       Width = 59
       Height = 21
@@ -335,7 +282,7 @@ inherited F02004: TF02004
       OnExit = DBEdit6Exit
     end
     object DBEditBeleza1: TDBEditBeleza
-      Left = 253
+      Left = 260
       Top = 24
       Width = 155
       Height = 21
@@ -369,7 +316,7 @@ inherited F02004: TF02004
       OnButtonClick = DBEditBeleza1ButtonClick
     end
     object DBEdit7: TDBEdit
-      Left = 150
+      Left = 151
       Top = 24
       Width = 64
       Height = 21
@@ -379,23 +326,23 @@ inherited F02004: TF02004
       TabOrder = 7
     end
     object ed_metaHora: TEdit
-      Left = 715
-      Top = 4
-      Width = 121
+      Left = 716
+      Top = 24
+      Width = 62
       Height = 21
       TabOrder = 8
       Text = 'ed_metaHora'
     end
     object Ed_tempo: TEdit
-      Left = 715
-      Top = 29
-      Width = 121
+      Left = 791
+      Top = 24
+      Width = 62
       Height = 21
       TabOrder = 9
       Text = 'Ed_tempo'
     end
     object DBEdit8: TDBEdit
-      Left = 424
+      Left = 429
       Top = 24
       Width = 49
       Height = 21
@@ -553,7 +500,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C002C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00340110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
