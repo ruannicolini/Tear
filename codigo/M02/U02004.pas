@@ -91,9 +91,10 @@ end;
 
 //Algoritmo Genético
 type TOperacaoAG = class
-  idOperacao : integer;
-  idTipoRecurso : integer;
-  cota: double;
+  IdLayOutOperacoes   : integer;
+  idTipoRecurso       : integer;
+  Cota                : real;
+  constructor Create();
 end;
 
 type TIndividuo = class
@@ -206,7 +207,7 @@ var
   Layout: TLayout;
   TempoTotal : real;
   MetaHora   : integer;
-
+  vetOperacaoAG : array of TOperacaoAG;
 implementation
 
 {$R *.dfm}
@@ -390,10 +391,11 @@ end;
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
 i : integer;
-matriz: array of array of integer;
-vetorTPF: array of double;
+matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
+vetorTPF: array of double; //vetor de tempo Padrao final das operações
 begin
   inherited;
+
   //Apaga registros LayoutOperaçoes existentes
   fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
   moperacoes.Open;
@@ -443,6 +445,7 @@ begin
     moperacoes.Post;
   END;
 
+
   //CALCULA META HORA
   CalculaMetaHora;
 
@@ -456,7 +459,18 @@ begin
     //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
     Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
 
+    ShowMessage('tam vetOperacaoAG' + inttostr(Length(vetOperacaoAG)));
+
     //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
+    for I := 0 to (Length(vetOperacaoAG)-1) do
+      begin
+        ShowMessage(
+        'idLayout Operacao: ' + inttostr(vetOperacaoAG[i].IdLayOutOperacoes) + #13 +
+        'idtipoRecurso' + inttostr(vetOperacaoAG[i].idTipoRecurso) + #13 +
+        'cota: '+  Floattostr(vetOperacaoAG[i].Cota) + #13
+
+        );
+      end;
 
 
   end;
@@ -699,9 +713,10 @@ constructor TLayout.Create(Local: TScrollBox; Dados: TClientDataSet;
   Query: TFDQuery; CodigoLayOut, CodigoProduto: integer; Resp: String;
   dt: Tdatetime; ref: string; nfila: integer; LocalOP: TScrollBox);
 var
-vertical,i, horizontal, PorFila, NumNaFila, countFilas :integer;
+vertical,i, horizontal, PorFila, NumNaFila, countFilas, contaPosicoes :integer;
 Direcao : boolean;
 Caminho  : TShape;
+valorT : real;
 begin
    q                     := Query;
    Tela                  := local;
@@ -716,7 +731,7 @@ begin
    data                  := dt;
    Referencia            := ref;
 
-   //adiciona Operacoes
+   contaPosicoes := 0;
    NOperacoes            := 0;
    vertical              := 10;
    dados.First;
@@ -740,10 +755,36 @@ begin
        Operacoes[NOperacoes].Top                    := vertical;
        Operacoes[NOperacoes].Left                   := 5;
 
+       //cria vetor de OperaçaoAG
+       valorT := Operacoes[NOperacoes].Cota;
+       if(valort > 100)then
+       begin
+           while( valort > 0 )do
+           begin
+            contaPosicoes := contaPosicoes +1;
+            SetLength( vetOperacaoAG ,contaPosicoes);
+            vetOperacaoAG[contaPosicoes-1] := TOperacaoAG.create;
+
+            vetOperacaoAG[contaPosicoes-1].IdLayOutOperacoes := Operacoes[NOperacoes].IdLayOutOperacoes;
+            vetOperacaoAG[contaPosicoes-1].idTipoRecurso := Operacoes[NOperacoes].idTipoRecurso ;
+            if(valorT > 100)then
+            begin
+            vetOperacaoAG[contaPosicoes-1].cota := 100;
+            end else
+            begin
+              vetOperacaoAG[contaPosicoes-1].cota := valort;
+            end;
+            valort := valort - 100;
+
+           end;
+       end else
+       begin
+        contaPosicoes := contaPosicoes +1;
+       end;
+
        vertical := vertical + Operacoes[NOperacoes].Height + 5;
        dados.Next;
    end;
-
 
    //adiciona operadores
    horizontal := 10;
@@ -831,6 +872,15 @@ begin
   //
   SetLength(vetorOperador,tam);
   SetLength(vetorSequencia,tam);
+end;
+
+{ TOperacaoAG }
+
+constructor TOperacaoAG.Create;
+begin
+  IdLayOutOperacoes := 0;
+  idTipoRecurso := 0;
+  cota := 0;
 end;
 
 Initialization
