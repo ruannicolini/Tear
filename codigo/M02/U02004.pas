@@ -104,7 +104,7 @@ type TIndividuo = class
   vetorOperador: array of integer;
   vetorSequencia: array of integer;
   fo: Double;
-  constructor Create(tam: integer);
+  constructor Create(tam: integer; qtdOperadores :integer);
 end;
 
 //TELA
@@ -179,6 +179,7 @@ type
     DBEdit8: TDBEdit;
     Label9: TLabel;
     Label10: TLabel;
+    Memo1: TMemo;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -203,6 +204,8 @@ type
     ProgressBar : TProgressBar;
     procedure CalculaMetaHora();
     procedure atribuiPrecedencia();
+    procedure iniciaPopulacao(var populacao:TList ; qtd: integer);
+    function AlgoritmoGenetico(): TIndividuo;
   end;
 
 var
@@ -222,7 +225,17 @@ begin
   panel3.Enabled := false;
 end;
 
-procedure TF02004.atribuiPrecedencia;
+function TF02004.AlgoritmoGenetico: TIndividuo;
+var
+  populacao : TList;
+begin
+  //
+  populacao := TList.Create;
+  iniciaPopulacao(populacao, 1000);
+
+end;
+
+procedure TF02004.atribuiPrecedencia;
 var
   I, j: Integer;
 begin
@@ -392,6 +405,19 @@ begin
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
 end;
 
+procedure TF02004.iniciaPopulacao(var populacao: TList; qtd: integer);
+var
+  indiv : TIndividuo;
+  I: Integer;
+begin
+
+  for I := 0 to qtd do
+  begin
+    indiv := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger);
+    populacao.Add(indiv);
+  end;
+end;
+
 procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
 begin
   inherited;
@@ -487,10 +513,12 @@ begin
     //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
     Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
 
-    //
+    // Atribui a precedencia de cada índice em vetOperaçoesAG
     atribuiPrecedencia();
 
     //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
+    AlgoritmoGenetico();
+
     for I := 0 to (Length(vetOperacaoAG)-1) do
       begin
         ShowMessage(
@@ -885,11 +913,32 @@ end;
 
 { TIndividuo }
 
-constructor TIndividuo.Create(tam: integer);
+constructor TIndividuo.Create(tam: integer; qtdOperadores :integer);
+var
+ rand :integer;
+  I: Integer;
 begin
-  //
+
+  //inicializa indiv.vetorOperador
   SetLength(vetorOperador,tam);
+  Randomize;
+  //seta valores no vetorOperador
+  for I := 0 to (Length(vetorOperador)-1) do
+  begin
+    //Random gera um num aleatorio > 0
+    Rand:= Random(qtdOperadores) + 1;
+    vetorOperador[i] := rand;
+  end;
+
+  //indiv.vetorSequencia
   SetLength(vetorSequencia,tam);
+  Randomize;
+  for I := 0 to (Length(vetorSequencia)-1) do
+  begin
+    Rand:= Random(500);
+    vetorSequencia[i] := rand;
+  end;
+
 end;
 
 { TOperacaoAG }
