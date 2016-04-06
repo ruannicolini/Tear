@@ -92,8 +92,10 @@ end;
 //Algoritmo Genético
 type TOperacaoAG = class
   IdLayOutOperacoes   : integer;
+  idCronmetragem       : integer;
   idTipoRecurso       : integer;
   Cota                : real;
+  vatorIDCronometragemPrecedencia : array of integer;
   constructor Create();
 end;
 
@@ -200,6 +202,7 @@ type
     Panel : TPANEL;
     ProgressBar : TProgressBar;
     procedure CalculaMetaHora();
+    procedure atribuiPrecedencia();
   end;
 
 var
@@ -219,7 +222,32 @@ begin
   panel3.Enabled := false;
 end;
 
-procedure TF02004.BEditarClick(Sender: TObject);
+procedure TF02004.atribuiPrecedencia;
+var
+  I, j: Integer;
+begin
+  //
+  for I := 0 to Length(vetOperacaoAG)-1 do
+  begin
+    DModule.qAux.Close;
+    DModule.qAux.sql.Text := 'Select * from dependencia where idCronometragem =:idC';
+    DModule.qAux.ParamByName('idC').Value := vetOperacaoAG[i].idCronmetragem;
+    DModule.qAux.open;
+
+    SetLength(vetOperacaoAG[i].vatorIDCronometragemPrecedencia, DModule.qAux.RecordCount);
+    j:= 0;
+    while not(DModule.qAux.eof) do
+    begin
+      vetOperacaoAG[i].vatorIDCronometragemPrecedencia[j] := DModule.qAux.FieldByName('idCronometragemDependencia').AsInteger;
+      j := j+1;
+      DModule.qAux.Next;
+    end;
+  end;
+
+
+end;
+
+procedure TF02004.BEditarClick(Sender: TObject);
 begin
   inherited;
   Panel3.Enabled := true;
@@ -459,7 +487,8 @@ begin
     //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
     Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
 
-    ShowMessage('tam vetOperacaoAG' + inttostr(Length(vetOperacaoAG)));
+    //
+    atribuiPrecedencia();
 
     //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
     for I := 0 to (Length(vetOperacaoAG)-1) do
@@ -628,18 +657,6 @@ begin
   Ocupacao              := 0;
   Cursor                := crHandPoint;
 
-  //  original IGOR
-  {Maquina1              := TMaquina.create(Self);
-  Maquina1.Parent       := self;
-  Maquina1.Top          := 5;
-  Maquina1.Left         := 27;
-
-  Maquina2              := TMaquina.create(Self);
-  Maquina2.Parent       := self;
-  Maquina2.Top          := 125;
-  Maquina2.Left         := 27;
-  }
-
   Maquina1              := TMaquina.create(Self);
   Maquina1.Parent       := self;
   //Maquina1.Left         := 27;
@@ -755,7 +772,7 @@ begin
        Operacoes[NOperacoes].Top                    := vertical;
        Operacoes[NOperacoes].Left                   := 5;
 
-       //cria vetor de OperaçaoAG
+       //cria vetor de OperaçaoAG e quebra ob tempos das operações em <= 100
        valorT := Operacoes[NOperacoes].Cota;
        if(valort > 100)then
        begin
@@ -767,6 +784,7 @@ begin
 
             vetOperacaoAG[contaPosicoes-1].IdLayOutOperacoes := Operacoes[NOperacoes].IdLayOutOperacoes;
             vetOperacaoAG[contaPosicoes-1].idTipoRecurso := Operacoes[NOperacoes].idTipoRecurso ;
+            vetOperacaoAG[contaPosicoes-1].idCronmetragem := Operacoes[NOperacoes].idCronometragem;
             if(valorT > 100)then
             begin
             vetOperacaoAG[contaPosicoes-1].cota := 100;
@@ -881,6 +899,7 @@ begin
   IdLayOutOperacoes := 0;
   idTipoRecurso := 0;
   cota := 0;
+  idCronmetragem := 0;
 end;
 
 Initialization
