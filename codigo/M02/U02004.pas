@@ -23,14 +23,11 @@ type TOperacao =  class(TPanel)
    CotaPendente        : real;
    tipoRecurso         : string;
    Operacao            : string;
-
    GCotaPendente       : TProgressBar;
-
    LbCotaPendente      : tlabel;
    LbCota              : tlabel;
    LbOperacao          : tlabel;
    LbRecurso           : tlabel;
-
    constructor Create(AOwner: TComponent); override;
    procedure   RetiraOperacao(Per:real);
 end;
@@ -42,14 +39,11 @@ end;
 
 type TMaquina = class(TPanel)
     public
-
     Ocupacao     : real;
     GOcupacao    : TProgressBar;
     Operacoes    : array [1..20] of TOperacaoMaquina;
-
     NumOperacoes : integer;
     idrecurso    : integer;
-
     constructor Create(AOwner: TComponent); override;
     procedure   SetaRecurso(codigoRecurso:integer;Recurso:string);
     procedure   AdicionaOperacao(Operacao : toperacao;PerMaxOperador : real);
@@ -57,21 +51,14 @@ end;
 
 type TOperador =  class(TPanel)
    public
-
    Ocupacao     : real;
    Gocupacao    : TProgressbar;
    lbOcupacao   : tlabel;
    LbPosicao    : tlabel;
    Posicao      : Integer;
    Imagem       : TImage;
-
    Maquina1     : TMaquina;
    Maquina2     : TMaquina;
-
-   //procedure   dragDropx(Sender, Source: TObject; X, Y: Integer);
-   //procedure   dragOverx(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean);
-   //Procedure   RemoveOperacoes(sender: TObject);
-
    constructor Create(AOwner: TComponent); override;
    procedure   SetaRecurso(Maquina:integer;codigoRecurso:integer;Recurso:string);
    procedure   AdicionaOperacao(Operacao:TOperacao);
@@ -79,19 +66,14 @@ type TOperador =  class(TPanel)
 end;
 
 type TLayout = class
-
     Tela       : TScrollBox;
     TelaOp     : TScrollBox;
-
     idlayout   : integer;
     q          : TFDQuery;
-
     Operadores : array [1..40] of TOperador;
     NOperadores: integer;
-
     Operacoes  : array [1..40] of TOperacao;
     NOperacoes : integer;
-
     TempoTotal : real;
     MetaHora   : integer;
     Referencia : string;
@@ -99,7 +81,6 @@ type TLayout = class
     NumFilas   : integer;
     data       : tdatetime;
     idProduto : integer;
-
     constructor Create(Local:TScrollBox;Dados:TClientDataSet;NumerodeOperadores : integer;Tempo:real;MetaPorHora:integer;
     img : TPicture;Query : TFDQuery;CodigoLayOut: integer;CodigoProduto: integer;Resp: String;dt: Tdatetime;
     ref :string;nfila : integer;LocalOP:TScrollBox);
@@ -108,7 +89,22 @@ type TLayout = class
     procedure   GravaDados;
 end;
 
+//Algoritmo Genético
+type TOperacaoAG = class
+  idOperacao : integer;
+  idTipoRecurso : integer;
+  cota: double;
+end;
 
+type TIndividuo = class
+  //Obs: o índice representa as operações
+  vetorOperador: array of integer;
+  vetorSequencia: array of integer;
+  fo: Double;
+  constructor Create(tam: integer);
+end;
+
+//TELA
 type
   TF02004 = class(TFBase)
     Panel3: TPanel;
@@ -222,7 +218,7 @@ begin
   panel3.Enabled := false;
 end;
 
-procedure TF02004.BEditarClick(Sender: TObject);
+procedure TF02004.BEditarClick(Sender: TObject);
 begin
   inherited;
   Panel3.Enabled := true;
@@ -340,8 +336,6 @@ begin
 
 end;
 
-
-
 procedure TF02004.DBEdit8Change(Sender: TObject);
 begin
   inherited;
@@ -457,8 +451,14 @@ begin
   begin
     //apaga os paineis dentro do scrollbox
     ScrollBox1.DestroyComponents;
-    ScrollLinhadeProducao.DestroyComponents;                                                                                                                                             // MLayoutidCronometragem.AsInteger
+    ScrollLinhadeProducao.DestroyComponents;
+
+    //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
     Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
+
+    //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
+
+
   end;
 
   //Apaga dados obtidos anteriormente
@@ -473,10 +473,6 @@ begin
   DModule.qaux.ExecSQL;
   }
 
-  //Balancear Célula
-  // FUNÇÃO AQUI!
-
-
 end;
 
 procedure TF02004.SpeedButton2Click(Sender: TObject);
@@ -485,27 +481,7 @@ begin
   //
   if Application.MessageBox('Confirma Processar LayOut?','Processamento',mb_yesno+mb_iconquestion) = id_yes then
   begin
-      {QSelOperacao.Params[0].AsInteger := MLayoutidCronometragem.AsInteger;
-      MSelOperacao.Open;
-      MSelOperacao.First;
-      while not(MSelOperacao.Eof) do
-      begin
-          MSelOperacao.Edit;
-          MSelOperacaoSel.value      := chr(168);
-          MSelOperacao.Post;
-          MSelOperacao.Next;
-      end;
-      MSelOperacao.First;
-      GrSelecao.Visible := true;
-
-      qaux.sql.Text := 'delete LayOutOperacoes where idlayout = :idlayout';
-      qaux.params[0].AsInteger := MLayoutIdLayout.AsInteger;
-      qaux.ExecSQL;
-
-      qaux.sql.Text := 'delete LayOutMaquinas where idlayout = :idlayout';
-      qaux.params[0].AsInteger := MLayoutIdLayout.AsInteger;
-      qaux.ExecSQL;
-       }
+      
   end;
 end;
 
@@ -846,6 +822,15 @@ procedure TLayout.Imprime(var ImpLayOut, ImpOperacao,
   ImpOperadores: tclientdataset);
 begin
 
+end;
+
+{ TIndividuo }
+
+constructor TIndividuo.Create(tam: integer);
+begin
+  //
+  SetLength(vetorOperador,tam);
+  SetLength(vetorSequencia,tam);
 end;
 
 Initialization
