@@ -209,7 +209,8 @@ type
     procedure avaliaIndividuo(var indiv: TIndividuo);
     function AlgoritmoGenetico(): TIndividuo;
     function avaliaPrecedencia(indiv:TIndividuo):Integer;
-    function avaliaDistribuicao(indiv:TIndividuo):Integer;
+    function avaliaDistribuicao(indiv:TIndividuo):Real;
+    function avaliaMaquina(indiv:TIndividuo):Real;
   end;
 
 var
@@ -267,16 +268,16 @@ begin
 
 end;
 
-function TF02004.avaliaDistribuicao(indiv: TIndividuo): Integer;
+function TF02004.avaliaDistribuicao(indiv: TIndividuo): Real;
 var
   I,J: Integer;
-  VALOR, PORCENTAGEMTRABALHO : integer;
+  VALOR, PORCENTAGEMTRABALHO : Real;
 begin
   //
   VALOR := 0;
   for I := 0 to Length(vetOperacaoAG)-1 do
   begin
-    VALOR := VALOR + trunc(vetOperacaoAG[I].Cota);
+    VALOR := VALOR + (vetOperacaoAG[I].Cota);
   end;
 
   //OPERADORES
@@ -287,7 +288,7 @@ begin
       begin
         IF(I = INDIV.vetorOperador[J]) THEN
         BEGIN
-          PORCENTAGEMTRABALHO := PORCENTAGEMTRABALHO + trunc(vetOperacaoAG[I].Cota);
+          PORCENTAGEMTRABALHO := PORCENTAGEMTRABALHO + (vetOperacaoAG[I].Cota);
         END;
       end;
 
@@ -307,8 +308,7 @@ end;
 
 procedure TF02004.avaliaIndividuo(var indiv : TIndividuo);
 var
-valorPrecedencia : integer;
-valorDistribuicao, valorMaquina : Real;
+valorPrecedencia, valorDistribuicao, valorMaquina : Real;
 begin
   //ShowMessage('ENTROU EM AVALIA INDIVIDUO');
   valorPrecedencia := 0;
@@ -321,9 +321,18 @@ begin
 
   //Avalia Distribuição, quanto mais uniforme, melhor
    valorDistribuicao := avaliaDistribuicao(indiv);
+   //ShowMessage(floattostr( valorDistribuicao ));
+
   //Avalia qtdMaquinas usada por cada Operador (melhor1, no maximo 2)
+  valorMaquina := avaliaMaquina(indiv);
 
   indiv.fo := Power(valorPrecedencia,2) - (valorDistribuicao) + (valorMaquina)
+
+end;
+
+function TF02004.avaliaMaquina(indiv: TIndividuo): Real;
+begin
+  //
 
 end;
 

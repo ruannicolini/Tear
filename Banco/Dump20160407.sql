@@ -65,7 +65,7 @@ CREATE TABLE `batida` (
 
 LOCK TABLES `batida` WRITE;
 /*!40000 ALTER TABLE `batida` DISABLE KEYS */;
-INSERT INTO `batida` VALUES (61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188),(244,0,1,859,1,167),(245,0,1,782,1,167),(246,0,2,312,1,167),(247,0,2,31,1,167),(248,0,1,828,1,167),(249,0,2,547,1,167),(250,0,2,375,1,167),(251,0,3,688,1,167),(252,0,2,937,1,153),(253,0,3,735,1,153),(254,0,3,0,1,153),(255,0,4,125,1,153),(256,0,1,734,1,153),(257,0,1,953,1,194),(258,0,3,641,1,194),(260,0,2,391,1,194),(261,0,2,672,1,194),(262,0,3,187,1,194),(279,0,3,672,1,200),(280,0,3,656,1,200),(281,0,2,781,1,200),(282,0,2,157,1,200),(283,0,2,781,1,200),(293,0,1,656,1,191),(294,0,2,297,1,191),(295,0,2,0,1,191),(296,0,1,969,1,191),(297,0,2,609,1,191),(298,0,3,391,1,191),(314,0,0,925,1,236),(315,0,1,386,1,236),(316,0,1,633,1,236),(317,0,1,921,1,236);
+INSERT INTO `batida` VALUES (61,1,2,3,1,110),(63,0,2,16,1,111),(65,0,2,578,1,113),(72,0,1,875,1,117),(73,0,7,796,1,117),(74,0,3,219,1,125),(75,0,8,969,1,125),(76,0,13,750,1,125),(94,0,4,671,1,127),(95,0,5,641,1,127),(96,0,2,875,1,127),(97,0,3,828,1,127),(98,0,3,266,1,127),(99,0,4,640,1,127),(163,0,1,703,1,188),(164,0,2,485,1,188),(165,0,1,797,1,188),(244,0,1,859,1,167),(245,0,1,782,1,167),(246,0,2,312,1,167),(247,0,2,31,1,167),(248,0,1,828,1,167),(249,0,2,547,1,167),(250,0,2,375,1,167),(251,0,3,688,1,167),(252,0,2,937,1,153),(253,0,3,735,1,153),(254,0,3,0,1,153),(255,0,4,125,1,153),(256,0,1,734,1,153),(257,0,1,953,1,194),(258,0,3,641,1,194),(260,0,2,391,1,194),(261,0,2,672,1,194),(262,0,3,187,1,194),(279,0,3,672,1,200),(280,0,3,656,1,200),(281,0,2,781,1,200),(282,0,2,157,1,200),(283,0,2,781,1,200),(293,0,1,656,1,191),(294,0,2,297,1,191),(295,0,2,0,1,191),(296,0,1,969,1,191),(297,0,2,609,1,191),(298,0,3,391,1,191),(343,0,0,925,1,243),(344,0,1,386,1,243),(345,0,1,633,1,243),(346,0,1,921,1,243),(347,0,2,78,1,244),(348,0,3,32,1,244),(349,0,3,46,1,244),(350,0,3,766,1,244);
 /*!40000 ALTER TABLE `batida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +102,7 @@ CREATE TABLE `cronometragem` (
 
 LOCK TABLES `cronometragem` WRITE;
 /*!40000 ALTER TABLE `cronometragem` DISABLE KEYS */;
-INSERT INTO `cronometragem` VALUES (153,1,1,80,1,10,5,4,8,1,2,5,45,2733.46,NULL),(167,1,1,80,1,10,1,2,43,8,2,26,52,2026.42,NULL),(191,0,0,90,1,10,10,1,7,NULL,NULL,26,NULL,2297.13,NULL),(192,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,9,NULL,NULL,NULL),(194,1,0,80,1,20,NULL,1,7,NULL,NULL,5,NULL,2658.05,NULL),(200,NULL,NULL,NULL,NULL,NULL,NULL,NULL,71,NULL,NULL,22,NULL,0,NULL),(236,0,0,80,1,15,35,1,8,102,2,26,34,1348.95,'0000-00-00');
+INSERT INTO `cronometragem` VALUES (153,1,1,80,1,10,5,4,8,1,2,5,45,2733.46,NULL),(167,1,1,80,1,10,1,2,43,8,2,26,52,2026.42,NULL),(191,0,0,90,1,10,10,1,7,NULL,NULL,26,NULL,2297.13,NULL),(192,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,NULL,NULL,9,NULL,NULL,NULL),(194,1,0,80,1,20,NULL,1,7,NULL,NULL,5,NULL,2658.05,NULL),(200,NULL,NULL,NULL,NULL,NULL,NULL,NULL,71,NULL,NULL,22,NULL,0,NULL),(243,0,0,80,1,15,35,1,8,102,2,26,34,1348.95,'0000-00-00'),(244,0,0,80,1,10,NULL,1,7,NULL,NULL,28,NULL,2622.84,NULL);
 /*!40000 ALTER TABLE `cronometragem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -150,7 +150,7 @@ CREATE TABLE `cronometragem_has_tipo_recurso` (
 
 LOCK TABLES `cronometragem_has_tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` DISABLE KEYS */;
-INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4),(153,3),(167,1),(167,5),(191,6),(194,4),(236,3);
+INSERT INTO `cronometragem_has_tipo_recurso` VALUES (46,2),(117,3),(125,2),(125,4),(153,3),(167,1),(167,5),(191,5),(194,4),(243,3),(244,3);
 /*!40000 ALTER TABLE `cronometragem_has_tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +198,7 @@ CREATE TABLE `dependencia` (
 
 LOCK TABLES `dependencia` WRITE;
 /*!40000 ALTER TABLE `dependencia` DISABLE KEYS */;
-INSERT INTO `dependencia` VALUES (191,192),(191,194);
+INSERT INTO `dependencia` VALUES (191,244);
 /*!40000 ALTER TABLE `dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,6 +346,88 @@ INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001'),(2,1,NULL,'Produto'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `layoutfase`
+--
+
+DROP TABLE IF EXISTS `layoutfase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `layoutfase` (
+  `idLayoutFase` int(11) NOT NULL,
+  `idOrdem_has_fase` int(11) DEFAULT NULL,
+  `numOperadores` int(11) DEFAULT NULL,
+  `numFilas` int(11) DEFAULT NULL,
+  `dataLayout` date DEFAULT NULL,
+  `responsavel` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idLayoutFase`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `layoutfase`
+--
+
+LOCK TABLES `layoutfase` WRITE;
+/*!40000 ALTER TABLE `layoutfase` DISABLE KEYS */;
+INSERT INTO `layoutfase` VALUES (20,88,7,2,NULL,NULL);
+/*!40000 ALTER TABLE `layoutfase` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `layoutmaquina`
+--
+
+DROP TABLE IF EXISTS `layoutmaquina`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `layoutmaquina` (
+  `idLayoutMaquina` int(11) NOT NULL,
+  `idLayoutOperacao` int(11) DEFAULT NULL,
+  `idOperador` int(11) DEFAULT NULL,
+  `postoDeTrabalho` int(11) DEFAULT NULL,
+  `numMaquina` int(11) DEFAULT NULL,
+  `idTipo_Recurso` int(11) DEFAULT NULL,
+  `porcentagemOperacao` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idLayoutMaquina`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `layoutmaquina`
+--
+
+LOCK TABLES `layoutmaquina` WRITE;
+/*!40000 ALTER TABLE `layoutmaquina` DISABLE KEYS */;
+/*!40000 ALTER TABLE `layoutmaquina` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `layoutoperacao`
+--
+
+DROP TABLE IF EXISTS `layoutoperacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `layoutoperacao` (
+  `idLayoutOperacao` int(11) NOT NULL,
+  `idLayoutFase` int(11) DEFAULT NULL,
+  `tempoOperacao` float DEFAULT NULL,
+  `idCronometragem` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idLayoutOperacao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `layoutoperacao`
+--
+
+LOCK TABLES `layoutoperacao` WRITE;
+/*!40000 ALTER TABLE `layoutoperacao` DISABLE KEYS */;
+INSERT INTO `layoutoperacao` VALUES (90,15,2297,191),(91,15,2623,244),(92,17,2297,191),(93,17,2623,244),(94,17,2297,191),(95,17,2623,244),(96,17,2297,191),(97,17,2623,244),(216,20,2297,191),(217,20,2623,244);
+/*!40000 ALTER TABLE `layoutoperacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `modulo`
 --
 
@@ -395,7 +477,7 @@ CREATE TABLE `movimentacao` (
 
 LOCK TABLES `movimentacao` WRITE;
 /*!40000 ALTER TABLE `movimentacao` DISABLE KEYS */;
-INSERT INTO `movimentacao` VALUES (8,33,'2016-03-08','RUAN',2,5,NULL),(17,31,NULL,NULL,10,1,NULL),(18,32,'2016-03-10',NULL,5,1,NULL),(19,31,'2016-03-10',NULL,2,2,NULL),(20,31,'2016-03-10',NULL,16,1,NULL),(75,31,'2016-03-14',NULL,1,11,NULL),(84,NULL,NULL,NULL,NULL,NULL,NULL),(151,88,NULL,NULL,4,12,NULL),(152,88,NULL,NULL,6,1,NULL),(155,89,NULL,NULL,2,11,NULL),(156,89,NULL,NULL,4,1,NULL);
+INSERT INTO `movimentacao` VALUES (8,33,'2016-03-08','RUAN',2,5,NULL),(17,31,NULL,NULL,10,1,NULL),(18,32,'2016-03-10',NULL,5,1,NULL),(19,31,'2016-03-10',NULL,2,2,NULL),(20,31,'2016-03-10',NULL,16,1,NULL),(75,31,'2016-03-14',NULL,1,11,NULL),(84,NULL,NULL,NULL,NULL,NULL,NULL),(151,88,NULL,NULL,4,12,NULL),(152,88,NULL,NULL,6,1,NULL),(155,89,NULL,NULL,2,11,NULL),(157,89,NULL,NULL,4,1,NULL),(158,90,NULL,NULL,4,1,NULL);
 /*!40000 ALTER TABLE `movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -521,7 +603,7 @@ CREATE TABLE `ordem_has_fase` (
 
 LOCK TABLES `ordem_has_fase` WRITE;
 /*!40000 ALTER TABLE `ordem_has_fase` DISABLE KEYS */;
-INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0),(88,35,8,10,0,0,1,1,10),(89,35,1,10,0,0,8,2,4),(90,35,5,10,0,4,22,3,0),(114,84,1,4,0,4,8,2,0),(115,84,5,4,4,0,22,3,0),(116,85,8,2,0,2,1,1,0),(117,85,1,2,2,0,8,2,0),(118,85,5,2,2,0,22,3,0);
+INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0),(88,35,8,10,0,0,1,1,10),(89,35,1,10,0,0,8,2,4),(90,35,5,10,0,0,22,3,4),(114,84,1,4,0,4,8,2,0),(115,84,5,4,4,0,22,3,0),(116,85,8,2,0,2,1,1,0),(117,85,1,2,2,0,8,2,0),(118,85,5,2,2,0,22,3,0);
 /*!40000 ALTER TABLE `ordem_has_fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -593,7 +675,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,318),('seqCelula',NULL,23),('seqCronometragem',NULL,237),('seqCronometrista',NULL,11),('seqFase',NULL,17),('seqGrupoProduto',NULL,15),('seqMovimentacao',NULL,157),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,119),('seqOrdemProducao',NULL,86),('seqParte',NULL,6),('seqProduto',NULL,104),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,14);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,351),('seqCelula',NULL,23),('seqCronometragem',NULL,245),('seqCronometrista',NULL,11),('seqFase',NULL,17),('seqGrupoProduto',NULL,15),('seqLayoutFase',NULL,21),('seqLayoutOperacao',NULL,218),('seqMovimentacao',NULL,162),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,119),('seqOrdemProducao',NULL,86),('seqParte',NULL,6),('seqProduto',NULL,104),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,14);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -817,4 +899,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-25 16:42:59
+-- Dump completed on 2016-04-07 16:23:41
