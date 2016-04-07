@@ -3,7 +3,7 @@ unit U02004;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils,System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UBase, Data.DB, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
@@ -205,7 +205,11 @@ type
     procedure CalculaMetaHora();
     procedure atribuiPrecedencia();
     procedure iniciaPopulacao(var populacao:TList ; qtd: integer);
+    procedure avaliaPopulacao(var populacao:TList; comecoVetor: integer);
+    procedure avaliaIndividuo(var indiv: TIndividuo);
     function AlgoritmoGenetico(): TIndividuo;
+    function avaliaPrecedencia(indiv:TIndividuo):Integer;
+    function avaliaDistribuicao(indiv:TIndividuo):Integer;
   end;
 
 var
@@ -217,7 +221,7 @@ var
 implementation
 
 {$R *.dfm}
-uses UDataModule;
+uses UDataModule, Math;
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
@@ -232,12 +236,15 @@ begin
   //
   populacao := TList.Create;
   iniciaPopulacao(populacao, 1000);
+  avaliaPopulacao(populacao,0);
 
 end;
 
 procedure TF02004.atribuiPrecedencia;
 var
   I, j: Integer;
+populacao: TList;
+indiv: TIndividuo;
 begin
   //
   for I := 0 to Length(vetOperacaoAG)-1 do
@@ -258,6 +265,106 @@ begin
   end;
 
 
+end;
+
+procedure TF02004.avaliaIndividuo(var indiv : TIndividuo);
+var
+valorPrecedencia : integer;
+valorDistribuicao, valorMaquina : Real;
+begin
+  //ShowMessage('ENTROU EM AVALIA INDIVIDUO');
+  valorPrecedencia := 0;
+  valorDistribuicao := 0;
+  valorMaquina := 0;
+
+  //Avalia Precedência
+   valorPrecedencia := avaliaPrecedencia(indiv);
+   //ShowMessage(inttostr(valorPrecedencia )) ;
+
+  //Avalia Distribuição, quanto mais uniforme, melhor
+   valorDistribuicao := avaliaDistribuicao(indiv);
+  //Avalia qtdMaquinas usada por cada Operador (melhor1, no maximo 2)
+
+  indiv.fo := Power(valorPrecedencia,2) + (valorDistribuicao) + (valorMaquina)
+
+end;
+
+procedure TF02004.avaliaPopulacao(var populacao: TList; comecoVetor: integer);
+var
+i: integer;
+individuo : TIndividuo;
+begin
+  //ShowMessage('Entrou em avalia Populaçao');
+  for I := comecoVetor to populacao.Count -1 do
+  begin
+    individuo := populacao[i];
+    avaliaIndividuo(individuo);
+  end;
+end;
+
+function TF02004.avaliaPrecedencia(indiv: TIndividuo): Integer;
+var
+  I, j, valorPrecedencia: Integer;
+  valor : Real;
+begin
+  //
+  //ShowMessage('ENTROU EM AVALIA PRECEDENCIA' );
+  valorPrecedencia := 0;
+  for I := 0 to Length(indiv.vetorOperador)-1 do
+  begin
+    {ShowMessage(
+    'OPERACAO DE CRONOMETRAGEM ' + INTTOSTR(vetOperacaoAG[I].idCronmetragem) + #13
+    );  }
+
+    DModule.qAux.close;
+    DModule.qAux.sql.Text := 'Select * from dependencia where idcronometragem =:idC';
+    DModule.qAux.ParamByName('idC').Value := vetOperacaoAG[i].idCronmetragem;
+    DModule.qAux.open;
+
+    while not(DModule.qAux.eof) do
+    begin
+        //ShowMessage(' PRECEDENCIA: ' + DModule.qAux.FieldByName('idCronometragemDependencia').AsString);
+
+        for j := 0 to Length(indiv.vetorOperador)-1 do
+        begin
+            {
+            ShowMessage(
+            'Entrou no for de comparar idcronometragem. // '+
+            'i = '+ inttostr(i) + ' - ' + inttostr(indiv.vetorSequencia[i]) + #13 +
+            ' j = '+ inttostr(j) + ' - ' + inttostr(indiv.vetorSequencia[j]) + #13 +
+            'cronometragem Atual ' + inttostr(vetOperacaoAG[i].idCronmetragem) + ' = ' +
+            'cronometragem varredura ' + inttostr(vetOperacaoAG[j].idCronmetragem) + ' = ' +
+            'dependencia = ' + DModule.qAux.FieldByName('idCronometragemDependencia').AsString
+            );
+            }
+            if(vetOperacaoAG[j].idCronmetragem = DModule.qAux.FieldByName('idCronometragemDependencia').AsInteger )then
+            begin
+                if(indiv.vetorSequencia[j] = 0)then
+                begin
+                     valorPrecedencia := valorPrecedencia + 100;
+                end else
+                begin
+                    valor := indiv.vetorSequencia[i] div indiv.vetorSequencia[j];
+                    //ShowMessage('AXOU PRECEDENCIA! - Valor: ' + floattostr(valor));
+                    if(valor >= 1)then
+                    begin
+                      valorPrecedencia := valorPrecedencia + 100;
+                      //ShowMessage('SOMOU 100');
+                    end else
+                    begin
+                      valorPrecedencia := valorPrecedencia - 120;
+                      //ShowMessage('DIMINUIU 120');
+                    end;
+                end;
+
+            end;
+
+        end;
+        DModule.qAux.Next;
+    end;
+  end;
+
+  Result := valorPrecedencia;
 end;
 
 procedure TF02004.BEditarClick(Sender: TObject);
@@ -416,6 +523,7 @@ begin
     indiv := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger);
     populacao.Add(indiv);
   end;
+
 end;
 
 procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);

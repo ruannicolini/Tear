@@ -636,6 +636,7 @@ begin
   inherited;
   //
   query_result.ParamByName('x').Value := (ClientDataSet1idProduto.AsInteger);
+  query_result.ParamByName('y').Value := (ClientDataSet4idFase.AsInteger);
 end;
 
 Initialization

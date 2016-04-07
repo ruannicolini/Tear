@@ -379,7 +379,10 @@ inherited F01007: TF01007
                 'select idOPERACAO, descricao from OPERACAO '
                 
                   'where descricao like :varDescricao and idOperacao in (select dis' +
-                  'tinct idOperacao from cronometragem where idproduto =:x)')
+                  'tinct c.idOperacao from cronometragem c'
+                'left outer join operacao o on o.idOperacao = c.idOperacao'
+                'left outer join fase f on f.idfase = o.idfase '
+                'where c.idproduto =:x and f.idFase =:y)')
               database = 'balay'
               campo = 'descricao'
               Sempre_Mostrar_Janela = False
@@ -835,7 +838,7 @@ inherited F01007: TF01007
     Left = 584
     Top = 72
     Bitmap = {
-      494C01010D002C00B40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00B80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1549,7 +1552,7 @@ inherited F01007: TF01007
     Left = 548
     Top = 73
     Bitmap = {
-      494C010103000800200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800240110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
