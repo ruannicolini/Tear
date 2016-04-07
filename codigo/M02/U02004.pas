@@ -267,6 +267,44 @@ begin
 
 end;
 
+function TF02004.avaliaDistribuicao(indiv: TIndividuo): Integer;
+var
+  I,J: Integer;
+  VALOR, PORCENTAGEMTRABALHO : integer;
+begin
+  //
+  VALOR := 0;
+  for I := 0 to Length(vetOperacaoAG)-1 do
+  begin
+    VALOR := VALOR + trunc(vetOperacaoAG[I].Cota);
+  end;
+
+  //OPERADORES
+  for I := 1 to ClientDataSet1numOperadores.AsInteger do
+  begin
+      PORCENTAGEMTRABALHO := 0;
+      for J := 0 to Length(INDIV.vetorOperador)-1 do
+      begin
+        IF(I = INDIV.vetorOperador[J]) THEN
+        BEGIN
+          PORCENTAGEMTRABALHO := PORCENTAGEMTRABALHO + trunc(vetOperacaoAG[I].Cota);
+        END;
+      end;
+
+      IF(PORCENTAGEMTRABALHO <= 100)THEN
+      BEGIN
+          VALOR := VALOR - (100 - (PORCENTAGEMTRABALHO));
+
+      END ELSE
+      BEGIN
+          //AQUI O INDIVIDUO MAL DISTRIBUIDO JA É PENALIZADO AUTOMATICAMENTE
+          //POIS O VALORDISTRIBUIÇÃO É SUBTRAIDO
+      END;
+
+  end;
+  RESULT := VALOR;
+end;
+
 procedure TF02004.avaliaIndividuo(var indiv : TIndividuo);
 var
 valorPrecedencia : integer;
@@ -285,7 +323,7 @@ begin
    valorDistribuicao := avaliaDistribuicao(indiv);
   //Avalia qtdMaquinas usada por cada Operador (melhor1, no maximo 2)
 
-  indiv.fo := Power(valorPrecedencia,2) + (valorDistribuicao) + (valorMaquina)
+  indiv.fo := Power(valorPrecedencia,2) - (valorDistribuicao) + (valorMaquina)
 
 end;
 
