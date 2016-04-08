@@ -327,7 +327,16 @@ begin
   //Avalia qtdMaquinas usada por cada Operador (melhor1, no maximo 2)
   valorMaquina := avaliaMaquina(indiv);
 
-  indiv.fo := Power(valorPrecedencia,2) - (valorDistribuicao) + (valorMaquina)
+  indiv.fo := (valorPrecedencia) - (valorDistribuicao) + Power(valorMaquina,2);
+
+  ShowMessage(
+    'Valor Precedencia: ' + floattostr(valorPrecedencia) + #13 +
+    'Valor Distribuição: ' + floattostr(valorDistribuicao) + #13 +
+    'Valor Maquina: ' + floattostr(valorMaquina) + #13 +
+    'FO: ' + floattostr(indiv.fo)
+  );
+
+  indiv.vetorOperador
 
 end;
 
