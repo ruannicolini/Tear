@@ -219,10 +219,11 @@ var
   TempoTotal : real;
   MetaHora   : integer;
   vetOperacaoAG : array of TOperacaoAG;
+
 implementation
 
 {$R *.dfm}
-uses UDataModule, Math;
+uses UDataModule, Math, System.Generics.Collections;
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
@@ -331,8 +332,57 @@ begin
 end;
 
 function TF02004.avaliaMaquina(indiv: TIndividuo): Real;
+var
+  I, j, qtdOperacoes: Integer;
+  maquinasDoOperador : TList<Integer>;
+  valor, valorMaquina : Real;
+  var Output : TextFile;
+
 begin
+   valorMaquina := 0;
   //
+  for I := 1 to ClientDataSet1numOperadores.AsInteger do
+  begin
+      maquinasDoOperador := TList<Integer>.Create;
+      qtdOperacoes := 0;
+      valor := 0;
+      //ShowMessage('NOVO. Operador: ' + inttostr(i));
+
+      //Conta qtd Operações atribuidas ao operador i e os tipos de maquinas diferentes
+      for j := 0 to Length(vetOperacaoAG)-1 do
+      begin
+          //ShowMessage('Operação: ' + inttostr(j) + 'Operador: ' + inttostr( indiv.vetorOperador[j] ));
+          if(indiv.vetorOperador[j] = i)then
+          begin
+            //quantidade de operações atribuidas ao operador
+            qtdOperacoes := qtdOperacoes +1;
+            {
+            ShowMessage('antes de verificar. idTipoRecurso = ' +  inttostr(vetOperacaoAG[j].idTipoRecurso)
+            + #13 + 'indexOF: ' + BoolToStr(maquinasDoOperador.Contains((vetOperacaoAG[j].idTipoRecurso)))
+            + #13 + 'length: ' + inttostr( ( maquinasDoOperador.Count) )
+            + #13 + 'I: ' + inttostr(i) + 'J: ' + inttostr(j) +  'indiv.vetorOperador[j]: ' + inttostr(indiv.vetorOperador[j])
+            );
+            }
+            // Se não existir o idTipoRecurso na Lista, adiciona!
+            if(   maquinasDoOperador.Contains((vetOperacaoAG[j].idTipoRecurso)) = false   )then
+            begin
+              //ShowMessage('Adicionou!!!');
+              MaquinasDoOperador.Add(vetOperacaoAG[j].idTipoRecurso);
+            end;
+
+          end;
+      end;
+      //ShowMessage('Operador: '+inttostr(i) + #13+'qtdOperação: ' + inttostr(qtdOperacoes) + ' qtdMaquina: '+ inttostr(maquinasDoOperador.Count) );
+      if(qtdOperacoes >0)then
+      begin
+        valor := qtdOperacoes / maquinasDoOperador.Count;
+        valorMaquina := valorMaquina + valor;
+      end;
+      maquinasDoOperador := nil;
+      maquinasDoOperador.Free;
+  end;
+  //ShowMessage(FloattoStr(valorMaquina));
+  Result := valorMaquina;
 
 end;
 
