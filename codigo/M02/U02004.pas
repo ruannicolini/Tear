@@ -211,6 +211,7 @@ type
     function avaliaPrecedencia(indiv:TIndividuo):Integer;
     function avaliaDistribuicao(indiv:TIndividuo):Real;
     function avaliaMaquina(indiv:TIndividuo):Real;
+    function ExecutaRoleta(populacao: TList):Integer;
   end;
 
 var
@@ -245,19 +246,50 @@ end;
 function TF02004.AlgoritmoGenetico: TIndividuo;
 var
   populacao : TList;
+  i, contador, indiceIndiv1, indiceIndiv2 :integer;
 begin
   //
   populacao := TList.Create;
   iniciaPopulacao(populacao, 1000);
   avaliaPopulacao(populacao,0);
-  //populacao.First;
+  populacao.First;
   populacao.Sort(@CompareFO);
 
-  ShowMessage('primeiro: FO = ' + Floattostr(TIndividuo(populacao.First).fo)  );
-  ShowMessage('primeiro: FO = ' + Floattostr(TIndividuo(populacao.Items[0]).fo)  );
-  ShowMessage('Segundo: FO = ' + Floattostr(TIndividuo(populacao.Items[1]).fo)  );
-  ShowMessage('Terceiro: FO = ' + Floattostr(TIndividuo(populacao.Items[1]).fo)  );
-  ShowMessage('ultimo: FO = ' + Floattostr(TIndividuo(populacao.Last).fo)  );
+
+  contador := 0;
+  while(contador < 1000)do
+  begin
+       //Gera 500 indivíduos
+       indiceIndiv1 := 0;
+       indiceIndiv2 := 0;
+
+       ShowMessage('Antes da roleta');
+
+       repeat
+          indiceIndiv1 := ExecutaRoleta(populacao);
+          indiceIndiv2 := ExecutaRoleta(populacao);
+       until (indiceIndiv1 <> indiceIndiv2);
+
+
+       ShowMessage('indice indiv1 : ' + inttostr(indiceIndiv1) + #13 +
+                   'indice indiv2 : ' + inttostr(indiceIndiv2)
+       );
+
+       contador := contador +1;
+  end;
+
+  //RESULTADO
+   writeln('PRIMEIRO!!!');
+  for I := 0 to Length(vetOperacaoAG)-1 do
+  begin
+      writeln(' Operação: ' + inttostr(i) +
+              ' idCronom: ' + inttostr(vetOperacaoAG[i].idCronmetragem) +
+              ' Cota: ' + Floattostr(vetOperacaoAG[i].Cota) +
+              '    Operador : ' + inttostr(TIndividuo(populacao.Items[1]).vetorOperador[i] ) +
+              '    Sequencia : ' + inttostr(TIndividuo(populacao.Items[1]).vetorSequencia[i] )
+              );
+  end;
+  Writeln('=============================================================');
 
 end;
 
@@ -347,18 +379,11 @@ begin
   //Avalia qtdMaquinas usada por cada Operador (melhor1, no maximo 2)
   valorMaquina := avaliaMaquina(indiv);
 
-  indiv.fo := (valorPrecedencia) - (valorDistribuicao) + Power(valorMaquina,2);
-
-  {ShowMessage(
-    'Valor Precedencia: ' + floattostr(valorPrecedencia) + #13 +
-    'Valor Distribuição: ' + floattostr(valorDistribuicao) + #13 +
-    'Valor Maquina: ' + floattostr(valorMaquina) + #13 +
-    'FO: ' + floattostr(indiv.fo)
-  );  }
+  indiv.fo := ((valorPrecedencia)  - (valorDistribuicao)) + Power(valorMaquina,2);
 
   Writeln('Valor Precedencia: ' + floattostr(valorPrecedencia) + ' ' +
-    'Valor Distribuição: ' + floattostr(valorDistribuicao) + ' ' +
-    'Valor Maquina: ' + floattostr(valorMaquina) + ' ' +
+    'Valor Distribuição: ' + floattostr(valorDistribuicao ) + ' ' +
+    'Valor Maquina: ' + floattostr(Power(valorMaquina,2)) + ' ' +
     'FO: ' + floattostr(indiv.fo));
 
 
@@ -497,8 +522,8 @@ begin
                       //ShowMessage('SOMOU 100');
                     end else
                     begin
-                      valorPrecedencia := valorPrecedencia - 120;
-                      //ShowMessage('DIMINUIU 120');
+                      valorPrecedencia := valorPrecedencia - 20;
+                      //ShowMessage('DIMINUIU 20');
                     end;
                 end;
 
@@ -694,6 +719,58 @@ begin
   inherited;
   moperacoes.ApplyUpdates(-1);
 end;
+
+function TF02004.ExecutaRoleta(populacao: TList): Integer;
+{var
+  indiceEscolhido, num : integer;
+  somaFO : Real;
+  I: Integer;
+begin
+     indiceEscolhido := 0;
+     somaFO := 0;
+     //Rand:= Random(qtdOperadores) + 1;
+     Randomize;
+     for I := 0 to populacao.Count-1 do
+     begin
+       somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
+     end;
+
+     num := Rando
+end;
+}
+var r ,i, resultado: integer;
+    x : Extended;
+    somaFO : Extended;
+begin
+     randomize;
+     x         := 0;
+     resultado := 0;
+     r:=0;
+
+     for I := 0 to populacao.Count-1 do
+     begin
+       somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
+     end;
+
+     if somaFO >1 then
+     begin
+        while r=0 do
+           r := random(round (somaFO));
+     end
+     else
+       r :=1;
+
+    // showmessage('Soma Roleta '+floattostr(roleta)+' sorteio '+floattostr(r));
+     for i := 1 to populacao.Count-1 do
+     begin
+         if (r >=x) and (r <= x + TIndividuo(populacao.Items[i]).fo  ) then
+            resultado := i;
+
+         x := x + TIndividuo(populacao.Items[i]).fo;
+     end;
+     ExecutaRoleta := resultado;
+end;
+
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
