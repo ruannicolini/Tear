@@ -233,6 +233,15 @@ begin
   panel3.Enabled := false;
 end;
 
+function CompareFO(Item1, Item2: Pointer): Integer;
+begin
+  //Obs: ordena decrescente, para ordenas crescente, basta inverter item 2 por item 1 e vice versa
+  Result := CompareValue(TIndividuo(item2).fo, TIndividuo(item1).fo);
+
+  //MessageDlg('Compare ' + floattostr(TIndividuo(item1).fo) + ' to ' + floattostr(TIndividuo(item2).fo),
+  //               mtInformation, [mbOk], 0);
+end;
+
 function TF02004.AlgoritmoGenetico: TIndividuo;
 var
   populacao : TList;
@@ -241,6 +250,14 @@ begin
   populacao := TList.Create;
   iniciaPopulacao(populacao, 1000);
   avaliaPopulacao(populacao,0);
+  //populacao.First;
+  populacao.Sort(@CompareFO);
+
+  ShowMessage('primeiro: FO = ' + Floattostr(TIndividuo(populacao.First).fo)  );
+  ShowMessage('primeiro: FO = ' + Floattostr(TIndividuo(populacao.Items[0]).fo)  );
+  ShowMessage('Segundo: FO = ' + Floattostr(TIndividuo(populacao.Items[1]).fo)  );
+  ShowMessage('Terceiro: FO = ' + Floattostr(TIndividuo(populacao.Items[1]).fo)  );
+  ShowMessage('ultimo: FO = ' + Floattostr(TIndividuo(populacao.Last).fo)  );
 
 end;
 
@@ -357,7 +374,7 @@ begin
   end;
 
   Writeln('=============================================================');
-  Readln;
+  //Readln;
 
 
 end;
