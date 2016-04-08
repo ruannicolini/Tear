@@ -256,7 +256,7 @@ begin
   populacao.Sort(@CompareFO);
 
 
-  contador := 0;
+  {contador := 0;
   while(contador < 1000)do
   begin
        //Gera 500 indivíduos
@@ -277,7 +277,7 @@ begin
 
        contador := contador +1;
   end;
-
+     }
   //RESULTADO
    writeln('PRIMEIRO!!!');
   for I := 0 to Length(vetOperacaoAG)-1 do
@@ -332,21 +332,36 @@ begin
     VALOR := VALOR + (vetOperacaoAG[I].Cota);
   end;
 
+  //ShowMessage('Valor total: ' + floattostr(valor));
+
   //OPERADORES
   for I := 1 to ClientDataSet1numOperadores.AsInteger do
   begin
+      //ShowMessage(' Novo Operador ' + inttostr(i));
       PORCENTAGEMTRABALHO := 0;
       for J := 0 to Length(INDIV.vetorOperador)-1 do
       begin
+        //ShowMessage('Operador ' + inttostr(i) + ' - Operação: ' + inttostr(j) + ' - Operador escolhido: ' + inttostr(INDIV.vetorOperador[J]) );
         IF(I = INDIV.vetorOperador[J]) THEN
         BEGIN
-          PORCENTAGEMTRABALHO := PORCENTAGEMTRABALHO + (vetOperacaoAG[I].Cota);
+          //ShowMessage('Entrou no if. É igual!');
+          //ShowMessage(' PORCENTAGEM TRABALHO ANTES : ' + FLOATTOSTR(PORCENTAGEMTRABALHO) );
+          PORCENTAGEMTRABALHO := PORCENTAGEMTRABALHO + (vetOperacaoAG[J].Cota);
+          //ShowMessage(' PORCENTAGEM TRABALHO DEPOIS : ' + FLOATTOSTR(PORCENTAGEMTRABALHO) );
         END;
       end;
 
-      IF(PORCENTAGEMTRABALHO <= 100)THEN
+      IF (PORCENTAGEMTRABALHO > 0) and (PORCENTAGEMTRABALHO <= 100)THEN
       BEGIN
-          VALOR := VALOR - (100 - (PORCENTAGEMTRABALHO));
+          //ShowMessage('Valor Antes: ' + floattostr(valor));
+          if(PORCENTAGEMTRABALHO = 100)then
+          begin
+              VALOR := VALOR - 100;
+          end else
+          begin
+              VALOR := VALOR - (100 - (PORCENTAGEMTRABALHO));
+          end;
+          //ShowMessage('Valor Antes: ' + floattostr(valor));
 
       END ELSE
       BEGIN
@@ -382,7 +397,7 @@ begin
   indiv.fo := ((valorPrecedencia)  - (valorDistribuicao)) + Power(valorMaquina,2);
 
   Writeln('Valor Precedencia: ' + floattostr(valorPrecedencia) + ' ' +
-    'Valor Distribuição: ' + floattostr(valorDistribuicao ) + ' ' +
+    'Valor Distribuição: ' + floattostr(valorDistribuicao) + ' ' +
     'Valor Maquina: ' + floattostr(Power(valorMaquina,2)) + ' ' +
     'FO: ' + floattostr(indiv.fo));
 
