@@ -222,6 +222,8 @@ var
 
 implementation
 
+{$APPTYPE CONSOLE}
+
 {$R *.dfm}
 uses UDataModule, Math, System.Generics.Collections;
 
@@ -310,6 +312,7 @@ end;
 procedure TF02004.avaliaIndividuo(var indiv : TIndividuo);
 var
 valorPrecedencia, valorDistribuicao, valorMaquina : Real;
+  I: Integer;
 begin
   //ShowMessage('ENTROU EM AVALIA INDIVIDUO');
   valorPrecedencia := 0;
@@ -329,14 +332,33 @@ begin
 
   indiv.fo := (valorPrecedencia) - (valorDistribuicao) + Power(valorMaquina,2);
 
-  ShowMessage(
+  {ShowMessage(
     'Valor Precedencia: ' + floattostr(valorPrecedencia) + #13 +
     'Valor Distribuição: ' + floattostr(valorDistribuicao) + #13 +
     'Valor Maquina: ' + floattostr(valorMaquina) + #13 +
     'FO: ' + floattostr(indiv.fo)
-  );
+  );  }
 
-  indiv.vetorOperador
+  Writeln('Valor Precedencia: ' + floattostr(valorPrecedencia) + ' ' +
+    'Valor Distribuição: ' + floattostr(valorDistribuicao) + ' ' +
+    'Valor Maquina: ' + floattostr(valorMaquina) + ' ' +
+    'FO: ' + floattostr(indiv.fo));
+
+
+  writeln('');
+  for I := 0 to Length(vetOperacaoAG)-1 do
+  begin
+      writeln(' Operação: ' + inttostr(i) +
+              ' idCronom: ' + inttostr(vetOperacaoAG[i].idCronmetragem) +
+              ' Cota: ' + Floattostr(vetOperacaoAG[i].Cota) +
+              '    Operador : ' + inttostr(indiv.vetorOperador[i] ) +
+              '    Sequencia : ' + inttostr(indiv.vetorSequencia[i] )
+              );
+  end;
+
+  Writeln('=============================================================');
+  Readln;
+
 
 end;
 
