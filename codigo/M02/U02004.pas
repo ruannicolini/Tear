@@ -246,7 +246,7 @@ end;
 function TF02004.AlgoritmoGenetico: TIndividuo;
 var
   populacao : TList;
-  i, contador, indiceIndiv1, indiceIndiv2 :integer;
+  i, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento :integer;
 begin
   //
   populacao := TList.Create;
@@ -255,29 +255,36 @@ begin
   populacao.First;
   populacao.Sort(@CompareFO);
 
-
-  {contador := 0;
+  // 1000 gerações
+  contador := 0;
   while(contador < 1000)do
   begin
-       //Gera 500 indivíduos
-       indiceIndiv1 := 0;
-       indiceIndiv2 := 0;
+      //Gera 500 novos indiíduos
+      for I := 0 to 500 do
+      begin
+         //Escolhe pais
+         indiceIndiv1 := 0;
+         indiceIndiv2 := 0;
+         repeat
+            indiceIndiv1 := ExecutaRoleta(populacao);
+            indiceIndiv2 := ExecutaRoleta(populacao);
+         until (indiceIndiv1 <> indiceIndiv2);
+         ShowMessage('indice indiv1 : ' + inttostr(indiceIndiv1) + #13 +
+                     'indice indiv2 : ' + inttostr(indiceIndiv2)
+         );
 
-       ShowMessage('Antes da roleta');
+         //CRUZAMENTO
+         //ESCOLHA DO INDICE DE CRUZAMETO
+         indiceCruzamento := 0;
+         REPEAT
+               indiceCruzamento := Random(Length(vetOperacaoAG));
+         UNTIL ((indiceCruzamento > 0) and (indiceCruzamento < (Length(vetOperacaoAG)-1) ));
 
-       repeat
-          indiceIndiv1 := ExecutaRoleta(populacao);
-          indiceIndiv2 := ExecutaRoleta(populacao);
-       until (indiceIndiv1 <> indiceIndiv2);
+      end;
 
-
-       ShowMessage('indice indiv1 : ' + inttostr(indiceIndiv1) + #13 +
-                   'indice indiv2 : ' + inttostr(indiceIndiv2)
-       );
-
-       contador := contador +1;
+      contador := contador +1;
   end;
-     }
+
   //RESULTADO
    writeln('PRIMEIRO!!!');
   for I := 0 to Length(vetOperacaoAG)-1 do
