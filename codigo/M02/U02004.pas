@@ -207,6 +207,7 @@ type
     procedure iniciaPopulacao(var populacao:TList ; qtd: integer);
     procedure avaliaPopulacao(var populacao:TList; comecoVetor: integer);
     procedure avaliaIndividuo(var indiv: TIndividuo);
+    procedure selecionaSobreviventes(var populacao:TList);
     function AlgoritmoGenetico(): TIndividuo;
     function avaliaPrecedencia(indiv:TIndividuo):Integer;
     function avaliaDistribuicao(indiv:TIndividuo):Real;
@@ -246,13 +247,13 @@ end;
 function TF02004.AlgoritmoGenetico: TIndividuo;
 var
   populacao : TList;
-  i, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento :integer;
+  filho : TIndividuo;
+  i,j, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento :integer;
 begin
   //
   populacao := TList.Create;
   iniciaPopulacao(populacao, 1000);
   avaliaPopulacao(populacao,0);
-  populacao.First;
   populacao.Sort(@CompareFO);
 
   // 1000 gerações
@@ -273,12 +274,43 @@ begin
                      'indice indiv2 : ' + inttostr(indiceIndiv2)
          );
 
-         //CRUZAMENTO
+         //CRUZAMENTO ==================================================================
+         filho := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger );
+
          //ESCOLHA DO INDICE DE CRUZAMETO
          indiceCruzamento := 0;
+
          REPEAT
                indiceCruzamento := Random(Length(vetOperacaoAG));
          UNTIL ((indiceCruzamento > 0) and (indiceCruzamento < (Length(vetOperacaoAG)-1) ));
+
+         for j := 0 to Length(vetOperacaoAG)-1 do
+         begin
+              if(j < indiceCruzamento)then
+              begin
+                filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv1]).vetorOperador[j];
+                filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv1]).vetorSequencia[j];
+              end else
+              begin
+                filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv2]).vetorOperador[j];
+                filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv2]).vetorSequencia[j]
+              end;
+         end;
+         populacao.Add(filho);
+
+         //MUTAÇÃO
+         { ... }
+
+         //AVALIA NOVOS INDIVIDUOS
+         avaliaPopulacao(POPULACAO,1000);
+
+         //ORDENA
+         populacao.Sort(@CompareFO);
+
+         //SELECIONA SOBREVIVENTES (OS 1000 COM MELHOR F.O.)
+         selecionaSobreviventes(populacao);
+
+         //Imprime o melhor indivíduo. O indivíduo populacao[0]
 
       end;
 
@@ -740,6 +772,20 @@ procedure TF02004.moperacoesAfterPost(DataSet: TDataSet);
 begin
   inherited;
   moperacoes.ApplyUpdates(-1);
+end;
+
+procedure TF02004.selecionaSobreviventes(var populacao: TList);
+var
+  tam : integer;
+  I: Integer;
+begin
+  //
+  tam := populacao.Count;
+  for I := 1000 to tam do
+  begin
+      populacao.Delete(1000);
+  end;
+
 end;
 
 function TF02004.ExecutaRoleta(populacao: TList): Integer;
