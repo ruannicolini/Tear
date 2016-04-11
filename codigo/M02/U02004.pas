@@ -248,7 +248,7 @@ end;
 var
   populacao : TList;
   filho : TIndividuo;
-  i,j, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento :integer;
+  i,j, R, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento :integer;
 begin
   //
   populacao := TList.Create;
@@ -263,56 +263,81 @@ begin
       //Gera 500 novos indiíduos
       for I := 0 to 500 do
       begin
-         //Escolhe pais
-         indiceIndiv1 := 0;
-         indiceIndiv2 := 0;
-         repeat
-            indiceIndiv1 := ExecutaRoleta(populacao);
-            indiceIndiv2 := ExecutaRoleta(populacao);
-         until (indiceIndiv1 <> indiceIndiv2);
-         ShowMessage('indice indiv1 : ' + inttostr(indiceIndiv1) + #13 +
-                     'indice indiv2 : ' + inttostr(indiceIndiv2)
-         );
+        try
+             //Escolhe pais
+             indiceIndiv1 := 0;
+             indiceIndiv2 := 0;
+             repeat
+                indiceIndiv1 := ExecutaRoleta(populacao);
+                indiceIndiv2 := ExecutaRoleta(populacao);
+             until (indiceIndiv1 <> indiceIndiv2);
+             {
+             ShowMessage('indice indiv1 : ' + inttostr(indiceIndiv1) + #13 +
+                         'indice indiv2 : ' + inttostr(indiceIndiv2)
+             );
+             }
+             //CRUZAMENTO ==============================================================================
+             filho := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger );
 
-         //CRUZAMENTO ==================================================================
-         filho := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger );
+             //ESCOLHA DO INDICE DE CRUZAMETO
+             indiceCruzamento := 0;
 
-         //ESCOLHA DO INDICE DE CRUZAMETO
-         indiceCruzamento := 0;
+             //ShowMessage('Cruzamento');
+             REPEAT
+                   indiceCruzamento := Random(Length(vetOperacaoAG));
+             UNTIL ((indiceCruzamento > 0) and (indiceCruzamento < (Length(vetOperacaoAG)-1) ));
+             for j := 0 to Length(vetOperacaoAG)-1 do
+             begin
+                  if(j < indiceCruzamento)then
+                  begin
+                    filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv1]).vetorOperador[j];
+                    filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv1]).vetorSequencia[j];
+                  end else
+                  begin
+                    filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv2]).vetorOperador[j];
+                    filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv2]).vetorSequencia[j]
+                  end;
+             end;
 
-         REPEAT
-               indiceCruzamento := Random(Length(vetOperacaoAG));
-         UNTIL ((indiceCruzamento > 0) and (indiceCruzamento < (Length(vetOperacaoAG)-1) ));
+             {
+             Writeln('=============================================================');
+             writeln('FILHO |||  INDICE CORTE : ' + INTTOSTR(indiceCruzamento));
+            for R := 0 to Length(vetOperacaoAG)-1 do
+            begin
+              Writeln(' IND: '+ INTTOSTR(R) + ' PAI: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv1]).vetorSequencia[R]  ) +
+              ' - MÃE: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv2]).vetorSequencia[R]  ) +
+              ' FILHO: ' + INTTOSTR(FILHO.vetorSequencia[R]));
 
-         for j := 0 to Length(vetOperacaoAG)-1 do
-         begin
-              if(j < indiceCruzamento)then
-              begin
-                filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv1]).vetorOperador[j];
-                filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv1]).vetorSequencia[j];
-              end else
-              begin
-                filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv2]).vetorOperador[j];
-                filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv2]).vetorSequencia[j]
-              end;
-         end;
-         populacao.Add(filho);
+            end;
+            Writeln('=============================================================');
+            readln;
+            }
 
-         //MUTAÇÃO
-         { ... }
+             //MUTAÇÃO
+             { ... }
 
-         //AVALIA NOVOS INDIVIDUOS
-         avaliaPopulacao(POPULACAO,1000);
-
-         //ORDENA
-         populacao.Sort(@CompareFO);
-
-         //SELECIONA SOBREVIVENTES (OS 1000 COM MELHOR F.O.)
-         selecionaSobreviventes(populacao);
-
-         //Imprime o melhor indivíduo. O indivíduo populacao[0]
-
+             //Adiciona em População
+             populacao.Add(filho);
+         Except
+         // E : Exception Do
+          On E : exception Do
+              // Trechos de Código
+              ShowMessage(E.ClassName + #13 + 'Msg: ' + E.Message);
+         End;
       end;
+      ShowMessage('Avalia - num: ' + inttostr(populacao.Count));
+      //AVALIA NOVOS INDIVIDUOS
+      avaliaPopulacao(POPULACAO,1000);
+
+      ShowMessage('ordena');
+      //ORDENA
+      populacao.Sort(@CompareFO);
+
+      ShowMessage('seleciona sobreviventes');
+      //SELECIONA SOBREVIVENTES (OS 1000 COM MELHOR F.O.)
+      selecionaSobreviventes(populacao);
+
+      //Imprime o melhor indivíduo. O indivíduo populacao[0]
 
       contador := contador +1;
   end;
@@ -435,6 +460,7 @@ begin
 
   indiv.fo := ((valorPrecedencia)  - (valorDistribuicao)) + Power(valorMaquina,2);
 
+  {
   Writeln('Valor Precedencia: ' + floattostr(valorPrecedencia) + ' ' +
     'Valor Distribuição: ' + floattostr(valorDistribuicao) + ' ' +
     'Valor Maquina: ' + floattostr(Power(valorMaquina,2)) + ' ' +
@@ -455,6 +481,7 @@ begin
   Writeln('=============================================================');
   //Readln;
 
+  }
 
 end;
 
@@ -789,26 +816,10 @@ begin
 end;
 
 function TF02004.ExecutaRoleta(populacao: TList): Integer;
-{var
-  indiceEscolhido, num : integer;
-  somaFO : Real;
-  I: Integer;
-begin
-     indiceEscolhido := 0;
-     somaFO := 0;
-     //Rand:= Random(qtdOperadores) + 1;
-     Randomize;
-     for I := 0 to populacao.Count-1 do
-     begin
-       somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
-     end;
-
-     num := Rando
-end;
-}
 var r ,i, resultado: integer;
     x : Extended;
-    somaFO : Extended;
+    //somaFO : Extended;
+    somaFO : real;
 begin
      randomize;
      x         := 0;
