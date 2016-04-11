@@ -213,6 +213,7 @@ type
     function avaliaDistribuicao(indiv:TIndividuo):Real;
     function avaliaMaquina(indiv:TIndividuo):Real;
     function ExecutaRoleta(populacao: TList):Integer;
+    function comparaRoleta(intervaloInicio: Real; intervaloFim: Real; num: Real):boolean;
   end;
 
 var
@@ -248,18 +249,21 @@ end;
 var
   populacao : TList;
   filho : TIndividuo;
-  i,j, R, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento :integer;
+  i,j, R, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento, indiceMutacao :integer;
 begin
   //
   populacao := TList.Create;
+  ShowMessage('QTD POPULACAO: ' + INTTOSTR(populacao.Count) );
   iniciaPopulacao(populacao, 1000);
+  ShowMessage('QTD POPULACAO: ' + INTTOSTR(populacao.Count) );
   avaliaPopulacao(populacao,0);
   populacao.Sort(@CompareFO);
 
   // 1000 gerações
   contador := 0;
-  while(contador < 1000)do
+  while(contador < 100)do
   begin
+      //showmessage(INTTOSTR(CONTADOR));
       //Gera 500 novos indiíduos
       for I := 0 to 500 do
       begin
@@ -270,6 +274,7 @@ begin
              repeat
                 indiceIndiv1 := ExecutaRoleta(populacao);
                 indiceIndiv2 := ExecutaRoleta(populacao);
+
              until (indiceIndiv1 <> indiceIndiv2);
              {
              ShowMessage('indice indiv1 : ' + inttostr(indiceIndiv1) + #13 +
@@ -284,7 +289,7 @@ begin
 
              //ShowMessage('Cruzamento');
              REPEAT
-                   indiceCruzamento := Random(Length(vetOperacaoAG));
+                   indiceCruzamento := Random(Length(vetOperacaoAG)-1);
              UNTIL ((indiceCruzamento > 0) and (indiceCruzamento < (Length(vetOperacaoAG)-1) ));
              for j := 0 to Length(vetOperacaoAG)-1 do
              begin
@@ -310,11 +315,26 @@ begin
 
             end;
             Writeln('=============================================================');
-            readln;
+            //readln;
             }
 
              //MUTAÇÃO
-             { ... }
+             indiceMutacao:= Random(Length(vetOperacaoAG)-1);
+             filho.vetorOperador[indiceMutacao] := Random(ClientDataSet1numOperadores.AsInteger) + 1;
+             filho.vetorSequencia[indiceMutacao] := Random(500);
+             //Writeln('MUTAÇÃO OPERADOR: ' + INTTOSTR(filho.vetorOperador[indiceMutacao]));
+
+            {writeln('MUTAÇÃO |||  INDICE MUTAÇÃO: ' + INTTOSTR(indiceMutacao));
+            for R := 0 to Length(vetOperacaoAG)-1 do
+            begin
+              Writeln(' IND: '+ INTTOSTR(R) + ' PAI: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv1]).vetorOperador[R]  ) +
+              ' - MÃE: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv2]).vetorOperador[R]  ) +
+              ' FILHO: ' + INTTOSTR(FILHO.vetorOperador[R]));
+            end;
+            Writeln('=============================================================');
+            readln;
+            }
+
 
              //Adiciona em População
              populacao.Add(filho);
@@ -325,32 +345,45 @@ begin
               ShowMessage(E.ClassName + #13 + 'Msg: ' + E.Message);
          End;
       end;
-      ShowMessage('Avalia - num: ' + inttostr(populacao.Count));
+
+      //ShowMessage('Avalia - num: ' + inttostr(populacao.Count));
       //AVALIA NOVOS INDIVIDUOS
       avaliaPopulacao(POPULACAO,1000);
 
-      ShowMessage('ordena');
+      //ShowMessage('ordena');
       //ORDENA
       populacao.Sort(@CompareFO);
 
-      ShowMessage('seleciona sobreviventes');
+      //ShowMessage('seleciona sobreviventes');
       //SELECIONA SOBREVIVENTES (OS 1000 COM MELHOR F.O.)
       selecionaSobreviventes(populacao);
 
       //Imprime o melhor indivíduo. O indivíduo populacao[0]
+       writeln('MELHOR INDIVÍDUO da população '+ inttostr(contador)+ ' !!!   - FO: ' + FLOATTOSTR(TIndividuo(populacao.Items[0]).fo));
+        for I := 0 to Length(vetOperacaoAG)-1 do
+        begin
+            writeln(' Operação: ' + inttostr(i) +
+                    ' idCronom: ' + inttostr(vetOperacaoAG[i].idCronmetragem) +
+                    ' Cota: ' + Floattostr(vetOperacaoAG[i].Cota) +
+                    '    Operador : ' + inttostr(TIndividuo(populacao.Items[0]).vetorOperador[i] ) +
+                    '    Sequencia : ' + inttostr(TIndividuo(populacao.Items[0]).vetorSequencia[i] )
+                    );
+        end;
+        Writeln('=============================================================');
 
-      contador := contador +1;
+
+      contador := contador +1
   end;
 
   //RESULTADO
-   writeln('PRIMEIRO!!!');
+   writeln('MELHOR INDIVÍDUO!!!   - FO: ' + FLOATTOSTR(TIndividuo(populacao.Items[0]).fo));
   for I := 0 to Length(vetOperacaoAG)-1 do
   begin
       writeln(' Operação: ' + inttostr(i) +
               ' idCronom: ' + inttostr(vetOperacaoAG[i].idCronmetragem) +
               ' Cota: ' + Floattostr(vetOperacaoAG[i].Cota) +
-              '    Operador : ' + inttostr(TIndividuo(populacao.Items[1]).vetorOperador[i] ) +
-              '    Sequencia : ' + inttostr(TIndividuo(populacao.Items[1]).vetorSequencia[i] )
+              '    Operador : ' + inttostr(TIndividuo(populacao.Items[0]).vetorOperador[i] ) +
+              '    Sequencia : ' + inttostr(TIndividuo(populacao.Items[0]).vetorSequencia[i] )
               );
   end;
   Writeln('=============================================================');
@@ -459,7 +492,7 @@ begin
   valorMaquina := avaliaMaquina(indiv);
 
   indiv.fo := ((valorPrecedencia)  - (valorDistribuicao)) + Power(valorMaquina,2);
-
+  
   {
   Writeln('Valor Precedencia: ' + floattostr(valorPrecedencia) + ' ' +
     'Valor Distribuição: ' + floattostr(valorDistribuicao) + ' ' +
@@ -481,7 +514,7 @@ begin
   Writeln('=============================================================');
   //Readln;
 
-  }
+   }
 
 end;
 
@@ -687,6 +720,16 @@ begin
   ClientDataSet1idLayoutFase.AsInteger := DModule.buscaProximoParametro('seqLayoutFase');
 end;
 
+function TF02004.comparaRoleta(intervaloInicio, intervaloFim: Real; num: Real): boolean;
+begin
+  //
+  if ((num >= intervaloInicio) and (num < intervaloFim)) then
+  begin
+     result := true;
+  end;
+  result :=  false;
+end;
+
 procedure TF02004.DBEdit2Change(Sender: TObject);
 begin
   inherited;
@@ -769,7 +812,7 @@ var
   I: Integer;
 begin
 
-  for I := 0 to qtd do
+  for I := 0 to qtd -1 do
   begin
     indiv := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger);
     populacao.Add(indiv);
@@ -808,7 +851,7 @@ var
 begin
   //
   tam := populacao.Count;
-  for I := 1000 to tam do
+  for I := 1000 to tam-1 do
   begin
       populacao.Delete(1000);
   end;
@@ -819,16 +862,17 @@ function TF02004.ExecutaRoleta(populacao: TList): Integer;
 var r ,i, resultado: integer;
     x : Extended;
     //somaFO : Extended;
-    somaFO : real;
+    somaFO : double;
 begin
      randomize;
      x         := 0;
      resultado := 0;
      r:=0;
-
+     somafo := 0;
      for I := 0 to populacao.Count-1 do
      begin
-       somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
+        if(TIndividuo(populacao.Items[i]).fo > 0)then
+          somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
      end;
 
      if somaFO >1 then
@@ -849,7 +893,39 @@ begin
      end;
      ExecutaRoleta := resultado;
 end;
+{
+var
+i, indiceEscolhido: integer;
+somaFO, num, intervaloInicio, intervaloFim : real;
+begin
+     randomize;
 
+     for I := 0 to populacao.Count-1 do
+     begin
+       somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
+     end;
+
+     //num é o numero gerado aleatóriamente entre 0 e somaFO
+     num := (Random(1000)/1000) * somaFO;
+
+     intervaloInicio := 0;
+     intervaloFim := 0;
+     indiceEscolhido := 0;
+     for I := 0 to (1000 - 1) do
+     begin
+        intervaloFim := intervaloFim + TIndividuo(populacao.Items[i]).fo;
+
+        if (  (comparaRoleta(intervaloInicio, intervaloFim, num)) = true   ) then
+        begin
+                indiceEscolhido := i;
+                break;
+        end;
+        intervaloInicio := intervaloFim;
+     end;
+     result := indiceEscolhido;
+
+end;
+}
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
