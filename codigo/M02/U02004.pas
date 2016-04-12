@@ -388,6 +388,8 @@ begin
   end;
   Writeln('=============================================================');
 
+  //Retorna o melhor individuo
+  result := TIndividuo(populacao[0]);
 end;
 
 procedure TF02004.atribuiPrecedencia;
@@ -932,6 +934,7 @@ var
 i : integer;
 matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
 vetorTPF: array of double; //vetor de tempo Padrao final das operações
+melhor: TIndividuo;
 begin
   inherited;
 
@@ -1002,8 +1005,18 @@ begin
     atribuiPrecedencia();
 
     //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
-    AlgoritmoGenetico();
+    melhor := AlgoritmoGenetico();
 
+    //Popula Layout com o melhor indivíduo
+    for I := 1 to ClientDataSet1numOperadores.AsInteger do
+    begin
+      //layout.Operadores[i].
+
+    end;
+
+
+
+    {
     for I := 0 to (Length(vetOperacaoAG)-1) do
       begin
         ShowMessage(
@@ -1013,10 +1026,14 @@ begin
 
         );
       end;
+      }
+
 
 
   end;
 
+
+  //OBS: Fazer na trigger
   //Apaga dados obtidos anteriormente
  { DModule.qaux.Close;
   DModule.qaux.sql.Text := 'delete from LayOutOperacao where idlayoutFase = :idlayout';
