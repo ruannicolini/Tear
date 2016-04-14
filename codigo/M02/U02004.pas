@@ -37,8 +37,15 @@ uses
   type
   TOperacao = record
     idCronometragem : integer;
-    tempoOperacao   : integer;
+    tempoOperacao   : real;
     idTipoRecurso   : integer;
+    Cota            : real;
+  end;
+
+  type
+  TRetorno = record
+    idCronometragem : integer;  //Contem a operação
+    operador        : integer;
     Cota            : real;
   end;
 
@@ -221,6 +228,8 @@ var
   Layout: TLayout;
   TempoTotal : real;
   MetaHora   : integer;
+  linhaProducao : TLinhaProducao;
+  vetOperacoes : array of TOperacao;
 
 implementation
 
@@ -405,23 +414,35 @@ end;
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
-i : integer;
+j, i : integer;
 matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
 vetorTPF: array of double; //vetor de tempo Padrao final das operações
-
-linhaProducao : TLinhaProducao;
+vetPrecedencia : array of TPrecedencia;
+distrbuicao : array of TRetorno;
 begin
     inherited;
 
     //Apaga registros LayoutOperaçoes existentes
-    fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+    fdquery2.ParamByName('idLF').AsInteger := ClientDataSet1idLayoutFase.AsInteger;
     moperacoes.Open;
     MOperacoes.First;
-    while not(MOperacoes.Eof) do
+    while (not(moperacoes.Eof)) do
     begin
-       moperacoes.delete;
-       moperacoes.First;
+       DModule.qAux.close;
+       DModule.qAux.SQL.Text := 'delete from layoutoperacao where idlayoutoperacao =:idLO ';
+       DModule.qAux.ParamByName('idLO').Value := moperacoesidLayoutOperacao.AsInteger;
+       DModule.qAux.ExecSQL;
+       moperacoes.Next;
     end;
+
+    { APAGAR LAYOUT MAQUINA DAS OPERAÇOES ANTERIORES
+    DModule.qaux.Close;
+    DModule.qaux.sql.Text := 'delete from LayOutMaquina where idlayoutFase = :idlayout';
+    DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+    DModule.qaux.ExecSQL;
+    }
+
+
 
     //INSERI EM LAYOUTOPERAÇÕES
     DModule.qAux.close;
@@ -445,10 +466,12 @@ begin
     BEGIN
       matriz[i][0] := ClientDataSet1idLayoutFase.AsInteger;
       matriz[i][1] := DModule.qAux.FieldByName('idCronometragem').AsInteger;
-      vetorTPF[i] := DModule.qAux.FieldByName('tempopadraofinal').AsInteger;
+      vetorTPF[i] := DModule.qAux.FieldByName('tempopadraofinal').AsFloat;
       i := i+1;
       DModule.qAux.next;
     END;
+
+    j:= 0;
     for I := 0 to (Length(matriz)-1) do
     begin
       moperacoes.Insert;
@@ -457,14 +480,22 @@ begin
       moperacoestempoOperacao.Value := vetorTPF[i];
       moperacoes.Post;
 
-      //FAZER AQUI O VETOR HEURISTICA OPERAÇÕES
-      //CRONOMETRAGEM, TEMPO, MAQUINA
-
-      //FAZER AQUI O VETOR DE PRECEDÊNCIA
-      //IDOPERACAO, IDDEPENDENCIA
+      // VETOR DE PRECEDÊNCIA
+       DModule.qAux.Close;
+       DModule.qAux.sql.Text := 'Select * from dependencia where idCronometragem =:idC';
+       DModule.qAux.ParamByName('idC').Value := matriz[i][1];
+       DModule.qAux.open;
+       SetLength(vetPrecedencia , (Length(vetPrecedencia)) + DModule.qAux.RecordCount);
+       while not(DModule.qAux.eof) do
+       begin
+          vetPrecedencia[j].idCronometragem     := matriz[i][1];
+          vetPrecedencia[j].idCronometragemDep  := DModule.qAux.FieldByName('idCronometragemDependencia').AsInteger;
+          j := j +1;
+          DModule.qAux.Next;
+       end;
     END;
 
-    //Dados da Linha de produção
+    //Dado Linha de produção
     linhaProducao.numOperadores := ClientDataSet1numOperadores.AsInteger;
     DModule.qAux.Close;
     DModule.qAux.SQL.Text := 'select * from recurso where idgrupo =:idGrup';
@@ -496,29 +527,12 @@ begin
       //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
       Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
 
-      // Atribui a precedencia de cada índice em vetOperaçoesAG
-      //atribuiPrecedencia();
-
-      //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
-      //melhor := AlgoritmoGenetico();  unit desenvolvida pelo Mykel
+      //Método de Balanceamento
+      //distribuicao := Metodo(linhaProducao, vetOperacoes, vetPrecedencia);
 
       //Popula Layout com o melhor indivíduo
 
     end;
-
-
-    //OBS: Fazer na trigger
-    //Apaga dados obtidos anteriormente
-   { DModule.qaux.Close;
-    DModule.qaux.sql.Text := 'delete from LayOutOperacao where idlayoutFase = :idlayout';
-    DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-    DModule.qaux.ExecSQL;
-
-    DModule.qaux.Close;
-    DModule.qaux.sql.Text := 'delete from LayOutMaquina where idlayoutFase = :idlayout';
-    DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-    DModule.qaux.ExecSQL;
-    }
 
 end;
 
@@ -756,6 +770,9 @@ begin
    NOperacoes            := 0;
    vertical              := 10;
    dados.First;
+
+   SetLength(vetOperacoes, dados.RecordCount);
+   i:= 0;
    while not(dados.eof) do
    begin
        inc(NOperacoes);
@@ -775,6 +792,13 @@ begin
        Operacoes[NOperacoes].GCotaPendente.Max :=  round(Operacoes[NOperacoes].CotaPendente) ;
        Operacoes[NOperacoes].Top                    := vertical;
        Operacoes[NOperacoes].Left                   := 5;
+
+       //MONTA VetOperacoes
+       vetOperacoes[i].idCronometragem := dados.fieldbyname('idCronometragem').AsInteger;
+       vetOperacoes[i].tempoOperacao := dados.fieldbyname('TempoOperacao').Asfloat;
+       vetOperacoes[i].idTipoRecurso := dados.fieldbyname('idTipo_Recurso').AsInteger;
+       vetOperacoes[i].Cota := dados.fieldbyname('Cota').AsInteger;
+       i := i + 1;
 
        vertical := vertical + Operacoes[NOperacoes].Height + 5;
        dados.Next;
