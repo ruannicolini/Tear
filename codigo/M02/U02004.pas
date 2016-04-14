@@ -13,8 +13,37 @@ uses
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Menus, Vcl.Mask, Vcl.DBCtrls,
   DBEditBeleza, Vcl.Imaging.pngimage;
 
+{=========== HEURÍSTICA ===========}
+  type
+  TMaquina = record
+    idMaquina: Integer;
+    descricao: string;
+    Patrimonio: Integer;
+    idTipo : integer;
+  end;
 
-type TOperacao =  class(TPanel)
+  type
+  TLinhaProducao = record
+    numOperadores : integer;
+    vetorMaquinas : array of TMaquina;
+  end;
+
+  type
+  TPrecedencia = record
+    idCronometragem    : integer;
+    idCronometragemDep : integer;
+  end;
+
+  type
+  TOperacao = record
+    idCronometragem : integer;
+    tempoOperacao   : integer;
+    idTipoRecurso   : integer;
+    Cota            : real;
+  end;
+
+{=========== Layout ===========}
+type TPanelOperacao =  class(TPanel)
    public
    IdLayOutOperacoes   : integer;
    idTipoRecurso       : integer;
@@ -32,24 +61,24 @@ type TOperacao =  class(TPanel)
    procedure   RetiraOperacao(Per:real);
 end;
 
-type TOperacaoMaquina =  record
-   Operacao           : Toperacao;
+type TPanelOperacaoMaquina =  record
+   Operacao           : TPaneloperacao;
    Porcentagem        : real;
 end;
 
-type TMaquina = class(TPanel)
+type TPanelMaquina = class(TPanel)
     public
     Ocupacao     : real;
     GOcupacao    : TProgressBar;
-    Operacoes    : array [1..20] of TOperacaoMaquina;
+    Operacoes    : array [1..20] of TPanelOperacaoMaquina;
     NumOperacoes : integer;
     idrecurso    : integer;
     constructor Create(AOwner: TComponent); override;
     procedure   SetaRecurso(codigoRecurso:integer;Recurso:string);
-    procedure   AdicionaOperacao(Operacao : toperacao;PerMaxOperador : real);
+    procedure   AdicionaOperacao(Operacao : tPaneloperacao;PerMaxOperador : real);
 end;
 
-type TOperador =  class(TPanel)
+type TPanelOperador =  class(TPanel)
    public
    Ocupacao     : real;
    Gocupacao    : TProgressbar;
@@ -57,11 +86,11 @@ type TOperador =  class(TPanel)
    LbPosicao    : tlabel;
    Posicao      : Integer;
    Imagem       : TImage;
-   Maquina1     : TMaquina;
-   Maquina2     : TMaquina;
+   Maquina1     : TPanelMaquina;
+   Maquina2     : TPanelMaquina;
    constructor Create(AOwner: TComponent); override;
    procedure   SetaRecurso(Maquina:integer;codigoRecurso:integer;Recurso:string);
-   procedure   AdicionaOperacao(Operacao:TOperacao);
+   procedure   AdicionaOperacao(Operacao:TPanelOperacao);
 
 end;
 
@@ -70,9 +99,9 @@ type TLayout = class
     TelaOp     : TScrollBox;
     idlayout   : integer;
     q          : TFDQuery;
-    Operadores : array [1..40] of TOperador;
+    Operadores : array [1..40] of TPanelOperador;
     NOperadores: integer;
-    Operacoes  : array [1..40] of TOperacao;
+    Operacoes  : array [1..40] of TPanelOperacao;
     NOperacoes : integer;
     TempoTotal : real;
     MetaHora   : integer;
@@ -87,24 +116,6 @@ type TLayout = class
     Procedure   Imprime(var ImpLayOut: tclientdataset;var ImpOperacao: tclientdataset;var ImpOperadores: tclientdataset);
     Procedure   BuscaDados;
     procedure   GravaDados;
-end;
-
-//Algoritmo Genético
-type TOperacaoAG = class
-  IdLayOutOperacoes   : integer;
-  idCronmetragem       : integer;
-  idTipoRecurso       : integer;
-  Cota                : real;
-  vatorIDCronometragemPrecedencia : array of integer;
-  constructor Create();
-end;
-
-type TIndividuo = class
-  //Obs: o índice representa as operações
-  vetorOperador: array of integer;
-  vetorSequencia: array of integer;
-  fo: Double;
-  constructor Create(tam: integer; qtdOperadores :integer);
 end;
 
 //TELA
@@ -203,17 +214,6 @@ type
     Panel : TPANEL;
     ProgressBar : TProgressBar;
     procedure CalculaMetaHora();
-    procedure atribuiPrecedencia();
-    procedure iniciaPopulacao(var populacao:TList ; qtd: integer);
-    procedure avaliaPopulacao(var populacao:TList; comecoVetor: integer);
-    procedure avaliaIndividuo(var indiv: TIndividuo);
-    procedure selecionaSobreviventes(var populacao:TList);
-    function AlgoritmoGenetico(): TIndividuo;
-    function avaliaPrecedencia(indiv:TIndividuo):Integer;
-    function avaliaDistribuicao(indiv:TIndividuo):Real;
-    function avaliaMaquina(indiv:TIndividuo):Real;
-    function ExecutaRoleta(populacao: TList):Integer;
-    function comparaRoleta(intervaloInicio: Real; intervaloFim: Real; num: Real):boolean;
   end;
 
 var
@@ -221,11 +221,8 @@ var
   Layout: TLayout;
   TempoTotal : real;
   MetaHora   : integer;
-  vetOperacaoAG : array of TOperacaoAG;
 
 implementation
-
-{$APPTYPE CONSOLE}
 
 {$R *.dfm}
 uses UDataModule, Math, System.Generics.Collections;
@@ -234,423 +231,6 @@ procedure TF02004.Action5Execute(Sender: TObject);
 begin
   inherited;
   panel3.Enabled := false;
-end;
-
-function CompareFO(Item1, Item2: Pointer): Integer;
-begin
-  //Obs: ordena decrescente, para ordenas crescente, basta inverter item 2 por item 1 e vice versa
-  Result := CompareValue(TIndividuo(item2).fo, TIndividuo(item1).fo);
-
-  //MessageDlg('Compare ' + floattostr(TIndividuo(item1).fo) + ' to ' + floattostr(TIndividuo(item2).fo),
-  //               mtInformation, [mbOk], 0);
-end;
-
-function TF02004.AlgoritmoGenetico: TIndividuo;
-var
-  populacao : TList;
-  filho : TIndividuo;
-  i,j, R, contador, indiceIndiv1, indiceIndiv2, indiceCruzamento, indiceMutacao :integer;
-begin
-  //
-  populacao := TList.Create;
-  ShowMessage('QTD POPULACAO: ' + INTTOSTR(populacao.Count) );
-  iniciaPopulacao(populacao, 1000);
-  ShowMessage('QTD POPULACAO: ' + INTTOSTR(populacao.Count) );
-  avaliaPopulacao(populacao,0);
-  populacao.Sort(@CompareFO);
-
-  // 1000 gerações
-  contador := 0;
-  while(contador < 100)do
-  begin
-      //showmessage(INTTOSTR(CONTADOR));
-      //Gera 500 novos indiíduos
-      for I := 0 to 500 do
-      begin
-        try
-             //Escolhe pais
-             indiceIndiv1 := 0;
-             indiceIndiv2 := 0;
-             repeat
-                indiceIndiv1 := ExecutaRoleta(populacao);
-                indiceIndiv2 := ExecutaRoleta(populacao);
-
-             until (indiceIndiv1 <> indiceIndiv2);
-             {
-             ShowMessage('indice indiv1 : ' + inttostr(indiceIndiv1) + #13 +
-                         'indice indiv2 : ' + inttostr(indiceIndiv2)
-             );
-             }
-             //CRUZAMENTO ==============================================================================
-             filho := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger );
-
-             //ESCOLHA DO INDICE DE CRUZAMETO
-             indiceCruzamento := 0;
-
-             //ShowMessage('Cruzamento');
-             REPEAT
-                   indiceCruzamento := Random(Length(vetOperacaoAG)-1);
-             UNTIL ((indiceCruzamento > 0) and (indiceCruzamento < (Length(vetOperacaoAG)-1) ));
-             for j := 0 to Length(vetOperacaoAG)-1 do
-             begin
-                  if(j < indiceCruzamento)then
-                  begin
-                    filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv1]).vetorOperador[j];
-                    filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv1]).vetorSequencia[j];
-                  end else
-                  begin
-                    filho.vetorOperador[j] := TIndividuo(populacao[indiceIndiv2]).vetorOperador[j];
-                    filho.vetorSequencia[j] := TIndividuo(populacao[indiceIndiv2]).vetorSequencia[j]
-                  end;
-             end;
-
-             {
-             Writeln('=============================================================');
-             writeln('FILHO |||  INDICE CORTE : ' + INTTOSTR(indiceCruzamento));
-            for R := 0 to Length(vetOperacaoAG)-1 do
-            begin
-              Writeln(' IND: '+ INTTOSTR(R) + ' PAI: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv1]).vetorSequencia[R]  ) +
-              ' - MÃE: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv2]).vetorSequencia[R]  ) +
-              ' FILHO: ' + INTTOSTR(FILHO.vetorSequencia[R]));
-
-            end;
-            Writeln('=============================================================');
-            //readln;
-            }
-
-             //MUTAÇÃO
-             indiceMutacao:= Random(Length(vetOperacaoAG)-1);
-             filho.vetorOperador[indiceMutacao] := Random(ClientDataSet1numOperadores.AsInteger) + 1;
-             filho.vetorSequencia[indiceMutacao] := Random(500);
-             //Writeln('MUTAÇÃO OPERADOR: ' + INTTOSTR(filho.vetorOperador[indiceMutacao]));
-
-            {writeln('MUTAÇÃO |||  INDICE MUTAÇÃO: ' + INTTOSTR(indiceMutacao));
-            for R := 0 to Length(vetOperacaoAG)-1 do
-            begin
-              Writeln(' IND: '+ INTTOSTR(R) + ' PAI: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv1]).vetorOperador[R]  ) +
-              ' - MÃE: ' + INTTOSTR(  TINDIVIDUO(populacao.Items[indiceIndiv2]).vetorOperador[R]  ) +
-              ' FILHO: ' + INTTOSTR(FILHO.vetorOperador[R]));
-            end;
-            Writeln('=============================================================');
-            readln;
-            }
-
-
-             //Adiciona em População
-             populacao.Add(filho);
-         Except
-         // E : Exception Do
-          On E : exception Do
-              // Trechos de Código
-              ShowMessage(E.ClassName + #13 + 'Msg: ' + E.Message);
-         End;
-      end;
-
-      //ShowMessage('Avalia - num: ' + inttostr(populacao.Count));
-      //AVALIA NOVOS INDIVIDUOS
-      avaliaPopulacao(POPULACAO,1000);
-
-      //ShowMessage('ordena');
-      //ORDENA
-      populacao.Sort(@CompareFO);
-
-      //ShowMessage('seleciona sobreviventes');
-      //SELECIONA SOBREVIVENTES (OS 1000 COM MELHOR F.O.)
-      selecionaSobreviventes(populacao);
-
-      //Imprime o melhor indivíduo. O indivíduo populacao[0]
-       writeln('MELHOR INDIVÍDUO da população '+ inttostr(contador)+ ' !!!   - FO: ' + FLOATTOSTR(TIndividuo(populacao.Items[0]).fo));
-        for I := 0 to Length(vetOperacaoAG)-1 do
-        begin
-            writeln(' Operação: ' + inttostr(i) +
-                    ' idCronom: ' + inttostr(vetOperacaoAG[i].idCronmetragem) +
-                    ' Cota: ' + Floattostr(vetOperacaoAG[i].Cota) +
-                    '    Operador : ' + inttostr(TIndividuo(populacao.Items[0]).vetorOperador[i] ) +
-                    '    Sequencia : ' + inttostr(TIndividuo(populacao.Items[0]).vetorSequencia[i] )
-                    );
-        end;
-        Writeln('=============================================================');
-
-
-      contador := contador +1
-  end;
-
-  //RESULTADO
-   writeln('MELHOR INDIVÍDUO!!!   - FO: ' + FLOATTOSTR(TIndividuo(populacao.Items[0]).fo));
-  for I := 0 to Length(vetOperacaoAG)-1 do
-  begin
-      writeln(' Operação: ' + inttostr(i) +
-              ' idCronom: ' + inttostr(vetOperacaoAG[i].idCronmetragem) +
-              ' Cota: ' + Floattostr(vetOperacaoAG[i].Cota) +
-              '    Operador : ' + inttostr(TIndividuo(populacao.Items[0]).vetorOperador[i] ) +
-              '    Sequencia : ' + inttostr(TIndividuo(populacao.Items[0]).vetorSequencia[i] )
-              );
-  end;
-  Writeln('=============================================================');
-
-  //Retorna o melhor individuo
-  result := TIndividuo(populacao[0]);
-end;
-
-procedure TF02004.atribuiPrecedencia;
-var
-  I, j: Integer;
-populacao: TList;
-indiv: TIndividuo;
-begin
-  //
-  for I := 0 to Length(vetOperacaoAG)-1 do
-  begin
-    DModule.qAux.Close;
-    DModule.qAux.sql.Text := 'Select * from dependencia where idCronometragem =:idC';
-    DModule.qAux.ParamByName('idC').Value := vetOperacaoAG[i].idCronmetragem;
-    DModule.qAux.open;
-
-    SetLength(vetOperacaoAG[i].vatorIDCronometragemPrecedencia, DModule.qAux.RecordCount);
-    j:= 0;
-    while not(DModule.qAux.eof) do
-    begin
-      vetOperacaoAG[i].vatorIDCronometragemPrecedencia[j] := DModule.qAux.FieldByName('idCronometragemDependencia').AsInteger;
-      j := j+1;
-      DModule.qAux.Next;
-    end;
-  end;
-
-
-end;
-
-function TF02004.avaliaDistribuicao(indiv: TIndividuo): Real;
-var
-  I,J: Integer;
-  VALOR, PORCENTAGEMTRABALHO : Real;
-begin
-  //
-  VALOR := 0;
-  for I := 0 to Length(vetOperacaoAG)-1 do
-  begin
-    VALOR := VALOR + (vetOperacaoAG[I].Cota);
-  end;
-
-  //ShowMessage('Valor total: ' + floattostr(valor));
-
-  //OPERADORES
-  for I := 1 to ClientDataSet1numOperadores.AsInteger do
-  begin
-      //ShowMessage(' Novo Operador ' + inttostr(i));
-      PORCENTAGEMTRABALHO := 0;
-      for J := 0 to Length(INDIV.vetorOperador)-1 do
-      begin
-        //ShowMessage('Operador ' + inttostr(i) + ' - Operação: ' + inttostr(j) + ' - Operador escolhido: ' + inttostr(INDIV.vetorOperador[J]) );
-        IF(I = INDIV.vetorOperador[J]) THEN
-        BEGIN
-          //ShowMessage('Entrou no if. É igual!');
-          //ShowMessage(' PORCENTAGEM TRABALHO ANTES : ' + FLOATTOSTR(PORCENTAGEMTRABALHO) );
-          PORCENTAGEMTRABALHO := PORCENTAGEMTRABALHO + (vetOperacaoAG[J].Cota);
-          //ShowMessage(' PORCENTAGEM TRABALHO DEPOIS : ' + FLOATTOSTR(PORCENTAGEMTRABALHO) );
-        END;
-      end;
-
-      IF (PORCENTAGEMTRABALHO > 0) and (PORCENTAGEMTRABALHO <= 100)THEN
-      BEGIN
-          //ShowMessage('Valor Antes: ' + floattostr(valor));
-          if(PORCENTAGEMTRABALHO = 100)then
-          begin
-              VALOR := VALOR - 100;
-          end else
-          begin
-              VALOR := VALOR - (100 - (PORCENTAGEMTRABALHO));
-          end;
-          //ShowMessage('Valor Antes: ' + floattostr(valor));
-
-      END ELSE
-      BEGIN
-          //AQUI O INDIVIDUO MAL DISTRIBUIDO JA É PENALIZADO AUTOMATICAMENTE
-          //POIS O VALORDISTRIBUIÇÃO É SUBTRAIDO
-      END;
-
-  end;
-  RESULT := VALOR;
-end;
-
-procedure TF02004.avaliaIndividuo(var indiv : TIndividuo);
-var
-valorPrecedencia, valorDistribuicao, valorMaquina : Real;
-  I: Integer;
-begin
-  //ShowMessage('ENTROU EM AVALIA INDIVIDUO');
-  valorPrecedencia := 0;
-  valorDistribuicao := 0;
-  valorMaquina := 0;
-
-  //Avalia Precedência
-   valorPrecedencia := avaliaPrecedencia(indiv);
-   //ShowMessage(inttostr(valorPrecedencia )) ;
-
-  //Avalia Distribuição, quanto mais uniforme, melhor
-   valorDistribuicao := avaliaDistribuicao(indiv);
-   //ShowMessage(floattostr( valorDistribuicao ));
-
-  //Avalia qtdMaquinas usada por cada Operador (melhor1, no maximo 2)
-  valorMaquina := avaliaMaquina(indiv);
-
-  indiv.fo := ((valorPrecedencia)  - (valorDistribuicao)) + Power(valorMaquina,2);
-  
-  {
-  Writeln('Valor Precedencia: ' + floattostr(valorPrecedencia) + ' ' +
-    'Valor Distribuição: ' + floattostr(valorDistribuicao) + ' ' +
-    'Valor Maquina: ' + floattostr(Power(valorMaquina,2)) + ' ' +
-    'FO: ' + floattostr(indiv.fo));
-
-
-  writeln('');
-  for I := 0 to Length(vetOperacaoAG)-1 do
-  begin
-      writeln(' Operação: ' + inttostr(i) +
-              ' idCronom: ' + inttostr(vetOperacaoAG[i].idCronmetragem) +
-              ' Cota: ' + Floattostr(vetOperacaoAG[i].Cota) +
-              '    Operador : ' + inttostr(indiv.vetorOperador[i] ) +
-              '    Sequencia : ' + inttostr(indiv.vetorSequencia[i] )
-              );
-  end;
-
-  Writeln('=============================================================');
-  //Readln;
-
-   }
-
-end;
-
-function TF02004.avaliaMaquina(indiv: TIndividuo): Real;
-var
-  I, j, qtdOperacoes: Integer;
-  maquinasDoOperador : TList<Integer>;
-  valor, valorMaquina : Real;
-  var Output : TextFile;
-
-begin
-   valorMaquina := 0;
-  //
-  for I := 1 to ClientDataSet1numOperadores.AsInteger do
-  begin
-      maquinasDoOperador := TList<Integer>.Create;
-      qtdOperacoes := 0;
-      valor := 0;
-      //ShowMessage('NOVO. Operador: ' + inttostr(i));
-
-      //Conta qtd Operações atribuidas ao operador i e os tipos de maquinas diferentes
-      for j := 0 to Length(vetOperacaoAG)-1 do
-      begin
-          //ShowMessage('Operação: ' + inttostr(j) + 'Operador: ' + inttostr( indiv.vetorOperador[j] ));
-          if(indiv.vetorOperador[j] = i)then
-          begin
-            //quantidade de operações atribuidas ao operador
-            qtdOperacoes := qtdOperacoes +1;
-            {
-            ShowMessage('antes de verificar. idTipoRecurso = ' +  inttostr(vetOperacaoAG[j].idTipoRecurso)
-            + #13 + 'indexOF: ' + BoolToStr(maquinasDoOperador.Contains((vetOperacaoAG[j].idTipoRecurso)))
-            + #13 + 'length: ' + inttostr( ( maquinasDoOperador.Count) )
-            + #13 + 'I: ' + inttostr(i) + 'J: ' + inttostr(j) +  'indiv.vetorOperador[j]: ' + inttostr(indiv.vetorOperador[j])
-            );
-            }
-            // Se não existir o idTipoRecurso na Lista, adiciona!
-            if(   maquinasDoOperador.Contains((vetOperacaoAG[j].idTipoRecurso)) = false   )then
-            begin
-              //ShowMessage('Adicionou!!!');
-              MaquinasDoOperador.Add(vetOperacaoAG[j].idTipoRecurso);
-            end;
-
-          end;
-      end;
-      //ShowMessage('Operador: '+inttostr(i) + #13+'qtdOperação: ' + inttostr(qtdOperacoes) + ' qtdMaquina: '+ inttostr(maquinasDoOperador.Count) );
-      if(qtdOperacoes >0)then
-      begin
-        valor := qtdOperacoes / maquinasDoOperador.Count;
-        valorMaquina := valorMaquina + valor;
-      end;
-      maquinasDoOperador := nil;
-      maquinasDoOperador.Free;
-  end;
-  //ShowMessage(FloattoStr(valorMaquina));
-  Result := valorMaquina;
-
-end;
-
-procedure TF02004.avaliaPopulacao(var populacao: TList; comecoVetor: integer);
-var
-i: integer;
-individuo : TIndividuo;
-begin
-  //ShowMessage('Entrou em avalia Populaçao');
-  for I := comecoVetor to populacao.Count -1 do
-  begin
-    individuo := populacao[i];
-    avaliaIndividuo(individuo);
-  end;
-end;
-
-function TF02004.avaliaPrecedencia(indiv: TIndividuo): Integer;
-var
-  I, j, valorPrecedencia: Integer;
-  valor : Real;
-begin
-  //
-  //ShowMessage('ENTROU EM AVALIA PRECEDENCIA' );
-  valorPrecedencia := 0;
-  for I := 0 to Length(indiv.vetorOperador)-1 do
-  begin
-    {ShowMessage(
-    'OPERACAO DE CRONOMETRAGEM ' + INTTOSTR(vetOperacaoAG[I].idCronmetragem) + #13
-    );  }
-
-    DModule.qAux.close;
-    DModule.qAux.sql.Text := 'Select * from dependencia where idcronometragem =:idC';
-    DModule.qAux.ParamByName('idC').Value := vetOperacaoAG[i].idCronmetragem;
-    DModule.qAux.open;
-
-    while not(DModule.qAux.eof) do
-    begin
-        //ShowMessage(' PRECEDENCIA: ' + DModule.qAux.FieldByName('idCronometragemDependencia').AsString);
-
-        for j := 0 to Length(indiv.vetorOperador)-1 do
-        begin
-            {
-            ShowMessage(
-            'Entrou no for de comparar idcronometragem. // '+
-            'i = '+ inttostr(i) + ' - ' + inttostr(indiv.vetorSequencia[i]) + #13 +
-            ' j = '+ inttostr(j) + ' - ' + inttostr(indiv.vetorSequencia[j]) + #13 +
-            'cronometragem Atual ' + inttostr(vetOperacaoAG[i].idCronmetragem) + ' = ' +
-            'cronometragem varredura ' + inttostr(vetOperacaoAG[j].idCronmetragem) + ' = ' +
-            'dependencia = ' + DModule.qAux.FieldByName('idCronometragemDependencia').AsString
-            );
-            }
-            if(vetOperacaoAG[j].idCronmetragem = DModule.qAux.FieldByName('idCronometragemDependencia').AsInteger )then
-            begin
-                if(indiv.vetorSequencia[j] = 0)then
-                begin
-                     valorPrecedencia := valorPrecedencia + 100;
-                end else
-                begin
-                    valor := indiv.vetorSequencia[i] div indiv.vetorSequencia[j];
-                    //ShowMessage('AXOU PRECEDENCIA! - Valor: ' + floattostr(valor));
-                    if(valor >= 1)then
-                    begin
-                      valorPrecedencia := valorPrecedencia + 100;
-                      //ShowMessage('SOMOU 100');
-                    end else
-                    begin
-                      valorPrecedencia := valorPrecedencia - 20;
-                      //ShowMessage('DIMINUIU 20');
-                    end;
-                end;
-
-            end;
-
-        end;
-        DModule.qAux.Next;
-    end;
-  end;
-
-  Result := valorPrecedencia;
 end;
 
 procedure TF02004.BEditarClick(Sender: TObject);
@@ -722,15 +302,6 @@ begin
   ClientDataSet1idLayoutFase.AsInteger := DModule.buscaProximoParametro('seqLayoutFase');
 end;
 
-function TF02004.comparaRoleta(intervaloInicio, intervaloFim: Real; num: Real): boolean;
-begin
-  //
-  if ((num >= intervaloInicio) and (num < intervaloFim)) then
-  begin
-     result := true;
-  end;
-  result :=  false;
-end;
 
 procedure TF02004.DBEdit2Change(Sender: TObject);
 begin
@@ -808,20 +379,6 @@ begin
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
 end;
 
-procedure TF02004.iniciaPopulacao(var populacao: TList; qtd: integer);
-var
-  indiv : TIndividuo;
-  I: Integer;
-begin
-
-  for I := 0 to qtd -1 do
-  begin
-    indiv := TIndividuo.Create( Length(vetOperacaoAG), ClientDataSet1numOperadores.AsInteger);
-    populacao.Add(indiv);
-  end;
-
-end;
-
 procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
 begin
   inherited;
@@ -846,205 +403,122 @@ begin
   moperacoes.ApplyUpdates(-1);
 end;
 
-procedure TF02004.selecionaSobreviventes(var populacao: TList);
-var
-  tam : integer;
-  I: Integer;
-begin
-  //
-  tam := populacao.Count;
-  for I := 1000 to tam-1 do
-  begin
-      populacao.Delete(1000);
-  end;
-
-end;
-
-function TF02004.ExecutaRoleta(populacao: TList): Integer;
-var r ,i, resultado: integer;
-    x : Extended;
-    //somaFO : Extended;
-    somaFO : double;
-begin
-     randomize;
-     x         := 0;
-     resultado := 0;
-     r:=0;
-     somafo := 0;
-     for I := 0 to populacao.Count-1 do
-     begin
-        if(TIndividuo(populacao.Items[i]).fo > 0)then
-          somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
-     end;
-
-     if somaFO >1 then
-     begin
-        while r=0 do
-           r := random(round (somaFO));
-     end
-     else
-       r :=1;
-
-    // showmessage('Soma Roleta '+floattostr(roleta)+' sorteio '+floattostr(r));
-     for i := 1 to populacao.Count-1 do
-     begin
-         if (r >=x) and (r <= x + TIndividuo(populacao.Items[i]).fo  ) then
-            resultado := i;
-
-         x := x + TIndividuo(populacao.Items[i]).fo;
-     end;
-     ExecutaRoleta := resultado;
-end;
-{
-var
-i, indiceEscolhido: integer;
-somaFO, num, intervaloInicio, intervaloFim : real;
-begin
-     randomize;
-
-     for I := 0 to populacao.Count-1 do
-     begin
-       somaFO := somaFO + TIndividuo(populacao.Items[i]).fo;
-     end;
-
-     //num é o numero gerado aleatóriamente entre 0 e somaFO
-     num := (Random(1000)/1000) * somaFO;
-
-     intervaloInicio := 0;
-     intervaloFim := 0;
-     indiceEscolhido := 0;
-     for I := 0 to (1000 - 1) do
-     begin
-        intervaloFim := intervaloFim + TIndividuo(populacao.Items[i]).fo;
-
-        if (  (comparaRoleta(intervaloInicio, intervaloFim, num)) = true   ) then
-        begin
-                indiceEscolhido := i;
-                break;
-        end;
-        intervaloInicio := intervaloFim;
-     end;
-     result := indiceEscolhido;
-
-end;
-}
-
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
 i : integer;
 matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
 vetorTPF: array of double; //vetor de tempo Padrao final das operações
-melhor: TIndividuo;
+
+linhaProducao : TLinhaProducao;
 begin
-  inherited;
+    inherited;
 
-  //Apaga registros LayoutOperaçoes existentes
-  fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-  moperacoes.Open;
-  MOperacoes.First;
-  while not(MOperacoes.Eof) do
-  begin
-     moperacoes.delete;
-     moperacoes.First;
-  end;
-
-  //Consulta operações da fase
-  DModule.qAux.close;
-  DModule.qAux.SQL.Text := 'select c.* from operacao o ';
-  DModule.qAux.SQL.add('left outer join cronometragem c on c.idOperacao = o.idOperacao ');
-  DModule.qAux.SQL.add('left outer join produto p on p.idproduto = c.idProduto ');
-  DModule.qAux.SQL.add('left outer join ordem_producao op on op.idproduto = p.idproduto ');
-  DModule.qAux.SQL.add('left outer join ordem_has_fase ohf on ohf.idordem = op.idOrdem and ohf.idfase = o.idfase ');
-  DModule.qAux.SQL.add('where ohf.idOrdem_has_fase =:idOHF ');
-  DModule.qAux.ParamByName('idOHF').AsInteger := ClientDataSet1idOrdem_has_fase.AsInteger;
-  DModule.qAux.open;
-
-  //Declaração do tamanho da Matriz
-  SetLength(matriz, DModule.qAux.RecordCount);
-  SetLength(vetorTPF, DModule.qAux.RecordCount);
-
-  for i := 0 to (DModule.qAux.RecordCount -1) do
-  begin
-     SetLength(matriz[i], 2);
-  end;
-
-  //INSERI EM LAYOUTOPERAÇÕES
-  i := 0;
-  WHILE NOT(DModule.qAux.EOF) DO
-  BEGIN
-    matriz[i][0] := ClientDataSet1idLayoutFase.AsInteger;
-    matriz[i][1] := DModule.qAux.FieldByName('idCronometragem').AsInteger;
-    vetorTPF[i] := DModule.qAux.FieldByName('tempopadraofinal').AsInteger;
-    i := i+1;
-    DModule.qAux.next;
-  END;
-  for I := 0 to (Length(matriz)-1) do
-  begin
-    moperacoes.Insert;
-    moperacoesidLayoutFase.Value := matriz[i][0];
-    moperacoesidCronometragem.Value := matriz[i][1];
-    moperacoestempoOperacao.Value := vetorTPF[i];
-    moperacoes.Post;
-  END;
-
-
-  //CALCULA META HORA
-  CalculaMetaHora;
-
-  //MOSTA LAYOUT
-  if not(MOperacoes.IsEmpty) then
-  begin
-    //apaga os paineis dentro do scrollbox
-    ScrollBox1.DestroyComponents;
-    ScrollLinhadeProducao.DestroyComponents;
-
-    //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
-    Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
-
-    // Atribui a precedencia de cada índice em vetOperaçoesAG
-    atribuiPrecedencia();
-
-    //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
-    melhor := AlgoritmoGenetico();
-
-    //Popula Layout com o melhor indivíduo
-    for I := 1 to ClientDataSet1numOperadores.AsInteger do
+    //Apaga registros LayoutOperaçoes existentes
+    fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+    moperacoes.Open;
+    MOperacoes.First;
+    while not(MOperacoes.Eof) do
     begin
-      //layout.Operadores[i].
+       moperacoes.delete;
+       moperacoes.First;
+    end;
+
+    //INSERI EM LAYOUTOPERAÇÕES
+    DModule.qAux.close;
+    DModule.qAux.SQL.Text := 'select c.* from operacao o ';
+    DModule.qAux.SQL.add('left outer join cronometragem c on c.idOperacao = o.idOperacao ');
+    DModule.qAux.SQL.add('left outer join produto p on p.idproduto = c.idProduto ');
+    DModule.qAux.SQL.add('left outer join ordem_producao op on op.idproduto = p.idproduto ');
+    DModule.qAux.SQL.add('left outer join ordem_has_fase ohf on ohf.idordem = op.idOrdem and ohf.idfase = o.idfase ');
+    DModule.qAux.SQL.add('where ohf.idOrdem_has_fase =:idOHF ');
+    DModule.qAux.ParamByName('idOHF').AsInteger := ClientDataSet1idOrdem_has_fase.AsInteger;
+    DModule.qAux.open;
+    //Declaração do tamanho da Matriz
+    SetLength(matriz, DModule.qAux.RecordCount);
+    SetLength(vetorTPF, DModule.qAux.RecordCount);
+    for i := 0 to (DModule.qAux.RecordCount -1) do
+    begin
+       SetLength(matriz[i], 2);
+    end;
+    i := 0;
+    WHILE NOT(DModule.qAux.EOF) DO
+    BEGIN
+      matriz[i][0] := ClientDataSet1idLayoutFase.AsInteger;
+      matriz[i][1] := DModule.qAux.FieldByName('idCronometragem').AsInteger;
+      vetorTPF[i] := DModule.qAux.FieldByName('tempopadraofinal').AsInteger;
+      i := i+1;
+      DModule.qAux.next;
+    END;
+    for I := 0 to (Length(matriz)-1) do
+    begin
+      moperacoes.Insert;
+      moperacoesidLayoutFase.Value := matriz[i][0];
+      moperacoesidCronometragem.Value := matriz[i][1];
+      moperacoestempoOperacao.Value := vetorTPF[i];
+      moperacoes.Post;
+
+      //FAZER AQUI O VETOR HEURISTICA OPERAÇÕES
+      //CRONOMETRAGEM, TEMPO, MAQUINA
+
+      //FAZER AQUI O VETOR DE PRECEDÊNCIA
+      //IDOPERACAO, IDDEPENDENCIA
+    END;
+
+    //Dados da Linha de produção
+    linhaProducao.numOperadores := ClientDataSet1numOperadores.AsInteger;
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'select * from recurso where idgrupo =:idGrup';
+    DModule.qAux.ParamByName('idGrup').Value := ClientDataSet1idgrupo.AsInteger;
+    DModule.qAux.Open;
+    SetLength(linhaProducao.vetorMaquinas, DModule.qAux.RecordCount);
+    i:=0;
+    while NOT(DModule.qAux.Eof) do
+    BEGIN
+      linhaProducao.vetorMaquinas[i].idMaquina := DModule.qAux.FieldByName('idRecurso').AsInteger;
+      linhaProducao.vetorMaquinas[i].descricao := DModule.qAux.FieldByName('descricao').AsString;
+      linhaProducao.vetorMaquinas[i].Patrimonio:= DModule.qAux.FieldByName('patrimonio').AsInteger;
+      linhaProducao.vetorMaquinas[i].idTipo := DModule.qAux.FieldByName('idTipoRecurso').AsInteger;
+      i:= i+1;
+      DModule.qAux.Next;
+    END;
+
+
+    //CALCULA META HORA
+    CalculaMetaHora;
+
+    //MOSTA LAYOUT
+    if not(MOperacoes.IsEmpty) then
+    begin
+      //apaga os paineis dentro do scrollbox
+      ScrollBox1.DestroyComponents;
+      ScrollLinhadeProducao.DestroyComponents;
+
+      //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
+      Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
+
+      // Atribui a precedencia de cada índice em vetOperaçoesAG
+      //atribuiPrecedencia();
+
+      //DISTRIBUIÇÃO E BALANCEAMENTO DE CARGA
+      //melhor := AlgoritmoGenetico();  unit desenvolvida pelo Mykel
+
+      //Popula Layout com o melhor indivíduo
 
     end;
 
 
+    //OBS: Fazer na trigger
+    //Apaga dados obtidos anteriormente
+   { DModule.qaux.Close;
+    DModule.qaux.sql.Text := 'delete from LayOutOperacao where idlayoutFase = :idlayout';
+    DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+    DModule.qaux.ExecSQL;
 
-    {
-    for I := 0 to (Length(vetOperacaoAG)-1) do
-      begin
-        ShowMessage(
-        'idLayout Operacao: ' + inttostr(vetOperacaoAG[i].IdLayOutOperacoes) + #13 +
-        'idtipoRecurso' + inttostr(vetOperacaoAG[i].idTipoRecurso) + #13 +
-        'cota: '+  Floattostr(vetOperacaoAG[i].Cota) + #13
-
-        );
-      end;
-      }
-
-
-
-  end;
-
-
-  //OBS: Fazer na trigger
-  //Apaga dados obtidos anteriormente
- { DModule.qaux.Close;
-  DModule.qaux.sql.Text := 'delete from LayOutOperacao where idlayoutFase = :idlayout';
-  DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-  DModule.qaux.ExecSQL;
-
-  DModule.qaux.Close;
-  DModule.qaux.sql.Text := 'delete from LayOutMaquina where idlayoutFase = :idlayout';
-  DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-  DModule.qaux.ExecSQL;
-  }
+    DModule.qaux.Close;
+    DModule.qaux.sql.Text := 'delete from LayOutMaquina where idlayoutFase = :idlayout';
+    DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+    DModule.qaux.ExecSQL;
+    }
 
 end;
 
@@ -1054,13 +528,13 @@ begin
   //
   if Application.MessageBox('Confirma Processar LayOut?','Processamento',mb_yesno+mb_iconquestion) = id_yes then
   begin
-      
+
   end;
 end;
 
 { TOperacao }
 
-constructor TOperacao.Create(AOwner: TComponent);
+constructor TPanelOperacao.Create(AOwner: TComponent);
 begin
     inherited;
 
@@ -1114,19 +588,19 @@ begin
     LbCotaPendente.Top      := 51;
 end;
 
-procedure TOperacao.RetiraOperacao(Per: real);
+procedure TPanelOperacao.RetiraOperacao(Per: real);
 begin
 
 end;
 
 { TMaquina }
 
-procedure TMaquina.AdicionaOperacao(Operacao: toperacao; PerMaxOperador: real);
+procedure TPanelMaquina.AdicionaOperacao(Operacao: tPaneloperacao; PerMaxOperador: real);
 begin
   //
 end;
 
-constructor TMaquina.Create(AOwner: TComponent);
+constructor TPanelMaquina.Create(AOwner: TComponent);
 begin
   inherited;
   GOcupacao          := TProgressBar.create(Self);
@@ -1148,19 +622,19 @@ begin
 
 end;
 
-procedure TMaquina.SetaRecurso(codigoRecurso: integer; Recurso: string);
+procedure TPanelMaquina.SetaRecurso(codigoRecurso: integer; Recurso: string);
 begin
 
 end;
 
 { TOperador }
 
-procedure TOperador.AdicionaOperacao(Operacao: TOperacao);
+procedure TPanelOperador.AdicionaOperacao(Operacao: TPanelOperacao);
 begin
   //
 end;
 
-constructor TOperador.Create(AOwner: TComponent);
+constructor TPanelOperador.Create(AOwner: TComponent);
 var
     p : TPopupMenu;
     i : TMenuItem;
@@ -1174,7 +648,7 @@ begin
   i.Caption := 'Remove Operações';
   //i.OnClick   := RemoveOperacoes;
   p.Items.Add(i);
-  TOperador(Self).PopupMenu := p;
+  TPanelOperador(Self).PopupMenu := p;
 
   Height                := 190;
   Width                 := 128;
@@ -1187,11 +661,11 @@ begin
   Ocupacao              := 0;
   Cursor                := crHandPoint;
 
-  Maquina1              := TMaquina.create(Self);
+  Maquina1              := TPanelMaquina.create(Self);
   Maquina1.Parent       := self;
   //Maquina1.Left         := 27;
   Maquina1.Align := alTop;
-  Maquina2              := TMaquina.create(Self);
+  Maquina2              := TPanelMaquina.create(Self);
   Maquina2.Parent       := self;
   //Maquina2.Left         := 27;
   Maquina2.Align := alBottom;
@@ -1242,7 +716,7 @@ begin
 end;
 
 
-procedure TOperador.SetaRecurso(Maquina, codigoRecurso: integer;
+procedure TPanelOperador.SetaRecurso(Maquina, codigoRecurso: integer;
   Recurso: string);
 begin
 
@@ -1285,7 +759,7 @@ begin
    while not(dados.eof) do
    begin
        inc(NOperacoes);
-       Operacoes[NOperacoes]                        := TOperacao.Create(telaop);
+       Operacoes[NOperacoes]                        := TPanelOperacao.Create(telaop);
        Operacoes[NOperacoes].Parent                 := LocalOP;
        Operacoes[NOperacoes].IdLayOutOperacoes      := dados.fieldbyname('IdLayOutOperacao').AsInteger;
        Operacoes[NOperacoes].idTipoRecurso          := dados.fieldbyname('idTipo_Recurso').AsInteger;
@@ -1302,34 +776,6 @@ begin
        Operacoes[NOperacoes].Top                    := vertical;
        Operacoes[NOperacoes].Left                   := 5;
 
-       //cria vetor de OperaçaoAG e quebra ob tempos das operações em <= 100
-       valorT := Operacoes[NOperacoes].Cota;
-       if(valort > 100)then
-       begin
-           while( valort > 0 )do
-           begin
-            contaPosicoes := contaPosicoes +1;
-            SetLength( vetOperacaoAG ,contaPosicoes);
-            vetOperacaoAG[contaPosicoes-1] := TOperacaoAG.create;
-
-            vetOperacaoAG[contaPosicoes-1].IdLayOutOperacoes := Operacoes[NOperacoes].IdLayOutOperacoes;
-            vetOperacaoAG[contaPosicoes-1].idTipoRecurso := Operacoes[NOperacoes].idTipoRecurso ;
-            vetOperacaoAG[contaPosicoes-1].idCronmetragem := Operacoes[NOperacoes].idCronometragem;
-            if(valorT > 100)then
-            begin
-            vetOperacaoAG[contaPosicoes-1].cota := 100;
-            end else
-            begin
-              vetOperacaoAG[contaPosicoes-1].cota := valort;
-            end;
-            valort := valort - 100;
-
-           end;
-       end else
-       begin
-        contaPosicoes := contaPosicoes +1;
-       end;
-
        vertical := vertical + Operacoes[NOperacoes].Height + 5;
        dados.Next;
    end;
@@ -1343,7 +789,7 @@ begin
    countFilas := 0;
    for i := 1 to NOperadores do
    begin
-       Operadores[i]                      := TOperador.Create(tela);
+       Operadores[i]                      := TPanelOperador.Create(tela);
        Operadores[i].Parent               := tela;
        Operadores[i].Left                 := horizontal;
        Operadores[i].Top                  := vertical;
@@ -1411,46 +857,6 @@ procedure TLayout.Imprime(var ImpLayOut, ImpOperacao,
   ImpOperadores: tclientdataset);
 begin
 
-end;
-
-{ TIndividuo }
-
-constructor TIndividuo.Create(tam: integer; qtdOperadores :integer);
-var
- rand :integer;
-  I: Integer;
-begin
-
-  //inicializa indiv.vetorOperador
-  SetLength(vetorOperador,tam);
-  Randomize;
-  //seta valores no vetorOperador
-  for I := 0 to (Length(vetorOperador)-1) do
-  begin
-    //Random gera um num aleatorio > 0
-    Rand:= Random(qtdOperadores) + 1;
-    vetorOperador[i] := rand;
-  end;
-
-  //indiv.vetorSequencia
-  SetLength(vetorSequencia,tam);
-  Randomize;
-  for I := 0 to (Length(vetorSequencia)-1) do
-  begin
-    Rand:= Random(500);
-    vetorSequencia[i] := rand;
-  end;
-
-end;
-
-{ TOperacaoAG }
-
-constructor TOperacaoAG.Create;
-begin
-  IdLayOutOperacoes := 0;
-  idTipoRecurso := 0;
-  cota := 0;
-  idCronmetragem := 0;
 end;
 
 Initialization
