@@ -369,7 +369,7 @@ CREATE TABLE `layoutfase` (
 
 LOCK TABLES `layoutfase` WRITE;
 /*!40000 ALTER TABLE `layoutfase` DISABLE KEYS */;
-INSERT INTO `layoutfase` VALUES (20,88,7,2,NULL,NULL);
+INSERT INTO `layoutfase` VALUES (21,88,5,2,NULL,NULL),(22,88,7,2,NULL,NULL);
 /*!40000 ALTER TABLE `layoutfase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,7 +423,7 @@ CREATE TABLE `layoutoperacao` (
 
 LOCK TABLES `layoutoperacao` WRITE;
 /*!40000 ALTER TABLE `layoutoperacao` DISABLE KEYS */;
-INSERT INTO `layoutoperacao` VALUES (90,15,2297,191),(91,15,2623,244),(92,17,2297,191),(93,17,2623,244),(94,17,2297,191),(95,17,2623,244),(96,17,2297,191),(97,17,2623,244),(216,20,2297,191),(217,20,2623,244);
+INSERT INTO `layoutoperacao` VALUES (524,22,2297.13,191),(525,22,2622.84,244),(533,21,2297.13,191),(534,21,2622.84,244);
 /*!40000 ALTER TABLE `layoutoperacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,7 +477,7 @@ CREATE TABLE `movimentacao` (
 
 LOCK TABLES `movimentacao` WRITE;
 /*!40000 ALTER TABLE `movimentacao` DISABLE KEYS */;
-INSERT INTO `movimentacao` VALUES (8,33,'2016-03-08','RUAN',2,5,NULL),(17,31,NULL,NULL,10,1,NULL),(18,32,'2016-03-10',NULL,5,1,NULL),(19,31,'2016-03-10',NULL,2,2,NULL),(20,31,'2016-03-10',NULL,16,1,NULL),(75,31,'2016-03-14',NULL,1,11,NULL),(84,NULL,NULL,NULL,NULL,NULL,NULL),(151,88,NULL,NULL,4,12,NULL),(152,88,NULL,NULL,6,1,NULL),(155,89,NULL,NULL,2,11,NULL),(157,89,NULL,NULL,4,1,NULL),(158,90,NULL,NULL,4,1,NULL);
+INSERT INTO `movimentacao` VALUES (8,33,'2016-03-08','RUAN',2,5,NULL),(17,31,NULL,NULL,10,1,NULL),(18,32,'2016-03-10',NULL,5,1,NULL),(19,31,'2016-03-10',NULL,2,2,NULL),(20,31,'2016-03-10',NULL,16,1,NULL),(75,31,'2016-03-14',NULL,1,11,NULL),(84,NULL,NULL,NULL,NULL,NULL,NULL),(151,88,NULL,NULL,4,12,NULL),(152,88,NULL,NULL,6,1,NULL),(155,89,NULL,NULL,2,11,NULL),(157,89,NULL,NULL,4,1,NULL),(158,90,NULL,NULL,4,1,NULL),(162,114,NULL,NULL,4,1,NULL);
 /*!40000 ALTER TABLE `movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -603,7 +603,7 @@ CREATE TABLE `ordem_has_fase` (
 
 LOCK TABLES `ordem_has_fase` WRITE;
 /*!40000 ALTER TABLE `ordem_has_fase` DISABLE KEYS */;
-INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0),(88,35,8,10,0,0,1,1,10),(89,35,1,10,0,0,8,2,4),(90,35,5,10,0,0,22,3,4),(114,84,1,4,0,4,8,2,0),(115,84,5,4,4,0,22,3,0),(116,85,8,2,0,2,1,1,0),(117,85,1,2,2,0,8,2,0),(118,85,5,2,2,0,22,3,0);
+INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0),(88,35,8,10,0,0,1,1,10),(89,35,1,10,0,0,8,2,4),(90,35,5,10,0,0,22,3,4),(114,84,1,4,0,0,8,2,4),(115,84,5,4,0,4,22,3,0),(116,85,8,2,0,2,1,1,0),(117,85,1,2,2,0,8,2,0),(118,85,5,2,2,0,22,3,0);
 /*!40000 ALTER TABLE `ordem_has_fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -675,7 +675,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,351),('seqCelula',NULL,23),('seqCronometragem',NULL,245),('seqCronometrista',NULL,11),('seqFase',NULL,17),('seqGrupoProduto',NULL,15),('seqLayoutFase',NULL,21),('seqLayoutOperacao',NULL,218),('seqMovimentacao',NULL,162),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,119),('seqOrdemProducao',NULL,86),('seqParte',NULL,6),('seqProduto',NULL,104),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,14);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,22),('seqBatida',NULL,356),('seqCelula',NULL,23),('seqCronometragem',NULL,246),('seqCronometrista',NULL,11),('seqFase',NULL,17),('seqGrupoProduto',NULL,15),('seqLayoutFase',NULL,23),('seqLayoutOperacao',NULL,535),('seqMovimentacao',NULL,164),('seqOperacao',NULL,32),('seqOperador',NULL,69),('seqOrdemFase',NULL,119),('seqOrdemProducao',NULL,86),('seqParte',NULL,6),('seqProduto',NULL,104),('seqRecurso',NULL,20),('seqTecido',NULL,6),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,14);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -899,4 +899,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-07 16:23:41
+-- Dump completed on 2016-05-14 12:38:58
