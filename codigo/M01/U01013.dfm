@@ -3,6 +3,7 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
+  ExplicitLeft = -101
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -14,8 +15,6 @@ inherited F01013: TF01013
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited grDados: TGroupBox
@@ -248,7 +247,9 @@ inherited F01013: TF01013
           Color = 15724527
           DataField = 'idTecido'
           DataSource = DS
+          ParentShowHint = False
           ReadOnly = True
+          ShowHint = False
           TabOrder = 15
         end
         object DBEdit10: TDBEdit
@@ -809,8 +810,6 @@ inherited F01013: TF01013
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 1182
       ExplicitHeight = 587
       inherited GBFiltros: TGroupBox
@@ -1442,7 +1441,6 @@ inherited F01013: TF01013
       FieldName = 'produto'
       Origin = 'descricao'
       ProviderFlags = []
-      ReadOnly = True
       Size = 45
     end
     object FDQuery1tecido: TStringField
@@ -1450,7 +1448,6 @@ inherited F01013: TF01013
       FieldName = 'tecido'
       Origin = 'descricao'
       ProviderFlags = []
-      ReadOnly = True
       Size = 45
     end
     object FDQuery1operador: TStringField
@@ -1458,7 +1455,6 @@ inherited F01013: TF01013
       FieldName = 'operador'
       Origin = 'nome'
       ProviderFlags = []
-      ReadOnly = True
       Size = 45
     end
     object FDQuery1cronometrista: TStringField
@@ -1466,7 +1462,6 @@ inherited F01013: TF01013
       FieldName = 'cronometrista'
       Origin = 'nome'
       ProviderFlags = []
-      ReadOnly = True
       Size = 45
     end
     object FDQuery1tempoPadraoFinal: TSingleField
@@ -1480,7 +1475,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00EC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00F00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -826,7 +826,7 @@ object FBase: TFBase
     DataSet = ClientDataSet1
     OnStateChange = DSStateChange
     OnDataChange = DSDataChange
-    Left = 592
+    Left = 560
     Top = 192
   end
   object ClientDataSet1: TClientDataSet
@@ -843,19 +843,19 @@ object FBase: TFBase
   end
   object DataSetProvider1: TDataSetProvider
     DataSet = FDQuery1
-    Left = 448
+    Left = 504
     Top = 192
   end
   object FDQuery1: TFDQuery
     Connection = DModule.FDConnection
-    Left = 376
+    Left = 472
     Top = 192
   end
   object ImageListBase: TImageList
-    Left = 448
-    Top = 248
+    Left = 616
+    Top = 192
     Bitmap = {
-      494C01010E002C00080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00140110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1391,8 +1391,8 @@ object FBase: TFBase
       000000000000}
   end
   object Acoes: TActionList
-    Left = 376
-    Top = 248
+    Left = 584
+    Top = 193
     object Action5: TAction
       Caption = 'acCancelar'
       ShortCut = 27

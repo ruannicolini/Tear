@@ -173,7 +173,7 @@ end;
 
 procedure TFPrincipal.FormShow(Sender: TObject);
 begin
-  NomeForm := 'Sistema de Balancameanto';
+  NomeForm := 'TEAR - Sistema de Acompanhamento e Balancameanto de Produção';
   MontarMenu(PageScroller);
 end;
 

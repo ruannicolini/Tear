@@ -53,7 +53,6 @@ type
     procedure DSStateChange(Sender: TObject);
     procedure ClientDataSet1BeforeInsert(DataSet: TDataSet);
     procedure ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
-    procedure BInserirClick(Sender: TObject);
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
@@ -70,6 +69,7 @@ type
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure ActionMostrarFiltrosExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BInserirClick(Sender: TObject);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -193,16 +193,6 @@ begin
   BCancelar.Enabled := false;
 end;
 
-procedure TFBase.BInserirClick(Sender: TObject);
-begin
-  if not ds.DataSet.Active then
-        ds.DataSet.Open;
-
-    PageControl.ActivePageIndex := 0;
-    ds.DataSet.Append;
-
-end;
-
 procedure TFBase.BLastClick(Sender: TObject);
 begin
 DS.DataSet.Last;
@@ -252,6 +242,15 @@ end;
 procedure TFBase.BFirstClick(Sender: TObject);
 begin
 DS.DataSet.First;
+end;
+
+procedure TFBase.BInserirClick(Sender: TObject);
+begin
+  if not ds.DataSet.Active then
+        ds.DataSet.Open;
+
+    PageControl.ActivePageIndex := 0;
+    ds.DataSet.Append;
 end;
 
 procedure TFBase.BSalvarClick(Sender: TObject);

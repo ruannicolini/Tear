@@ -580,19 +580,6 @@ object FPrincipal: TFPrincipal
       Color = 15987699
       ParentBackground = False
       TabOrder = 0
-      object Image1: TImage
-        Left = 0
-        Top = -3
-        Width = 937
-        Height = 476
-        Align = alCustom
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        Center = True
-        ParentShowHint = False
-        Proportional = True
-        ShowHint = False
-        ExplicitHeight = 484
-      end
     end
   end
   object Panel5: TPanel
@@ -606,6 +593,20 @@ object FPrincipal: TFPrincipal
     Color = 15987699
     ParentBackground = False
     TabOrder = 1
+    object Image1: TImage
+      Left = 0
+      Top = -3
+      Width = 385
+      Height = 222
+      Align = alCustom
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      Center = True
+      ParentShowHint = False
+      Proportional = True
+      ShowHint = False
+      ExplicitWidth = 937
+      ExplicitHeight = 484
+    end
     object Panel3: TPanel
       Left = 158
       Top = 32
@@ -694,7 +695,7 @@ object FPrincipal: TFPrincipal
     Width = 64
     Left = 72
     Bitmap = {
-      494C010108006000180340004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010108006000200340004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000000010000C000000001002000000000000000
       0300000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7044,7 +7045,7 @@ object FPrincipal: TFPrincipal
     Width = 32
     Left = 152
     Bitmap = {
-      494C010110007800A00320002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010110007800A80320002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000080000000A000000001002000000000000040
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -9699,7 +9700,7 @@ object FPrincipal: TFPrincipal
     Width = 32
     Left = 248
     Bitmap = {
-      494C01010F0078008003200020000066CC002110FFFFFFFFFFFFFFFF424D3600
+      494C01010F0078008803200020000066CC002110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000008000000001002000000000000000
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

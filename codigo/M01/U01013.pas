@@ -470,6 +470,7 @@ begin
                 begin
                     if trim(DBEdit6.Text) <> '' then
                     begin
+
                         //Pesquisa as Batidas da cronometragem em foco
                         DModule.qAux.Close;
                         DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
@@ -477,6 +478,7 @@ begin
                         DModule.qAux.Open;
                         if not(DModule.qAux.IsEmpty) then
                         begin
+
                             //Pesquisa os Recursos usados na cronometragem em foco
                             DModule.qAux.Close;
                             DModule.qAux.SQL.Text := 'select * from cronometragem_has_tipo_recurso otr where otr.idCronometragem =:id';
@@ -486,7 +488,9 @@ begin
                             begin
                                 //ShowMessage('TPF: ' + ClientDataSet1tempoPadraoFinal.AsString);
                                 //
+
                                 inherited;
+                                ShowMessage('teste 1');
                                 crono.Enabled := false;
                                 status := false;
                                 btnINICIAR.Caption := 'NOVO';
@@ -495,6 +499,7 @@ begin
                                 BImportar.Enabled := false;
                                 BReutilizar.Enabled := true;
 
+                                ShowMessage('teste 2');
                                 DBEdit1.Color := clWindow;
                                 DBEdit7.Color := $00EFEFEF;
                                 DBEdit8.Color := $00EFEFEF;
@@ -503,8 +508,10 @@ begin
                                 DBEdit11.Color := $00EFEFEF;
                                 Edit6.Color := clWindow;
 
+                                ShowMessage('teste 3');
                                 DBEditBeleza1.Enabled := true;
                                 DBEdit7.Enabled := true;
+                                ShowMessage('teste 4');
                             end else
                                  showmessage('O Registro não pode ser finalizado. Nenhum Recurso adicionado.');
                         end else
