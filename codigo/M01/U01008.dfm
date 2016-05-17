@@ -2,6 +2,7 @@ inherited F01008: TF01008
   Caption = 'F01008'
   ClientHeight = 513
   ClientWidth = 815
+  ExplicitTop = -39
   ExplicitWidth = 831
   ExplicitHeight = 552
   PixelsPerInch = 96
@@ -12,8 +13,6 @@ inherited F01008: TF01008
     ExplicitWidth = 815
     ExplicitHeight = 478
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 450
       inherited grDados: TGroupBox
@@ -89,6 +88,7 @@ inherited F01008: TF01008
             Color = clWhite
             DataField = 'descricao'
             DataSource = DS
+            ReadOnly = True
             TabOrder = 0
           end
           object DBEdit3: TDBEdit
@@ -104,6 +104,7 @@ inherited F01008: TF01008
             ReadOnly = True
             ShowHint = False
             TabOrder = 2
+            OnChange = DBEdit3Change
           end
           object DBEdit4: TDBEdit
             Left = 24
@@ -116,6 +117,7 @@ inherited F01008: TF01008
             DataSource = DS
             ReadOnly = True
             TabOrder = 3
+            OnChange = DBEdit3Change
           end
           object DBEdit5: TDBEdit
             Left = 24
@@ -128,6 +130,7 @@ inherited F01008: TF01008
             DataSource = DS
             ReadOnly = True
             TabOrder = 4
+            OnChange = DBEdit3Change
           end
         end
       end
@@ -222,8 +225,6 @@ inherited F01008: TF01008
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 450
       inherited GBFiltros: TGroupBox
@@ -563,7 +564,7 @@ inherited F01008: TF01008
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

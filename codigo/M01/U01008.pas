@@ -64,6 +64,7 @@ type
     procedure BCancelarClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure DBEdit3Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -190,6 +191,21 @@ procedure TF01008.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idoperacao.AsInteger := DModule.buscaProximoParametro('seqOperacao');
+
+end;
+
+procedure TF01008.DBEdit3Change(Sender: TObject);
+begin
+  inherited;
+  //
+  if (DS.DataSet.State=dsInsert) or (DS.DataSet.State=dsEdit) then
+  begin
+      if (trim(DBEdit3.Text) <>'') and (trim(DBEdit4.Text) <>'') then
+      begin
+      ClientDataSet1descricao.Value := DBEditBeleza1.Text + ' ' + DBEditBeleza2.Text;
+      end else
+        ClientDataSet1descricao.Clear;
+  end;
 
 end;
 
