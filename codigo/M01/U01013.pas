@@ -779,7 +779,7 @@ begin
       //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
         tempoPadrao := tempoMedio * (ClientDataSet1ritmo.AsInteger/100);
 
-      //TempoPadraoFinal = TempoPadrao * (Tolerancia/100)
+      //TempoPadraoFinal = TempoPadrao * (1+(Tolerancia/100))
         tempoPadraoFinal := tempoPadrao * (1+(ClientDataSet1tolerancia.AsInteger/100));
 
         ClientDataSet1tempoPadraoFinal.Value := tempoPadraoFinal;
