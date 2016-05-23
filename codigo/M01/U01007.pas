@@ -429,45 +429,72 @@ begin
 end;
 
 procedure TF01007.Button4Click(Sender: TObject);
+var
+  CronAUX : integer;
 begin
   inherited;
 
-  if trim(EditBeleza2.Text) <> '' then
+  //Verificação pra não formar loop de dependência
+  CronAUX := 0;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from cronometragem where idProduto =:idProd and idOperacao =:idOP';
+  DModule.qAux.ParamByName('idProd').Value := ClientDataSet1idProduto.AsInteger;
+  DModule.qAux.ParamByName('idOP').Value := strtoint(edit2.Text);
+  DModule.qAux.open;
+  if not(DModule.qAux.IsEmpty)then
+      CronAUX := DModule.qAux.FieldByName('idCronometragem').AsInteger;
+  if(CronAUX <> 0)then
   begin
-    if not DataSource2.DataSet.Active then
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from dependencia where idcronometragem =:idCr and idCronometragemDependencia =:idDep';
+  DModule.qAux.ParamByName('idCr').Value := CronAUX;
+  DModule.qAux.ParamByName('idDep').Value := ClientDataSet3idcronometragem.AsInteger;
+  DModule.qAux.open;
+  end;
+
+  //id cronometragem e id dependencia não podem ser iguais
+    //Não pode haver loop de dependencia. Ex: A depende de B e B depende de A;
+    if ((ClientDataSet3idOperacao.AsInteger <> strtoint(edit2.Text)))  and (DModule.qAux.IsEmpty) then
+    begin
+      if trim(EditBeleza2.Text) <> '' then
+      begin
+        if not DataSource2.DataSet.Active then
+              DataSource2.DataSet.Open;
+
+        if(ClientDataSet2.Locate('idCronometragemDependencia',CronAUX,[]) = false)then
+        begin
+          {Modo de inserção}
+          DataSource2.DataSet.Append;
+
+          {Atribuição dos dados}
+          //
+          DModule.qAux.Close;
+          DModule.qAux.SQL.Text := 'select * from cronometragem where idproduto =:idProd and idOperacao =:idOp';
+          DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
+          DModule.qAux.ParamByName('idOp').AsInteger:= StrToInt(Edit2.Text);
+          DModule.qAux.Open;
+          DModule.qAux.first;
+
+          ClientDataSet2idCronometragem.Value := ClientDataSet3idcronometragem.AsInteger;
+          ClientDataSet2idCronometragemDependencia.Value := DModule.qAux.FieldByName('idCronometragem').AsInteger;
+
+          {Salva}
+          DataSource2.DataSet.Post;
+
+          {Atualiza DBGRID Dependencia}
+          FDQuery2.ParamByName('idOp').Value:=(ClientDataSet3idOperacao.AsInteger);
+          FDQuery2.ParamByName('idProd').Value:=(ClientDataSet1idProduto.AsInteger);
+          DataSource2.DataSet.Close;
           DataSource2.DataSet.Open;
 
-    if(ClientDataSet2.Locate('idCronometragemDependencia',Edit2.Text,[]) = false)then
-    begin
-      {Modo de inserção}
-      DataSource2.DataSet.Append;
+          Edit2.Text :='';
+        end else
+          ShowMessage('Operação já adicionada');
+      end else
+        ShowMessage('Selecione uma Operação.');
 
-      {Atribuição dos dados}
-      //
-      DModule.qAux.Close;
-      DModule.qAux.SQL.Text := 'select * from cronometragem where idproduto =:idProd and idOperacao =:idOp';
-      DModule.qAux.ParamByName('idProd').AsInteger:= (ClientDataSet1idProduto.AsInteger);
-      DModule.qAux.ParamByName('idOp').AsInteger:= StrToInt(Edit2.Text);
-      DModule.qAux.Open;
-      DModule.qAux.first;
-
-      ClientDataSet2idCronometragem.Value := ClientDataSet3idcronometragem.AsInteger;
-      ClientDataSet2idCronometragemDependencia.Value := DModule.qAux.FieldByName('idCronometragem').AsInteger;
-
-      {Salva}
-      DataSource2.DataSet.Post;
-
-      {Atualiza DBGRID Dependencia}
-      FDQuery2.ParamByName('idOp').Value:=(ClientDataSet3idOperacao.AsInteger);
-      FDQuery2.ParamByName('idProd').Value:=(ClientDataSet1idProduto.AsInteger);
-      DataSource2.DataSet.Close;
-      DataSource2.DataSet.Open;
-
-      Edit2.Text :='';
     end else
-      ShowMessage('Operação já adicionada');
-  end else
-    ShowMessage('Selecione uma Operação.');
+      ShowMessage('Depedência não permitida');
 
 end;
 
