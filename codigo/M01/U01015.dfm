@@ -44,7 +44,7 @@ object F01015: TF01015
       OnDblClick = FileListBox1DblClick
     end
     object ListView1: TListView
-      Left = 159
+      Left = 191
       Top = 16
       Width = 537
       Height = 151
@@ -53,16 +53,31 @@ object F01015: TF01015
           Caption = 'idOPERA'#199#195'O'
         end
         item
+          Caption = 'Opera'#231#227'o'
+        end
+        item
           Caption = 'idOPERADOR'
+        end
+        item
+          Caption = 'Operador'
         end
         item
           Caption = 'idCRONOMETRISTA'
         end
         item
+          Caption = 'Cronometrista'
+        end
+        item
           Caption = 'idTecido'
         end
         item
+          Caption = 'Tecido'
+        end
+        item
           Caption = 'idRecurso'
+        end
+        item
+          Caption = 'Recurso'
         end
         item
           Caption = 'DATA'
