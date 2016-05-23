@@ -228,7 +228,7 @@ begin
                     LI.SubItems.Add('Operação Desconhecida');
 
                   //Operador
-                  LI.SubItems.Add((jSubObj.GetValue('operador').Value));
+                  //LI.SubItems.Add((jSubObj.GetValue('operador').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select nome from operador where idOperador =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('operador').Value));
@@ -240,7 +240,7 @@ begin
                     LI.SubItems.Add('Operador Desconhecido');
 
                   //Cronometrista
-                  LI.SubItems.Add((jSubObj.GetValue('cronometrista').Value));
+                  //LI.SubItems.Add((jSubObj.GetValue('cronometrista').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select nome from cronometrista where idCronometrista =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('cronometrista').Value));
@@ -252,7 +252,7 @@ begin
                     LI.SubItems.Add('Cronometrista Desconhecido');
 
                   //Tecido
-                  LI.SubItems.Add(jSubObj.GetValue('tecido').Value);
+                  //LI.SubItems.Add(jSubObj.GetValue('tecido').Value);
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select descricao from tecido where idTecido =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('tecido').Value));
@@ -264,7 +264,7 @@ begin
                     LI.SubItems.Add('Tecido Desconhecido');
 
                   //Recurso
-                  LI.SubItems.Add((jSubObj.GetValue('recurso').Value));
+                  //LI.SubItems.Add((jSubObj.GetValue('recurso').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select descricao from recurso where idRecurso =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('recurso').Value));

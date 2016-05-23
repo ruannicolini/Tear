@@ -35,62 +35,69 @@ object F01015: TF01015
     object FileListBox1: TFileListBox
       Left = 8
       Top = 16
-      Width = 145
+      Width = 161
       Height = 151
-      Color = 15854564
+      Align = alCustom
+      Anchors = [akLeft, akTop, akBottom]
+      Color = 16768991
       ItemHeight = 13
       Mask = '*.json'
       TabOrder = 1
       OnDblClick = FileListBox1DblClick
     end
     object ListView1: TListView
-      Left = 191
+      Left = 183
       Top = 16
-      Width = 537
+      Width = 507
       Height = 151
+      Align = alCustom
+      Anchors = [akLeft, akTop, akRight, akBottom]
       Columns = <
         item
-          Caption = 'idOPERA'#199#195'O'
+          Caption = 'ID'
+          Width = 100
         end
         item
+          Alignment = taCenter
           Caption = 'Opera'#231#227'o'
+          Width = 200
         end
         item
-          Caption = 'idOPERADOR'
-        end
-        item
+          Alignment = taCenter
           Caption = 'Operador'
+          Width = 200
         end
         item
-          Caption = 'idCRONOMETRISTA'
-        end
-        item
+          Alignment = taCenter
           Caption = 'Cronometrista'
+          Width = 200
         end
         item
-          Caption = 'idTecido'
-        end
-        item
+          Alignment = taCenter
           Caption = 'Tecido'
+          Width = 150
         end
         item
-          Caption = 'idRecurso'
-        end
-        item
+          Alignment = taCenter
           Caption = 'Recurso'
+          Width = 200
         end
         item
+          Alignment = taCenter
           Caption = 'DATA'
+          Width = 100
         end>
       SortType = stText
       TabOrder = 2
       ViewStyle = vsReport
     end
     object BitBtn1: TBitBtn
-      Left = 621
+      Left = 615
       Top = 173
       Width = 75
       Height = 25
+      Align = alCustom
+      Anchors = [akRight, akBottom]
       Caption = 'ADD'
       TabOrder = 3
       OnClick = BitBtn1Click
