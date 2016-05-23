@@ -193,11 +193,12 @@ begin
       Rewrite(arq);
       Write( arq,arqCompleto.ToString);
       CloseFile(arq);
+      ShowMessage('Arquivo Salvo com Sucesso.');
     end;
     //showmessage(arqCompleto.ToString);
     arqCompleto.FreeInstance;
 
-    ShowMessage('Arquivo Salvo com Sucesso.');
+
   end;
 
 end;

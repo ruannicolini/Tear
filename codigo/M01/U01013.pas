@@ -125,7 +125,6 @@ type
     CDS_Batidautilizar: TBooleanField;
     CDS_BatidaidCronometragem: TIntegerField;
     DBEditBeleza1: TDBEditBeleza;
-    BImportar: TSpeedButton;
     FDQuery1operacao: TStringField;
     ClientDataSet1operacao: TStringField;
     FDQuery1produto: TStringField;
@@ -152,7 +151,6 @@ type
     chkTempoIdeal: TCheckBox;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure CDS_RecursoAfterCancel(DataSet: TDataSet);
     procedure CDS_RecursoAfterDelete(DataSet: TDataSet);
@@ -274,7 +272,6 @@ begin
   btnINICIAR.Caption := 'INICIAR';
   btnLap.Caption := 'LAP';
   btnLap.Enabled := false;
-  BImportar.Enabled := false;
   BReutilizar.Enabled := true;
 
   DBEdit1.Color := clWindow;
@@ -297,7 +294,6 @@ end;
 procedure TF01013.BEditarClick(Sender: TObject);
 begin
   inherited;
-  BImportar.Enabled := false;
   BReutilizar.Enabled := false;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit7.Color := CorCamposOnlyRead();
@@ -345,7 +341,6 @@ begin
   edit2.Text := formatdatetime('hh:nn:ss.zzz',  0);
   CDS_Batida.Close;
   BReutilizar.Enabled := false;
-  BImportar.Enabled := true;
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit7.Color := CorCamposOnlyRead();
@@ -496,7 +491,6 @@ begin
                                 btnINICIAR.Caption := 'NOVO';
                                 btnLap.Caption := 'LAP';
                                 btnLap.Enabled := false;
-                                BImportar.Enabled := false;
                                 BReutilizar.Enabled := true;
 
                                 ShowMessage('teste 2');
@@ -1012,13 +1006,6 @@ begin
   inherited;
   status := false;
   self.DouBleBuffered := True; //evitar o flick do relógio.
-end;
-
-procedure TF01013.FormShow(Sender: TObject);
-begin
-  inherited;
-  //BPesquisarClick(Sender);
-  BImportar.Enabled := false;
 end;
 
 procedure TF01013.ClientDataSet1num_pecasChange(Sender: TField);

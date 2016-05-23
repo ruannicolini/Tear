@@ -113,6 +113,7 @@ object F01014: TF01014
       Align = alCustom
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
+      Visible = False
     end
   end
 end
