@@ -357,7 +357,15 @@ end;
 procedure TF01013.BitBtn1Click(Sender: TObject);
 begin
   inherited;
-  if trim(EditBeleza1.Text) <> '' then
+
+  if(DS_Recurso.DataSet.RecordCount > 0)then
+  begin
+    ShowMessage('Não é possível dicionar novo recurso'+ #13+
+                'Para efetuar o balanceamento de linha' +#13+
+                'será considerado apenas 1 recurso.');
+  end else
+  begin
+    if trim(EditBeleza1.Text) <> '' then
     begin
       {Coloca em Modo de Edição}
       if not DS_Recurso.DataSet.Active then
@@ -381,7 +389,7 @@ begin
 
     end else
        showmessage('Preencha o Campo');
-
+  end;
 end;
 
 procedure TF01013.BitBtn2Click(Sender: TObject);
@@ -485,7 +493,7 @@ begin
                                 //
 
                                 inherited;
-                                ShowMessage('teste 1');
+                                //ShowMessage('teste 1');
                                 crono.Enabled := false;
                                 status := false;
                                 btnINICIAR.Caption := 'NOVO';
@@ -493,7 +501,7 @@ begin
                                 btnLap.Enabled := false;
                                 BReutilizar.Enabled := true;
 
-                                ShowMessage('teste 2');
+                                //ShowMessage('teste 2');
                                 DBEdit1.Color := clWindow;
                                 DBEdit7.Color := $00EFEFEF;
                                 DBEdit8.Color := $00EFEFEF;
@@ -502,10 +510,10 @@ begin
                                 DBEdit11.Color := $00EFEFEF;
                                 Edit6.Color := clWindow;
 
-                                ShowMessage('teste 3');
+                                //ShowMessage('teste 3');
                                 DBEditBeleza1.Enabled := true;
                                 DBEdit7.Enabled := true;
-                                ShowMessage('teste 4');
+                                //ShowMessage('teste 4');
                             end else
                                  showmessage('O Registro não pode ser finalizado. Nenhum Recurso adicionado.');
                         end else

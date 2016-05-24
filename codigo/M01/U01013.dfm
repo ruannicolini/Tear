@@ -21,8 +21,6 @@ inherited F01013: TF01013
       inherited grDados: TGroupBox
         Width = 1182
         Height = 587
-        ExplicitLeft = -16
-        ExplicitTop = 48
         ExplicitWidth = 1182
         ExplicitHeight = 587
         object Label1: TLabel
@@ -1124,8 +1122,6 @@ inherited F01013: TF01013
   end
   inherited Panel2: TPanel
     Width = 1190
-    ExplicitLeft = -8
-    ExplicitTop = 8
     ExplicitWidth = 1190
     inherited BSalvar: TSpeedButton
       Left = 328
@@ -1421,7 +1417,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00F80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00000210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

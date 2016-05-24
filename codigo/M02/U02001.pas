@@ -162,6 +162,24 @@ begin
   DBEdit3.Color := $00EFEFEF;
   DBEdit4.Enabled := true;
   DBEditBeleza1.Enabled := true;
+
+  //Deleta
+  if DS.DataSet.State=dsInsert then
+  begin
+    DModule.qAux.Close;
+    DModule.qAux.SQL.Text := 'select * from movimentacao m left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase WHERE ohf.idordem =:id';
+    DModule.qAux.ParamByName('id').value := ClientDataSet1idOrdem.AsInteger;
+    DModule.qAux.open;
+
+    if (DModule.qAux.IsEmpty)then
+    begin
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Text := 'DELETE FROM ordem_has_fase WHERE idOrdem =:idOr';
+        DModule.qAux.ParamByName('idOr').Value := ClientDataSet1idOrdem.AsInteger;
+        DModule.qAux.ExecSQL;
+    end else
+      ShowMessage('Fases já possuem movimentações. Não é possivel cancelar ordem');
+  end;
 end;
 
 procedure TF02001.BEditarClick(Sender: TObject);
