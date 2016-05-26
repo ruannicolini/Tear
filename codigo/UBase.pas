@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Datasnap.Provider, Data.DB, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids,
+  Datasnap.Provider, Data.DB, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids, iniFiles,
   DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons, Vcl.Imaging.pngimage;
 
 type
@@ -76,10 +76,12 @@ type
   public
     { Public declarations }
     function CorCamposOnlyRead():TColor;
+    function validacao():Boolean;
   end;
 
 var
   FBase: TFBase;
+  adicionar, editar, consultar, excluir : boolean;
 
 implementation
 
@@ -191,6 +193,8 @@ begin
   ArredondarComponente(BtnLimparFiltros, 60);
   BSalvar.Enabled := false;
   BCancelar.Enabled := false;
+
+  validacao();
 end;
 
 procedure TFBase.BLastClick(Sender: TObject);
@@ -310,6 +314,49 @@ begin
   BEditar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
 
   BPesquisar.Enabled := e=2;
+
+end;
+
+function TFBase.validacao: Boolean;
+var
+iduser : string;
+idTipoUsuario, idInterface : integer;
+ArqIni: TIniFile;
+nomeInterface : string;
+begin
+  //
+  ArqIni := TIniFile.Create( ExtractFilePath(Application.ExeName) + '\user.ini' );
+  try
+    iduser := ArqIni.ReadString('usuario', 'iduser', iduser);
+
+    //Obtem id tipo de usuário
+    idTipoUsuario := 0;
+    Dmodule.qAux.close;
+    Dmodule.qAux.SQL.Text := 'select * from usuario where idusuario =:idU';
+    Dmodule.qAux.ParamByName('idU').Value := strtoint(idUser);
+    Dmodule.qAux.open;
+    idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
+
+
+    //Obtem id interface
+    Dmodule.qAux.close;
+    Dmodule.qAux.SQL.Text := 'select idinterface from interface where tela =:idT';
+    nomeInterface := self.Name;
+    Delete(nomeInterface,1,1);  //Tira o F do nome da interface
+    ShowMessage('Interface: ' + nomeInterface);
+    Dmodule.qAux.ParamByName('idT').Value := nomeInterface;
+    Dmodule.qAux.open;
+    idInterface := Dmodule.qAux.FieldByName('idinterface').AsInteger;
+
+    //Pesquisa as permissões
+
+
+
+
+  finally
+    ArqIni.Free;
+  end;
+
 
 end;
 

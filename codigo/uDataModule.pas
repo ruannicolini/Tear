@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, FireDAC.Stan.Param, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, FireDAC.Comp.UI, Dialogs;
+  FireDAC.Comp.Client, FireDAC.Comp.UI, Dialogs, Datasnap.Provider,
+  Datasnap.DBClient;
 
 type
   TDModule = class(TDataModule)

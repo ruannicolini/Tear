@@ -173,8 +173,12 @@ end;
 
 procedure TFPrincipal.FormShow(Sender: TObject);
 begin
+  // Configurações
   NomeForm := 'TEAR - Sistema de Acompanhamento e Balancameanto de Produção';
   MontarMenu(PageScroller);
+
+
+
 end;
 
 //Função de movimento do Botão
