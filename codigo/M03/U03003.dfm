@@ -1,7 +1,238 @@
 inherited F03003: TF03003
   Caption = 'F03003'
+  ExplicitWidth = 834
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
+  inherited PageControl: TPageControl
+    inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 810
+      ExplicitHeight = 455
+      inherited grDados: TGroupBox
+        object Label1: TLabel
+          Left = 48
+          Top = 32
+          Width = 22
+          Height = 13
+          Caption = 'COD'
+          FocusControl = DBEdit1
+        end
+        object Label2: TLabel
+          Left = 48
+          Top = 72
+          Width = 29
+          Height = 13
+          Caption = 'NOME'
+          FocusControl = DBEdit2
+        end
+        object Label3: TLabel
+          Left = 48
+          Top = 112
+          Width = 31
+          Height = 13
+          Caption = 'LOGIN'
+        end
+        object Label4: TLabel
+          Left = 239
+          Top = 112
+          Width = 33
+          Height = 13
+          Caption = 'SENHA'
+          FocusControl = DBEdit4
+        end
+        object Label5: TLabel
+          Left = 48
+          Top = 155
+          Width = 89
+          Height = 13
+          Caption = 'TIPO DE USU'#193'RIO'
+          FocusControl = DBEdit5
+        end
+        object DBEdit1: TDBEdit
+          Left = 48
+          Top = 48
+          Width = 89
+          Height = 21
+          DataField = 'idusuario'
+          DataSource = DS
+          TabOrder = 0
+        end
+        object DBEdit2: TDBEdit
+          Left = 48
+          Top = 88
+          Width = 376
+          Height = 21
+          DataField = 'nome'
+          DataSource = DS
+          TabOrder = 1
+        end
+        object DBEdit4: TDBEdit
+          Left = 239
+          Top = 128
+          Width = 185
+          Height = 21
+          DataField = 'senha'
+          DataSource = DS
+          PasswordChar = '*'
+          TabOrder = 2
+        end
+        object DBEdit5: TDBEdit
+          Left = 48
+          Top = 171
+          Width = 33
+          Height = 21
+          DataField = 'idtipoUsuario'
+          DataSource = DS
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object DBEditBeleza1: TDBEditBeleza
+          Left = 80
+          Top = 171
+          Width = 344
+          Height = 21
+          Color = 14737361
+          DataField = 'tipo'
+          DataSource = DS
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Ativar_Pesquisa = True
+          mostrar_Botao = True
+          sql.Strings = (
+            
+              'select idtipo_usuario, descricao from tipo_usuario where descric' +
+              'ao like :x')
+          database = 'balay'
+          campo = 'descricao'
+          Sempre_Mostrar_Janela = False
+          Outro_Edit = DBEdit5
+          campo_outro_edit = 'idTipo_usuario'
+          CorBorda = clGray
+          NovoLayout = False
+        end
+        object DBEdit3: TDBEdit
+          Left = 48
+          Top = 128
+          Width = 185
+          Height = 21
+          DataField = 'login'
+          DataSource = DS
+          TabOrder = 5
+        end
+      end
+    end
+    inherited TbFiltros: TTabSheet
+      inherited DBGridBeleza1: TDBGridBeleza
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idusuario'
+            Title.Caption = 'COD'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'nome'
+            Title.Caption = 'NOME'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'tipo'
+            Title.Caption = 'OCUPA'#199#195'O'
+            Visible = True
+          end
+          item
+            Expanded = False
+            Visible = True
+          end
+          item
+            Expanded = False
+            Visible = True
+          end
+          item
+            Expanded = False
+            Visible = True
+          end>
+      end
+    end
+  end
+  inherited ClientDataSet1: TClientDataSet
+    object ClientDataSet1idusuario: TIntegerField
+      FieldName = 'idusuario'
+      Required = True
+    end
+    object ClientDataSet1nome: TStringField
+      FieldName = 'nome'
+      Size = 45
+    end
+    object ClientDataSet1senha: TStringField
+      FieldName = 'senha'
+      Size = 45
+    end
+    object ClientDataSet1idtipoUsuario: TIntegerField
+      FieldName = 'idtipoUsuario'
+    end
+    object ClientDataSet1tipo: TStringField
+      FieldName = 'tipo'
+      Size = 45
+    end
+    object ClientDataSet1login: TStringField
+      FieldName = 'login'
+      Size = 45
+    end
+  end
+  inherited FDQuery1: TFDQuery
+    SQL.Strings = (
+      'select u.*, tu.descricao as tipo from usuario u '
+      
+        'left outer join tipo_usuario  tu on tu.idTipo_usuario = u.idtipo' +
+        'usuario')
+    object FDQuery1idusuario: TIntegerField
+      FieldName = 'idusuario'
+      Origin = 'idusuario'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery1nome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 45
+    end
+    object FDQuery1senha: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'senha'
+      Origin = 'senha'
+      Size = 45
+    end
+    object FDQuery1idtipoUsuario: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idtipoUsuario'
+      Origin = 'idtipoUsuario'
+    end
+    object FDQuery1tipo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipo'
+      Origin = 'descricao'
+      ProviderFlags = []
+      Size = 45
+    end
+    object FDQuery1login: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'login'
+      Origin = 'login'
+      Size = 45
+    end
+  end
   inherited ImageListBase: TImageList
     Bitmap = {
       494C01010E002C001C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
