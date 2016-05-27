@@ -40,6 +40,7 @@ type
     function fncAlturaBarraTarefas: Integer;
   private
     { Private declarations }
+    function validacaoModulo(idModulo : integer):Boolean;
   public
     Button : TButton;
     Lab : TLabel;
@@ -178,11 +179,6 @@ idTipoUsuario, idInterface : integer;
 ArqIni: TIniFile;
 nomeInterface : string;
 begin
-  // Configurações
-  NomeForm := 'TEAR - Sistema de Acompanhamento e Balancameanto de Produção';
-  MontarMenu(PageScroller);
-
-
   //Definição de acesso do usuário
   ArqIni := TIniFile.Create( ExtractFilePath(Application.ExeName) + '\user.ini' );
   try
@@ -222,7 +218,7 @@ begin
 
     DModule.qAcesso.Close;
     DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
-    DModule.qAcesso.ParamByName('idInterf').Value := idInterface;
+    //DModule.qAcesso.ParamByName('idInterf').Value := idInterface;
     DModule.qAcesso.Open();
     DModule.cdsAcesso.Close;
     DModule.cdsAcesso.Open;
@@ -232,6 +228,9 @@ begin
     ArqIni.Free;
   end;
 
+  // Configurações
+  NomeForm := 'TEAR - Sistema de Acompanhamento e Balancameanto de Produção';
+  MontarMenu(PageScroller);
 
 end;
 
@@ -255,6 +254,39 @@ begin
   TButton(sender).Left := TButton(sender).Left + 4;
   TButton(sender).Top := TButton(sender).Top + 4;
 }
+end;
+
+function TFPrincipal.validacaoModulo(idModulo: integer): Boolean;
+var
+resultado : boolean;
+begin
+  //verifica se tem alguma tela do modulo habilitado
+  resultado := false;
+
+  //ShowMessage('Entrou');
+  DModule.qAcesso.Close;
+  DModule.qAcesso.ParamByName('idTU').Value := 5;
+  //DModule.qAcesso.ParamByName('idInterf').Value := 17;
+  DModule.qAcesso.Open();
+  DModule.cdsAcesso.close;
+  DModule.cdsAcesso.open;
+  DModule.cdsAcesso.First;
+
+  while not dModule.cdsAcesso.Eof do
+  begin
+    {ShowMessage(
+    'Modulo: ' + Dmodule.cdsAcessomodulo.AsString + #13 +
+    'idModulo: ' + inttostr(idmodulo)
+    );}
+    if(Dmodule.cdsAcessomodulo.AsInteger = idModulo)then
+    begin
+      //ShowMessage('é igual!');
+      resultado := true;
+
+    end;
+    DModule.cdsAcesso.Next;
+  end;
+  Result := resultado;
 end;
 
 procedure TFPrincipal.MouseClickComponente(Sender: TObject);
@@ -355,32 +387,39 @@ begin
   DModule.FModulo.First;
   while not dModule.FModulo.Eof do
   begin
-    Button := TButton.Create(self);
-    Button.Parent := Panel;
-    Button.Images := ImageList64;
-    Button.Height := 70;
-    Button.Width := 70;
-    Button.Top := 10;
-    Button.ImageAlignment := iaCenter;
-    Button.ImageIndex := DModule.FModulo.Fields[2].AsInteger;
-    Button.Tag := DModule.FModulo.Fields[0].AsInteger;
-    Button.OnMouseEnter := MouseEnterComponente;
-    Button.OnMouseLeave := MouseLeaveComponente;
-    Button.OnClick := MouseClickComponente;
+    if(validacaoModulo(DModule.FModulo.FieldByName('idModulo').AsInteger) = true)then
+    begin
+        Button := TButton.Create(self);
+        Button.Parent := Panel;
+        Button.Images := ImageList64;
+        Button.Height := 70;
+        Button.Width := 70;
+        Button.Top := 10;
+        Button.ImageAlignment := iaCenter;
+        Button.ImageIndex := DModule.FModulo.Fields[2].AsInteger;
+        Button.Tag := DModule.FModulo.Fields[0].AsInteger;
+        Button.OnMouseEnter := MouseEnterComponente;
+        Button.OnMouseLeave := MouseLeaveComponente;
+        Button.OnClick := MouseClickComponente;
 
-    Button.Left := Aux + 20;
-    Aux := Aux + 90;
+        Button.Left := Aux + 20;
+        Aux := Aux + 90;
 
-    ArredondarComponente(Button,20);
+        ArredondarComponente(Button,20);
 
-    Lab := TLabel.Create(Panel);
-    Lab.Parent := Panel;
-    Lab.Font.Name := 'Calibri';
-    Lab.Caption := DModule.FModulo.Fields[1].AsString;
-    Lab.Top := Button.Height + 13;
-    Lab.Width := Button.Width + 10;
-    Lab.Left := Button.Left - 5;
-    Lab.Alignment := taCenter;
+        Lab := TLabel.Create(Panel);
+        Lab.Parent := Panel;
+        Lab.Font.Name := 'Calibri';
+        Lab.Caption := DModule.FModulo.Fields[1].AsString;
+        Lab.Top := Button.Height + 13;
+        Lab.Width := Button.Width + 10;
+        Lab.Left := Button.Left - 5;
+        Lab.Alignment := taCenter;
+
+
+    end;
+
+
 
     DModule.FModulo.Next;
   end;

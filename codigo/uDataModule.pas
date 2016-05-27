@@ -33,6 +33,10 @@ type
     cdsAcessoconsultar: TBooleanField;
     cdsAcessoeditar: TBooleanField;
     cdsAcessoexcluir: TBooleanField;
+    qAcessointerface: TIntegerField;
+    qAcessomodulo: TIntegerField;
+    cdsAcessointerface: TIntegerField;
+    cdsAcessomodulo: TIntegerField;
     procedure FDConnectionBeforeConnect(Sender: TObject);
     procedure qAuxBeforeExecute(DataSet: TFDDataSet);
   private

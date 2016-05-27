@@ -44,21 +44,19 @@ object DModule: TDModule
     Connection = FDConnection
     SQL.Strings = (
       
-        'select * from seguranca where idinterface =:idInterf  and idTipo' +
-        '_usuario =:idTU')
+        'select s.*, i.idinterface as interface, m.idmodulo as modulo fro' +
+        'm seguranca s '#10
+      'left outer join interface i on i.idinterface = s.idinterface'#10' '
+      'left outer join modulo m on m.idmodulo = i.idmodulo'
+      'where s.idTipo_usuario =:idTU')
     Left = 112
     Top = 280
     ParamData = <
       item
-        Name = 'IDINTERF'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = Null
-      end
-      item
         Name = 'IDTU'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object qAcessoidTipo_Usuario: TIntegerField
       AutoGenerateValue = arDefault
@@ -92,6 +90,20 @@ object DModule: TDModule
       FieldName = 'excluir'
       Origin = 'excluir'
     end
+    object qAcessointerface: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'interface'
+      Origin = 'idinterface'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qAcessomodulo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'modulo'
+      Origin = 'idmodulo'
+      ProviderFlags = []
+      ReadOnly = True
+    end
   end
   object pAcesso: TDataSetProvider
     DataSet = qAcesso
@@ -121,6 +133,14 @@ object DModule: TDModule
     end
     object cdsAcessoexcluir: TBooleanField
       FieldName = 'excluir'
+    end
+    object cdsAcessointerface: TIntegerField
+      FieldName = 'interface'
+      ReadOnly = True
+    end
+    object cdsAcessomodulo: TIntegerField
+      FieldName = 'modulo'
+      ReadOnly = True
     end
   end
 end
