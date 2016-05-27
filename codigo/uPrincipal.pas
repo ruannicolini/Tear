@@ -41,10 +41,12 @@ type
   private
     { Private declarations }
     function validacaoModulo(idModulo : integer):Boolean;
+    function validacaoInterface(idInterface : integer):Boolean;
   public
     Button : TButton;
     Lab : TLabel;
     NomeForm : String;
+    idTipoUsuario : integer;
   end;
 
 var
@@ -175,7 +177,7 @@ end;
 procedure TFPrincipal.FormShow(Sender: TObject);
 var
 iduser : string;
-idTipoUsuario, idInterface : integer;
+idInterface : integer;
 ArqIni: TIniFile;
 nomeInterface : string;
 begin
@@ -193,7 +195,7 @@ begin
     idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
 
     //Obtem id interface
-    idInterface := 0;
+    {idInterface := 0;
     Dmodule.qAux.close;
     Dmodule.qAux.SQL.Text := 'select idinterface from interface where tela =:idT';
     nomeInterface := self.Name;
@@ -201,6 +203,7 @@ begin
     Dmodule.qAux.ParamByName('idT').Value := nomeInterface;
     Dmodule.qAux.open;
     idInterface := Dmodule.qAux.FieldByName('idinterface').AsInteger;
+    }
 
     //Pesquisa as permissões
     {Dmodule.qAux.close;
@@ -256,6 +259,39 @@ begin
 }
 end;
 
+function TFPrincipal.validacaoInterface(idInterface: integer): Boolean;
+var
+resultado : boolean;
+begin
+  //verifica se tem alguma tela do modulo habilitado
+  resultado := false;
+
+  //ShowMessage('Entrou');
+  DModule.qAcesso.Close;
+  DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
+  DModule.qAcesso.Open();
+  DModule.cdsAcesso.close;
+  DModule.cdsAcesso.open;
+  DModule.cdsAcesso.First;
+
+  while not dModule.cdsAcesso.Eof do
+  begin
+    {ShowMessage(
+    'Modulo: ' + Dmodule.cdsAcessomodulo.AsString + #13 +
+    'idModulo: ' + inttostr(idmodulo)
+    );}
+    if(Dmodule.cdsAcessointerface.AsInteger = idInterface)then
+    begin
+      //ShowMessage('é igual!');
+      resultado := true;
+
+    end;
+    DModule.cdsAcesso.Next;
+  end;
+  Result := resultado;
+end;
+
+
 function TFPrincipal.validacaoModulo(idModulo: integer): Boolean;
 var
 resultado : boolean;
@@ -265,8 +301,7 @@ begin
 
   //ShowMessage('Entrou');
   DModule.qAcesso.Close;
-  DModule.qAcesso.ParamByName('idTU').Value := 5;
-  //DModule.qAcesso.ParamByName('idInterf').Value := 17;
+  DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
   DModule.qAcesso.Open();
   DModule.cdsAcesso.close;
   DModule.cdsAcesso.open;
@@ -334,32 +369,35 @@ begin
   DModule.qAux.First;
   while not DModule.qAux.Eof do
   begin
-    Button := TButton.Create(Panel);
-    Button.Parent := Panel;
-    Button.Images := ImageList32; //ImageList64;
-    Button.Height := 70;
-    Button.Width := 70;
-    Button.Top := 10;
-    Button.ImageAlignment := iaCenter;
-    Button.ImageIndex := DModule.qAux.Fields[4].AsInteger;
-    Button.Tag := DModule.qAux.Fields[0].AsInteger;
-    Button.OnMouseEnter := MouseEnterComponente;
-    Button.OnMouseLeave := MouseLeaveComponente;
-    Button.OnClick := AbrirTela;
+    if(validacaoInterface(DModule.qAux.FieldByName('idInterface').AsInteger) = true)then
+    begin
+      Button := TButton.Create(Panel);
+      Button.Parent := Panel;
+      Button.Images := ImageList32; //ImageList64;
+      Button.Height := 70;
+      Button.Width := 70;
+      Button.Top := 10;
+      Button.ImageAlignment := iaCenter;
+      Button.ImageIndex := DModule.qAux.Fields[4].AsInteger;
+      Button.Tag := DModule.qAux.Fields[0].AsInteger;
+      Button.OnMouseEnter := MouseEnterComponente;
+      Button.OnMouseLeave := MouseLeaveComponente;
+      Button.OnClick := AbrirTela;
 
-    Button.Left := Aux + 20;
-    Aux := Aux + 90;
+      Button.Left := Aux + 20;
+      Aux := Aux + 90;
 
-    ArredondarComponente(Button,20);
+      ArredondarComponente(Button,20);
 
-    Lab := TLabel.Create(Panel);
-    Lab.Parent := Panel;
-    Lab.Font.Name := 'Calibri';
-    Lab.Caption := DModule.qAux.Fields[3].AsString;
-    Lab.Top := Button.Height + 13;
-    Lab.Width := Button.Width + 10;
-    Lab.Left := Button.Left - 5;
-    Lab.Alignment := taCenter;
+      Lab := TLabel.Create(Panel);
+      Lab.Parent := Panel;
+      Lab.Font.Name := 'Calibri';
+      Lab.Caption := DModule.qAux.Fields[3].AsString;
+      Lab.Top := Button.Height + 13;
+      Lab.Width := Button.Width + 10;
+      Lab.Left := Button.Left - 5;
+      Lab.Alignment := taCenter;
+    end;
     DModule.qAux.Next;
   end;
 end;
