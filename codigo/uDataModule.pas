@@ -18,6 +18,21 @@ type
     FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     FDConnection: TFDConnection;
+    qAcesso: TFDQuery;
+    pAcesso: TDataSetProvider;
+    cdsAcesso: TClientDataSet;
+    qAcessoidTipo_Usuario: TIntegerField;
+    qAcessoidinterface: TIntegerField;
+    qAcessoadicionar: TBooleanField;
+    qAcessoconsultar: TBooleanField;
+    qAcessoeditar: TBooleanField;
+    qAcessoexcluir: TBooleanField;
+    cdsAcessoidTipo_Usuario: TIntegerField;
+    cdsAcessoidinterface: TIntegerField;
+    cdsAcessoadicionar: TBooleanField;
+    cdsAcessoconsultar: TBooleanField;
+    cdsAcessoeditar: TBooleanField;
+    cdsAcessoexcluir: TBooleanField;
     procedure FDConnectionBeforeConnect(Sender: TObject);
     procedure qAuxBeforeExecute(DataSet: TFDDataSet);
   private

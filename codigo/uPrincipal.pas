@@ -172,11 +172,65 @@ begin
 end;
 
 procedure TFPrincipal.FormShow(Sender: TObject);
+var
+iduser : string;
+idTipoUsuario, idInterface : integer;
+ArqIni: TIniFile;
+nomeInterface : string;
 begin
   // Configurações
   NomeForm := 'TEAR - Sistema de Acompanhamento e Balancameanto de Produção';
   MontarMenu(PageScroller);
 
+
+  //Definição de acesso do usuário
+  ArqIni := TIniFile.Create( ExtractFilePath(Application.ExeName) + '\user.ini' );
+  try
+    iduser := ArqIni.ReadString('usuario', 'iduser', iduser);
+
+    //Obtem id tipo de usuário
+    idTipoUsuario := 0;
+    Dmodule.qAux.close;
+    Dmodule.qAux.SQL.Text := 'select * from usuario where idusuario =:idU';
+    Dmodule.qAux.ParamByName('idU').Value := strtoint(idUser);
+    Dmodule.qAux.open;
+    idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
+
+    //Obtem id interface
+    idInterface := 0;
+    Dmodule.qAux.close;
+    Dmodule.qAux.SQL.Text := 'select idinterface from interface where tela =:idT';
+    nomeInterface := self.Name;
+    Delete(nomeInterface,1,1);  //Tira o F do nome da interface
+    Dmodule.qAux.ParamByName('idT').Value := nomeInterface;
+    Dmodule.qAux.open;
+    idInterface := Dmodule.qAux.FieldByName('idinterface').AsInteger;
+
+    //Pesquisa as permissões
+    {Dmodule.qAux.close;
+    Dmodule.qAux.SQL.Text := 'select * from seguranca where idinterface = ' + inttostr(idInterface)+
+    ' and idTipo_usuario = '+ inttostr(idTipoUsuario);
+    ShowMessage( Dmodule.qAux.SQL.Text);
+    Dmodule.qAux.open;
+
+    ShowMessage('ID Tipo_usuario: ' + Dmodule.qAux.FieldByName('idTipo_usuario').AsString);
+    adicionar := Dmodule.qAux.FieldByName('adicionar').AsBoolean;
+    editar := Dmodule.qAux.FieldByName('editar').AsBoolean;
+    consultar := Dmodule.qAux.FieldByName('consultar').AsBoolean;
+    excluir := Dmodule.qAux.FieldByName('excluir').AsBoolean;
+    }
+
+    DModule.qAcesso.Close;
+    DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
+    DModule.qAcesso.ParamByName('idInterf').Value := idInterface;
+    DModule.qAcesso.Open();
+    DModule.cdsAcesso.Close;
+    DModule.cdsAcesso.Open;
+    DModule.cdsAcesso.First;
+
+  finally
+    ArqIni.Free;
+  end;
 
 
 end;

@@ -339,6 +339,7 @@ begin
 
 
     //Obtem id interface
+    idInterface := 0;
     Dmodule.qAux.close;
     Dmodule.qAux.SQL.Text := 'select idinterface from interface where tela =:idT';
     nomeInterface := self.Name;
@@ -349,9 +350,28 @@ begin
     idInterface := Dmodule.qAux.FieldByName('idinterface').AsInteger;
 
     //Pesquisa as permissões
+    {Dmodule.qAux.close;
+    Dmodule.qAux.SQL.Text := 'select * from seguranca where idinterface = ' + inttostr(idInterface)+
+    ' and idTipo_usuario = '+ inttostr(idTipoUsuario);
+    ShowMessage( Dmodule.qAux.SQL.Text);
+    Dmodule.qAux.open;
 
+    ShowMessage('ID Tipo_usuario: ' + Dmodule.qAux.FieldByName('idTipo_usuario').AsString);
+    adicionar := Dmodule.qAux.FieldByName('adicionar').AsBoolean;
+    editar := Dmodule.qAux.FieldByName('editar').AsBoolean;
+    consultar := Dmodule.qAux.FieldByName('consultar').AsBoolean;
+    excluir := Dmodule.qAux.FieldByName('excluir').AsBoolean;
+    }
 
+    DModule.qAcesso.Close;
+    DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
+    DModule.qAcesso.ParamByName('idInterf').Value := idInterface;
+    DModule.qAcesso.Open();
+    DModule.cdsAcesso.Close;
+    DModule.cdsAcesso.Open;
+    DModule.cdsAcesso.First;
 
+    ShowMessage('ID Tipo_usuario: ' + Dmodule.cdsAcessoidTipo_Usuario.AsString );
 
   finally
     ArqIni.Free;
