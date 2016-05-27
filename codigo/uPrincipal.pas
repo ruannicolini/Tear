@@ -46,7 +46,7 @@ type
     Button : TButton;
     Lab : TLabel;
     NomeForm : String;
-    idTipoUsuario : integer;
+    //idTipoUsuario : integer;
   end;
 
 var
@@ -187,12 +187,12 @@ begin
     iduser := ArqIni.ReadString('usuario', 'iduser', iduser);
 
     //Obtem id tipo de usuário
-    idTipoUsuario := 0;
+    Dmodule.idTipoUsuario := 0;
     Dmodule.qAux.close;
     Dmodule.qAux.SQL.Text := 'select * from usuario where idusuario =:idU';
     Dmodule.qAux.ParamByName('idU').Value := strtoint(idUser);
     Dmodule.qAux.open;
-    idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
+    Dmodule.idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
 
     //Obtem id interface
     {idInterface := 0;
@@ -220,7 +220,11 @@ begin
     }
 
     DModule.qAcesso.Close;
-    DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
+    DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
+    DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
+    DModule.qAcesso.SQL.Add('left outer join modulo m on m.idmodulo = i.idmodulo ');
+    DModule.qAcesso.SQL.Add('where s.idTipo_usuario =:idTU');
+    DModule.qAcesso.ParamByName('idTU').Value := Dmodule.idTipoUsuario;
     //DModule.qAcesso.ParamByName('idInterf').Value := idInterface;
     DModule.qAcesso.Open();
     DModule.cdsAcesso.Close;
@@ -268,7 +272,11 @@ begin
 
   //ShowMessage('Entrou');
   DModule.qAcesso.Close;
-  DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
+  DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
+  DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
+  DModule.qAcesso.SQL.Add('left outer join modulo m on m.idmodulo = i.idmodulo ');
+  DModule.qAcesso.SQL.Add('where s.idTipo_usuario =:idTU');
+  DModule.qAcesso.ParamByName('idTU').Value := Dmodule.idTipoUsuario;
   DModule.qAcesso.Open();
   DModule.cdsAcesso.close;
   DModule.cdsAcesso.open;
@@ -276,15 +284,9 @@ begin
 
   while not dModule.cdsAcesso.Eof do
   begin
-    {ShowMessage(
-    'Modulo: ' + Dmodule.cdsAcessomodulo.AsString + #13 +
-    'idModulo: ' + inttostr(idmodulo)
-    );}
     if(Dmodule.cdsAcessointerface.AsInteger = idInterface)then
     begin
-      //ShowMessage('é igual!');
       resultado := true;
-
     end;
     DModule.cdsAcesso.Next;
   end;
@@ -301,7 +303,11 @@ begin
 
   //ShowMessage('Entrou');
   DModule.qAcesso.Close;
-  DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
+  DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
+  DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
+  DModule.qAcesso.SQL.Add('left outer join modulo m on m.idmodulo = i.idmodulo ');
+  DModule.qAcesso.SQL.Add('where s.idTipo_usuario =:idTU');
+  DModule.qAcesso.ParamByName('idTU').Value := Dmodule.idTipoUsuario;
   DModule.qAcesso.Open();
   DModule.cdsAcesso.close;
   DModule.cdsAcesso.open;
@@ -309,15 +315,9 @@ begin
 
   while not dModule.cdsAcesso.Eof do
   begin
-    {ShowMessage(
-    'Modulo: ' + Dmodule.cdsAcessomodulo.AsString + #13 +
-    'idModulo: ' + inttostr(idmodulo)
-    );}
     if(Dmodule.cdsAcessomodulo.AsInteger = idModulo)then
     begin
-      //ShowMessage('é igual!');
       resultado := true;
-
     end;
     DModule.cdsAcesso.Next;
   end;

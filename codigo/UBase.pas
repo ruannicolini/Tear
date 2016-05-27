@@ -75,13 +75,14 @@ type
     procedure StatusBotoes (e : integer);
   public
     { Public declarations }
+    adicionar, editar, consultar, excluir : boolean;
     function CorCamposOnlyRead():TColor;
     function validacao():Boolean;
   end;
 
 var
   FBase: TFBase;
-  adicionar, editar, consultar, excluir : boolean;
+
 
 implementation
 
@@ -193,21 +194,29 @@ begin
   ArredondarComponente(BtnLimparFiltros, 60);
   BSalvar.Enabled := false;
   BCancelar.Enabled := false;
-
+  //Valida as funções
   validacao();
 end;
 
 procedure TFBase.BLastClick(Sender: TObject);
 begin
+if (consultar = true) then
+begin
 DS.DataSet.Last;
+end;
 end;
 
 procedure TFBase.BNextClick(Sender: TObject);
 begin
+if (consultar = true) then
+begin
 DS.DataSet.Next;
+end;
 end;
 
 procedure TFBase.BEditarClick(Sender: TObject);
+begin
+if(editar = true)then
 begin
 if ds.DataSet.Active then
     begin
@@ -219,9 +228,13 @@ if ds.DataSet.Active then
             ShowMessage('Não Há Registros para Alteração.');
     end;
 
+end else
+  ShowMessage('Permissão Negada');
 end;
 
 procedure TFBase.BExcluirClick(Sender: TObject);
+begin
+if (excluir = true) then
 begin
 if ds.DataSet.Active then
   begin
@@ -235,6 +248,9 @@ if ds.DataSet.Active then
     else
         ShowMessage('Não Há registros');
   end;
+end else
+  ShowMessage('Permissão Negada');
+
 
 end;
 
@@ -245,16 +261,23 @@ end;
 
 procedure TFBase.BFirstClick(Sender: TObject);
 begin
+if (consultar = true) then
+begin
 DS.DataSet.First;
+end;
 end;
 
 procedure TFBase.BInserirClick(Sender: TObject);
+begin
+if(editar=true)then
 begin
   if not ds.DataSet.Active then
         ds.DataSet.Open;
 
     PageControl.ActivePageIndex := 0;
     ds.DataSet.Append;
+end else
+  ShowMessage('Permissão Negada');
 end;
 
 procedure TFBase.BSalvarClick(Sender: TObject);
@@ -282,13 +305,21 @@ end;
 
 procedure TFBase.BPesquisarClick(Sender: TObject);
 begin
+if (consultar = true) then
+begin
   DS.DataSet.Close;
   DS.DataSet.Open;
+end else
+  ShowMessage('Permissão Negada');
+
 end;
 
 procedure TFBase.BPriorClick(Sender: TObject);
 begin
+if (consultar = true) then
+begin
 DS.DataSet.Prior;
+end;
 end;
 
 procedure TFBase.StatusBotoes(e: integer);
@@ -320,23 +351,14 @@ end;
 function TFBase.validacao: Boolean;
 var
 iduser : string;
-idTipoUsuario, idInterface : integer;
-ArqIni: TIniFile;
+idInterface, edit : integer;
 nomeInterface : string;
 begin
   //
-  ArqIni := TIniFile.Create( ExtractFilePath(Application.ExeName) + '\user.ini' );
-  try
-    iduser := ArqIni.ReadString('usuario', 'iduser', iduser);
-
-    //Obtem id tipo de usuário
-    idTipoUsuario := 0;
-    Dmodule.qAux.close;
-    Dmodule.qAux.SQL.Text := 'select * from usuario where idusuario =:idU';
-    Dmodule.qAux.ParamByName('idU').Value := strtoint(idUser);
-    Dmodule.qAux.open;
-    idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
-
+    consultar := false;
+    editar := false;
+    adicionar := false;
+    excluir := false;
 
     //Obtem id interface
     idInterface := 0;
@@ -350,32 +372,43 @@ begin
     idInterface := Dmodule.qAux.FieldByName('idinterface').AsInteger;
 
     //Pesquisa as permissões
-    {Dmodule.qAux.close;
-    Dmodule.qAux.SQL.Text := 'select * from seguranca where idinterface = ' + inttostr(idInterface)+
-    ' and idTipo_usuario = '+ inttostr(idTipoUsuario);
-    ShowMessage( Dmodule.qAux.SQL.Text);
-    Dmodule.qAux.open;
-
-    ShowMessage('ID Tipo_usuario: ' + Dmodule.qAux.FieldByName('idTipo_usuario').AsString);
-    adicionar := Dmodule.qAux.FieldByName('adicionar').AsBoolean;
-    editar := Dmodule.qAux.FieldByName('editar').AsBoolean;
-    consultar := Dmodule.qAux.FieldByName('consultar').AsBoolean;
-    excluir := Dmodule.qAux.FieldByName('excluir').AsBoolean;
-    }
-
     DModule.qAcesso.Close;
-    DModule.qAcesso.ParamByName('idTU').Value := idTipoUsuario;
+    DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
+    DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
+    DModule.qAcesso.SQL.Add('left outer join modulo m on m.idmodulo = i.idmodulo ');
+    DModule.qAcesso.SQL.Add('where s.idTipo_usuario =:idTU and s.idInterface =:idInterf');
+    DModule.qAcesso.ParamByName('idTU').Value := Dmodule.idTipoUsuario;
     DModule.qAcesso.ParamByName('idInterf').Value := idInterface;
     DModule.qAcesso.Open();
     DModule.cdsAcesso.Close;
     DModule.cdsAcesso.Open;
     DModule.cdsAcesso.First;
 
-    ShowMessage('ID Tipo_usuario: ' + Dmodule.cdsAcessoidTipo_Usuario.AsString );
+    //Atribui as permissões
+    if(Dmodule.cdsAcessoadicionar.AsBoolean = true)then
+    begin
+      ShowMessage('OKOK');
+      adicionar := boolean(true);
+    end;
+    editar := Dmodule.cdsAcessoeditar.AsBoolean;
+    consultar := Dmodule.cdsAcessoexcluir.AsBoolean;
+    excluir := Dmodule.cdsAcessoexcluir.AsBoolean;
 
-  finally
-    ArqIni.Free;
-  end;
+    ShowMessage(
+    'Adicionar: ' + Dmodule.cdsAcessoadicionar.AsString + #13 +
+    'Editar: ' + Dmodule.cdsAcessoeditar.AsString + #13 +
+    'Consultar: ' + Dmodule.cdsAcessoconsultar.AsString + #13 +
+    'excluir: ' + Dmodule.cdsAcessoexcluir.AsString
+    );
+
+
+
+    ShowMessage(
+    'Adicionar: ' + BoolToStr(adicionar) + #13 +
+    'Editar: ' + BoolToStr(editar) + #13 +
+    'Consultar: ' + BoolToStr(consultar) + #13 +
+    'excluir: ' + BoolToStr(excluir)
+    );
 
 
 end;
