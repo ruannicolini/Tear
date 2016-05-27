@@ -77,7 +77,7 @@ type
     { Public declarations }
     adicionar, editar, consultar, excluir : boolean;
     function CorCamposOnlyRead():TColor;
-    function validacao():Boolean;
+    function validacao(operacao: integer):Boolean;
   end;
 
 var
@@ -194,62 +194,70 @@ begin
   ArredondarComponente(BtnLimparFiltros, 60);
   BSalvar.Enabled := false;
   BCancelar.Enabled := false;
-  //Valida as funções
-  validacao();
+  
 end;
 
 procedure TFBase.BLastClick(Sender: TObject);
 begin
-if (consultar = true) then
-begin
-DS.DataSet.Last;
-end;
+  if(validacao(2) = true)then
+  begin
+    DS.DataSet.Last;
+  end else
+  begin
+    ShowMessage('Permissão Negada');
+  end;
 end;
 
 procedure TFBase.BNextClick(Sender: TObject);
 begin
-if (consultar = true) then
-begin
-DS.DataSet.Next;
-end;
+  if(validacao(2) = true)then
+  begin
+    DS.DataSet.Next;
+  end else
+  begin
+    ShowMessage('Permissão Negada');
+  end;
 end;
 
 procedure TFBase.BEditarClick(Sender: TObject);
 begin
-if(editar = true)then
-begin
-if ds.DataSet.Active then
+  if(validacao(3) = true)then
     begin
-        if not ds.DataSet.IsEmpty then
-        begin
-            ds.DataSet.Edit;
-            PageControl.ActivePageIndex := 0;
-        end else
-            ShowMessage('Não Há Registros para Alteração.');
+    if ds.DataSet.Active then
+    begin
+          if not ds.DataSet.IsEmpty then
+          begin
+              ds.DataSet.Edit;
+              PageControl.ActivePageIndex := 0;
+          end else
+              ShowMessage('Não Há Registros para Alteração.');
     end;
 
-end else
-  ShowMessage('Permissão Negada');
+  end else
+  begin
+    ShowMessage('Permissão Negada');
+  end;
 end;
 
 procedure TFBase.BExcluirClick(Sender: TObject);
 begin
-if (excluir = true) then
-begin
-if ds.DataSet.Active then
+  if(validacao(4) = true)then
   begin
-    if not ds.DataSet.IsEmpty then
+    if ds.DataSet.Active then
     begin
-        if (Application.MessageBox('Deseja Deletar ', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
-        begin
-          ds.DataSet.Delete;
-        end;
-    end
-    else
-        ShowMessage('Não Há registros');
+      if not ds.DataSet.IsEmpty then
+      begin
+          if (Application.MessageBox('Deseja Deletar ', 'Deletar', MB_YESNO + MB_ICONQUESTION) = id_yes) then
+          begin
+            ds.DataSet.Delete;
+          end;
+      end else
+          ShowMessage('Não Há registros');
+    end;
+  end else
+  begin
+    ShowMessage('Permissão Negada');
   end;
-end else
-  ShowMessage('Permissão Negada');
 
 
 end;
@@ -261,23 +269,28 @@ end;
 
 procedure TFBase.BFirstClick(Sender: TObject);
 begin
-if (consultar = true) then
-begin
-DS.DataSet.First;
-end;
+  if(validacao(2) = true)then
+  begin
+    DS.DataSet.First;
+  end else
+  begin
+    ShowMessage('Permissão Negada');
+  end;
 end;
 
 procedure TFBase.BInserirClick(Sender: TObject);
 begin
-if(editar=true)then
-begin
-  if not ds.DataSet.Active then
-        ds.DataSet.Open;
+  if(validacao(1) = true)then
+  begin
+    if not ds.DataSet.Active then
+          ds.DataSet.Open;
 
-    PageControl.ActivePageIndex := 0;
-    ds.DataSet.Append;
-end else
-  ShowMessage('Permissão Negada');
+      PageControl.ActivePageIndex := 0;
+      ds.DataSet.Append;
+  end else
+  begin
+    ShowMessage('Permissão Negada');
+  end;
 end;
 
 procedure TFBase.BSalvarClick(Sender: TObject);
@@ -305,21 +318,25 @@ end;
 
 procedure TFBase.BPesquisarClick(Sender: TObject);
 begin
-if (consultar = true) then
-begin
-  DS.DataSet.Close;
-  DS.DataSet.Open;
-end else
-  ShowMessage('Permissão Negada');
-
+  if(validacao(2) = true)then
+    begin
+    DS.DataSet.Close;
+    DS.DataSet.Open;
+  end else
+  begin
+    ShowMessage('Permissão Negada');
+  end;
 end;
 
 procedure TFBase.BPriorClick(Sender: TObject);
 begin
-if (consultar = true) then
-begin
-DS.DataSet.Prior;
-end;
+  if(validacao(2) = true)then
+  begin
+    DS.DataSet.Prior;
+  end else
+  begin
+    ShowMessage('Permissão Negada');
+  end;
 end;
 
 procedure TFBase.StatusBotoes(e: integer);
@@ -348,11 +365,12 @@ begin
 
 end;
 
-function TFBase.validacao: Boolean;
+function TFBase.validacao(operacao: integer): Boolean;
 var
 iduser : string;
 idInterface, edit : integer;
 nomeInterface : string;
+resultado : boolean;
 begin
   //
     consultar := false;
@@ -384,32 +402,45 @@ begin
     DModule.cdsAcesso.Open;
     DModule.cdsAcesso.First;
 
-    //Atribui as permissões
-    if(Dmodule.cdsAcessoadicionar.AsBoolean = true)then
-    begin
-      ShowMessage('OKOK');
-      adicionar := boolean(true);
+    case operacao of
+      1: //Adicionar
+        begin
+          if(Dmodule.cdsAcessoadicionar.AsBoolean = true)then
+          begin
+            resultado := true;
+          end else
+            resultado := false;
+
+        end;
+      2://Consultar
+        begin
+          if(Dmodule.cdsAcessoconsultar.AsBoolean = true)then
+          begin
+            resultado := true;
+          end else
+            resultado := false;
+
+        end;
+      3://Editar
+        begin
+          if(Dmodule.cdsAcessoeditar.AsBoolean = true)then
+          begin
+            resultado := true;
+          end else
+            resultado := false;
+
+        end;
+      4: //Exclui
+        begin
+          if(Dmodule.cdsAcessoexcluir.AsBoolean = true)then
+          begin
+            resultado := true;
+          end else
+            resultado := false;
+
+        end;
     end;
-    editar := Dmodule.cdsAcessoeditar.AsBoolean;
-    consultar := Dmodule.cdsAcessoexcluir.AsBoolean;
-    excluir := Dmodule.cdsAcessoexcluir.AsBoolean;
-
-    ShowMessage(
-    'Adicionar: ' + Dmodule.cdsAcessoadicionar.AsString + #13 +
-    'Editar: ' + Dmodule.cdsAcessoeditar.AsString + #13 +
-    'Consultar: ' + Dmodule.cdsAcessoconsultar.AsString + #13 +
-    'excluir: ' + Dmodule.cdsAcessoexcluir.AsString
-    );
-
-
-
-    ShowMessage(
-    'Adicionar: ' + BoolToStr(adicionar) + #13 +
-    'Editar: ' + BoolToStr(editar) + #13 +
-    'Consultar: ' + BoolToStr(consultar) + #13 +
-    'excluir: ' + BoolToStr(excluir)
-    );
-
+    result := resultado;
 
 end;
 
