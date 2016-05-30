@@ -383,6 +383,7 @@ begin
   FPrincipal.Caption := NomeForm;
   Aux := 0;
 
+  //ShowMessage('1');
   {Limpa os botoes}
   while Panel.ControlCount > 0 do
   begin
@@ -398,6 +399,7 @@ begin
   DModule.FModulo.First;
   while not dModule.FModulo.Eof do
   begin
+    //ShowMessage('2');
     if(validacaoModulo(DModule.FModulo.FieldByName('idModulo').AsInteger) = true)then
     begin
         Button := TButton.Create(self);
@@ -428,7 +430,6 @@ begin
         Lab.Alignment := taCenter;
 
     end;
-
     DModule.FModulo.Next;
   end;
 end;
