@@ -6,6 +6,7 @@ inherited F03001: TF03001
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
+    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -144,6 +145,16 @@ inherited F03001: TF03001
           TabOrder = 6
           OnSelectItem = ListViewSelectItem
         end
+        object DBCheckBox1: TDBCheckBox
+          Left = 91
+          Top = 37
+          Width = 97
+          Height = 17
+          Caption = 'visivelMenu'
+          DataField = 'visivelMenu'
+          DataSource = DS
+          TabOrder = 7
+        end
       end
     end
     inherited TbFiltros: TTabSheet
@@ -194,6 +205,9 @@ inherited F03001: TF03001
       FieldName = 'modulo'
       ProviderFlags = []
       Size = 45
+    end
+    object ClientDataSet1visivelMenu: TBooleanField
+      FieldName = 'visivelMenu'
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -247,10 +261,15 @@ inherited F03001: TF03001
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery1visivelMenu: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'visivelMenu'
+      Origin = 'visivelMenu'
+    end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

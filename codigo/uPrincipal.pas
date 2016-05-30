@@ -46,7 +46,6 @@ type
     Button : TButton;
     Lab : TLabel;
     NomeForm : String;
-    //idTipoUsuario : integer;
   end;
 
 var
@@ -194,38 +193,12 @@ begin
     Dmodule.qAux.open;
     Dmodule.idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
 
-    //Obtem id interface
-    {idInterface := 0;
-    Dmodule.qAux.close;
-    Dmodule.qAux.SQL.Text := 'select idinterface from interface where tela =:idT';
-    nomeInterface := self.Name;
-    Delete(nomeInterface,1,1);  //Tira o F do nome da interface
-    Dmodule.qAux.ParamByName('idT').Value := nomeInterface;
-    Dmodule.qAux.open;
-    idInterface := Dmodule.qAux.FieldByName('idinterface').AsInteger;
-    }
-
-    //Pesquisa as permissões
-    {Dmodule.qAux.close;
-    Dmodule.qAux.SQL.Text := 'select * from seguranca where idinterface = ' + inttostr(idInterface)+
-    ' and idTipo_usuario = '+ inttostr(idTipoUsuario);
-    ShowMessage( Dmodule.qAux.SQL.Text);
-    Dmodule.qAux.open;
-
-    ShowMessage('ID Tipo_usuario: ' + Dmodule.qAux.FieldByName('idTipo_usuario').AsString);
-    adicionar := Dmodule.qAux.FieldByName('adicionar').AsBoolean;
-    editar := Dmodule.qAux.FieldByName('editar').AsBoolean;
-    consultar := Dmodule.qAux.FieldByName('consultar').AsBoolean;
-    excluir := Dmodule.qAux.FieldByName('excluir').AsBoolean;
-    }
-
     DModule.qAcesso.Close;
     DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
     DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
     DModule.qAcesso.SQL.Add('left outer join modulo m on m.idmodulo = i.idmodulo ');
     DModule.qAcesso.SQL.Add('where s.idTipo_usuario =:idTU');
     DModule.qAcesso.ParamByName('idTU').Value := Dmodule.idTipoUsuario;
-    //DModule.qAcesso.ParamByName('idInterf').Value := idInterface;
     DModule.qAcesso.Open();
     DModule.cdsAcesso.Close;
     DModule.cdsAcesso.Open;
@@ -356,7 +329,7 @@ begin
   Button.OnClick := MontarMenu;
   DModule.qAux.Close;
 
-  DModule.qAux.SQL.Text := 'SELECT * FROM INTERFACE WHERE IDMODULO = :ID';
+  DModule.qAux.SQL.Text := 'SELECT * FROM INTERFACE WHERE IDMODULO = :ID and visivelmenu = true';
   DModule.qAux.ParamByName('ID').AsInteger := Tag;
 
   DModule.qAux.Open;
@@ -369,7 +342,7 @@ begin
   DModule.qAux.First;
   while not DModule.qAux.Eof do
   begin
-    if(validacaoInterface(DModule.qAux.FieldByName('idInterface').AsInteger) = true)then
+    if (validacaoInterface(DModule.qAux.FieldByName('idInterface').AsInteger) = true)then
     begin
       Button := TButton.Create(Panel);
       Button.Parent := Panel;
@@ -413,7 +386,7 @@ begin
   {Limpa os botoes}
   while Panel.ControlCount > 0 do
   begin
-    Panel.Controls[0].Free;
+    Panel.Controls[0].free;
   end;
 
   PageScroller.Height := 100;
@@ -454,10 +427,7 @@ begin
         Lab.Left := Button.Left - 5;
         Lab.Alignment := taCenter;
 
-
-    end;
-
-
+    end;
 
     DModule.FModulo.Next;
   end;

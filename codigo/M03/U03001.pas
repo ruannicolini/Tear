@@ -42,6 +42,9 @@ type
     ClientDataSet1icone: TIntegerField;
     ClientDataSet1tela: TStringField;
     ClientDataSet1modulo: TStringField;
+    FDQuery1visivelMenu: TBooleanField;
+    ClientDataSet1visivelMenu: TBooleanField;
+    DBCheckBox1: TDBCheckBox;
 
     procedure ListViewSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);

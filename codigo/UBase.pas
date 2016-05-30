@@ -384,7 +384,7 @@ begin
     Dmodule.qAux.SQL.Text := 'select idinterface from interface where tela =:idT';
     nomeInterface := self.Name;
     Delete(nomeInterface,1,1);  //Tira o F do nome da interface
-    ShowMessage('Interface: ' + nomeInterface);
+    //ShowMessage('Interface: ' + nomeInterface);
     Dmodule.qAux.ParamByName('idT').Value := nomeInterface;
     Dmodule.qAux.open;
     idInterface := Dmodule.qAux.FieldByName('idinterface').AsInteger;
