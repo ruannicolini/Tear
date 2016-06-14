@@ -45,6 +45,7 @@ type
     PanelFiltros: TPanel;
     ActionMostrarFiltros: TAction;
     btnFiltrar: TButton;
+    btnRelatorios: TButton;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
@@ -70,6 +71,7 @@ type
     procedure ActionMostrarFiltrosExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BInserirClick(Sender: TObject);
+    procedure btnRelatoriosClick(Sender: TObject);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -89,7 +91,7 @@ implementation
 {$R *.dfm}
 
 uses
-UdataModule;
+UdataModule, u_relatorios;
 
 
 procedure TFBase.Action5Execute(Sender: TObject);
@@ -303,6 +305,13 @@ procedure TFBase.BtnLimparFiltrosClick(Sender: TObject);
 begin
 //
   ClientDataSet1.Filtered := false;
+end;
+
+procedure TFBase.btnRelatoriosClick(Sender: TObject);
+begin
+  // Chama a Tela de Relatorios
+  Frelatorios.show;
+
 end;
 
 procedure TFBase.BCancelarClick(Sender: TObject);

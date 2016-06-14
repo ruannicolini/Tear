@@ -8,19 +8,19 @@ interface
       // unit ppCTMain serve pra disponibilizar recurso de CrossTab
 uses
   {daDatMan,} Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ppComm, ppEndUsr, Db {, DBTables}, ppRptExp, ppModule, daDatMod,
+  StdCtrls, ppComm, ppEndUsr, Db, ppRptExp, ppModule, daDatMod,
   ppDB, ppBands, ppClass, ppCache, ppDBPipe, ppRelatv, ppProd, ppReport,
   Grids, DBGrids, Buttons, ComCtrls, ExtCtrls, DBCtrls, ppCtrls,
   ppPrnabl, ppStrtch, ppSubRpt, ppVar, ppMemo, ppDBBDE, daDataView,
-  daQueryDataView, {daDBBDE,} daDataModule, daSQL, raCodMod, ppViewr,
-  ToolWin, raIDE, daDatMan, DBClient, {uFrameAviso,} ppPDFDevice, ppCTMain,
-  XiButton, jpeg, Menus, uDataModule, ppDesignLayer, ppParameter,
+  daQueryDataView, daDataModule, daSQL, raCodMod, ppViewr,
+  ToolWin, raIDE, daDatMan, DBClient, ppPDFDevice, ppCTMain,
+  XiButton, jpeg, Menus, ppDesignLayer, ppParameter,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  Tf_relatorios = class(TForm)
+  TFRelatorios = class(TForm)
     ppDBPipeline1: TppDBPipeline;
     DataSource1: TDataSource;
     ds_relats: TDataSource;
@@ -123,7 +123,7 @@ type
     mNumTelaRelatTela: TStringField;
     mNumTelaRelatFiltrosMarcados: TMemoField;
     Image1: TImage;
-    q_Aux: TFDQuery;
+    q_aux: TFDQuery;
     procedure btalterarClick(Sender: TObject);
     procedure btnovoClick(Sender: TObject);
     procedure btexcluirClick(Sender: TObject);
@@ -144,6 +144,7 @@ type
 
   public
     { Public declarations }
+    constructor Create(AOwner : TComponent);
     procedure BuscarRelats(Origem: Short); // Buscar os Relatorios 1 p/ Sistema ou 2 p/ usuario
     procedure Assimila_Relat_q(n_tela: string; parametro: short; tab_mestre: tDataset; tab_filha: tDataset; campo_key_tab_mestre: string; campo_key_tab_filha: string);
     procedure DirList( ASource : string; ADirList : TStringList );
@@ -152,18 +153,21 @@ type
 
     function PegaNomeRelat(Arq: String): String;
     function PegaNumRelat(Arq: String): Short;
+
   end;
 
 var
-  f_relatorios: Tf_relatorios;
+  FRelatorios: TFRelatorios;
   data : string;
 
 implementation
 
+uses
+uDataModule;
 
 {$R *.DFM}
 
-procedure Tf_relatorios.assimila_relat_q(n_tela: string; parametro: short; tab_mestre: tDataset; tab_filha: tDataset; campo_key_tab_mestre: string; campo_key_tab_filha: string);
+procedure TFRelatorios.assimila_relat_q(n_tela: string; parametro: short; tab_mestre: tDataset; tab_filha: tDataset; campo_key_tab_mestre: string; campo_key_tab_filha: string);
 begin
 
   lbTela.Caption      := n_tela;
@@ -187,7 +191,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.btalterarClick(Sender: TObject);
+procedure TFRelatorios.btalterarClick(Sender: TObject);
 var nomerep: string;
 begin
 
@@ -203,7 +207,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.btnovoClick(Sender: TObject);
+procedure TFRelatorios.btnovoClick(Sender: TObject);
 var nomerep, _tela: string;
     seq, botao: short;
 begin
@@ -262,7 +266,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.btexcluirClick(Sender: TObject);
+procedure TFRelatorios.btexcluirClick(Sender: TObject);
 var nomearq : string;
 begin
 
@@ -279,7 +283,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.btimprimirClick(Sender: TObject);
+procedure TFRelatorios.btimprimirClick(Sender: TObject);
 var nomerep : string;
     TelaF   : tForm;
     CdsTmp  : TClientDataSet;
@@ -338,17 +342,17 @@ begin
 
 end;
 
-procedure Tf_relatorios.btsairClick(Sender: TObject);
+procedure TFRelatorios.btsairClick(Sender: TObject);
 begin
   close;
 end;
 
-procedure Tf_relatorios.FormDestroy(Sender: TObject);
+procedure TFRelatorios.FormDestroy(Sender: TObject);
 begin
-  f_relatorios := nil;
+  frelatorios := nil;
 end;
 
-procedure Tf_relatorios.FormShow(Sender: TObject);
+procedure TFRelatorios.FormShow(Sender: TObject);
 begin
     ppDesigner1.IniStorageName := ExtractFilePath(Application.ExeName)+'\RBuilder.ini';
     
@@ -374,14 +378,14 @@ begin
 
 end;
 
-procedure Tf_relatorios.FormClose(Sender: TObject;
+procedure TFRelatorios.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   Relatorios_Sis.close;
   Relats_Usur.Close;
 end;
 
-procedure Tf_relatorios.BuscarRelats(Origem: Short);
+procedure TFRelatorios.BuscarRelats(Origem: Short);
 var Ds    : tClientDataset;
     Arqs  : TStringList;
     i     : Short;
@@ -426,18 +430,23 @@ begin
 
 end;
 
-procedure Tf_relatorios.gridRelatsSistemaDblClick(Sender: TObject);
+constructor TFRelatorios.Create(AOwner: TComponent);
+begin
+  //
+end;
+
+procedure TFRelatorios.gridRelatsSistemaDblClick(Sender: TObject);
 begin
   if not tDbGrid(Sender).DataSource.DataSet.IsEmpty then
       btimprimirClick(btimprimir);
 end;
 
-procedure Tf_relatorios.Relatorios_sisAfterScroll(DataSet: TDataSet);
+procedure TFRelatorios.Relatorios_sisAfterScroll(DataSet: TDataSet);
 begin
   lbRelatAtual.Caption := DataSet.FieldByName('descricao').AsString;
 end;
 
-function Tf_relatorios.PegaNomeRelat(Arq: String): String;
+function TFRelatorios.PegaNomeRelat(Arq: String): String;
 var i  : Short;
     s  : String;
     ok : Boolean;
@@ -455,7 +464,7 @@ begin
 
 end;
 
-function Tf_relatorios.PegaNumRelat(Arq: String): Short;
+function TFRelatorios.PegaNumRelat(Arq: String): Short;
 var i  : Short;
     s  : String;
     ok : Boolean;
@@ -478,7 +487,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.Assimila3Datasets(nTela: String; TabPai, TabFilha1,
+procedure TFRelatorios.Assimila3Datasets(nTela: String; TabPai, TabFilha1,
   TabFilha2: tDataset; CampoKeyTabMestre, CampoKeyTabFilha1,
   CampoKeyTabFilha2: String);
 begin
@@ -504,13 +513,13 @@ begin
 
 end;
 
-procedure Tf_relatorios.btEmailClick(Sender: TObject);
+procedure TFRelatorios.btEmailClick(Sender: TObject);
 begin
     popEnvioEmail.Popup(Mouse.CursorPos.X, Mouse.CursorPos.Y);
 end;
 
 
-procedure Tf_relatorios.btRelatsSistemaClick(Sender: TObject);
+procedure TFRelatorios.btRelatsSistemaClick(Sender: TObject);
 begin
 
     tbRelatsSistema.TabVisible  := False;
@@ -549,7 +558,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.EnviarporEmail1Click(Sender: TObject);
+procedure TFRelatorios.EnviarporEmail1Click(Sender: TObject);
 var NomeRep : String;
 begin
 
@@ -573,7 +582,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.btPDFClick(Sender: TObject);
+procedure TFRelatorios.btPDFClick(Sender: TObject);
 var s, NomeRep : String;
 begin
 
@@ -611,7 +620,7 @@ begin
 
 end;
 
-procedure Tf_relatorios.DirList(ASource: string; ADirList: TStringList);
+procedure TFRelatorios.DirList(ASource: string; ADirList: TStringList);
 var
   SearchRec : TSearchRec;
   Result : integer;
@@ -635,4 +644,8 @@ begin
 
 end;
 
+Initialization
+  RegisterClass(TFRelatorios);
+Finalization
+  UnRegisterClass(TFRelatorios);
 end.

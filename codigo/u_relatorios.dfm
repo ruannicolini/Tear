@@ -1,4 +1,4 @@
-object f_relatorios: Tf_relatorios
+object FRelatorios: TFRelatorios
   Left = 282
   Top = 68
   BorderIcons = [biSystemMenu, biMinimize]
@@ -3950,6 +3950,10 @@ object f_relatorios: Tf_relatorios
     TabOrder = 1
     object tbRelatsSistema: TTabSheet
       Caption = 'Sistema'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object gridRelatsSistema: TDBGrid
         Left = 0
         Top = 0
@@ -4048,6 +4052,90 @@ object f_relatorios: Tf_relatorios
           end>
       end
     end
+  end
+  object btRelatsSistema: TXiButton
+    Left = 10
+    Top = 55
+    Width = 57
+    Height = 19
+    Cursor = crHandPoint
+    ColorFace = 14737632
+    ColorGrad = 3653375
+    ColorDark = 11447982
+    ColorLight = 16250871
+    ColorBorder = 6447714
+    ColorText = clBlack
+    OverColorFace = 13619151
+    OverColorGrad = clWhite
+    OverColorDark = 7960953
+    OverColorLight = 15658734
+    OverColorBorder = 7697781
+    OverColorText = clBlack
+    DownColorFace = 13882323
+    DownColorGrad = clWhite
+    DownColorDark = 15329769
+    DownColorLight = 8158332
+    DownColorBorder = 5131854
+    DownColorText = clBlack
+    DisabledColorFace = 14869218
+    DisabledColorGrad = clWhite
+    DisabledColorDark = 14211288
+    DisabledColorLight = 15395562
+    DisabledColorBorder = 12895428
+    DisabledColorText = clGray
+    ColorFocusRect = 9079434
+    ColorScheme = csSilver
+    Ctl3D = True
+    Layout = blGlyphLeft
+    Spacing = 4
+    TransparentGlyph = True
+    Gradient = False
+    HotTrack = True
+    Caption = 'Sistema'
+    TabOrder = 3
+    OnClick = btRelatsSistemaClick
+  end
+  object btRelatsUsuario: TXiButton
+    Left = 66
+    Top = 55
+    Width = 55
+    Height = 17
+    Cursor = crHandPoint
+    ColorFace = clSilver
+    ColorGrad = 3653375
+    ColorDark = 11447982
+    ColorLight = 16250871
+    ColorBorder = 6447714
+    ColorText = clBlack
+    OverColorFace = 13619151
+    OverColorGrad = clWhite
+    OverColorDark = 7960953
+    OverColorLight = 15658734
+    OverColorBorder = 7697781
+    OverColorText = clBlack
+    DownColorFace = 13882323
+    DownColorGrad = clWhite
+    DownColorDark = 15329769
+    DownColorLight = 8158332
+    DownColorBorder = 5131854
+    DownColorText = clBlack
+    DisabledColorFace = 14869218
+    DisabledColorGrad = clWhite
+    DisabledColorDark = 14211288
+    DisabledColorLight = 15395562
+    DisabledColorBorder = 12895428
+    DisabledColorText = clGray
+    ColorFocusRect = 9079434
+    ColorScheme = csCustom
+    Ctl3D = True
+    Layout = blGlyphLeft
+    Spacing = 4
+    TransparentGlyph = True
+    Gradient = False
+    HotTrack = True
+    Caption = 'Usuario'
+    TabOrder = 2
+    OnClick = btRelatsSistemaClick
   end
   object barra: TToolBar
     Left = 192
@@ -5040,8 +5128,9 @@ object f_relatorios: Tf_relatorios
       BlobType = ftMemo
     end
   end
-  object q_Aux: TFDQuery
-    Left = 156
-    Top = 217
+  object q_aux: TFDQuery
+    Connection = DModule.FDConnection
+    Left = 68
+    Top = 233
   end
 end

@@ -8,7 +8,7 @@ uses
   Vcl.Imaging.pngimage, Vcl.StdCtrls, Vcl.Imaging.jpeg, IdHashMessageDigest, iniFiles, DateUtils,
   System.ImageList, Vcl.ImgList, Vcl.ComCtrls, System.Actions, Vcl.ActnList,
   Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.ActnMenus,
-  Vcl.PlatformDefaultStyleActnCtrls, VCLTee.TeCanvas, Vcl.Buttons;
+  Vcl.PlatformDefaultStyleActnCtrls, VCLTee.TeCanvas, Vcl.Buttons, XiButton;
 
 type
   TFPrincipal = class(TForm)
@@ -55,7 +55,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDataModule, UBase;
+uses uDataModule, UBase, u_relatorios;
 
 procedure TFPrincipal.AbrirTela(Sender: TObject);
 var
