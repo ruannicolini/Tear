@@ -308,11 +308,30 @@ begin
 end;
 
 procedure TFBase.btnRelatoriosClick(Sender: TObject);
+
 begin
   // Chama a Tela de Relatorios
-  Frelatorios.show;
-
+  Frelatorios.Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, DS.DataSet, '', '');
+  Frelatorios.showmodal;
 end;
+{
+var
+  nomeTela: String;
+begin
+  frelatorios := tfrelatorios.Create(Application);
+  with frelatorios do
+  begin
+      try
+          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, DS.DataSet, '', '');
+          ShowModal;
+      finally
+          Relatorios_sis.close;
+          relats_usur.close;
+          Free;
+      end;
+   end;
+end;
+}
 
 procedure TFBase.BCancelarClick(Sender: TObject);
 begin

@@ -17,7 +17,8 @@ uses
   XiButton, jpeg, Menus, ppDesignLayer, ppParameter,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  System.ImageList, Vcl.ImgList;
 
 type
   TFRelatorios = class(TForm)
@@ -401,9 +402,6 @@ begin
   if Ds.Active then Ds.EmptyDataSet
   else Ds.CreateDataSet;
 
-
-     // 1: nomerep := ('C:\Users\Thallys\Desktop\Tecno_Vendas-master\app\Relatorios\RelatoriosSistema')+ '\' + Relats_UsurArquivo.AsString;
-
    //  /*Mudei aqui*/
 
   //Dir := f_principal.BuscaParamTexto('RelatoriosSistema');
@@ -539,6 +537,7 @@ begin
         btRelatsUsuario.Height    := 17;
         btRelatsSistema.Height    := 19;
         RelatsAtual               := 1;
+        BuscarRelats(1);
     end
     else
     begin
@@ -550,6 +549,7 @@ begin
         btRelatsUsuario.Height    := 19;
         btRelatsSistema.Height    := 17;
         RelatsAtual               := 2;
+        BuscarRelats(2);
     end;
 
 

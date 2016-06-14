@@ -3950,10 +3950,6 @@ object FRelatorios: TFRelatorios
     TabOrder = 1
     object tbRelatsSistema: TTabSheet
       Caption = 'Sistema'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object gridRelatsSistema: TDBGrid
         Left = 0
         Top = 0
@@ -4138,15 +4134,17 @@ object FRelatorios: TFRelatorios
     OnClick = btRelatsSistemaClick
   end
   object barra: TToolBar
-    Left = 192
+    Left = 120
     Top = 12
-    Width = 77
-    Height = 60
+    Width = 329
+    Height = 33
     Cursor = crHandPoint
     Align = alNone
-    AutoSize = True
-    ButtonHeight = 30
-    Color = clWindowText
+    ButtonHeight = 33
+    ButtonWidth = 30
+    Color = clSilver
+    HotTrackColor = clSilver
+    List = True
     ParentColor = False
     TabOrder = 0
     Transparent = True
@@ -4154,7 +4152,6 @@ object FRelatorios: TFRelatorios
       Left = 0
       Top = 0
       Hint = 'Imprimir Relat'#243'rio Atual'
-      AutoSize = True
       Caption = 'btimprimir'
       ImageIndex = 10
       ParentShowHint = False
@@ -4162,7 +4159,7 @@ object FRelatorios: TFRelatorios
       OnClick = btimprimirClick
     end
     object btEmail: TToolButton
-      Left = 8
+      Left = 30
       Top = 0
       Hint = 'Enviar para eMail!!!'
       Caption = 'btEmail'
@@ -4172,7 +4169,7 @@ object FRelatorios: TFRelatorios
       OnClick = btEmailClick
     end
     object btPDF: TToolButton
-      Left = 31
+      Left = 60
       Top = 0
       Hint = 'Exportar Relat'#243'rio para Arquivo PDF'
       Caption = 'btPDF'
@@ -4181,36 +4178,21 @@ object FRelatorios: TFRelatorios
       ShowHint = True
       OnClick = btPDFClick
     end
-    object button5: TToolButton
-      Left = 54
-      Top = 0
-      Caption = 'button5'
-      Enabled = False
-      Wrap = True
-    end
-    object ToolButton2: TToolButton
-      Left = 0
-      Top = 30
-      Caption = 'ToolButton2'
-      Enabled = False
-    end
     object btnovo: TToolButton
-      Left = 23
-      Top = 30
+      Left = 90
+      Top = 0
       Hint = 'Novo Relat'#243'rio a partir do Atual'
-      AutoSize = True
       Caption = 'btnovo'
       Enabled = False
-      ImageIndex = 0
+      ImageIndex = 1
       ParentShowHint = False
       ShowHint = True
       OnClick = btnovoClick
     end
     object btalterar: TToolButton
-      Left = 31
-      Top = 30
+      Left = 120
+      Top = 0
       Hint = 'Alterar Relat'#243'rio'
-      AutoSize = True
       Caption = 'btalterar'
       Enabled = False
       ImageIndex = 2
@@ -4219,10 +4201,9 @@ object FRelatorios: TFRelatorios
       OnClick = btalterarClick
     end
     object btexcluir: TToolButton
-      Left = 39
-      Top = 30
+      Left = 150
+      Top = 0
       Hint = 'Excluir Relat'#243'rio'
-      AutoSize = True
       Caption = 'btexcluir'
       Enabled = False
       ImageIndex = 1
@@ -4231,15 +4212,26 @@ object FRelatorios: TFRelatorios
       OnClick = btexcluirClick
     end
     object btsair: TToolButton
-      Left = 47
-      Top = 30
+      Left = 180
+      Top = 0
       Hint = 'Sair'
-      AutoSize = True
       Caption = 'btsair'
       ImageIndex = 3
       ParentShowHint = False
       ShowHint = True
       OnClick = btsairClick
+    end
+    object button5: TToolButton
+      Left = 210
+      Top = 0
+      Caption = 'button5'
+      Enabled = False
+    end
+    object ToolButton2: TToolButton
+      Left = 240
+      Top = 0
+      Caption = 'ToolButton2'
+      Enabled = False
     end
   end
   object ppDBPipeline1: TppDBPipeline
@@ -4302,13 +4294,13 @@ object FRelatorios: TFRelatorios
   end
   object ds_relats: TDataSource
     DataSet = Relatorios_sis
-    Left = 152
-    Top = 108
+    Left = 200
+    Top = 156
   end
   object ds_relats_usur: TDataSource
     DataSet = relats_usur
-    Left = 144
-    Top = 140
+    Left = 248
+    Top = 156
   end
   object DataSource2: TDataSource
     Left = 412
@@ -4554,8 +4546,8 @@ object FRelatorios: TFRelatorios
     Params = <>
     StoreDefs = True
     AfterScroll = Relatorios_sisAfterScroll
-    Left = 112
-    Top = 108
+    Left = 168
+    Top = 156
     object Relatorios_sistela: TStringField
       FieldName = 'tela'
       Origin = 'DBSISFAB.relatorios_sistema.tela'
@@ -4588,8 +4580,8 @@ object FRelatorios: TFRelatorios
     Params = <>
     StoreDefs = True
     AfterScroll = Relatorios_sisAfterScroll
-    Left = 112
-    Top = 140
+    Left = 224
+    Top = 156
     object relats_usurTela: TStringField
       FieldName = 'tela'
       Origin = 'DBSISFAB.relatorios_sistema.tela'
@@ -4851,12 +4843,12 @@ object FRelatorios: TFRelatorios
   end
   object ppDesigner1: TppDesigner
     Caption = 'ReportBuilder'
-    DataSettings.DatabaseName = 'dbsisfab'
+    DataSettings.DatabaseName = 'balay'
     DataSettings.SessionType = 'BDESession'
     DataSettings.AllowEditSQL = False
-    DataSettings.DatabaseType = dtMSSQLServer
+    DataSettings.CollationType = ctANSI
+    DataSettings.DatabaseType = dtMySQL
     DataSettings.GuidCollationType = gcString
-    DataSettings.IsCaseSensitive = True
     DataSettings.SQLType = sqSQL1
     Position = poScreenCenter
     Report = ppReport1
@@ -4950,8 +4942,8 @@ object FRelatorios: TFRelatorios
     Top = 353
   end
   object popEnvioEmail: TPopupMenu
-    Left = 192
-    Top = 29
+    Left = 240
+    Top = 53
     object EnviarporEmail1: TMenuItem
       Caption = 'Enviar por Email...'
       OnClick = EnviarporEmail1Click
@@ -5130,7 +5122,7 @@ object FRelatorios: TFRelatorios
   end
   object q_aux: TFDQuery
     Connection = DModule.FDConnection
-    Left = 68
-    Top = 233
+    Left = 196
+    Top = 241
   end
 end
