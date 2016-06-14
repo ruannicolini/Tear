@@ -8,17 +8,17 @@
     <Transaction>2016/03/04 18:40:32.000.732,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02002.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
     <Transaction>2016/03/04 18:40:32.000.731,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02002.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
     <Transaction>2016/03/04 18:58:52.000.787,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/04 18:59:52.000.671,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02003.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
     <Transaction>2016/03/04 18:59:52.000.671,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02003.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
+    <Transaction>2016/03/04 18:59:52.000.671,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02003.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
     <Transaction>2016/03/15 08:14:34.000.451,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/15 08:15:24.000.109,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.pas</Transaction>
     <Transaction>2016/03/15 08:15:24.000.109,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.dfm</Transaction>
+    <Transaction>2016/03/15 08:15:24.000.109,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.pas</Transaction>
     <Transaction>2016/03/15 08:25:35.000.550,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.pas=</Transaction>
     <Transaction>2016/03/15 08:27:10.000.605,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.pas</Transaction>
     <Transaction>2016/03/15 08:29:47.000.986,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.pas=</Transaction>
     <Transaction>2016/03/15 08:31:56.000.873,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/15 08:32:19.000.279,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
     <Transaction>2016/03/15 08:32:19.000.279,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
+    <Transaction>2016/03/15 08:32:19.000.279,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01014.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
     <Transaction>2016/03/15 13:32:59.000.060,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
     <Transaction>2016/03/15 13:33:45.000.372,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01015.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
     <Transaction>2016/03/15 13:33:45.000.372,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\U01015.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
@@ -28,14 +28,16 @@
     <Transaction>2016/03/18 09:12:02.000.880,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\UCronometragemImport.pas</Transaction>
     <Transaction>2016/03/18 10:30:32.000.832,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\UCronometragemImport.pas=</Transaction>
     <Transaction>2016/03/24 09:58:07.000.724,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/24 09:58:38.000.605,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02004.pas</Transaction>
     <Transaction>2016/03/24 09:58:38.000.605,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02004.dfm</Transaction>
+    <Transaction>2016/03/24 09:58:38.000.605,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M02\U02004.pas</Transaction>
     <Transaction>2016/03/29 08:35:36.000.126,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
-    <Transaction>2016/03/29 08:36:51.000.196,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\UfaseTeste.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
     <Transaction>2016/03/29 08:36:51.000.196,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\UfaseTeste.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
+    <Transaction>2016/03/29 08:36:51.000.196,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\UfaseTeste.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
     <Transaction>2016/03/29 09:34:06.000.683,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M01\UfaseTeste.pas=</Transaction>
     <Transaction>2016/05/26 12:44:02.000.835,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
     <Transaction>2016/05/26 12:45:24.000.912,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M03\U03003.pas=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.pas</Transaction>
     <Transaction>2016/05/26 12:45:24.000.912,C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\M03\U03003.dfm=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\Unit1.dfm</Transaction>
+    <Transaction>2016/05/31 12:48:16.000.366,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\XiButton.pas</Transaction>
+    <Transaction>2016/05/31 12:49:48.000.808,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\Tear\codigo\u_relatorios.pas</Transaction>
   </Transactions>
 </BorlandProject>

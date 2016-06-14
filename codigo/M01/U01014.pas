@@ -125,7 +125,7 @@ begin
 
         DModule.qAux.Next;
     END;
-    arqCompleto.AddPair('operacao', arrayOperador);
+    arqCompleto.AddPair('operacao', arrayOperacao);
 
 
     //TECIDO
