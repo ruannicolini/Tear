@@ -315,7 +315,6 @@ begin
   with frelatorios do
   begin
       try
-        ShowMessage('ok');
         visible := false;
           Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, DS.DataSet, '', '');
           ShowModal;

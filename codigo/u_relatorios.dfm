@@ -6,7 +6,7 @@ object FRelatorios: TFRelatorios
   Caption = 'Relat'#243'rios '
   ClientHeight = 349
   ClientWidth = 481
-  Color = 16773849
+  Color = 1710618
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -23,7 +23,8 @@ object FRelatorios: TFRelatorios
     Left = 0
     Top = 0
     Width = 481
-    Height = 353
+    Height = 349
+    Align = alClient
     Picture.Data = {
       0A544A504547496D6167656DDE0100FFD8FFE000104A46494600010101006000
       600000FFE1006C45786966000049492A00080000000300120103000100000000
@@ -3854,6 +3855,7 @@ object FRelatorios: TFRelatorios
       88F2B57AE0111E50315275762A95235A063140402CE582066C524A6F0B4E49DA
       95E3DC2F419829D7129CA5614C5048413C9C3AA01692875CD07FFFD9}
     Stretch = True
+    ExplicitHeight = 353
   end
   object Shape2: TShape
     Left = 8
@@ -3950,10 +3952,6 @@ object FRelatorios: TFRelatorios
     TabOrder = 1
     object tbRelatsSistema: TTabSheet
       Caption = 'Sistema'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object gridRelatsSistema: TDBGrid
         Left = 0
         Top = 0
@@ -4012,7 +4010,7 @@ object FRelatorios: TFRelatorios
         Align = alClient
         Ctl3D = False
         DataSource = ds_relats_usur
-        FixedColor = 16762447
+        FixedColor = 15854564
         Options = [dgTitles, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
         ParentCtl3D = False
         ParentShowHint = False
@@ -4146,10 +4144,8 @@ object FRelatorios: TFRelatorios
     Align = alNone
     ButtonHeight = 33
     ButtonWidth = 30
-    Color = clSilver
     HotTrackColor = clSilver
     List = True
-    ParentColor = False
     TabOrder = 0
     Transparent = True
     object btimprimir: TToolButton
