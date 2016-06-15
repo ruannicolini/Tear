@@ -431,6 +431,7 @@ end;
 constructor TFRelatorios.Create(AOwner: TComponent);
 begin
   //
+  inherited Create(AOwner);
 end;
 
 procedure TFRelatorios.gridRelatsSistemaDblClick(Sender: TObject);

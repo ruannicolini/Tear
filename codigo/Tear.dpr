@@ -39,6 +39,5 @@ begin
   Application.CreateForm(TFPrincipal, FPrincipal);
   Application.CreateForm(TDModule, DModule);
   Application.CreateForm(TFBase, FBase);
-  Application.CreateForm(TFRelatorios, FRelatorios);
   Application.Run;
 end.

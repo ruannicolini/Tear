@@ -3950,6 +3950,10 @@ object FRelatorios: TFRelatorios
     TabOrder = 1
     object tbRelatsSistema: TTabSheet
       Caption = 'Sistema'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object gridRelatsSistema: TDBGrid
         Left = 0
         Top = 0
@@ -4849,6 +4853,7 @@ object FRelatorios: TFRelatorios
     DataSettings.CollationType = ctANSI
     DataSettings.DatabaseType = dtMySQL
     DataSettings.GuidCollationType = gcString
+    DataSettings.IsCaseSensitive = True
     DataSettings.SQLType = sqSQL1
     Position = poScreenCenter
     Report = ppReport1
