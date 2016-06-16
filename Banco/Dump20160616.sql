@@ -342,7 +342,7 @@ CREATE TABLE `interface` (
 
 LOCK TABLES `interface` WRITE;
 /*!40000 ALTER TABLE `interface` DISABLE KEYS */;
-INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001',1),(2,1,NULL,'Produto',7,'01007',1),(3,1,NULL,'G. Produtos',9,'01009',1),(4,1,NULL,'Recurso',6,'01006',1),(5,1,NULL,'Tipo de Recurso',4,'01004',1),(6,1,NULL,'Cronometrista',2,'01002',1),(7,1,NULL,'Tecido',5,'01005',1),(8,1,NULL,'Operação',8,'01008',1),(9,1,NULL,'G. Operadores',3,'01003',1),(10,1,NULL,'Operador',10,'01010',1),(11,1,NULL,'Fase',11,'01011',1),(12,1,NULL,'Parte',12,'01012',1),(13,4,NULL,'Telas',4,'03001',1),(14,4,NULL,'Modulos',4,'03002',1),(15,4,NULL,'Usuários',4,'03003',1),(16,2,NULL,'Ordem',13,'02001',1),(17,2,NULL,'Movimentação',14,'02002',1),(18,2,NULL,'Tipo Mov.',4,'02003',1),(19,1,NULL,'APP',15,'01014',1),(20,2,NULL,'Balanceamento',0,'02004',1),(21,1,NULL,'Cronometragem',0,'01013',0);
+INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001',1),(2,1,NULL,'Produto',7,'01007',1),(3,1,NULL,'G. Produtos',9,'01009',1),(4,1,NULL,'Recurso',6,'01006',1),(5,1,NULL,'Tipo de Recurso',4,'01004',1),(6,1,NULL,'Cronometrista',2,'01002',1),(7,1,NULL,'Tecido',5,'01005',1),(8,1,NULL,'Operação',8,'01008',1),(9,1,NULL,'L. Produção',3,'01003',1),(10,1,NULL,'Operador',10,'01010',1),(11,1,NULL,'Fase',11,'01011',1),(12,1,NULL,'Parte',12,'01012',1),(13,4,NULL,'Telas',4,'03001',1),(14,4,NULL,'Modulos',4,'03002',1),(15,4,NULL,'Usuários',10,'03003',1),(16,2,NULL,'Ordem',13,'02001',1),(17,2,NULL,'Movimentação',14,'02002',1),(18,2,NULL,'Tipo Mov.',4,'02003',1),(19,1,NULL,'APP',15,'01014',1),(20,2,NULL,'Balanceamento',0,'02004',1),(21,1,NULL,'Cronometragem',0,'01013',0);
 /*!40000 ALTER TABLE `interface` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,7 +424,7 @@ CREATE TABLE `layoutoperacao` (
 
 LOCK TABLES `layoutoperacao` WRITE;
 /*!40000 ALTER TABLE `layoutoperacao` DISABLE KEYS */;
-INSERT INTO `layoutoperacao` VALUES (524,22,2297.13,191),(525,22,2622.84,244);
+INSERT INTO `layoutoperacao` VALUES (524,22,2297.13,191),(525,22,2622.84,244),(570,24,3255.07,246),(571,24,2213.41,248),(572,24,1686.08,249),(573,24,0,250),(574,24,0,251),(575,24,0,252),(576,24,0,253),(577,24,0,254),(578,24,0,255),(579,24,0,256),(580,24,0,257),(581,24,0,258),(582,24,0,259),(583,24,0,260),(584,24,0,261),(585,24,0,262),(586,24,0,263),(587,24,0,264),(588,24,0,265),(589,24,0,266),(590,24,0,267),(591,24,0,268),(592,24,0,269),(593,24,0,270),(594,24,0,271),(595,24,0,272),(596,24,0,273),(597,24,0,274),(598,24,0,275),(599,24,0,276),(600,24,0,277),(601,24,0,278),(602,24,0,279),(603,24,0,280),(604,24,0,281);
 /*!40000 ALTER TABLE `layoutoperacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -676,7 +676,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,27),('seqBatida',NULL,385),('seqCelula',NULL,27),('seqCronometragem',NULL,283),('seqCronometrista',NULL,12),('seqFase',NULL,20),('seqGrupoProduto',NULL,16),('seqLayoutFase',NULL,23),('seqLayoutOperacao',NULL,535),('seqMovimentacao',NULL,168),('seqOperacao',NULL,66),('seqOperador',NULL,69),('seqOrdemFase',NULL,151),('seqOrdemProducao',NULL,91),('seqParte',NULL,36),('seqProduto',NULL,107),('seqRecurso',NULL,20),('seqTecido',NULL,15),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,17),('seqUsuario',NULL,6);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,27),('seqBatida',NULL,385),('seqCelula',NULL,28),('seqCronometragem',NULL,283),('seqCronometrista',NULL,12),('seqFase',NULL,20),('seqGrupoProduto',NULL,16),('seqLayoutFase',NULL,26),('seqLayoutOperacao',NULL,605),('seqMovimentacao',NULL,168),('seqOperacao',NULL,66),('seqOperador',NULL,69),('seqOrdemFase',NULL,151),('seqOrdemProducao',NULL,91),('seqParte',NULL,36),('seqProduto',NULL,107),('seqRecurso',NULL,20),('seqTecido',NULL,15),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,17),('seqUsuario',NULL,6);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -976,4 +976,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-30 11:24:18
+-- Dump completed on 2016-06-16 11:19:27
