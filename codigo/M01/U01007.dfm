@@ -12,8 +12,6 @@ inherited F01007: TF01007
     ExplicitWidth = 843
     ExplicitHeight = 490
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 835
       ExplicitHeight = 462
       inherited grDados: TGroupBox
@@ -625,8 +623,6 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 835
       ExplicitHeight = 462
       inherited GBFiltros: TGroupBox
@@ -752,6 +748,15 @@ inherited F01007: TF01007
           TabOrder = 5
           Visible = False
         end
+        object BitBtn5: TBitBtn
+          Left = 560
+          Top = 24
+          Width = 75
+          Height = 25
+          Caption = 'BitBtn5'
+          TabOrder = 7
+          OnClick = BitBtn5Click
+        end
       end
     end
   end
@@ -764,12 +769,12 @@ inherited F01007: TF01007
     end
   end
   inherited DS: TDataSource
-    Left = 752
-    Top = 72
+    Left = 784
+    Top = 232
   end
   inherited ClientDataSet1: TClientDataSet
-    Left = 728
-    Top = 72
+    Left = 760
+    Top = 232
     object ClientDataSet1idProduto: TIntegerField
       FieldName = 'idProduto'
     end
@@ -793,16 +798,16 @@ inherited F01007: TF01007
     end
   end
   inherited DataSetProvider1: TDataSetProvider
-    Left = 704
-    Top = 72
+    Left = 736
+    Top = 232
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
       
         'select prod.*, '#10'gp.descricao as grupo '#10'from produto prod'#10'left ou' +
         'ter join grupo_produto gp on prod.idgrupo = gp.idgrupo_produto;')
-    Left = 672
-    Top = 72
+    Left = 704
+    Top = 232
     object FDQuery1idProduto: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idProduto'
@@ -837,10 +842,10 @@ inherited F01007: TF01007
     end
   end
   inherited ImageListBase: TImageList
-    Left = 584
-    Top = 72
+    Left = 632
+    Top = 232
     Bitmap = {
-      494C01010D002C00C00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00C40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1376,14 +1381,14 @@ inherited F01007: TF01007
       000000000000}
   end
   inherited Acoes: TActionList
-    Left = 512
-    Top = 72
+    Left = 560
+    Top = 232
   end
   object DataSource3: TDataSource
     DataSet = ClientDataSet3
     OnDataChange = DataSource3DataChange
-    Left = 448
-    Top = 80
+    Left = 472
+    Top = 240
   end
   object ClientDataSet3: TClientDataSet
     Aggregates = <>
@@ -1394,8 +1399,8 @@ inherited F01007: TF01007
     AfterPost = ClientDataSet3AfterPost
     AfterCancel = ClientDataSet3AfterCancel
     AfterDelete = ClientDataSet3AfterDelete
-    Left = 416
-    Top = 80
+    Left = 440
+    Top = 240
     object ClientDataSet3idcronometragem: TIntegerField
       FieldName = 'idcronometragem'
     end
@@ -1446,8 +1451,8 @@ inherited F01007: TF01007
   end
   object DataSetProvider3: TDataSetProvider
     DataSet = FDQuery3
-    Left = 384
-    Top = 80
+    Left = 408
+    Top = 240
   end
   object FDQuery3: TFDQuery
     Connection = DModule.FDConnection
@@ -1456,8 +1461,8 @@ inherited F01007: TF01007
       'left outer join operacao f on phf.idoperacao = f.idoperacao '#10
       'where phf.idProduto =:id and f.idFase =:idFas '#10
       'order by (f.idOperacao);')
-    Left = 352
-    Top = 80
+    Left = 376
+    Top = 240
     ParamData = <
       item
         Name = 'ID'
@@ -1551,10 +1556,10 @@ inherited F01007: TF01007
     end
   end
   object ImageList2: TImageList
-    Left = 548
-    Top = 73
+    Left = 596
+    Top = 233
     Bitmap = {
-      494C0101030008002C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800300110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE
@@ -1793,7 +1798,7 @@ inherited F01007: TF01007
         'select phf.*, f.descricao from produto_has_fase phf '#10'left outer ' +
         'join fase f on phf.idfase = f.idfase '#10'where phf.idProduto =:id '#10 +
         'order by (phf.sequencia)')
-    Left = 580
+    Left = 556
     Top = 11
     ParamData = <
       item

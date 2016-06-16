@@ -120,6 +120,7 @@ type
     ClientDataSet4sequencia: TIntegerField;
     ClientDataSet4descricao: TStringField;
     BitBtn4: TBitBtn;
+    BitBtn5: TBitBtn;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
@@ -159,6 +160,7 @@ type
       var query_result: TFDQuery);
     procedure DataSource4DataChange(Sender: TObject; Field: TField);
     procedure BitBtn4Click(Sender: TObject);
+    procedure BitBtn5Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -175,7 +177,7 @@ implementation
 {$R *.dfm}
 
 uses
-uDataModule, U01013, U01015;
+uDataModule, U01013, U01015, u_relatorios;
 
 procedure TF01007.Action5Execute(Sender: TObject);
 begin
@@ -353,6 +355,25 @@ begin
     DataSource3.DataSet.Refresh;
 
   End;
+end;
+
+procedure TF01007.BitBtn5Click(Sender: TObject);
+var
+  nomeTela: String;
+begin
+  frelatorios := tfrelatorios.Create(self);
+  with frelatorios do
+  begin
+      try
+        visible := false;
+          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, Datasource4.DataSet, 'idProduto', '');
+          ShowModal;
+      finally
+          Relatorios_sis.close;
+          relats_usur.close;
+          Free;
+      end;
+   end;
 end;
 
 procedure TF01007.BPesquisarClick(Sender: TObject);
