@@ -46,6 +46,7 @@ type
     ActionMostrarFiltros: TAction;
     btnFiltrar: TButton;
     btnRelatorios: TButton;
+    bRelatorio: TSpeedButton;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
@@ -72,6 +73,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BInserirClick(Sender: TObject);
     procedure btnRelatoriosClick(Sender: TObject);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
     procedure StatusBotoes (e : integer);
@@ -361,6 +363,12 @@ begin
   end;
 end;
 
+procedure TFBase.bRelatorioClick(Sender: TObject);
+begin
+  //
+
+end;
+
 procedure TFBase.StatusBotoes(e: integer);
 begin
 //
@@ -381,7 +389,7 @@ begin
 
   BEditar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
 
-  BEditar.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
+  bRelatorio.Enabled := (e=2) and not (DS.DataSet.IsEmpty);
 
   BPesquisar.Enabled := e=2;
 
