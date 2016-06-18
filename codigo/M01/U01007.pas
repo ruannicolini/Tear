@@ -161,6 +161,8 @@ type
     procedure DataSource4DataChange(Sender: TObject; Field: TField);
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
+    procedure btnRelatoriosClick(Sender: TObject);
+    procedure PageControlChange(Sender: TObject);
   private
     { Private declarations }
 
@@ -360,13 +362,40 @@ end;
 procedure TF01007.BitBtn5Click(Sender: TObject);
 var
   nomeTela: String;
+  q: TFDQuery;
 begin
+  q := TFDQuery.Create(self);
+  q.Connection := DModule.FDConnection;
+
+  q.sql.text := 'select  p.idProduto, p.descricao as produto, f.idFase, f.descricao as fase, '+
+                '  op.idoperacao, op.descricao as operacao, '+
+                '  c.idCronometragem, c.ritmo, c.tempoPadraoFinal, c.tolerancia '+
+                '  from produto p '+
+                '  left outer join produto_has_fase phf on phf.idproduto = p.idProduto '+
+                '  left outer join fase f on f.idFase = phf.idfase '+
+                '  left outer join operacao op on op.idfase = f.idfase '+
+                '  left outer join cronometragem c on c.idproduto = p.idproduto and c.idoperacao = op.idoperacao and p.idproduto in (-1  ';
+
+  ds.DataSet.first;
+  while not ds.DataSet.Eof do
+  begin
+    q.sql.add(','+  ds.DataSet.FieldByName('idproduto').AsString);
+    ds.DataSet.Next;
+  end;
+  q.sql.add(')');
+
+
+  q.sql.add(' order by p.idproduto ');
+  q.open;
+
+  showmessage(q.SQL.Text);
+
   frelatorios := tfrelatorios.Create(self);
   with frelatorios do
   begin
       try
-        visible := false;
-          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, Datasource4.DataSet, 'idProduto', '');
+          visible := false;
+          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idProduto', 'idProduto');
           ShowModal;
       finally
           Relatorios_sis.close;
@@ -447,6 +476,12 @@ begin
   FDQuery1.SQL.Text := 'select prod.*, gp.descricao as grupo from produto prod left outer join grupo_produto gp on prod.idgrupo = gp.idgrupo_produto';
   FDQuery1.Open;
   BPesquisar.Click;
+end;
+
+procedure TF01007.btnRelatoriosClick(Sender: TObject);
+begin
+  inherited;
+  //
 end;
 
 procedure TF01007.Button4Click(Sender: TObject);
@@ -685,6 +720,12 @@ begin
   //
   query_result.ParamByName('x').Value := (ClientDataSet1idProduto.AsInteger);
   query_result.ParamByName('y').Value := (ClientDataSet4idFase.AsInteger);
+end;
+
+procedure TF01007.PageControlChange(Sender: TObject);
+begin
+  inherited;
+  //
 end;
 
 Initialization
