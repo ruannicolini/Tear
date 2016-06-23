@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2015/09/28 18:59:27.000.856,=C:\Componentes Magnus D7\BarraFerramentas.pas</Transaction>
+    <Transaction>2015/09/28 18:59:49.000.244,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\BarraFerramentas.pas=C:\Componentes Magnus D7\BarraFerramentas.pas</Transaction>
+    <Transaction>2015/09/28 19:00:25.000.940,=C:\Componentes Magnus D7\CopiaTabela.pas</Transaction>
+    <Transaction>2015/09/28 19:00:33.000.788,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\CopiaTabela.pas=C:\Componentes Magnus D7\CopiaTabela.pas</Transaction>
+    <Transaction>2015/09/28 19:01:17.000.779,=C:\Componentes Magnus D7\GeraTXT.pas</Transaction>
+    <Transaction>2015/10/01 10:58:29.000.377,=C:\Componentes Magnus D7\DifHora.pas</Transaction>
+    <Transaction>2015/10/01 10:58:42.000.609,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\DifHora.pas=C:\Componentes Magnus D7\DifHora.pas</Transaction>
+    <Transaction>2015/10/01 10:59:00.000.654,=C:\Componentes Magnus D7\ItemDetailsUnit.pas</Transaction>
+    <Transaction>2015/10/01 10:59:07.000.592,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\ItemDetailsUnit.dfm=C:\Componentes Magnus D7\ItemDetailsUnit.dfm</Transaction>
+    <Transaction>2015/10/01 10:59:07.000.592,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\ItemDetailsUnit.pas=C:\Componentes Magnus D7\ItemDetailsUnit.pas</Transaction>
+    <Transaction>2015/10/01 10:59:40.000.382,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\DifHora.pas=</Transaction>
+    <Transaction>2015/10/01 11:00:00.000.977,=C:\Componentes Magnus D7\GanttUnit.pas</Transaction>
+    <Transaction>2015/10/01 11:00:09.000.654,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\GanttUnit.pas=C:\Componentes Magnus D7\GanttUnit.pas</Transaction>
+    <Transaction>2015/10/01 11:00:40.000.519,=C:\Componentes Magnus D7\GanttDataBinder3.pas</Transaction>
+    <Transaction>2015/10/01 11:00:56.000.706,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\GanttDataBinder3.pas=C:\Componentes Magnus D7\GanttDataBinder3.pas</Transaction>
+    <Transaction>2015/10/01 11:01:42.000.737,=C:\Componentes Magnus D7\GBlur2.pas</Transaction>
+    <Transaction>2015/10/01 11:01:49.000.337,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\GBlur2.pas=C:\Componentes Magnus D7\GBlur2.pas</Transaction>
+    <Transaction>2015/10/01 11:02:16.000.613,=C:\Componentes Magnus D7\MiscHelpFunctions.pas</Transaction>
+    <Transaction>2015/10/01 11:02:22.000.140,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MiscHelpFunctions.pas=C:\Componentes Magnus D7\MiscHelpFunctions.pas</Transaction>
+    <Transaction>2015/10/01 11:07:43.000.469,=C:\Componentes Magnus D7\uEmpresas.pas</Transaction>
+    <Transaction>2015/10/01 11:08:22.000.659,C:\Componentes Magnus D7\uEmpresas.pas=</Transaction>
+    <Transaction>2015/10/01 12:46:08.000.905,=C:\Componentes Magnus D7\DBNavigatoraf.pas</Transaction>
+    <Transaction>2015/10/01 12:46:15.000.126,C:\Componentes Magnus D7\DBNavigatoraf.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\DBNavigatoraf.pas</Transaction>
+    <Transaction>2015/10/01 12:47:07.000.831,=C:\Componentes Magnus D7\EditDinheiro.pas</Transaction>
+    <Transaction>2015/10/01 12:47:07.000.870,=C:\Componentes Magnus D7\uMontaEnvioProbs.pas</Transaction>
+    <Transaction>2015/10/01 12:47:23.000.604,C:\Componentes Magnus D7\EditDinheiro.pas=</Transaction>
+    <Transaction>2015/10/01 12:47:34.000.637,C:\Componentes Magnus D7\uMontaEnvioProbs.pas=</Transaction>
+    <Transaction>2015/10/01 12:48:05.000.638,=C:\Componentes Magnus D7\DBSQLEditBeleza.pas</Transaction>
+    <Transaction>2015/10/01 12:48:11.000.016,C:\Componentes Magnus D7\DBSQLEditBeleza.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\DBSQLEditBeleza.pas</Transaction>
+    <Transaction>2015/10/01 12:48:38.000.901,=DbxCommonDriver.dcp</Transaction>
+    <Transaction>2015/10/01 12:48:38.000.918,=dbexpress.dcp</Transaction>
+    <Transaction>2015/10/01 12:49:45.000.572,=C:\Componentes Magnus D7\MontaSQL.pas</Transaction>
+    <Transaction>2015/10/01 12:50:00.000.003,C:\Componentes Magnus D7\MontaSQL.pas=</Transaction>
+    <Transaction>2015/10/01 12:50:18.000.389,=C:\Componentes Magnus D7\uAcessoRapidoTelas.pas</Transaction>
+    <Transaction>2015/10/01 12:50:26.000.322,C:\Componentes Magnus D7\uAcessoRapidoTelas.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\uAcessoRapidoTelas.pas</Transaction>
+    <Transaction>2015/10/01 12:50:44.000.600,=C:\Componentes Magnus D7\uTelaDialogSimplesBase.pas</Transaction>
+    <Transaction>2015/10/01 12:51:01.000.217,C:\Componentes Magnus D7\uTelaDialogSimplesBase.pas=</Transaction>
+    <Transaction>2015/10/01 12:51:58.000.748,=C:\Componentes Magnus D7\uTelaDialogSimplesBase.pas</Transaction>
+    <Transaction>2015/10/01 12:52:08.000.564,C:\Componentes Magnus D7\uTelaDialogSimplesBase.dfm=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\uTelaDialogSimplesBase.dfm</Transaction>
+    <Transaction>2015/10/01 12:52:08.000.564,C:\Componentes Magnus D7\uTelaDialogSimplesBase.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\uTelaDialogSimplesBase.pas</Transaction>
+    <Transaction>2015/10/01 12:53:38.000.959,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiButton.pas</Transaction>
+    <Transaction>2015/10/01 12:53:38.000.981,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiControls.pas</Transaction>
+    <Transaction>2015/10/01 12:53:38.000.938,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\MessDlgs.pas</Transaction>
+    <Transaction>2015/10/01 12:53:39.000.003,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiPanel.pas</Transaction>
+    <Transaction>2015/10/01 12:53:39.000.061,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiTrackBar.pas</Transaction>
+    <Transaction>2015/10/01 12:53:39.000.039,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiProgressBar.pas</Transaction>
+    <Transaction>2015/10/01 12:54:44.000.155,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\uAcessoRapidoTelas.pas=</Transaction>
+    <Transaction>2015/10/01 13:03:05.000.488,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiTrackBar.pas=</Transaction>
+    <Transaction>2015/10/01 13:03:05.000.339,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\MessDlgs.pas=</Transaction>
+    <Transaction>2015/10/01 13:03:05.000.399,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiControls.pas=</Transaction>
+    <Transaction>2015/10/01 13:03:05.000.429,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiPanel.pas=</Transaction>
+    <Transaction>2015/10/01 13:03:05.000.367,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiButton.pas=</Transaction>
+    <Transaction>2015/10/01 13:03:05.000.459,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\MsgDlgs\XiProgressBar.pas=</Transaction>
+    <Transaction>2015/10/01 13:03:20.000.986,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\PkgIgor\uTelaDialogSimplesBase.pas=</Transaction>
+  </Transactions>
+</BorlandProject>
