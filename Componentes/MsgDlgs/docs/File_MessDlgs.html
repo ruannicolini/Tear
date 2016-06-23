@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Unit MessDlgs - Message master for Delphi - JADD - Just Another DelphiDoc</title>
+  <meta name="keywords" content="MessDlgs">
+  <meta name="Generator" content="JADD - Just Another DelphiDoc">
+  <link rel="stylesheet" type="text/css" href="DelphiDoc.css" title="Style">
+</head>
+<body>
+<table width="100%" class=headerlinks><tr>
+<td align=center><a href="index.html">Index</a></td>
+<td align=center><a href="FileList.html">Files</a></td>
+<td align=center><a href="RecordList.html">Records</a></td>
+<td align=center><a href="ObjectList.html">Objects</a></td>
+<td align=center><a href="ClassList.html">Classes</a></td>
+<td align=center><a href="InterfaceList.html">Interfaces</a></td>
+<td align=center><a href="DispInterfaceList.html">Dispatch-Interfaces</a></td>
+</tr></table>
+<hr>
+<h1 class=file>Unit MessDlgs</h1>
+<h2 class=file>Used Units:</h2>
+  Used in interface: System, SysInit, Windows, SysUtils, Consts, Classes, Controls, Graphics, Dialogs, Forms, StdCtrls, ExtCtrls, XiProgressBar, XiPanel, XiButton
+<br>
+  Used in implementation: Types
+
+<hr>
+<h2 class=filecomment>Description:</h2>
+ Message/Input dialogs
+<hr>
+<h2 class=identslist>List of Variables:</h2>
+  <b class=identsscope>Global Variables:</b> <a href="#I_MsgOptions">MsgOptions</a><br>
+  <b class=identsscope>File-Local Variables:</b> <a href="#I_FormRegion">FormRegion</a>, <a href="#I_StatusForm">StatusForm</a>, <a href="#I_StatusLabel">StatusLabel</a>, <a href="#I_StatusProgress">StatusProgress</a><br>
+<hr>
+<h2 class=identslist>List of Constants:</h2>
+  <b class=identsscope>Global Constants:</b> <a href="#I_btncsCustom">btncsCustom</a>, <a href="#I_btncsDesert">btncsDesert</a>, <a href="#I_btncsGrass">btncsGrass</a>, <a href="#I_btncsNeoDesert">btncsNeoDesert</a>, <a href="#I_btncsNeoGrass">btncsNeoGrass</a>, <a href="#I_btncsNeoRose">btncsNeoRose</a>, <a href="#I_btncsNeoSilver">btncsNeoSilver</a>, <a href="#I_btncsNeoSky">btncsNeoSky</a>, <a href="#I_btncsNeoSun">btncsNeoSun</a>, <a href="#I_btncsRose">btncsRose</a>, <a href="#I_btncsSilver">btncsSilver</a>, <a href="#I_btncsSky">btncsSky</a>, <a href="#I_btncsSun">btncsSun</a>, <a href="#I_ButtonCaptionsD">ButtonCaptionsD</a>, <a href="#I_ButtonCaptionsE">ButtonCaptionsE</a>, <a href="#I_ButtonCaptionsF">ButtonCaptionsF</a>, <a href="#I_ButtonCaptionsG">ButtonCaptionsG</a>, <a href="#I_ButtonCaptionsGr">ButtonCaptionsGr</a>, <a href="#I_ButtonCaptionsI">ButtonCaptionsI</a>, <a href="#I_ButtonCaptionsP">ButtonCaptionsP</a>, <a href="#I_ButtonCaptionsR">ButtonCaptionsR</a>, <a href="#I_ButtonCaptionsS">ButtonCaptionsS</a>, <a href="#I_ButtonCaptionsT">ButtonCaptionsT</a>, <a href="#I_CaptionsD">CaptionsD</a>, <a href="#I_CaptionsE">CaptionsE</a>, <a href="#I_CaptionsF">CaptionsF</a>, <a href="#I_CaptionsG">CaptionsG</a>, <a href="#I_CaptionsGr">CaptionsGr</a>, <a href="#I_CaptionsI">CaptionsI</a>, <a href="#I_CaptionsP">CaptionsP</a>, <a href="#I_CaptionsR">CaptionsR</a>, <a href="#I_CaptionsS">CaptionsS</a>, <a href="#I_CaptionsT">CaptionsT</a>, <a href="#I_ltDutch">ltDutch</a>, <a href="#I_ltEnglish">ltEnglish</a>, <a href="#I_ltFrench">ltFrench</a>, <a href="#I_ltGerman">ltGerman</a>, <a href="#I_ltGreek">ltGreek</a>, <a href="#I_ltItalian">ltItalian</a>, <a href="#I_ltPortuguese">ltPortuguese</a>, <a href="#I_ltRussian">ltRussian</a>, <a href="#I_ltSpanish">ltSpanish</a>, <a href="#I_ltTurkish">ltTurkish</a>, <a href="#I_pnlcsCustom">pnlcsCustom</a>, <a href="#I_pnlcsDesert">pnlcsDesert</a>, <a href="#I_pnlcsGrass">pnlcsGrass</a>, <a href="#I_pnlcsRose">pnlcsRose</a>, <a href="#I_pnlcsSilver">pnlcsSilver</a>, <a href="#I_pnlcsSky">pnlcsSky</a>, <a href="#I_pnlcsSun">pnlcsSun</a>, <a href="#I_procsCustom">procsCustom</a>, <a href="#I_procsDesert">procsDesert</a>, <a href="#I_procsGrass">procsGrass</a>, <a href="#I_procsHackers">procsHackers</a>, <a href="#I_procsMetal">procsMetal</a>, <a href="#I_procsNight">procsNight</a>, <a href="#I_procsRose">procsRose</a>, <a href="#I_procsSilver">procsSilver</a>, <a href="#I_procsSky">procsSky</a>, <a href="#I_procsSun">procsSun</a>, <a href="#I_procsToxic">procsToxic</a>, <a href="#I_procsVelvet">procsVelvet</a>, <a href="#I_procsViolet">procsViolet</a>, <a href="#I_sCancelCaptionD">sCancelCaptionD</a>, <a href="#I_sCancelCaptionE">sCancelCaptionE</a>, <a href="#I_sCancelCaptionF">sCancelCaptionF</a>, <a href="#I_sCancelCaptionG">sCancelCaptionG</a>, <a href="#I_sCancelCaptionGr">sCancelCaptionGr</a>, <a href="#I_sCancelCaptionI">sCancelCaptionI</a>, <a href="#I_sCancelCaptionP">sCancelCaptionP</a>, <a href="#I_sCancelCaptionR">sCancelCaptionR</a>, <a href="#I_sCancelCaptionS">sCancelCaptionS</a>, <a href="#I_sCancelCaptionT">sCancelCaptionT</a><br>
+  <b class=identsscope>File-Local Constants:</b> <i>None</i><br>
+<hr>
+<h2 class=identslist>List of Simple Types:</h2>
+  <b class=identsscope>Global Simple Types:</b> <a href="#I_TButtonColorScheme">TButtonColorScheme</a>, <a href="#I_TLangType">TLangType</a>, <a href="#I_TPanelColorScheme">TPanelColorScheme</a>, <a href="#I_TPercentage">TPercentage</a>, <a href="#I_TProgressColorScheme">TProgressColorScheme</a><br>
+  <b class=identsscope>File-Local Simple Types:</b> <i>None</i><br>
+<hr>
+<h2 class=identslist>List of Records:</h2>
+  <b class=identsscope>Global Records:</b> <a href="Record_TMsgOptions.html">TMsgOptions</a><br>
+  <b class=identsscope>File-Local Records:</b> <i>None</i><br>
+<hr>
+<h2 class=identslist>List of Classes:</h2>
+  <b class=identsscope>Global Classes:</b> <i>None</i><br>
+  <b class=identsscope>File-Local Classes:</b> <a href="Class_TMessageForm.html">TMessageForm</a><br>
+<hr>
+<h2 class=identslist>List of Functions:</h2>
+  <b class=identsscope>Global Functions:</b> <dl class=funclist>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_CloseStatus">CloseStatus</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_DrawGradient">DrawGradient</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_InputBox">InputBox</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_InputBoxI">InputBoxI</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_InputQuery">InputQuery</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_InputQueryI">InputQueryI</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_MessageDlg">MessageDlg</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_MessageDlgI">MessageDlgI</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>function</b> <a href="#I_MessageDlgPosI">MessageDlgPosI</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_ShowError">ShowError</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_ShowMessage">ShowMessage</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_ShowStatus">ShowStatus</a></dt>
+  <dd>-------- Status ---------------------</dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_ShowStatusPos">ShowStatusPos</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_2UpdateStatus">UpdateStatus</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_UpdateStatus">UpdateStatus</a></dt>
+  <dd></dd>
+  <dt><img src="unitinterface.gif" alt="unit interface"> <b>procedure</b> <a href="#I_1UpdateStatus">UpdateStatus</a></dt>
+  <dd></dd>
+</dl>
+  <b class=identsscope>File-Local Functions:</b> <dl class=funclist>
+  <dt><img src="unitlocal.gif" alt="unit implementation"> <b>procedure</b> <a href="#I_CheckStatus">CheckStatus</a></dt>
+  <dd></dd>
+  <dt><img src="unitlocal.gif" alt="unit implementation"> <b>procedure</b> <a href="#I_finalization">finalization</a></dt>
+  <dd></dd>
+  <dt><img src="unitlocal.gif" alt="unit implementation"> <b>function</b> <a href="#I_GetAveCharSize">GetAveCharSize</a></dt>
+  <dd></dd>
+  <dt><img src="unitlocal.gif" alt="unit implementation"> <b>procedure</b> <a href="#I_initialization">initialization</a></dt>
+  <dd></dd>
+  <dt><img src="unitlocal.gif" alt="unit implementation"> <b>function</b> <a href="#I_Max">Max</a></dt>
+  <dd></dd>
+</dl>
+<hr>
+<h2 class=idents><a name="Variables">Variables:</a></h2>
+<dl class=idents>
+  <dt class=ident><a name="I_FormRegion"><img src="unitlocal.gif" alt="unit implementation"></a> FormRegion: HRGN</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="Class_TMessageForm.html">TMessageForm</a>.<a href="Class_TMessageForm.html#I_Destroy">Destroy</a>, <a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_MsgOptions"><img src="unitinterface.gif" alt="unit interface"></a> MsgOptions: <a href="Record_TMsgOptions.html">TMsgOptions</a></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="Class_TMessageForm.html">TMessageForm</a>.<a href="Class_TMessageForm.html#I_CreateNew">CreateNew</a>, <a href="Class_TMessageForm.html">TMessageForm</a>.<a href="Class_TMessageForm.html#I_PaintGradient">PaintGradient</a>, <a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_finalization">finalization</a>, <a href="#I_initialization">initialization</a>, <a href="#I_InputBox">InputBox</a>, <a href="#I_InputQuery">InputQuery</a>, <a href="#I_InputQueryI">InputQueryI</a>, <a href="#I_MessageDlg">MessageDlg</a>, <a href="#I_ShowStatus">ShowStatus</a>, <a href="#I_ShowStatusPos">ShowStatusPos</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_StatusForm"><img src="unitlocal.gif" alt="unit implementation"></a> StatusForm: TForm = <b>nil</b></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CheckStatus">CheckStatus</a>, <a href="#I_CloseStatus">CloseStatus</a>, <a href="#I_ShowStatusPos">ShowStatusPos</a>, <a href="#I_UpdateStatus">UpdateStatus</a>, <a href="#I_1UpdateStatus">UpdateStatus</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_StatusLabel"><img src="unitlocal.gif" alt="unit implementation"></a> StatusLabel: TLabel</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_ShowStatusPos">ShowStatusPos</a>, <a href="#I_1UpdateStatus">UpdateStatus</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_StatusProgress"><img src="unitlocal.gif" alt="unit implementation"></a> StatusProgress: TXiProgressBar</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_ShowStatusPos">ShowStatusPos</a>, <a href="#I_UpdateStatus">UpdateStatus</a></dd>
+</dl></dd>
+</dl>
+<hr>
+<h2 class=idents><a name="Constants">Constants:</a></h2>
+<dl class=idents>
+  <dt class=ident><a name="I_btncsCustom"><img src="unitinterface.gif" alt="unit interface"></a> btncsCustom =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 12)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsDesert"><img src="unitinterface.gif" alt="unit interface"></a> btncsDesert =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 6)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsGrass"><img src="unitinterface.gif" alt="unit interface"></a> btncsGrass =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 7)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsNeoDesert"><img src="unitinterface.gif" alt="unit interface"></a> btncsNeoDesert =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 0)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsNeoGrass"><img src="unitinterface.gif" alt="unit interface"></a> btncsNeoGrass =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 2)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsNeoRose"><img src="unitinterface.gif" alt="unit interface"></a> btncsNeoRose =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 4)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsNeoSilver"><img src="unitinterface.gif" alt="unit interface"></a> btncsNeoSilver =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 3)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsNeoSky"><img src="unitinterface.gif" alt="unit interface"></a> btncsNeoSky =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 1)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsNeoSun"><img src="unitinterface.gif" alt="unit interface"></a> btncsNeoSun =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 5)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsRose"><img src="unitinterface.gif" alt="unit interface"></a> btncsRose =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 10)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsSilver"><img src="unitinterface.gif" alt="unit interface"></a> btncsSilver =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 11)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_btncsSky"><img src="unitinterface.gif" alt="unit interface"></a> btncsSky =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 8)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_initialization">initialization</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_btncsSun"><img src="unitinterface.gif" alt="unit interface"></a> btncsSun =  <a href="#I_TButtonColorScheme">TButtonColorScheme</a>( 9)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_ButtonCaptionsD"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsD: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Ja'</span>, <span class=string>'Nee'</span>, <span class=string>'OK'</span>, <span class=string>'Annuleren'</span>, <span class=string>'Afbreken'</span>, <span class=string>'Herhalen'</span>, <span class=string>'Negeren'</span>, <span class=string>'Alles'</span>, <span class=string>'Nee op alles'</span>, <span class=string>'Ja op alles'</span>, <span class=string>'?'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsE"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsE: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Yes'</span>, <span class=string>'No'</span>, <span class=string>'OK'</span>, <span class=string>'Cancel'</span>, <span class=string>'Abort'</span>, <span class=string>'Retry'</span>, <span class=string>'Ignore'</span>, <span class=string>'All'</span>, <span class=string>'No to all'</span>, <span class=string>'Yes to all'</span>, <span class=string>'Help'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsF"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsF: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Oui'</span>, <span class=string>'Non'</span>, <span class=string>'OK'</span>, <span class=string>'Annuler'</span>, <span class=string>'Abandonner'</span>, <span class=string>'Réessayer'</span>, <span class=string>'Ignorer'</span>, <span class=string>'Tout'</span>, <span class=string>'Non pour tous'</span>, <span class=string>'Oui pour tous'</span>, <span class=string>'Aide'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsG"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsG: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Ja'</span>, <span class=string>'Nein'</span>, <span class=string>'OK'</span>, <span class=string>'Abbrechen'</span>, <span class=string>'Abbrechen'</span>, <span class=string>'Wiederholen'</span>, <span class=string>'Ignorieren'</span>, <span class=string>'Alle'</span>, <span class=string>'Nein zu allen'</span>, <span class=string>'Ja zu allen'</span>, <span class=string>'Hilfe'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsGr"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsGr: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Íáß'</span>, <span class=string>'Œ÷é'</span>, <span class=string>'ÅíôÜîåé'</span>, <span class=string>'¢êõñï'</span>, <span class=string>'¢êýñùóç'</span>, <span class=string>'ÐñïóðÜèåéá'</span>, <span class=string>'Áãíþçóç'</span>, <span class=string>'Œëá'</span>, <span class=string>'Œ÷é óå üëá'</span>, <span class=string>'Íáß óå üëá'</span>, <span class=string>'ÂïÞèåéá'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsI"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsI: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Si'</span>, <span class=string>'No'</span>, <span class=string>'OK'</span>, <span class=string>'Annulla'</span>, <span class=string>'Termina'</span>, <span class=string>'Riprova'</span>, <span class=string>'Ignora'</span>, <span class=string>'Tutti'</span>, <span class=string>'No a tutti'</span>, <span class=string>'Si a tutti'</span>, <span class=string>'Aiuto!'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsP"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsP: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Sim'</span>, <span class=string>'Não'</span>, <span class=string>'OK'</span>, <span class=string>'Cancela'</span>, <span class=string>'Aborta'</span>, <span class=string>'Tenta Novamente'</span>, <span class=string>'Ignora'</span>, <span class=string>'Tudo'</span>, <span class=string>'Não para Tudo'</span>, <span class=string>'Sim para Tudo'</span>, <span class=string>'Ajuda'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsR"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsR: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Äà'</span>, <span class=string>'Íåò'</span>, <span class=string>'OK'</span>, <span class=string>'Îòìåíà'</span>, <span class=string>'Ñòîï'</span>, <span class=string>'Ïîâòîð'</span>, <span class=string>'Ïðîïóñòèòü'</span>, <span class=string>'Âñå'</span>, <span class=string>'Íåò äëÿ âñåõ'</span>, <span class=string>'Äà äëÿ âñåõ'</span>, <span class=string>'Ñïðàâêà'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsS"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsS: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Si'</span>, <span class=string>'No'</span>, <span class=string>'OK'</span>, <span class=string>'Cancelar'</span>, <span class=string>'Abortar'</span>, <span class=string>'Reintentar'</span>, <span class=string>'Ignorar'</span>, <span class=string>'Todo'</span>, <span class=string>'No a todo'</span>, <span class=string>'Si a todo'</span>, <span class=string>'Ayuda'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ButtonCaptionsT"><img src="unitinterface.gif" alt="unit interface"></a> ButtonCaptionsT: <b>array</b> [ TMsgDlgBtn] <b>of</b> String = ( <span class=string>'Evet'</span>, <span class=string>'Hayýr'</span>, <span class=string>'TAMAM'</span>, <span class=string>'Vazgeç'</span>, <span class=string>'Durdur'</span>, <span class=string>'Tekrar'</span>, <span class=string>'Ýptal'</span>, <span class=string>'Hepsi'</span>, <span class=string>'Hepsine hayýr'</span>, <span class=string>'Hepsine evet'</span>, <span class=string>'Yardým'</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsD"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsD: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Waarschuwing'</span>, <span class=string>'Fout'</span>, <span class=string>'Informatie'</span>, <span class=string>'Bevestiging'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsE"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsE: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Warning'</span>, <span class=string>'Error'</span>, <span class=string>'Information'</span>, <span class=string>'Confirm'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsF"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsF: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Avertissement'</span>, <span class=string>'Erreur'</span>, <span class=string>'Information'</span>, <span class=string>'Confirmation'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsG"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsG: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Warnung'</span>, <span class=string>'Fehler'</span>, <span class=string>'Information'</span>, <span class=string>'Bestätigung'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsGr"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsGr: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Ðñïóï÷Þ!'</span>, <span class=string>'ËÜèïò'</span>, <span class=string>'Ðëçñïöïñßá'</span>, <span class=string>'Åðéâåâáßùóç'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsI"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsI: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Attenzione'</span>, <span class=string>'Errore'</span>, <span class=string>'Informazione'</span>, <span class=string>'Conferma'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsP"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsP: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Aviso'</span>, <span class=string>'Erro'</span>, <span class=string>'Informação'</span>, <span class=string>'Confirmação'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsR"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsR: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Ïðåäóïðåæäåíèå'</span>, <span class=string>'Îøèáêà'</span>, <span class=string>'Èíôîðìàöèÿ'</span>, <span class=string>'Ïîäòâåðæäåíèå'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsS"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsS: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Precaución'</span>, <span class=string>'Error'</span>, <span class=string>'Información'</span>, <span class=string>'Confirmación'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_CaptionsT"><img src="unitinterface.gif" alt="unit interface"></a> CaptionsT: <b>array</b> [ TMsgDlgType] <b>of</b> String = ( <span class=string>'Uyarý'</span>, <span class=string>'Hata'</span>, <span class=string>'Bilgi'</span>, <span class=string>'Doðrulama'</span>, <span class=string>''</span>)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltDutch"><img src="unitinterface.gif" alt="unit interface"></a> ltDutch =  <a href="#I_TLangType">TLangType</a>( 5)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltEnglish"><img src="unitinterface.gif" alt="unit interface"></a> ltEnglish =  <a href="#I_TLangType">TLangType</a>( 0)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_initialization">initialization</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltFrench"><img src="unitinterface.gif" alt="unit interface"></a> ltFrench =  <a href="#I_TLangType">TLangType</a>( 6)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltGerman"><img src="unitinterface.gif" alt="unit interface"></a> ltGerman =  <a href="#I_TLangType">TLangType</a>( 4)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltGreek"><img src="unitinterface.gif" alt="unit interface"></a> ltGreek =  <a href="#I_TLangType">TLangType</a>( 7)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltItalian"><img src="unitinterface.gif" alt="unit interface"></a> ltItalian =  <a href="#I_TLangType">TLangType</a>( 9)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltPortuguese"><img src="unitinterface.gif" alt="unit interface"></a> ltPortuguese =  <a href="#I_TLangType">TLangType</a>( 2)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltRussian"><img src="unitinterface.gif" alt="unit interface"></a> ltRussian =  <a href="#I_TLangType">TLangType</a>( 1)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltSpanish"><img src="unitinterface.gif" alt="unit interface"></a> ltSpanish =  <a href="#I_TLangType">TLangType</a>( 8)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_ltTurkish"><img src="unitinterface.gif" alt="unit interface"></a> ltTurkish =  <a href="#I_TLangType">TLangType</a>( 3)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_pnlcsCustom"><img src="unitinterface.gif" alt="unit interface"></a> pnlcsCustom =  <a href="#I_TPanelColorScheme">TPanelColorScheme</a>( 0)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_pnlcsDesert"><img src="unitinterface.gif" alt="unit interface"></a> pnlcsDesert =  <a href="#I_TPanelColorScheme">TPanelColorScheme</a>( 1)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_pnlcsGrass"><img src="unitinterface.gif" alt="unit interface"></a> pnlcsGrass =  <a href="#I_TPanelColorScheme">TPanelColorScheme</a>( 2)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_pnlcsRose"><img src="unitinterface.gif" alt="unit interface"></a> pnlcsRose =  <a href="#I_TPanelColorScheme">TPanelColorScheme</a>( 5)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_pnlcsSilver"><img src="unitinterface.gif" alt="unit interface"></a> pnlcsSilver =  <a href="#I_TPanelColorScheme">TPanelColorScheme</a>( 3)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_pnlcsSky"><img src="unitinterface.gif" alt="unit interface"></a> pnlcsSky =  <a href="#I_TPanelColorScheme">TPanelColorScheme</a>( 4)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_initialization">initialization</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_pnlcsSun"><img src="unitinterface.gif" alt="unit interface"></a> pnlcsSun =  <a href="#I_TPanelColorScheme">TPanelColorScheme</a>( 6)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsCustom"><img src="unitinterface.gif" alt="unit interface"></a> procsCustom =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 0)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsDesert"><img src="unitinterface.gif" alt="unit interface"></a> procsDesert =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 1)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsGrass"><img src="unitinterface.gif" alt="unit interface"></a> procsGrass =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 2)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsHackers"><img src="unitinterface.gif" alt="unit interface"></a> procsHackers =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 7)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsMetal"><img src="unitinterface.gif" alt="unit interface"></a> procsMetal =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 10)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsNight"><img src="unitinterface.gif" alt="unit interface"></a> procsNight =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 8)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsRose"><img src="unitinterface.gif" alt="unit interface"></a> procsRose =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 5)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsSilver"><img src="unitinterface.gif" alt="unit interface"></a> procsSilver =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 3)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsSky"><img src="unitinterface.gif" alt="unit interface"></a> procsSky =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 4)</dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_initialization">initialization</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_procsSun"><img src="unitinterface.gif" alt="unit interface"></a> procsSun =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 6)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsToxic"><img src="unitinterface.gif" alt="unit interface"></a> procsToxic =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 12)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsVelvet"><img src="unitinterface.gif" alt="unit interface"></a> procsVelvet =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 9)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_procsViolet"><img src="unitinterface.gif" alt="unit interface"></a> procsViolet =  <a href="#I_TProgressColorScheme">TProgressColorScheme</a>( 11)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_sCancelCaptionD"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionD =  <span class=string>'Annuleren'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionE"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionE =  <span class=string>'Cancel'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionF"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionF =  <span class=string>'Annuler'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionG"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionG =  <span class=string>'Abbrechen'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionGr"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionGr =  <span class=string>'¢êõñï'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionI"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionI =  <span class=string>'Annulla'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionP"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionP =  <span class=string>'Cancela'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionR"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionR =  <span class=string>'Îòìåíà'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionS"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionS =  <span class=string>'Cancelar'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+  <dt class=ident><a name="I_sCancelCaptionT"><img src="unitinterface.gif" alt="unit interface"></a> sCancelCaptionT =  <span class=string>'Vazgeç'</span></dt>
+  <dd class=ident>
+<dl><dt class=used><b>Used in</b></dt><dd class=used><a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl></dd>
+</dl>
+<hr>
+<h2 class=idents><a name="SimpleTypes">Simple Types:</a></h2>
+<dl class=idents>
+  <dt class=ident><a name="I_TButtonColorScheme"><img src="unitinterface.gif" alt="unit interface"></a> TButtonColorScheme = ( <a href="#I_btncsNeoDesert">btncsNeoDesert</a>, <a href="#I_btncsNeoSky">btncsNeoSky</a>, <a href="#I_btncsNeoGrass">btncsNeoGrass</a>, <a href="#I_btncsNeoSilver">btncsNeoSilver</a>, <a href="#I_btncsNeoRose">btncsNeoRose</a>, <a href="#I_btncsNeoSun">btncsNeoSun</a>, <a href="#I_btncsDesert">btncsDesert</a>, <a href="#I_btncsGrass">btncsGrass</a>, <a href="#I_btncsSky">btncsSky</a>, <a href="#I_btncsSun">btncsSun</a>, <a href="#I_btncsRose">btncsRose</a>, <a href="#I_btncsSilver">btncsSilver</a>, <a href="#I_btncsCustom">btncsCustom</a>)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_TLangType"><img src="unitinterface.gif" alt="unit interface"></a> TLangType = ( <a href="#I_ltEnglish">ltEnglish</a>, <a href="#I_ltRussian">ltRussian</a>, <a href="#I_ltPortuguese">ltPortuguese</a>, <a href="#I_ltTurkish">ltTurkish</a>, <a href="#I_ltGerman">ltGerman</a>, <a href="#I_ltDutch">ltDutch</a>, <a href="#I_ltFrench">ltFrench</a>, <a href="#I_ltGreek">ltGreek</a>, <a href="#I_ltSpanish">ltSpanish</a>, <a href="#I_ltItalian">ltItalian</a>)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_TPanelColorScheme"><img src="unitinterface.gif" alt="unit interface"></a> TPanelColorScheme = ( <a href="#I_pnlcsCustom">pnlcsCustom</a>, <a href="#I_pnlcsDesert">pnlcsDesert</a>, <a href="#I_pnlcsGrass">pnlcsGrass</a>, <a href="#I_pnlcsSilver">pnlcsSilver</a>, <a href="#I_pnlcsSky">pnlcsSky</a>, <a href="#I_pnlcsRose">pnlcsRose</a>, <a href="#I_pnlcsSun">pnlcsSun</a>)</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_TPercentage"><img src="unitinterface.gif" alt="unit interface"></a> TPercentage =  1.. 100</dt>
+  <dd class=ident></dd>
+  <dt class=ident><a name="I_TProgressColorScheme"><img src="unitinterface.gif" alt="unit interface"></a> TProgressColorScheme = ( <a href="#I_procsCustom">procsCustom</a>, <a href="#I_procsDesert">procsDesert</a>, <a href="#I_procsGrass">procsGrass</a>, <a href="#I_procsSilver">procsSilver</a>, <a href="#I_procsSky">procsSky</a>, <a href="#I_procsRose">procsRose</a>, <a href="#I_procsSun">procsSun</a>, <a href="#I_procsHackers">procsHackers</a>, <a href="#I_procsNight">procsNight</a>, <a href="#I_procsVelvet">procsVelvet</a>, <a href="#I_procsMetal">procsMetal</a>, <a href="#I_procsViolet">procsViolet</a>, <a href="#I_procsToxic">procsToxic</a>)</dt>
+  <dd class=ident></dd>
+</dl>
+<hr>
+<h2 class=idents><a name="Functions">Functions:</a></h2>
+<dl class=idents>
+  <dt class=ident><a name="I_CheckStatus"><img src="unitlocal.gif" alt="unit implementation"></a> <b>procedure</b> CheckStatus(StatusMustBeCreated: boolean)</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_CloseStatus">CloseStatus</a>, <a href="#I_ShowStatusPos">ShowStatusPos</a>, <a href="#I_UpdateStatus">UpdateStatus</a>, <a href="#I_1UpdateStatus">UpdateStatus</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_CloseStatus"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> CloseStatus</dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_CreateMessageDialogI"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> CreateMessageDialogI(<b>const</b> Msg: String; DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; Lang: <a href="#I_TLangType">TLangType</a>): TForm</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_MessageDlgPosI">MessageDlgPosI</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_DrawGradient"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> DrawGradient(ACanvas: TCanvas; Rect: TRect; Horizontal: Boolean; Colors: <b>array</b> <b>of</b> TColor)</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="Class_TMessageForm.html">TMessageForm</a>.<a href="Class_TMessageForm.html#I_PaintGradient">PaintGradient</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_finalization"><img src="unitlocal.gif" alt="unit implementation"></a> <b>finalization</b></dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_GetAveCharSize"><img src="unitlocal.gif" alt="unit implementation"></a> <b>function</b> GetAveCharSize(Canvas: TCanvas): TPoint</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a>, <a href="#I_InputQueryI">InputQueryI</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_initialization"><img src="unitlocal.gif" alt="unit implementation"></a> <b>initialization</b></dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_InputBox"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> InputBox(<b>const</b> ACaption, APrompt, ADefault: String): String</dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_InputBoxI"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> InputBoxI(<b>const</b> ACaption, APrompt, ADefault: String; Lang: <a href="#I_TLangType">TLangType</a>): String</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_InputBox">InputBox</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_InputQuery"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> InputQuery(<b>const</b> ACaption, APrompt: String; <b>var</b> Value: String): Boolean</dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_InputQueryI"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> InputQueryI(<b>const</b> ACaption, APrompt: String; <b>var</b> Value: String; Lang: <a href="#I_TLangType">TLangType</a>): Boolean</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_InputBoxI">InputBoxI</a>, <a href="#I_InputQuery">InputQuery</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_Max"><img src="unitlocal.gif" alt="unit implementation"></a> <b>function</b> Max(I, J: Integer): Integer</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_CreateMessageDialogI">CreateMessageDialogI</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_MessageDlg"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> MessageDlg(<b>const</b> Msg: String; DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; HelpCtx: Longint): Integer</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_ShowError">ShowError</a>, <a href="#I_ShowMessage">ShowMessage</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_MessageDlgI"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> MessageDlgI(<b>const</b> Msg: String; DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; HelpCtx: Longint; Lang: <a href="#I_TLangType">TLangType</a>): Integer</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_MessageDlg">MessageDlg</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_MessageDlgPosI"><img src="unitinterface.gif" alt="unit interface"></a> <b>function</b> MessageDlgPosI(<b>const</b> Msg: String; DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; HelpCtx: Longint; X, Y: Integer; Lang: <a href="#I_TLangType">TLangType</a>): Integer</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_MessageDlgI">MessageDlgI</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_ShowError"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> ShowError(<b>const</b> Message: String)</dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_ShowMessage"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> ShowMessage(<b>const</b> Message: String)</dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_ShowStatus"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> ShowStatus(<b>const</b> sCaption: String; ProgressVisible: boolean =  True)</dt>
+  <dd class=ident>-------- Status ---------------------<br></dd>
+  <dt class=ident><a name="I_ShowStatusPos"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> ShowStatusPos(<b>const</b> sCaption: String; sPosition: TPoint; ProgressVisible: boolean =  True)</dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_ShowStatus">ShowStatus</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_UpdateStatus"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> UpdateStatus(<b>const</b> Perc: <a href="#I_TPercentage">TPercentage</a>); <b>overload</b></dt>
+  <dd class=ident>
+<dl><dt class=called><b>Called by</b></dt><dd class=called><a href="#I_2UpdateStatus">UpdateStatus</a></dd>
+</dl><br></dd>
+  <dt class=ident><a name="I_2UpdateStatus"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> UpdateStatus(<b>const</b> Perc: <a href="#I_TPercentage">TPercentage</a>; <b>const</b> sCaption: String); <b>overload</b></dt>
+  <dd class=ident><br></dd>
+  <dt class=ident><a name="I_1UpdateStatus"><img src="unitinterface.gif" alt="unit interface"></a> <b>procedure</b> UpdateStatus(<b>const</b> sCaption: String); <b>overload</b></dt>
+  <dd class=ident><br></dd>
+</dl>
+<hr>
+</body>
+</html>
