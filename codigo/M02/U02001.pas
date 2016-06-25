@@ -222,15 +222,18 @@ begin
   q := TFDQuery.Create(self);
   q.Connection := DModule.FDConnection;
 
-  q.sql.text := 'select op.idordem as codOrdem, op.numOrdem, op.qtdOriginal, op.dataCadastro, p.idproduto as codigoProd, p.descricao as produto, '+
+  q.sql.text := 'select op.idordem as codOrdem, op.numOrdem, op.qtdOriginal, op.dataCadastro, '+
+                '  p.idproduto as codigoProd, p.descricao as produto, '+
                 '  f.idFase as codigoFase , f.descricao as fase, ohf.sequencia, '+
                 '  ohf.qtdOriginal as qtdOriginalLinha, ohf.qtdPrevista as qtdPrevistaLinha, '+
                 '  ohf.qtdProduzindo as qtdProduzindoLinha, ohf.qtdFinalizada as qtdFinalizadaLinha, '+
                 '  g.idGrupo as CodLinhaProducao, g.descricao as LinhaProducao '+
                 '  from ordem_producao op '+
-                '  left outer join produto p on p.idProduto = op.idProduto '+
+
                 '  left outer join ordem_has_fase ohf on ohf.idOrdem = op.idOrdem '+
                 '  left outer join fase f on f.idfase = ohf.idFase '+
+                '  left outer join produto p on p.idProduto = op.idProduto '+
+
                 '  left outer join grupo g on g.idGrupo = ohf.idLinhaProducao and op.idOrdem in (-1  ';
 
   ds.DataSet.first;
@@ -242,7 +245,7 @@ begin
   q.sql.add(')');
 
 
-  q.sql.add(' order by op.idOrdem, ohf.sequencia ');
+  q.sql.add(' order by codOrdem, ohf.sequencia');
   q.open;
 
   showmessage(q.SQL.Text);
@@ -256,7 +259,7 @@ begin
   begin
       try
           visible := false;
-          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idProduto', 'idProduto');
+          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idOrdem', 'codOrdem');
           ShowModal;
       finally
           Relatorios_sis.close;

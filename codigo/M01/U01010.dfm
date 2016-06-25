@@ -2,7 +2,7 @@ inherited F01010: TF01010
   Caption = 'F01010'
   ClientHeight = 552
   ClientWidth = 813
-  ExplicitLeft = -159
+  ExplicitLeft = 8
   ExplicitWidth = 829
   ExplicitHeight = 591
   PixelsPerInch = 96
@@ -388,6 +388,9 @@ inherited F01010: TF01010
           OnClick = btnFiltrarClick
           ExplicitLeft = 754
         end
+        inherited btnRelatorios: TButton
+          TabOrder = 9
+        end
         object chkNome: TCheckBox
           Left = 16
           Top = 16
@@ -499,12 +502,12 @@ inherited F01010: TF01010
     Width = 813
     ExplicitWidth = 813
     inherited BSalvar: TSpeedButton
-      Left = 294
-      ExplicitLeft = 294
-    end
-    inherited BCancelar: TSpeedButton
       Left = 330
       ExplicitLeft = 330
+    end
+    inherited BCancelar: TSpeedButton
+      Left = 366
+      ExplicitLeft = 366
     end
     inherited BFechar: TSpeedButton
       Left = 779
@@ -521,6 +524,14 @@ inherited F01010: TF01010
     inherited BNext: TSpeedButton
       Left = 222
       ExplicitLeft = 222
+    end
+    inherited BLast: TSpeedButton
+      Left = 258
+      ExplicitLeft = 258
+    end
+    inherited bRelatorio: TSpeedButton
+      Left = 294
+      ExplicitLeft = 294
     end
   end
   inherited DS: TDataSource
@@ -587,7 +598,7 @@ inherited F01010: TF01010
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010D002C00E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00EC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

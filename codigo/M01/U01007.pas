@@ -440,7 +440,8 @@ begin
                     '  left outer join produto_has_fase phf on phf.idproduto = p.idProduto '+
                     '  left outer join fase f on f.idFase = phf.idfase '+
                     '  left outer join operacao op on op.idfase = f.idfase '+
-                    '  left outer join cronometragem c on c.idproduto = p.idproduto and c.idoperacao = op.idoperacao and p.idproduto in (-1  ';
+                    '  left outer join cronometragem c on c.idproduto = p.idproduto and '+
+                    '  c.idoperacao = op.idoperacao and p.idproduto in (-1  ';
 
       ds.DataSet.first;
       while not ds.DataSet.Eof do

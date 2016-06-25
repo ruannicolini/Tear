@@ -88,6 +88,7 @@ type
     procedure Edit2Change(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -102,7 +103,7 @@ implementation
 {$R *.dfm}
 
 uses
-uDataModule;
+uDataModule, u_relatorios;
 
 procedure TF01010.acCancelarExecute(Sender: TObject);
 begin
@@ -254,6 +255,59 @@ begin
   DS_TR.DataSet.Close;
   DS_TR.DataSet.Open;
 end;
+
+procedure TF01010.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+  q: TFDQuery;
+begin
+  inherited;
+
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      q := TFDQuery.Create(self);
+      q.Connection := DModule.FDConnection;
+
+      q.sql.text := 'select ohtr.idOperador, oper.nome as operador, tr.idtipo_recurso as codTipoRecurso, tr.descricao as tipoRecurso '+
+                    '  from operador oper '+
+                    '  left outer join grupo g on g.idGrupo = oper.idGrupo ' +
+                    '  left outer join operador_has_tipo_recurso ohtr on ohtr.idOperador = oper.idOperador '+
+                    '  left outer join tipo_recurso tr on tr.idtipo_recurso = ohtr.idTipoRecurso '+
+                    '  where oper.idOperador in (-1  ';
+
+      ds.DataSet.first;
+      while not ds.DataSet.Eof do
+      begin
+        q.sql.add(','+  ds.DataSet.FieldByName('idoperador').AsString);
+        ds.DataSet.Next;
+      end;
+      q.sql.add(')');
+
+
+      q.sql.add(' order by idOperador ');
+      q.open;
+
+      showmessage(q.SQL.Text);
+
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idOperador', 'idOperador');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
+end;
+
 
 procedure TF01010.BSalvarClick(Sender: TObject);
 begin
