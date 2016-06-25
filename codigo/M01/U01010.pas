@@ -268,7 +268,7 @@ begin
       q := TFDQuery.Create(self);
       q.Connection := DModule.FDConnection;
 
-      q.sql.text := 'select ohtr.idOperador, oper.nome as operador, tr.idtipo_recurso as codTipoRecurso, tr.descricao as tipoRecurso '+
+      q.sql.text := 'select oper.idOperador, oper.nome as operador, tr.idtipo_recurso as codTipoRecurso, tr.descricao as tipoRecurso '+
                     '  from operador oper '+
                     '  left outer join grupo g on g.idGrupo = oper.idGrupo ' +
                     '  left outer join operador_has_tipo_recurso ohtr on ohtr.idOperador = oper.idOperador '+
@@ -284,7 +284,7 @@ begin
       q.sql.add(')');
 
 
-      q.sql.add(' order by idOperador ');
+      q.sql.add(' order by oper.idOperador ');
       q.open;
 
       showmessage(q.SQL.Text);

@@ -222,7 +222,7 @@ begin
   q := TFDQuery.Create(self);
   q.Connection := DModule.FDConnection;
 
-  q.sql.text := 'select op.idordem as codOrdem, op.numOrdem, op.qtdOriginal, op.dataCadastro, '+
+  q.sql.text := 'select op.idordem, op.numOrdem, op.qtdOriginal, op.dataCadastro, '+
                 '  p.idproduto as codigoProd, p.descricao as produto, '+
                 '  f.idFase as codigoFase , f.descricao as fase, ohf.sequencia, '+
                 '  ohf.qtdOriginal as qtdOriginalLinha, ohf.qtdPrevista as qtdPrevistaLinha, '+
@@ -245,7 +245,7 @@ begin
   q.sql.add(')');
 
 
-  q.sql.add(' order by codOrdem, ohf.sequencia');
+  q.sql.add(' order by op.idordem ');
   q.open;
 
   showmessage(q.SQL.Text);
@@ -259,7 +259,7 @@ begin
   begin
       try
           visible := false;
-          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idOrdem', 'codOrdem');
+          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idOrdem', 'idordem');
           ShowModal;
       finally
           Relatorios_sis.close;

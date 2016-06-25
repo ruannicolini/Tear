@@ -98,6 +98,7 @@ type
       Shift: TShiftState);
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -112,7 +113,7 @@ implementation
 {$R *.dfm}
 
 uses
-uDataModule;
+uDataModule, u_relatorios;
 
 procedure TF01003.acEditarExecute(Sender: TObject);
 begin
@@ -320,6 +321,54 @@ begin
   FDQuery4.ParamByName('idG').Value:=(ClientDataSet1idgrupo.AsInteger);
   DS_GRUPO_HAS_RECURSO.DataSet.Close;
   DS_GRUPO_HAS_RECURSO.DataSet.Open;
+end;
+
+procedure TF01003.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+  q: TFDQuery;
+begin
+  inherited;
+
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      q := TFDQuery.Create(self);
+      q.Connection := DModule.FDConnection;
+      q.sql.text := 'select g.idGrupo, rec.patrimonio, rec.idRecurso from grupo g '+
+                    '  left outer join fase_has_grupo fhg on fhg.idGrupo = g.idGrupo '+
+                    '  left outer join recurso rec on rec.idGrupo = g.idGrupo and g.idGrupo in (-1  ';
+
+      ds.DataSet.first;
+      while not ds.DataSet.Eof do
+      begin
+        q.sql.add(','+  ds.DataSet.FieldByName('idGrupo').AsString);
+        ds.DataSet.Next;
+      end;
+      q.sql.add(')');
+
+
+      q.sql.add(' order by g.idGrupo, rec.idRecurso ');
+      q.open;
+
+      showmessage(q.SQL.Text);
+
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idGrupo', 'idGrupo');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
 end;
 
 procedure TF01003.BSalvarClick(Sender: TObject);
