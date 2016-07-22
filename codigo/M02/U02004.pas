@@ -13,44 +13,8 @@ uses
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Menus, Vcl.Mask, Vcl.DBCtrls,
   DBEditBeleza, Vcl.Imaging.pngimage;
 
-{=========== HEURÍSTICA ===========}
-  type
-  TMaquina = record
-    idMaquina: Integer;
-    descricao: string;
-    Patrimonio: Integer;
-    idTipo : integer;
-  end;
 
-  type
-  TLinhaProducao = record
-    numOperadores : integer;
-    vetorMaquinas : array of TMaquina;
-  end;
-
-  type
-  TPrecedencia = record
-    idCronometragem    : integer;
-    idCronometragemDep : integer;
-  end;
-
-  type
-  TOperacao = record
-    idCronometragem : integer;
-    tempoOperacao   : real;
-    idTipoRecurso   : integer;
-    Cota            : real;
-  end;
-
-  type
-  TRetorno = record
-    idCronometragem : integer;  //Contem a operação
-    operador        : integer;
-    Cota            : real;
-  end;
-
-{=========== Layout ===========}
-type TPanelOperacao =  class(TPanel)
+type TOperacao =  class(TPanel)
    public
    IdLayOutOperacoes   : integer;
    idTipoRecurso       : integer;
@@ -68,24 +32,24 @@ type TPanelOperacao =  class(TPanel)
    procedure   RetiraOperacao(Per:real);
 end;
 
-type TPanelOperacaoMaquina =  record
-   Operacao           : TPaneloperacao;
+type TOperacaoMaquina =  record
+   Operacao           : Toperacao;
    Porcentagem        : real;
 end;
 
-type TPanelMaquina = class(TPanel)
+type TMaquina = class(TPanel)
     public
     Ocupacao     : real;
     GOcupacao    : TProgressBar;
-    Operacoes    : array [1..20] of TPanelOperacaoMaquina;
+    Operacoes    : array [1..20] of TOperacaoMaquina;
     NumOperacoes : integer;
     idrecurso    : integer;
     constructor Create(AOwner: TComponent); override;
     procedure   SetaRecurso(codigoRecurso:integer;Recurso:string);
-    procedure   AdicionaOperacao(Operacao : tPaneloperacao;PerMaxOperador : real);
+    procedure   AdicionaOperacao(Operacao : toperacao;PerMaxOperador : real);
 end;
 
-type TPanelOperador =  class(TPanel)
+type TOperador =  class(TPanel)
    public
    Ocupacao     : real;
    Gocupacao    : TProgressbar;
@@ -93,11 +57,11 @@ type TPanelOperador =  class(TPanel)
    LbPosicao    : tlabel;
    Posicao      : Integer;
    Imagem       : TImage;
-   Maquina1     : TPanelMaquina;
-   Maquina2     : TPanelMaquina;
+   Maquina1     : TMaquina;
+   Maquina2     : TMaquina;
    constructor Create(AOwner: TComponent); override;
    procedure   SetaRecurso(Maquina:integer;codigoRecurso:integer;Recurso:string);
-   procedure   AdicionaOperacao(Operacao:TPanelOperacao);
+   procedure   AdicionaOperacao(Operacao:TOperacao);
 
 end;
 
@@ -106,9 +70,9 @@ type TLayout = class
     TelaOp     : TScrollBox;
     idlayout   : integer;
     q          : TFDQuery;
-    Operadores : array [1..40] of TPanelOperador;
+    Operadores : array [1..40] of TOperador;
     NOperadores: integer;
-    Operacoes  : array [1..40] of TPanelOperacao;
+    Operacoes  : array [1..40] of TOperacao;
     NOperacoes : integer;
     TempoTotal : real;
     MetaHora   : integer;
@@ -123,6 +87,24 @@ type TLayout = class
     Procedure   Imprime(var ImpLayOut: tclientdataset;var ImpOperacao: tclientdataset;var ImpOperadores: tclientdataset);
     Procedure   BuscaDados;
     procedure   GravaDados;
+end;
+
+//Algoritmo Genético
+type TOperacaoAG = class
+  IdLayOutOperacoes   : integer;
+  idCronmetragem       : integer;
+  idTipoRecurso       : integer;
+  Cota                : real;
+  vatorIDCronometragemPrecedencia : array of integer;
+  constructor Create();
+end;
+
+type TIndividuo = class
+  //Obs: o índice representa as operações
+  vetorOperador: array of integer;
+  vetorSequencia: array of integer;
+  fo: Double;
+  constructor Create(tam: integer; qtdOperadores :integer);
 end;
 
 //TELA
@@ -221,6 +203,7 @@ type
     Panel : TPANEL;
     ProgressBar : TProgressBar;
     procedure CalculaMetaHora();
+    procedure atribuiPrecedencia();
   end;
 
 var
@@ -228,10 +211,11 @@ var
   Layout: TLayout;
   TempoTotal : real;
   MetaHora   : integer;
-  linhaProducao : TLinhaProducao;
-  vetOperacoes : array of TOperacao;
+  vetOperacaoAG : array of TOperacaoAG;
 
 implementation
+
+{$APPTYPE CONSOLE}
 
 {$R *.dfm}
 uses UDataModule, Math, System.Generics.Collections;
@@ -240,6 +224,42 @@ procedure TF02004.Action5Execute(Sender: TObject);
 begin
   inherited;
   panel3.Enabled := false;
+end;
+
+function CompareFO(Item1, Item2: Pointer): Integer;
+begin
+  //Obs: ordena decrescente, para ordenas crescente, basta inverter item 2 por item 1 e vice versa
+  Result := CompareValue(TIndividuo(item2).fo, TIndividuo(item1).fo);
+
+  //MessageDlg('Compare ' + floattostr(TIndividuo(item1).fo) + ' to ' + floattostr(TIndividuo(item2).fo),
+  //               mtInformation, [mbOk], 0);
+end;
+
+procedure TF02004.atribuiPrecedencia;
+var
+  I, j: Integer;
+populacao: TList;
+indiv: TIndividuo;
+begin
+  //
+  for I := 0 to Length(vetOperacaoAG)-1 do
+  begin
+    DModule.qAux.Close;
+    DModule.qAux.sql.Text := 'Select * from dependencia where idCronometragem =:idC';
+    DModule.qAux.ParamByName('idC').Value := vetOperacaoAG[i].idCronmetragem;
+    DModule.qAux.open;
+
+    SetLength(vetOperacaoAG[i].vatorIDCronometragemPrecedencia, DModule.qAux.RecordCount);
+    j:= 0;
+    while not(DModule.qAux.eof) do
+    begin
+      vetOperacaoAG[i].vatorIDCronometragemPrecedencia[j] := DModule.qAux.FieldByName('idCronometragemDependencia').AsInteger;
+      j := j+1;
+      DModule.qAux.Next;
+    end;
+  end;
+
+
 end;
 
 procedure TF02004.BEditarClick(Sender: TObject);
@@ -310,7 +330,6 @@ begin
   inherited;
   ClientDataSet1idLayoutFase.AsInteger := DModule.buscaProximoParametro('seqLayoutFase');
 end;
-
 
 procedure TF02004.DBEdit2Change(Sender: TObject);
 begin
@@ -414,125 +433,87 @@ end;
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
-j, i : integer;
+i : integer;
 matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
 vetorTPF: array of double; //vetor de tempo Padrao final das operações
-vetPrecedencia : array of TPrecedencia;
-distrbuicao : array of TRetorno;
+melhor: TIndividuo;
 begin
-    inherited;
+  inherited;
 
-    //Apaga registros LayoutOperaçoes existentes
-    fdquery2.ParamByName('idLF').AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-    moperacoes.Open;
-    MOperacoes.First;
-    while (not(moperacoes.Eof)) do
-    begin
-       DModule.qAux.close;
-       DModule.qAux.SQL.Text := 'delete from layoutoperacao where idlayoutoperacao =:idLO ';
-       DModule.qAux.ParamByName('idLO').Value := moperacoesidLayoutOperacao.AsInteger;
-       DModule.qAux.ExecSQL;
-       moperacoes.Next;
-    end;
+  //Salva registro principal
+  if not(Ds.DataSet.State = dsEdit)then
+  begin
+  DS.DataSet.Post;
+  DS.DataSet.edit;
+  end;
 
-    { APAGAR LAYOUT MAQUINA DAS OPERAÇOES ANTERIORES
-    DModule.qaux.Close;
-    DModule.qaux.sql.Text := 'delete from LayOutMaquina where idlayoutFase = :idlayout';
-    DModule.qaux.params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-    DModule.qaux.ExecSQL;
-    }
+  {************************* Apaga registros LayoutOperaçoes existentes *************************}
+  fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
+  moperacoes.Open;
+  MOperacoes.First;
+  while not(MOperacoes.Eof) do
+  begin
+     moperacoes.delete;
+     moperacoes.First;
+  end;
 
+  {************************* Apaga registros LayoutMaquina existentes *************************}
 
+  // ...
 
-    //INSERI EM LAYOUTOPERAÇÕES
-    DModule.qAux.close;
-    DModule.qAux.SQL.Text := 'select c.* from operacao o ';
-    DModule.qAux.SQL.add('left outer join cronometragem c on c.idOperacao = o.idOperacao ');
-    DModule.qAux.SQL.add('left outer join produto p on p.idproduto = c.idProduto ');
-    DModule.qAux.SQL.add('left outer join ordem_producao op on op.idproduto = p.idproduto ');
-    DModule.qAux.SQL.add('left outer join ordem_has_fase ohf on ohf.idordem = op.idOrdem and ohf.idfase = o.idfase ');
-    DModule.qAux.SQL.add('where ohf.idOrdem_has_fase =:idOHF ');
-    DModule.qAux.ParamByName('idOHF').AsInteger := ClientDataSet1idOrdem_has_fase.AsInteger;
-    DModule.qAux.open;
-    //Declaração do tamanho da Matriz
-    SetLength(matriz, DModule.qAux.RecordCount);
-    SetLength(vetorTPF, DModule.qAux.RecordCount);
-    for i := 0 to (DModule.qAux.RecordCount -1) do
-    begin
-       SetLength(matriz[i], 2);
-    end;
-    i := 0;
-    WHILE NOT(DModule.qAux.EOF) DO
-    BEGIN
-      matriz[i][0] := ClientDataSet1idLayoutFase.AsInteger;
-      matriz[i][1] := DModule.qAux.FieldByName('idCronometragem').AsInteger;
-      vetorTPF[i] := DModule.qAux.FieldByName('tempopadraofinal').AsFloat;
-      i := i+1;
-      DModule.qAux.next;
-    END;
+  {************************* Cria Layout das Operações *************************}
+  DModule.qAux.close;//Consulta operações da fase
+  DModule.qAux.SQL.Text := 'select c.* from operacao o ';
+  DModule.qAux.SQL.add('left outer join cronometragem c on c.idOperacao = o.idOperacao ');
+  DModule.qAux.SQL.add('left outer join produto p on p.idproduto = c.idProduto ');
+  DModule.qAux.SQL.add('left outer join ordem_producao op on op.idproduto = p.idproduto ');
+  DModule.qAux.SQL.add('left outer join ordem_has_fase ohf on ohf.idordem = op.idOrdem and ohf.idfase = o.idfase ');
+  DModule.qAux.SQL.add('where ohf.idOrdem_has_fase =:idOHF ');
+  DModule.qAux.ParamByName('idOHF').AsInteger := ClientDataSet1idOrdem_has_fase.AsInteger;
+  DModule.qAux.open;
 
-    j:= 0;
-    for I := 0 to (Length(matriz)-1) do
-    begin
-      moperacoes.Insert;
-      moperacoesidLayoutFase.Value := matriz[i][0];
-      moperacoesidCronometragem.Value := matriz[i][1];
-      moperacoestempoOperacao.Value := vetorTPF[i];
-      moperacoes.Post;
+  SetLength(matriz, DModule.qAux.RecordCount);   //Declaração do tamanho da Matriz
+  SetLength(vetorTPF, DModule.qAux.RecordCount);
+  for i := 0 to (DModule.qAux.RecordCount -1) do
+  begin
+     SetLength(matriz[i], 2);
+  end;
 
-      // VETOR DE PRECEDÊNCIA
-       DModule.qAux.Close;
-       DModule.qAux.sql.Text := 'Select * from dependencia where idCronometragem =:idC';
-       DModule.qAux.ParamByName('idC').Value := matriz[i][1];
-       DModule.qAux.open;
-       SetLength(vetPrecedencia , (Length(vetPrecedencia)) + DModule.qAux.RecordCount);
-       while not(DModule.qAux.eof) do
-       begin
-          vetPrecedencia[j].idCronometragem     := matriz[i][1];
-          vetPrecedencia[j].idCronometragemDep  := DModule.qAux.FieldByName('idCronometragemDependencia').AsInteger;
-          j := j +1;
-          DModule.qAux.Next;
-       end;
-    END;
+  i := 0;
+  WHILE NOT(DModule.qAux.EOF) DO //INSERI EM LAYOUTOPERAÇÕES
+  BEGIN
+    matriz[i][0] := ClientDataSet1idLayoutFase.AsInteger;
+    matriz[i][1] := DModule.qAux.FieldByName('idCronometragem').AsInteger;
+    vetorTPF[i] := DModule.qAux.FieldByName('tempopadraofinal').AsInteger;
+    i := i+1;
+    DModule.qAux.next;
+  END;
 
-    //Dado Linha de produção
-    linhaProducao.numOperadores := ClientDataSet1numOperadores.AsInteger;
-    DModule.qAux.Close;
-    DModule.qAux.SQL.Text := 'select * from recurso where idgrupo =:idGrup';
-    DModule.qAux.ParamByName('idGrup').Value := ClientDataSet1idgrupo.AsInteger;
-    DModule.qAux.Open;
-    SetLength(linhaProducao.vetorMaquinas, DModule.qAux.RecordCount);
-    i:=0;
-    while NOT(DModule.qAux.Eof) do
-    BEGIN
-      linhaProducao.vetorMaquinas[i].idMaquina := DModule.qAux.FieldByName('idRecurso').AsInteger;
-      linhaProducao.vetorMaquinas[i].descricao := DModule.qAux.FieldByName('descricao').AsString;
-      linhaProducao.vetorMaquinas[i].Patrimonio:= DModule.qAux.FieldByName('patrimonio').AsInteger;
-      linhaProducao.vetorMaquinas[i].idTipo := DModule.qAux.FieldByName('idTipoRecurso').AsInteger;
-      i:= i+1;
-      DModule.qAux.Next;
-    END;
+  for I := 0 to (Length(matriz)-1) do
+  begin
+    moperacoes.Insert;
+    moperacoesidLayoutFase.Value := matriz[i][0];
+    moperacoesidCronometragem.Value := matriz[i][1];
+    moperacoestempoOperacao.Value := vetorTPF[i];
+    moperacoes.Post;
+  END;
 
+  {************************* CALCULA META HORA *************************}
+  CalculaMetaHora;
 
-    //CALCULA META HORA
-    CalculaMetaHora;
+  {************************* MONTA LAYOUT *************************}
+  if not(MOperacoes.IsEmpty) then
+  begin
+    //apaga os paineis dentro do scrollbox
+    ScrollBox1.DestroyComponents;
+    ScrollLinhadeProducao.DestroyComponents;
+    //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
+    Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
 
-    //MOSTA LAYOUT
-    if not(MOperacoes.IsEmpty) then
-    begin
-      //apaga os paineis dentro do scrollbox
-      ScrollBox1.DestroyComponents;
-      ScrollLinhadeProducao.DestroyComponents;
+    atribuiPrecedencia(); // Atribui a precedencia de cada índice em vetOperaçoesAG
+    ShowMessage('fim');
 
-      //cria o Layout                                                                                                                                            // MLayoutidCronometragem.AsInteger
-      Layout := TLayout.Create(ScrollLinhadeProducao,moperacoes,ClientDataSet1numOperadores.AsInteger, TempoTotal,MetaHora,Img.Picture,DMODULE.qaux, ClientDataset1idLayoutFase.AsInteger, ClientDataSet1idOrdem_has_fase.AsInteger,Clientdataset1Responsavel.AsString,ClientDataset1dataLayout.asdatetime,ClientDataset1produto.AsString, clientdataset1numfilas.AsInteger,Scrollbox1);
-
-      //Método de Balanceamento
-      //distribuicao := Metodo(linhaProducao, vetOperacoes, vetPrecedencia);
-
-      //Popula Layout com o melhor indivíduo
-
-    end;
+  end;
 
 end;
 
@@ -548,7 +529,7 @@ end;
 
 { TOperacao }
 
-constructor TPanelOperacao.Create(AOwner: TComponent);
+constructor TOperacao.Create(AOwner: TComponent);
 begin
     inherited;
 
@@ -602,19 +583,19 @@ begin
     LbCotaPendente.Top      := 51;
 end;
 
-procedure TPanelOperacao.RetiraOperacao(Per: real);
+procedure TOperacao.RetiraOperacao(Per: real);
 begin
 
 end;
 
 { TMaquina }
 
-procedure TPanelMaquina.AdicionaOperacao(Operacao: tPaneloperacao; PerMaxOperador: real);
+procedure TMaquina.AdicionaOperacao(Operacao: toperacao; PerMaxOperador: real);
 begin
   //
 end;
 
-constructor TPanelMaquina.Create(AOwner: TComponent);
+constructor TMaquina.Create(AOwner: TComponent);
 begin
   inherited;
   GOcupacao          := TProgressBar.create(Self);
@@ -636,19 +617,19 @@ begin
 
 end;
 
-procedure TPanelMaquina.SetaRecurso(codigoRecurso: integer; Recurso: string);
+procedure TMaquina.SetaRecurso(codigoRecurso: integer; Recurso: string);
 begin
 
 end;
 
 { TOperador }
 
-procedure TPanelOperador.AdicionaOperacao(Operacao: TPanelOperacao);
+procedure TOperador.AdicionaOperacao(Operacao: TOperacao);
 begin
   //
 end;
 
-constructor TPanelOperador.Create(AOwner: TComponent);
+constructor TOperador.Create(AOwner: TComponent);
 var
     p : TPopupMenu;
     i : TMenuItem;
@@ -662,7 +643,7 @@ begin
   i.Caption := 'Remove Operações';
   //i.OnClick   := RemoveOperacoes;
   p.Items.Add(i);
-  TPanelOperador(Self).PopupMenu := p;
+  TOperador(Self).PopupMenu := p;
 
   Height                := 190;
   Width                 := 128;
@@ -675,11 +656,11 @@ begin
   Ocupacao              := 0;
   Cursor                := crHandPoint;
 
-  Maquina1              := TPanelMaquina.create(Self);
+  Maquina1              := TMaquina.create(Self);
   Maquina1.Parent       := self;
   //Maquina1.Left         := 27;
   Maquina1.Align := alTop;
-  Maquina2              := TPanelMaquina.create(Self);
+  Maquina2              := TMaquina.create(Self);
   Maquina2.Parent       := self;
   //Maquina2.Left         := 27;
   Maquina2.Align := alBottom;
@@ -729,8 +710,7 @@ begin
 
 end;
 
-
-procedure TPanelOperador.SetaRecurso(Maquina, codigoRecurso: integer;
+procedure TOperador.SetaRecurso(Maquina, codigoRecurso: integer;
   Recurso: string);
 begin
 
@@ -770,13 +750,10 @@ begin
    NOperacoes            := 0;
    vertical              := 10;
    dados.First;
-
-   SetLength(vetOperacoes, dados.RecordCount);
-   i:= 0;
    while not(dados.eof) do
    begin
        inc(NOperacoes);
-       Operacoes[NOperacoes]                        := TPanelOperacao.Create(telaop);
+       Operacoes[NOperacoes]                        := TOperacao.Create(telaop);
        Operacoes[NOperacoes].Parent                 := LocalOP;
        Operacoes[NOperacoes].IdLayOutOperacoes      := dados.fieldbyname('IdLayOutOperacao').AsInteger;
        Operacoes[NOperacoes].idTipoRecurso          := dados.fieldbyname('idTipo_Recurso').AsInteger;
@@ -787,18 +764,39 @@ begin
        Operacoes[NOperacoes].Operacao               := dados.fieldbyname('Operacao').AsString;
        Operacoes[NOperacoes].LbOperacao.Caption     := dados.fieldbyname('Operacao').AsString;
        Operacoes[NOperacoes].LbCota.Caption         := 'Cota: '+Floattostr(Operacoes[NOperacoes].Cota);
-       Operacoes[NOperacoes].LbCotaPendente.Caption := 'Cota Pendente: '+Floattostr(Operacoes[NOperacoes].CotaPendente);
+       Operacoes[NOperacoes].LbCotaPendente.Caption := 'Cota Pendente: '+ Floattostr(Operacoes[NOperacoes].CotaPendente);
        Operacoes[NOperacoes].LbRecurso.Caption      := dados.fieldbyname('tipo_Recurso').AsString ;
        Operacoes[NOperacoes].GCotaPendente.Max :=  round(Operacoes[NOperacoes].CotaPendente) ;
        Operacoes[NOperacoes].Top                    := vertical;
        Operacoes[NOperacoes].Left                   := 5;
 
-       //MONTA VetOperacoes
-       vetOperacoes[i].idCronometragem := dados.fieldbyname('idCronometragem').AsInteger;
-       vetOperacoes[i].tempoOperacao := dados.fieldbyname('TempoOperacao').Asfloat;
-       vetOperacoes[i].idTipoRecurso := dados.fieldbyname('idTipo_Recurso').AsInteger;
-       vetOperacoes[i].Cota := dados.fieldbyname('Cota').AsInteger;
-       i := i + 1;
+       //cria vetor de OperaçaoAG e quebra ob tempos das operações em <= 100
+       valorT := Operacoes[NOperacoes].Cota;
+       if(valort > 100)then
+       begin
+           while( valort > 0 )do
+           begin
+            contaPosicoes := contaPosicoes +1;
+            SetLength( vetOperacaoAG ,contaPosicoes);
+            vetOperacaoAG[contaPosicoes-1] := TOperacaoAG.create;
+
+            vetOperacaoAG[contaPosicoes-1].IdLayOutOperacoes := Operacoes[NOperacoes].IdLayOutOperacoes;
+            vetOperacaoAG[contaPosicoes-1].idTipoRecurso := Operacoes[NOperacoes].idTipoRecurso ;
+            vetOperacaoAG[contaPosicoes-1].idCronmetragem := Operacoes[NOperacoes].idCronometragem;
+            if(valorT > 100)then
+            begin
+            vetOperacaoAG[contaPosicoes-1].cota := 100;
+            end else
+            begin
+              vetOperacaoAG[contaPosicoes-1].cota := valort;
+            end;
+            valort := valort - 100;
+
+           end;
+       end else
+       begin
+        contaPosicoes := contaPosicoes +1;
+       end;
 
        vertical := vertical + Operacoes[NOperacoes].Height + 5;
        dados.Next;
@@ -813,7 +811,7 @@ begin
    countFilas := 0;
    for i := 1 to NOperadores do
    begin
-       Operadores[i]                      := TPanelOperador.Create(tela);
+       Operadores[i]                      := TOperador.Create(tela);
        Operadores[i].Parent               := tela;
        Operadores[i].Left                 := horizontal;
        Operadores[i].Top                  := vertical;
@@ -881,6 +879,46 @@ procedure TLayout.Imprime(var ImpLayOut, ImpOperacao,
   ImpOperadores: tclientdataset);
 begin
 
+end;
+
+{ TIndividuo }
+
+constructor TIndividuo.Create(tam: integer; qtdOperadores :integer);
+var
+ rand :integer;
+  I: Integer;
+begin
+
+  //inicializa indiv.vetorOperador
+  SetLength(vetorOperador,tam);
+  Randomize;
+  //seta valores no vetorOperador
+  for I := 0 to (Length(vetorOperador)-1) do
+  begin
+    //Random gera um num aleatorio > 0
+    Rand:= Random(qtdOperadores) + 1;
+    vetorOperador[i] := rand;
+  end;
+
+  //indiv.vetorSequencia
+  SetLength(vetorSequencia,tam);
+  Randomize;
+  for I := 0 to (Length(vetorSequencia)-1) do
+  begin
+    Rand:= Random(1000)+1;
+    vetorSequencia[i] := rand;
+  end;
+
+end;
+
+{ TOperacaoAG }
+
+constructor TOperacaoAG.Create;
+begin
+  IdLayOutOperacoes := 0;
+  idTipoRecurso := 0;
+  cota := 0;
+  idCronmetragem := 0;
 end;
 
 Initialization
