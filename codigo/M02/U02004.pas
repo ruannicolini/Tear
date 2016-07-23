@@ -13,7 +13,7 @@ uses
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Menus, Vcl.Mask, Vcl.DBCtrls,
   DBEditBeleza, Vcl.Imaging.pngimage;
 
-
+{Declações do Layout}
 type TOperacao =  class(TPanel)
    public
    IdLayOutOperacoes   : integer;
@@ -89,7 +89,53 @@ type TLayout = class
     procedure   GravaDados;
 end;
 
-//Algoritmo Genético
+{Declarações da estrutura passada para a unit de Sequenciamento e Balanceamento}
+
+//JOBS
+type TOperacaoProduto = record
+  codCronometragem : integer;
+  tempoPadraoFinal : real;
+  codMaquina : integer; // Maquina utilizada para realizar a operação
+  precedencia : array of TOperacaoProduto;
+end;
+
+type TFaseDaOrdem =  record
+  codFaseDaOrdem : integer;  // cod gerado na criação da ordem para cada fase
+  sequencia : integer;
+  qtdOriginal : integer;
+  codFaseProduto :integer; // id da fase original nas fases do produto
+  descricaoFaseProduto : string;
+  operacoes : array of TOperacaoProduto;
+end;
+
+type TOrdem =  record
+  codOrdem : integer;
+  numOrdem : integer;
+  dataOrdem : TDate;
+  codProduto : integer;
+  descricaoProduto : string;
+  fasesDaOrdem : array of TFaseDaOrdem;
+end;
+
+//CELULAS
+type TRecursoMaquina =  record
+    codMaquina : integer;
+    descricaoMaquina : string;
+    patrimonio : integer;
+    idTipoMaquina : integer;
+    descricaoTipoMaquina : string;
+end;
+
+type TLinhaProducao =  record
+    codLinhaProducao : integer;
+    descricaoLinhaProducao : string;
+    qtdOperadores : integer;
+    maquinas : array of TRecursoMaquina;
+    fasesHabilitadas : array of integer; // Fases de produtos que a linha de produção pode executar;
+end;
+
+
+{ ********** Declarações do Algoritmo Genético ********** }
 type TOperacaoAG = class
   IdLayOutOperacoes   : integer;
   idCronmetragem       : integer;
