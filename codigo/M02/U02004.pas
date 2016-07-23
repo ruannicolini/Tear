@@ -272,15 +272,6 @@ begin
   panel3.Enabled := false;
 end;
 
-function CompareFO(Item1, Item2: Pointer): Integer;
-begin
-  //Obs: ordena decrescente, para ordenas crescente, basta inverter item 2 por item 1 e vice versa
-  Result := CompareValue(TIndividuo(item2).fo, TIndividuo(item1).fo);
-
-  //MessageDlg('Compare ' + floattostr(TIndividuo(item1).fo) + ' to ' + floattostr(TIndividuo(item2).fo),
-  //               mtInformation, [mbOk], 0);
-end;
-
 procedure TF02004.atribuiPrecedencia;
 var
   I, j: Integer;
@@ -440,7 +431,7 @@ begin
     if not(DModule.qAux.IsEmpty)then
     begin
       ClientDataSet1numOperadores.asinteger := DModule.qAux.RecordCount;
-      ShowMessage('ok num grupo');
+      //ShowMessage('ok num grupo');
     end else
       ClientDataSet1numOperadores.Clear;
   end;
@@ -546,6 +537,9 @@ begin
 
   {************************* CALCULA META HORA *************************}
   CalculaMetaHora;
+
+  {************************* MONTA Array Jobs e Celulas *************************}
+
 
   {************************* MONTA LAYOUT *************************}
   if not(MOperacoes.IsEmpty) then
