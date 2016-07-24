@@ -106,6 +106,7 @@ type TFaseDaOrdem =  record
   codFaseProduto :integer; // id da fase original nas fases do produto
   descricaoFaseProduto : string;
   operacoes : array of TOperacaoProduto;
+  constructor create(codOHF: integer; seq:integer;qtdT:integer;codF:integer;desFase:string);
 end;
 
 type TOrdem =  record
@@ -115,6 +116,7 @@ type TOrdem =  record
   codProduto : integer;
   descricaoProduto : string;
   fasesDaOrdem : array of TFaseDaOrdem;
+  constructor Create(cod: integer;num:integer;dat:Tdate; codp:integer; desProd:string);
 end;
 
 //CELULAS
@@ -250,6 +252,7 @@ type
     ProgressBar : TProgressBar;
     procedure CalculaMetaHora();
     procedure atribuiPrecedencia();
+    procedure montaJobs(var jobs: TArray<TOrdem>);
   end;
 
 var
@@ -265,6 +268,8 @@ implementation
 
 {$R *.dfm}
 uses UDataModule, Math, System.Generics.Collections;
+
+
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
@@ -444,6 +449,59 @@ begin
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
 end;
 
+procedure TF02004.montaJobs( var jobs: TArray<TOrdem>);
+var
+i, j : integer;
+begin
+  //Busca ordens ainda não sequenciadas
+  DModule.qAux.Close;
+  DModule.qAux.open;
+  DModule.qAux.sql.Text := 'select op.*, p.descricao as produto from ordem_producao op ' +
+  'left outer join produto p on p.idProduto = op.idProduto where op.sequenciado =:idSequenciado';
+  DModule.qAux.ParamByName('idSequenciado').AsBoolean := false;
+  DModule.qAux.open;
+  DModule.qAux.First;
+  SetLength(jobs, DModule.qAux.RecordCount);
+  for i := 0 to (DModule.qAux.RecordCount -1) do
+  begin
+     //
+     jobs[i] := TOrdem.create(
+     DModule.qAux.FieldByName('idOrdem').AsInteger,
+     DModule.qAux.FieldByName('numOrdem').AsInteger,
+     (DModule.qAux.FieldByName('dataCadastro').AsDateTime),
+     DModule.qAux.FieldByName('idProduto').AsInteger,
+     DModule.qAux.FieldByName('produto').AsString
+     );
+     DModule.qAux.Next;
+  end;
+
+  //Busca Fases das ordens ainda não sequenciadas
+  for i := 0 to (Length(jobs) -1) do
+  begin
+      DModule.qAux.Close;
+      DModule.qAux.open;
+      DModule.qAux.sql.Text := 'select ohf.*, f.descricao as fase from ordem_has_fase ohf ' +
+      'left outer join fase f on f.idfase = ohf.idfase where ohf.idordem =:idOrdem';
+      DModule.qAux.ParamByName('idOrdem').AsInteger := jobs[i].codOrdem;
+      DModule.qAux.open;
+      DModule.qAux.First;
+
+      SetLength(jobs[i].fasesDaOrdem ,DModule.qAux.RecordCount);
+      for j := 0 to (DModule.qAux.RecordCount -1) do
+      begin
+          jobs[i].fasesDaOrdem[j] := TFaseDaOrdem.create(
+          DModule.qAux.FieldByName('idOrdem_has_fase').AsInteger,
+          DModule.qAux.FieldByName('sequencia').AsInteger,
+          DModule.qAux.FieldByName('qtdOriginal').Asinteger,
+          DModule.qAux.FieldByName('idFase').AsInteger,
+          DModule.qAux.FieldByName('fase').AsString
+          );
+          DModule.qAux.Next;
+      end;
+  end;
+
+end;
+
 procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
 begin
   inherited;
@@ -470,12 +528,27 @@ end;
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
-i : integer;
+i,j : integer;
+teste : string;
 matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
 vetorTPF: array of double; //vetor de tempo Padrao final das operações
-melhor: TIndividuo;
+//melhor: TIndividuo;
+jobs: TArray<TOrdem>;
 begin
   inherited;
+
+  montaJobs(jobs);
+  for i := 0 to (Length(jobs)-1) do
+  begin
+    teste := '';
+    for j := 0 to (Length(jobs[i].fasesDaOrdem)-1) do
+    begin
+      teste := teste + ' ' + inttostr(jobs[i].fasesDaOrdem[j].codFaseDaOrdem);
+    end;
+
+    ShowMessage('cod ordem: ' + inttostr(jobs[i].codOrdem) + #13 +
+    teste);
+  end;
 
   //Salva registro principal
   if not(Ds.DataSet.State = dsEdit)then
@@ -959,6 +1032,34 @@ begin
   idTipoRecurso := 0;
   cota := 0;
   idCronmetragem := 0;
+end;
+
+{ TOrdem }
+constructor TOrdem.Create(cod, num: integer; dat: Tdate; codp: integer;
+  desProd: string);
+begin
+  inherited;
+  //
+  codOrdem := cod;
+  numOrdem := num;
+  dataOrdem := dat;
+  codProduto := codp;
+  descricaoProduto := desProd;
+
+  // Falta Busca das Fases da ordem
+end;
+
+{ TFaseDaOrdem }
+
+constructor TFaseDaOrdem.create(codOHF, seq, qtdT, codF: integer;
+  desFase: string);
+begin
+  //
+  codFaseDaOrdem := codOHF;
+  sequencia := seq;
+  qtdOriginal := qtdT;
+  codFaseProduto := codF;
+  descricaoFaseProduto := desFase;
 end;
 
 Initialization
