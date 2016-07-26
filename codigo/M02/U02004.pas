@@ -107,7 +107,7 @@ type TFaseDaOrdem =  record
   codFaseProduto :integer; // id da fase original nas fases do produto
   descricaoFaseProduto : string;
   operacoes : array of TOperacaoProduto;
-  constructor create(codOHF: integer; seq:integer;qtdT:integer;codF:integer;desFase:string);
+  constructor create(codOHF: integer; seq:integer;qtdT:integer;codF,codProd:integer;desFase:string);
 end;
 
 type TOrdem =  record
@@ -460,7 +460,6 @@ begin
 
   //Busca ordens ainda não sequenciadas
   DModule.qAux.Close;
-  DModule.qAux.open;
   DModule.qAux.sql.Text := 'select op.*, p.descricao as produto from ordem_producao op ' +
   'left outer join produto p on p.idProduto = op.idProduto where op.sequenciado =:idSequenciado';
   DModule.qAux.ParamByName('idSequenciado').AsBoolean := false;
@@ -479,56 +478,7 @@ begin
      );
      DModule.qAux.Next;
   end;
-
-  //Busca Fases das ordens ainda não sequenciadas
-  for i := 0 to (Length(jobs) -1) do
-  begin
-    ShowMessage('antes');
-      DModule.qAux.Close;
-      DModule.qAux.open;
-      DModule.qAux.sql.Text := 'select ohf.*, f.descricao as fase from ordem_has_fase ohf ' +
-      'left outer join fase f on f.idfase = ohf.idfase where ohf.idordem =:idOrdem';
-      DModule.qAux.ParamByName('idOrdem').AsInteger := jobs[i].codOrdem;
-      DModule.qAux.open;
-      DModule.qAux.First;
-    ShowMessage('depois');
-
-      SetLength(jobs[i].fasesDaOrdem ,DModule.qAux.RecordCount);
-      for j := 0 to (DModule.qAux.RecordCount -1) do
-      begin
-          jobs[i].fasesDaOrdem[j] := TFaseDaOrdem.create(
-          DModule.qAux.FieldByName('idOrdem_has_fase').AsInteger,
-          DModule.qAux.FieldByName('sequencia').AsInteger,
-          DModule.qAux.FieldByName('qtdOriginal').Asinteger,
-          DModule.qAux.FieldByName('idFase').AsInteger,
-          DModule.qAux.FieldByName('fase').AsString
-          );
-
-          qAux2.Close;
-          qAux2.sql.Text := 'select c.idCronometragem, c.tempoPadraoFinal, o.descricao as operacao, chtr.idTipoRecurso as TipoRecurso, tr.descricao as descricaoTipoRecurso from cronometragem c ' +
-          'left outer join operacao o on o.idOperacao = c.idOperacao ' +
-          'left outer join cronometragem_has_tipo_recurso chtr on chtr.idCronometragem = c.idCronometragem ' +
-          'left outer join tipo_recurso tr on tr.idTipo_Recurso = chtr.idTipoRecurso ' +
-          'where c.idProduto =:idProd and o.idFase =:idFase ';
-          qAux2.ParamByName('idProd').AsInteger := jobs[i].codProduto;
-          qAux2.ParamByName('idFase').AsInteger := jobs[i].fasesDaOrdem[j].codFaseProduto;
-          qAux2.open;
-          qAux2.First;
-          SetLength(jobs[i].fasesDaOrdem[j].operacoes ,qAux2.RecordCount);
-          for k := 0 to (qAux2.RecordCount -1) do
-          begin
-            jobs[i].fasesDaOrdem[j].operacoes[k] := TOperacaoProduto.Create(
-            qAux2.FieldByName('idCronometragem').AsInteger,
-            qAux2.FieldByName('tempoPadraoFinal').AsInteger,
-            qAux2.FieldByName('tipoRecurso').AsInteger
-            );
-            qAux2.Next;
-          end;
-
-          DModule.qAux.Next;
-      end;
-  end;
-
+  FreeAndNil(qAux2);
 end;
 
 procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
@@ -565,8 +515,6 @@ vetorTPF: array of double; //vetor de tempo Padrao final das operações
 jobs: TArray<TOrdem>;
 begin
   inherited;
-
-  montaJobs(jobs);
 
   //Salva registro principal
   if not(Ds.DataSet.State = dsEdit)then
@@ -630,7 +578,7 @@ begin
   CalculaMetaHora;
 
   {************************* MONTA Array Jobs e Celulas *************************}
-
+  montaJobs(jobs);
 
   {************************* MONTA LAYOUT *************************}
   if not(MOperacoes.IsEmpty) then
@@ -1055,6 +1003,9 @@ end;
 { TOrdem }
 constructor TOrdem.Create(cod, num: integer; dat: Tdate; codp: integer;
   desProd: string);
+var
+j : integer;
+qAux2 : TFDQuery;
 begin
   inherited;
   //
@@ -1064,13 +1015,38 @@ begin
   codProduto := codp;
   descricaoProduto := desProd;
 
-  // Falta Busca das Fases da ordem
+  //Busca das Fases da ordem
+  qAux2 := TFDQuery.Create(Application);
+  qAux2.Connection := DModule.FDConnection;
+  qAux2.Close;
+  qAux2.sql.Text := 'select ohf.*, f.descricao as fase from ordem_has_fase ohf ' +
+  'left outer join fase f on f.idfase = ohf.idfase where ohf.idordem =:idOrdem';
+  qAux2.ParamByName('idOrdem').AsInteger := codOrdem;
+  qAux2.open;
+  qAux2.First;
+  SetLength(fasesDaOrdem , qAux2.RecordCount);
+  for j := 0 to (qAux2.RecordCount -1) do
+  begin
+      fasesDaOrdem[j] := TFaseDaOrdem.create(
+      qAux2.FieldByName('idOrdem_has_fase').AsInteger,
+      qAux2.FieldByName('sequencia').AsInteger,
+      qAux2.FieldByName('qtdOriginal').Asinteger,
+      qAux2.FieldByName('idFase').AsInteger,
+      codProduto,
+      qAux2.FieldByName('fase').AsString
+      );
+      qAux2.Next;
+  end;
+  FreeAndNil(qAux2);
 end;
 
 { TFaseDaOrdem }
 
-constructor TFaseDaOrdem.create(codOHF, seq, qtdT, codF: integer;
+constructor TFaseDaOrdem.create(codOHF, seq, qtdT, codF, codProd: integer;
   desFase: string);
+var
+qAux2 : TFDQuery;
+k : integer;
 begin
   //
   codFaseDaOrdem := codOHF;
@@ -1078,6 +1054,32 @@ begin
   qtdOriginal := qtdT;
   codFaseProduto := codF;
   descricaoFaseProduto := desFase;
+
+  //
+  qAux2 := TFDQuery.Create(Application);
+  qAux2.Connection := DModule.FDConnection;
+  qAux2.Close;
+  qAux2.sql.Text := 'select c.idCronometragem, c.tempoPadraoFinal, o.descricao as operacao, chtr.idTipoRecurso as TipoRecurso, tr.descricao as descricaoTipoRecurso from cronometragem c ' +
+      'left outer join operacao o on o.idOperacao = c.idOperacao ' +
+      'left outer join cronometragem_has_tipo_recurso chtr on chtr.idCronometragem = c.idCronometragem ' +
+      'left outer join tipo_recurso tr on tr.idTipo_Recurso = chtr.idTipoRecurso ' +
+      'where c.idProduto =:idProd and o.idFase =:idFase ';
+  qAux2.ParamByName('idProd').AsInteger := codProd;
+  qAux2.ParamByName('idFase').AsInteger := codFaseProduto;
+  qAux2.open;
+  qAux2.First;
+  SetLength(operacoes ,qAux2.RecordCount);
+  for k := 0 to (qAux2.RecordCount -1) do
+  begin
+    operacoes[k] := TOperacaoProduto.Create(
+    qAux2.FieldByName('idCronometragem').AsInteger,
+    qAux2.FieldByName('tempoPadraoFinal').AsInteger,
+    qAux2.FieldByName('tipoRecurso').AsInteger
+    );
+    qAux2.Next;
+  end;
+  FreeAndNil(qAux2);
+
 end;
 
 { TOperacaoProduto }
@@ -1099,7 +1101,7 @@ begin
   qAux2.open;
 
   SetLength(precedencia, qAux2.RecordCount);
-  for I := 0 to (qAux2.RecordCount-1) do
+  for I := 0 to (qAux2.RecordCount - 1) do
   begin
       precedencia[i] := qaux2.FieldByName('idCronometragemDependencia').AsInteger;
       qAux2.Next;
