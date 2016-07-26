@@ -96,7 +96,8 @@ type TOperacaoProduto = record
   codCronometragem : integer;
   tempoPadraoFinal : real;
   codMaquina : integer; // Maquina utilizada para realizar a operação
-  precedencia : array of TOperacaoProduto;
+  precedencia : array of integer;
+  constructor create(codCro:integer;tpf:Real;cdM:integer);
 end;
 
 type TFaseDaOrdem =  record
@@ -451,8 +452,12 @@ end;
 
 procedure TF02004.montaJobs( var jobs: TArray<TOrdem>);
 var
-i, j : integer;
+i, j, k : integer;
+qAux2 : TFDQuery;
 begin
+  qAux2 := TFDQuery.Create(self);
+  qAux2.Connection := DModule.FDConnection;
+
   //Busca ordens ainda não sequenciadas
   DModule.qAux.Close;
   DModule.qAux.open;
@@ -478,6 +483,7 @@ begin
   //Busca Fases das ordens ainda não sequenciadas
   for i := 0 to (Length(jobs) -1) do
   begin
+    ShowMessage('antes');
       DModule.qAux.Close;
       DModule.qAux.open;
       DModule.qAux.sql.Text := 'select ohf.*, f.descricao as fase from ordem_has_fase ohf ' +
@@ -485,6 +491,7 @@ begin
       DModule.qAux.ParamByName('idOrdem').AsInteger := jobs[i].codOrdem;
       DModule.qAux.open;
       DModule.qAux.First;
+    ShowMessage('depois');
 
       SetLength(jobs[i].fasesDaOrdem ,DModule.qAux.RecordCount);
       for j := 0 to (DModule.qAux.RecordCount -1) do
@@ -496,6 +503,28 @@ begin
           DModule.qAux.FieldByName('idFase').AsInteger,
           DModule.qAux.FieldByName('fase').AsString
           );
+
+          qAux2.Close;
+          qAux2.sql.Text := 'select c.idCronometragem, c.tempoPadraoFinal, o.descricao as operacao, chtr.idTipoRecurso as TipoRecurso, tr.descricao as descricaoTipoRecurso from cronometragem c ' +
+          'left outer join operacao o on o.idOperacao = c.idOperacao ' +
+          'left outer join cronometragem_has_tipo_recurso chtr on chtr.idCronometragem = c.idCronometragem ' +
+          'left outer join tipo_recurso tr on tr.idTipo_Recurso = chtr.idTipoRecurso ' +
+          'where c.idProduto =:idProd and o.idFase =:idFase ';
+          qAux2.ParamByName('idProd').AsInteger := jobs[i].codProduto;
+          qAux2.ParamByName('idFase').AsInteger := jobs[i].fasesDaOrdem[j].codFaseProduto;
+          qAux2.open;
+          qAux2.First;
+          SetLength(jobs[i].fasesDaOrdem[j].operacoes ,qAux2.RecordCount);
+          for k := 0 to (qAux2.RecordCount -1) do
+          begin
+            jobs[i].fasesDaOrdem[j].operacoes[k] := TOperacaoProduto.Create(
+            qAux2.FieldByName('idCronometragem').AsInteger,
+            qAux2.FieldByName('tempoPadraoFinal').AsInteger,
+            qAux2.FieldByName('tipoRecurso').AsInteger
+            );
+            qAux2.Next;
+          end;
+
           DModule.qAux.Next;
       end;
   end;
@@ -528,7 +557,7 @@ end;
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
-i,j : integer;
+i,j,k,l : integer;
 teste : string;
 matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
 vetorTPF: array of double; //vetor de tempo Padrao final das operações
@@ -538,17 +567,6 @@ begin
   inherited;
 
   montaJobs(jobs);
-  for i := 0 to (Length(jobs)-1) do
-  begin
-    teste := '';
-    for j := 0 to (Length(jobs[i].fasesDaOrdem)-1) do
-    begin
-      teste := teste + ' ' + inttostr(jobs[i].fasesDaOrdem[j].codFaseDaOrdem);
-    end;
-
-    ShowMessage('cod ordem: ' + inttostr(jobs[i].codOrdem) + #13 +
-    teste);
-  end;
 
   //Salva registro principal
   if not(Ds.DataSet.State = dsEdit)then
@@ -1060,6 +1078,33 @@ begin
   qtdOriginal := qtdT;
   codFaseProduto := codF;
   descricaoFaseProduto := desFase;
+end;
+
+{ TOperacaoProduto }
+
+constructor TOperacaoProduto.create(codCro: integer; tpf: Real; cdM: integer);
+var
+qAux2 : TFDQuery;
+I : integer;
+begin
+  codCronometragem := codCro;
+  tempoPadraoFinal := tpf;
+  codMaquina := cdM;
+
+  // Preenchimento do vetor precedencia;
+  qAux2 := TFDQuery.Create(Application);
+  qAux2.Connection := DModule.FDConnection;
+  qAux2.SQL.Text := 'select * from dependencia d where d.idCronometragem =:idC';
+  qAux2.ParamByName('idC').AsInteger := codCro;
+  qAux2.open;
+
+  SetLength(precedencia, qAux2.RecordCount);
+  for I := 0 to (qAux2.RecordCount-1) do
+  begin
+      precedencia[i] := qaux2.FieldByName('idCronometragemDependencia').AsInteger;
+      qAux2.Next;
+  end;
+  FreeAndNil(qAux2);
 end;
 
 Initialization

@@ -1,6 +1,7 @@
 inherited F02004: TF02004
   Caption = 'F02004'
   ClientWidth = 1031
+  ExplicitLeft = -176
   ExplicitWidth = 1047
   ExplicitHeight = 557
   PixelsPerInch = 96
@@ -144,16 +145,14 @@ inherited F02004: TF02004
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 851
+      Left = 855
       Top = 4
       Width = 136
-      Height = 38
+      Height = 46
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
       OnClick = SpeedButton1Click
-      ExplicitLeft = 859
-      ExplicitHeight = 46
     end
     object Label1: TLabel
       Left = 9
@@ -509,7 +508,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00540110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00640110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
