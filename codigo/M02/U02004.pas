@@ -95,7 +95,7 @@ end;
 type TOperacaoProduto = record
   codCronometragem : integer;
   tempoPadraoFinal : real;
-  codMaquina : integer; // Maquina utilizada para realizar a operação
+  codTipoMaquina : integer; // Maquina utilizada para realizar a operação
   precedencia : array of integer;
   constructor create(codCro:integer;tpf:Real;cdM:integer);
 end;
@@ -117,7 +117,7 @@ type TOrdem =  record
   codProduto : integer;
   descricaoProduto : string;
   fasesDaOrdem : array of TFaseDaOrdem;
-  constructor Create(cod: integer;num:integer;dat:Tdate; codp:integer; desProd:string);
+  constructor Create(cod:integer;num:integer;dat:Tdate; codp:integer; desProd:string);
 end;
 
 //CELULAS
@@ -125,8 +125,9 @@ type TRecursoMaquina =  record
     codMaquina : integer;
     descricaoMaquina : string;
     patrimonio : integer;
-    idTipoMaquina : integer;
+    codTipoMaquina : integer;
     descricaoTipoMaquina : string;
+    constructor Create(codM, pat, codTM:integer; descM, descTM:String);
 end;
 
 type TLinhaProducao =  record
@@ -135,6 +136,9 @@ type TLinhaProducao =  record
     qtdOperadores : integer;
     maquinas : array of TRecursoMaquina;
     fasesHabilitadas : array of integer; // Fases de produtos que a linha de produção pode executar;
+    dataUltimoAgendamento : String;
+    HoraUltimoAgendamento: String;
+    constructor Create(codLP,qtdO:integer;descLP :String);
 end;
 
 
@@ -254,6 +258,7 @@ type
     procedure CalculaMetaHora();
     procedure atribuiPrecedencia();
     procedure montaJobs(var jobs: TArray<TOrdem>);
+    procedure montaCelulas(var celulas: TArray<TLinhaProducao>);
   end;
 
 var
@@ -450,14 +455,33 @@ begin
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
 end;
 
+procedure TF02004.montaCelulas(var celulas: TArray<TLinhaProducao>);
+var
+i : integer;
+begin
+  //
+  Dmodule.qAux.Close;
+  Dmodule.qAux.SQL.Text := 'select lp.*, (select count(*) from operador where idGrupo = lp.idGrupo) as qtdOperadores ' +
+  'from grupo lp where lp.idGrupo';
+  Dmodule.qAux.open;
+  Dmodule.qAux.First;
+  SetLength(celulas, DModule.qAux.RecordCount);
+  for i := 0 to (DModule.qAux.RecordCount -1) do
+  begin
+    celulas[i] := TLinhaProducao.create(
+    DModule.qAux.FieldByName('idGrupo').AsInteger,
+    DModule.qAux.FieldByName('qtdOperadores').AsInteger,
+    DModule.qAux.FieldByName('descricao').AsString
+    );
+    Dmodule.qAux.Next;
+  end;
+
+end;
+
 procedure TF02004.montaJobs( var jobs: TArray<TOrdem>);
 var
-i, j, k : integer;
-qAux2 : TFDQuery;
+i: integer;
 begin
-  qAux2 := TFDQuery.Create(self);
-  qAux2.Connection := DModule.FDConnection;
-
   //Busca ordens ainda não sequenciadas
   DModule.qAux.Close;
   DModule.qAux.sql.Text := 'select op.*, p.descricao as produto from ordem_producao op ' +
@@ -478,7 +502,6 @@ begin
      );
      DModule.qAux.Next;
   end;
-  FreeAndNil(qAux2);
 end;
 
 procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
@@ -508,11 +531,11 @@ end;
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
 i,j,k,l : integer;
-teste : string;
+textoFases, textoMaquinas : string;
 matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
 vetorTPF: array of double; //vetor de tempo Padrao final das operações
-//melhor: TIndividuo;
 jobs: TArray<TOrdem>;
+celulas: TArray<TLinhaProducao>;
 begin
   inherited;
 
@@ -579,6 +602,41 @@ begin
 
   {************************* MONTA Array Jobs e Celulas *************************}
   montaJobs(jobs);
+  montaCelulas(celulas);
+
+  //conferindo vetor de Células
+  for I := 0 to (Length(celulas)-1) do
+  begin
+    for j := 0 to (Length(celulas[i].fasesHabilitadas)-1) do
+    begin
+         textoFases := textoFases + inttostr(celulas[i].fasesHabilitadas[j]) + ' - '
+    end;
+
+    for k := 0 to (Length(celulas[i].maquinas)-1) do
+    begin
+         textoMaquinas := textoMaquinas +
+         'cod: ' + inttostr(celulas[i].maquinas[k].codMaquina) + ' - ' +
+         'DESC: ' + celulas[i].maquinas[k].descricaoMaquina + ' - ' +
+         'Patrimonio: ' + inttostr(celulas[i].maquinas[k].patrimonio) + ' - ' +
+         'codTipoMaquina: ' + inttostr(celulas[i].maquinas[k].codTipoMaquina) + ' - ' +
+         'DESC Tipo Maquina: ' + celulas[i].maquinas[k].descricaoTipoMaquina + ' - ' + #13 ;
+    end;
+
+     ShowMessage('idLP: ' + inttostr(celulas[i].codLinhaProducao) +#13+
+     'desc: ' + celulas[i].descricaoLinhaProducao +#13+
+     'QtdOperadores: ' + inttostr(celulas[i].qtdOperadores) +#13+
+     'Fases Habilitadas: ' + textoFases +#13+#13+
+     'Maquinas: ' +#13+ textoMaquinas +#13
+     );
+     textoFases := '';
+     textoMaquinas := '';
+  end;
+
+
+
+
+
+
 
   {************************* MONTA LAYOUT *************************}
   if not(MOperacoes.IsEmpty) then
@@ -1091,7 +1149,7 @@ I : integer;
 begin
   codCronometragem := codCro;
   tempoPadraoFinal := tpf;
-  codMaquina := cdM;
+  codTipoMaquina := cdM;
 
   // Preenchimento do vetor precedencia;
   qAux2 := TFDQuery.Create(Application);
@@ -1107,6 +1165,69 @@ begin
       qAux2.Next;
   end;
   FreeAndNil(qAux2);
+end;
+
+{ TLinhaProducao }
+
+constructor TLinhaProducao.Create(codLP, qtdO: integer; descLP: String);
+var
+qAux2 : TFDQuery;
+I : integer;
+begin
+  //
+  codLinhaProducao := codLP;
+  descricaoLinhaProducao := descLP;
+  qtdOperadores := qtdO;
+
+  //Array fasesHabilitadas, é um array de integer
+  qAux2 := TFDQuery.Create(Application);
+  qAux2.Connection := DModule.FDConnection;
+  qAux2.SQL.Text := 'SELECT * FROM fase_has_grupo fhg where fhg.idGrupo =:IDG';
+  qAux2.ParamByName('IDG').AsInteger := codLinhaProducao;
+  qAux2.Open;
+
+  SetLength(fasesHabilitadas,qAux2.RecordCount);
+  for I := 0 to (qAux2.RecordCount - 1) do
+  begin
+      fasesHabilitadas[i] := qAux2.FieldByName('idFase').AsInteger;
+  end;
+
+
+  // Array TRecursoMaquinas
+  qAux2.Close;
+  qAux2.SQL.Text := 'SELECT rec.idRecurso, rec.descricao, rec.patrimonio, ' +
+  'tr.idTipo_Recurso, tr.descricao as descricaoTipoMaquina ' +
+  'FROM recurso rec ' +
+  'left outer join tipo_recurso tr on tr.idTipo_Recurso = rec.idTipoRecurso ' +
+  'where rec.idGrupo =:IDG ';
+  qAux2.ParamByName('IDG').AsInteger := codLinhaProducao;
+  qAux2.Open;
+
+  SetLength(maquinas,qAux2.RecordCount);
+  for I := 0 to (qAux2.RecordCount - 1) do
+  begin
+      maquinas[i] := TRecursoMaquina.Create(
+      qAux2.FieldByName('idRecurso').AsInteger,
+      qAux2.FieldByName('patrimonio').AsInteger,
+      qAux2.FieldByName('idTipo_recurso').AsInteger,
+      qAux2.FieldByName('descricao').AsString,
+      qAux2.FieldByName('descricaoTipoMaquina').AsString
+      );
+      qAux2.Next;
+  end;
+  FreeAndNil(qAux2);
+end;
+
+{ TRecursoMaquina }
+
+constructor TRecursoMaquina.Create(codM, pat, codTM: integer; descM, descTM: String);
+begin
+  //
+  codMaquina := codM;
+  patrimonio := pat;
+  descricaoMaquina := descM;
+  codTipoMaquina := codTM;
+  descricaoTipoMaquina := descTM;
 end;
 
 Initialization
