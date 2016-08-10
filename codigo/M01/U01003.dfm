@@ -2,6 +2,7 @@ inherited F01003: TF01003
   Caption = 'F01003'
   ClientHeight = 532
   ClientWidth = 820
+  ExplicitLeft = -49
   ExplicitWidth = 836
   ExplicitHeight = 571
   PixelsPerInch = 96
@@ -207,10 +208,6 @@ inherited F01003: TF01003
           object recursos: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object DBGridBeleza4: TDBGridBeleza
               Left = 0
               Top = 0
@@ -297,10 +294,6 @@ inherited F01003: TF01003
           end
           object Operadores: TTabSheet
             Caption = 'Operadores'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object DBGridBeleza2: TDBGridBeleza
               Left = 0
               Top = 0
@@ -465,7 +458,7 @@ inherited F01003: TF01003
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

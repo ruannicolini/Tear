@@ -334,9 +334,11 @@ begin
   begin
       q := TFDQuery.Create(self);
       q.Connection := DModule.FDConnection;
-      q.sql.text := 'select g.idGrupo, rec.patrimonio, rec.idRecurso from grupo g '+
+      q.sql.text := 'select g.idGrupo,rec.idRecurso, rec.descricao as recurso, rec.patrimonio, tr.descricao as tipoRecurso from grupo g '+
                     '  left outer join fase_has_grupo fhg on fhg.idGrupo = g.idGrupo '+
-                    '  left outer join recurso rec on rec.idGrupo = g.idGrupo and g.idGrupo in (-1  ';
+                    '  left outer join recurso rec on rec.idGrupo = g.idGrupo ' +
+                    ' left outer join tipo_recurso tr on tr.idTipo_Recurso = rec.idTipoRecurso '+
+                    'where g.idGrupo in (-1  ';
 
       ds.DataSet.first;
       while not ds.DataSet.Eof do

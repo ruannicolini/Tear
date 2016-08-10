@@ -604,40 +604,6 @@ begin
   montaJobs(jobs);
   montaCelulas(celulas);
 
-  //conferindo vetor de Células
-  for I := 0 to (Length(celulas)-1) do
-  begin
-    for j := 0 to (Length(celulas[i].fasesHabilitadas)-1) do
-    begin
-         textoFases := textoFases + inttostr(celulas[i].fasesHabilitadas[j]) + ' - '
-    end;
-
-    for k := 0 to (Length(celulas[i].maquinas)-1) do
-    begin
-         textoMaquinas := textoMaquinas +
-         'cod: ' + inttostr(celulas[i].maquinas[k].codMaquina) + ' - ' +
-         'DESC: ' + celulas[i].maquinas[k].descricaoMaquina + ' - ' +
-         'Patrimonio: ' + inttostr(celulas[i].maquinas[k].patrimonio) + ' - ' +
-         'codTipoMaquina: ' + inttostr(celulas[i].maquinas[k].codTipoMaquina) + ' - ' +
-         'DESC Tipo Maquina: ' + celulas[i].maquinas[k].descricaoTipoMaquina + ' - ' + #13 ;
-    end;
-
-     ShowMessage('idLP: ' + inttostr(celulas[i].codLinhaProducao) +#13+
-     'desc: ' + celulas[i].descricaoLinhaProducao +#13+
-     'QtdOperadores: ' + inttostr(celulas[i].qtdOperadores) +#13+
-     'Fases Habilitadas: ' + textoFases +#13+#13+
-     'Maquinas: ' +#13+ textoMaquinas +#13
-     );
-     textoFases := '';
-     textoMaquinas := '';
-  end;
-
-
-
-
-
-
-
   {************************* MONTA LAYOUT *************************}
   if not(MOperacoes.IsEmpty) then
   begin
