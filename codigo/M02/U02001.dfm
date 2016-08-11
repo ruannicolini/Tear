@@ -155,6 +155,10 @@ inherited F02001: TF02001
           object TabSheet1: TTabSheet
             AlignWithMargins = True
             Caption = 'FASES'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object DBGridBeleza2: TDBGridBeleza
               AlignWithMargins = True
               Left = 3
@@ -399,6 +403,10 @@ inherited F02001: TF02001
           object MOVIMENTACOES: TTabSheet
             Caption = 'MOVIMENTA'#199#213'ES'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object DBGridBeleza3: TDBGridBeleza
               AlignWithMargins = True
               Left = 3
@@ -797,7 +805,7 @@ inherited F02001: TF02001
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C006C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00700110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

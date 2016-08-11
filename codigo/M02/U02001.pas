@@ -224,7 +224,7 @@ begin
 
   q.sql.text := 'select op.idordem, op.numOrdem, op.qtdOriginal, op.dataCadastro, '+
                 '  p.idproduto as codigoProd, p.descricao as produto, '+
-                '  f.idFase as codigoFase , f.descricao as fase, ohf.sequencia, '+
+                '  f.idFase as codigoFase , ohf.idOrdem_has_Fase, f.descricao as fase, ohf.sequencia, '+
                 '  ohf.qtdOriginal as qtdOriginalLinha, ohf.qtdPrevista as qtdPrevistaLinha, '+
                 '  ohf.qtdProduzindo as qtdProduzindoLinha, ohf.qtdFinalizada as qtdFinalizadaLinha, '+
                 '  g.idGrupo as CodLinhaProducao, g.descricao as LinhaProducao '+
@@ -245,7 +245,7 @@ begin
   q.sql.add(')');
 
 
-  q.sql.add(' order by op.idordem ');
+  q.sql.add(' order by op.idordem, ohf.sequencia ');
   q.open;
 
   showmessage(q.SQL.Text);

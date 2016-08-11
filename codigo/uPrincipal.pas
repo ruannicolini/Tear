@@ -8,7 +8,8 @@ uses
   Vcl.Imaging.pngimage, Vcl.StdCtrls, Vcl.Imaging.jpeg, IdHashMessageDigest, iniFiles, DateUtils,
   System.ImageList, Vcl.ImgList, Vcl.ComCtrls, System.Actions, Vcl.ActnList,
   Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.ActnMenus,
-  Vcl.PlatformDefaultStyleActnCtrls, VCLTee.TeCanvas, Vcl.Buttons, XiButton;
+  Vcl.PlatformDefaultStyleActnCtrls, VCLTee.TeCanvas, Vcl.Buttons, XiButton,
+  Vcl.XPMan;
 
 type
   TFPrincipal = class(TForm)
@@ -27,6 +28,7 @@ type
     Panel8: TPanel;
     PageScroller: TPageScroller;
     ImageList32Selected: TImageList;
+    XPManifest1: TXPManifest;
     procedure FormShow(Sender: TObject);
     procedure MouseEnterComponente(Sender: TObject);
     procedure MouseLeaveComponente(Sender: TObject);
