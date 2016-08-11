@@ -45,7 +45,6 @@ type
     PanelFiltros: TPanel;
     ActionMostrarFiltros: TAction;
     btnFiltrar: TButton;
-    btnRelatorios: TButton;
     bRelatorio: TSpeedButton;
 
     procedure ClientDataSet1AfterCancel(DataSet: TDataSet);

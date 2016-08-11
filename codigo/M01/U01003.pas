@@ -348,11 +348,8 @@ begin
       end;
       q.sql.add(')');
 
-
       q.sql.add(' order by g.idGrupo, rec.idRecurso ');
       q.open;
-
-      showmessage(q.SQL.Text);
 
       frelatorios := tfrelatorios.Create(self);
       with frelatorios do

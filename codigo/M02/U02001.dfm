@@ -1,15 +1,9 @@
 inherited F02001: TF02001
   Caption = 'F02001'
-  ExplicitWidth = 834
-  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       inherited grDados: TGroupBox
         Margins.Left = 0
         Margins.Top = 0
@@ -155,10 +149,6 @@ inherited F02001: TF02001
           object TabSheet1: TTabSheet
             AlignWithMargins = True
             Caption = 'FASES'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object DBGridBeleza2: TDBGridBeleza
               AlignWithMargins = True
               Left = 3
@@ -403,10 +393,6 @@ inherited F02001: TF02001
           object MOVIMENTACOES: TTabSheet
             Caption = 'MOVIMENTA'#199#213'ES'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object DBGridBeleza3: TDBGridBeleza
               AlignWithMargins = True
               Left = 3
@@ -564,10 +550,6 @@ inherited F02001: TF02001
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       object DBText1: TDBText [0]
         Left = 456
         Top = 136
@@ -633,9 +615,6 @@ inherited F02001: TF02001
       inherited PanelFiltros: TPanel
         inherited btnFiltrar: TButton
           OnClick = btnFiltrarClick
-        end
-        inherited btnRelatorios: TButton
-          TabOrder = 8
         end
         object Edit1: TEdit
           Left = 22
