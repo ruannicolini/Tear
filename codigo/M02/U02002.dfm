@@ -1,13 +1,13 @@
 inherited F02002: TF02002
   Caption = 'F02002'
   ClientHeight = 557
+  ExplicitLeft = -47
   ExplicitWidth = 834
   ExplicitHeight = 596
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     Height = 522
-    ActivePage = TbDados
     ExplicitHeight = 522
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
@@ -543,14 +543,12 @@ inherited F02002: TF02002
         ' m.idTipoMovimentacao '#13#10#10
       ''
       ''
-      ''
-      ' '#10#10#10
-      ''
       
         'left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.i' +
         'dORdem_has_fase '
       'left outer join fase f on f.idfase = ohf.idfase '#10#10#10
-      'left outer join ordem_producao o on o.idOrdem = ohf.idORdem;')
+      'left outer join ordem_producao o on o.idOrdem = ohf.idORdem '
+      'ORDER BY o.idOrdem, m.idOrdem_has_fase, m.datamov;')
     Left = 456
     Top = 8
     object FDQuery1idmovimentacao: TIntegerField
@@ -653,7 +651,7 @@ inherited F02002: TF02002
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C006C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00700110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

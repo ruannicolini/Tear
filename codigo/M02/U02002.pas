@@ -97,6 +97,7 @@ type
     procedure ClientDataSet1AfterApplyUpdates(Sender: TObject;
       var OwnerData: OleVariant);
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -114,7 +115,7 @@ implementation
 
 {$R *.dfm}
 
-uses UDataModule;
+uses UDataModule, u_relatorios;
 
 constructor TF02002.CreateOrdemFase(AOwner: TComponent; pParm1: integer);
 var
@@ -132,12 +133,6 @@ inherited Create(AOwner);
   FDQuery1.SQL.Add('where ohf.idOrdem_has_fase = ' + inttostr(ParIdOF));
   FDQuery1.Open;
   BPesquisar.Click;
-
-
-
-
-
-
   Width := 857;
   Height := 430;
   PageControl.ActivePageIndex := 1;
@@ -231,6 +226,33 @@ begin
   DBEditBeleza1.Enabled := false;
   DBEditBeleza2.Enabled := false;
   DBEdit5.Enabled := false;
+end;
+
+procedure TF02002.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+begin
+  inherited;
+
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idmovimentacao', '');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
 end;
 
 procedure TF02002.BSalvarClick(Sender: TObject);
@@ -473,7 +495,7 @@ procedure TF02002.btnFiltrarClick(Sender: TObject);
 begin
   inherited;
   FDQuery1.Close;
-  FDQuery1.SQL.Text := 'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
+  FDQuery1.SQL.Text := 'select m.*,ohf.sequencia, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
   FDQuery1.SQL.add('left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao ');
   FDQuery1.SQL.add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_has_fase ');
   FDQuery1.SQL.add('left outer join fase f on f.idfase = ohf.idfase ');
@@ -484,6 +506,8 @@ begin
   if(chkTipoMov.Checked = true)then
     FDQuery1.SQL.Add(' and TM.IDTIPO_MOVIMENTACAO = ' + Edit2.Text);
 
+  FDQuery1.SQL.add('ORDER BY o.idOrdem, m.idOrdem_has_fase, m.datamov');
+
   FDQuery1.Open;
   BPesquisar.Click;
 end;
@@ -492,11 +516,12 @@ procedure TF02002.BtnLimparFiltrosClick(Sender: TObject);
 begin
   inherited;
   FDQuery1.Close;
-  FDQuery1.SQL.Text := 'select m.*, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
+  FDQuery1.SQL.Text := 'select m.*, ohf.sequencia, o.*, tm.descricao as tipoMovimentacao, f.descricao as fase from movimentacao m ';
   FDQuery1.SQL.add('left outer join tipo_movimentacao tm on tm.idTipo_Movimentacao = m.idTipoMovimentacao ');
   FDQuery1.SQL.add('left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idORdem_has_fase ');
   FDQuery1.SQL.add('left outer join fase f on f.idfase = ohf.idfase ');
   FDQuery1.SQL.add('left outer join ordem_producao o on o.idOrdem = ohf.idORdem');
+  FDQuery1.SQL.add('ORDER BY o.idOrdem, m.idOrdem_has_fase, m.datamov');
   FDQuery1.Open;
   BPesquisar.Click;
 
