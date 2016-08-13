@@ -2,7 +2,6 @@ inherited F01008: TF01008
   Caption = 'F01008'
   ClientHeight = 513
   ClientWidth = 815
-  ExplicitLeft = 8
   ExplicitWidth = 831
   ExplicitHeight = 552
   PixelsPerInch = 96
@@ -13,6 +12,8 @@ inherited F01008: TF01008
     ExplicitWidth = 815
     ExplicitHeight = 478
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 450
       inherited grDados: TGroupBox
@@ -225,6 +226,8 @@ inherited F01008: TF01008
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 450
       inherited GBFiltros: TGroupBox
@@ -306,9 +309,6 @@ inherited F01008: TF01008
           Left = 756
           OnClick = btnFiltrarClick
           ExplicitLeft = 756
-        end
-        inherited btnRelatorios: TButton
-          TabOrder = 10
         end
         object chkAcao: TCheckBox
           Left = 15
@@ -567,7 +567,7 @@ inherited F01008: TF01008
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00EC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00F00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

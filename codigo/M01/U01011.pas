@@ -37,6 +37,7 @@ type
     procedure Action5Execute(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,7 +52,7 @@ implementation
 {$R *.dfm}
 
 uses
-uDataModule;
+uDataModule, u_relatorios;
 
 procedure TF01011.acCancelarExecute(Sender: TObject);
 begin
@@ -139,6 +140,34 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
 end;
+
+procedure TF01011.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+begin
+  inherited;
+
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idFase', '');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
+end;
+
 
 procedure TF01011.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
