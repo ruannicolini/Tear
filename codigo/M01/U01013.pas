@@ -189,6 +189,7 @@ type
     procedure DBEdit10Change(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure DBEdit17Click(Sender: TObject);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -216,7 +217,7 @@ implementation
 {$R *.dfm}
 
 uses
-uDataModule;
+uDataModule, u_relatorios;
 
 constructor TF01013.Create(AOwner: TComponent; pParm1, pParm2: integer);
 begin
@@ -398,6 +399,33 @@ begin
   if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
   begin
     CDS_Recurso.Delete;
+  end;
+end;
+
+procedure TF01013.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+begin
+  inherited;
+
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idcronometragem', '');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
   end;
 end;
 

@@ -1009,7 +1009,7 @@ inherited F01013: TF01013
           Height = 21
           Color = 15724527
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 5
           Visible = False
         end
         object ChkOperacao: TCheckBox [2]
@@ -1026,7 +1026,7 @@ inherited F01013: TF01013
           Font.Style = []
           ParentColor = False
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 1
         end
         object Edit5: TEdit [3]
           Left = 440
@@ -1035,7 +1035,7 @@ inherited F01013: TF01013
           Height = 21
           Color = 15724527
           ReadOnly = True
-          TabOrder = 3
+          TabOrder = 2
           Visible = False
         end
         object EditBeleza2: TEditBeleza [4]
@@ -1050,7 +1050,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 3
           Ativar_Pesquisa = True
           Ativar_MultiSelecao = False
           mostrar_Botao = True
@@ -1078,7 +1078,7 @@ inherited F01013: TF01013
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 4
           Ativar_Pesquisa = True
           Ativar_MultiSelecao = False
           mostrar_Botao = True
@@ -1122,12 +1122,20 @@ inherited F01013: TF01013
   inherited Panel2: TPanel
     Width = 1190
     ExplicitWidth = 1190
+    inherited BSalvar: TSpeedButton
+      Left = 364
+      ExplicitLeft = 364
+    end
+    inherited BCancelar: TSpeedButton
+      Left = 400
+      ExplicitLeft = 400
+    end
     inherited BFechar: TSpeedButton
       Left = 1156
       ExplicitLeft = 828
     end
     object BReutilizar: TSpeedButton
-      Left = 292
+      Left = 328
       Top = 2
       Width = 33
       Height = 31
@@ -1408,7 +1416,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C000C0210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00100210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -168,7 +168,6 @@ begin
   end;
 end;
 
-
 procedure TF01011.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
