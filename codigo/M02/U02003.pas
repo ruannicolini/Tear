@@ -45,6 +45,7 @@ type
     procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -59,7 +60,7 @@ implementation
 {$R *.dfm}
 
 uses
-UDataModule;
+UDataModule, u_relatorios;
 
 procedure TF02003.Action5Execute(Sender: TObject);
 begin
@@ -81,6 +82,32 @@ begin
   CHKDECREMENTAR.Checked := FALSE;
   CHKFINALIZAR.Checked := FALSE;
   CHKDIVIDIR.Checked := FALSE;
+end;
+
+procedure TF02003.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+begin
+  inherited;
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idtipo_Movimentacao', '');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
 end;
 
 procedure TF02003.BSalvarClick(Sender: TObject);

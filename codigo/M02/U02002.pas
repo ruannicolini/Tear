@@ -115,7 +115,7 @@ implementation
 
 {$R *.dfm}
 
-uses UDataModule, u_relatorios;
+uses u_relatorios, UDataModule;
 
 constructor TF02002.CreateOrdemFase(AOwner: TComponent; pParm1: integer);
 var
@@ -233,7 +233,6 @@ var
   nomeTela: String;
 begin
   inherited;
-
   if NOT(Ds.DataSet.IsEmpty)then
   begin
       frelatorios := tfrelatorios.Create(self);
@@ -241,7 +240,7 @@ begin
       begin
           try
               visible := false;
-              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idmovimentacao', '');
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idMovimentacao', '');
               ShowModal;
           finally
               Relatorios_sis.close;
@@ -254,6 +253,7 @@ begin
     ShowMessage('Relatório necessita de pesquisa');
   end;
 end;
+
 
 procedure TF02002.BSalvarClick(Sender: TObject);
 var

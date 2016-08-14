@@ -125,6 +125,7 @@ type
     mNumTelaRelatFiltrosMarcados: TMemoField;
     Image1: TImage;
     q_aux: TFDQuery;
+    ImageList1: TImageList;
     procedure btalterarClick(Sender: TObject);
     procedure btnovoClick(Sender: TObject);
     procedure btexcluirClick(Sender: TObject);
@@ -364,10 +365,12 @@ begin
 //        dm_dados.mUsuarios.Open;
 
     btnovo.Enabled              := true;
-    btalterar.Enabled           := true;
-    btexcluir.Enabled           := true;
     btEmail.Enabled             := true;
     btPDF.Enabled               := true;
+
+    btalterar.Enabled           := true;
+    btexcluir.Enabled           := true;
+    
 
     tbRelatsSistema.TabVisible  := False;
     tbRelatsUsuarios.TabVisible := False;
@@ -553,9 +556,12 @@ begin
         BuscarRelats(2);
     end;
 
+    //Usar assim se o enable funcionasse sem prejudicar a imagem
+    //btExcluir.Enabled := (not tbRelatsSistema.Visible) ;
+    //btAlterar.Enabled := (not tbRelatsSistema.Visible) ;
+    btExcluir.visible := ( not tbRelatsSistema.Visible) ; // similar: Desaparece a imagem
+    btAlterar.visible := ( not tbRelatsSistema.Visible) ; // similar: Desaparece a imagem
 
-    btExcluir.Enabled := (not tbRelatsSistema.Visible) ;
-    btAlterar.Enabled := (not tbRelatsSistema.Visible) ;
 
 end;
 
