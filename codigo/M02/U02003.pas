@@ -46,6 +46,7 @@ type
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -72,6 +73,22 @@ procedure TF02003.BEditarClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
+end;
+
+procedure TF02003.BExcluirClick(Sender: TObject);
+begin
+  //
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from movimentacao where idTipoMovimentacao =:id ';
+  DModule.qAux.ParamByName('id').value := ClientDataSet1idtipo_Movimentacao.AsInteger;
+  DModule.qAux.open;
+  if (DModule.qAux.IsEmpty)then
+  begin
+    inherited;
+  end else
+    ShowMessage('Movimentações existentes. Não é possivel excluir.');
+
+
 end;
 
 procedure TF02003.BInserirClick(Sender: TObject);

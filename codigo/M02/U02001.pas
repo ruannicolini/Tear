@@ -248,7 +248,6 @@ begin
   q.sql.add(' order by op.idordem, ohf.sequencia ');
   q.open;
 
-  showmessage(q.SQL.Text);
   if ds.DataSet.IsEmpty then
   begin
     ds.DataSet.Open;
