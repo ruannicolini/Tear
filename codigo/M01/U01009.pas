@@ -108,7 +108,7 @@ end;
 
 procedure TF01009.BExcluirClick(Sender: TObject);
 begin
-  inherited;
+  //
   DModule.qAux.Close;
   DModule.qAux.SQL.Text := 'select * from produto prod where prod.idGrupo =:idGrupo ';
   DModule.qAux.ParamByName('idGrupo').AsInteger:= (ClientDataSet1idgrupo_Produto.AsInteger);

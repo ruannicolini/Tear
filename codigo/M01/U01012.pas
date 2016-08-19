@@ -106,7 +106,7 @@ end;
 
 procedure TF01012.BExcluirClick(Sender: TObject);
 begin
-  inherited;
+  //
   DModule.qAux.Close;
   DModule.qAux.SQL.Text := 'select * from operacao op where op.idparte =:idParte';
   DModule.qAux.ParamByName('idParte').AsInteger:= (ClientDataSet1idparte.AsInteger);

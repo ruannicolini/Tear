@@ -115,7 +115,7 @@ end;
 
 procedure TF01004.BExcluirClick(Sender: TObject);
 begin
-  inherited;
+  //
   {Contole de Exclusão}
   DModule.qAux.Close;
   DModule.qAux.SQL.Text := 'select * from recurso rec where rec.idtiporecurso =:idTipoRecurso';

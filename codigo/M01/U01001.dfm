@@ -2,7 +2,6 @@ inherited F01001: TF01001
   Caption = 'F01001'
   ClientHeight = 501
   ClientWidth = 815
-  ExplicitLeft = 8
   ExplicitWidth = 831
   ExplicitHeight = 540
   PixelsPerInch = 96
@@ -13,6 +12,8 @@ inherited F01001: TF01001
     ExplicitWidth = 815
     ExplicitHeight = 466
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 438
       inherited grDados: TGroupBox
@@ -60,6 +61,8 @@ inherited F01001: TF01001
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 807
       ExplicitHeight = 438
       inherited GBFiltros: TGroupBox
@@ -150,7 +153,7 @@ inherited F01001: TF01001
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

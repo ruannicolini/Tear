@@ -194,7 +194,6 @@ end;
 
 procedure TF01010.BExcluirClick(Sender: TObject);
 begin
-  inherited;
   DModule.qAux.Close;
   DModule.qAux.SQL.Text := ' select * from cronometragem c where c.idoperador =:idOp';
   DModule.qAux.ParamByName('idOp').AsInteger:= (ClientDataSet1idoperador.AsInteger);

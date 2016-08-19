@@ -106,7 +106,7 @@ end;
 
 procedure TF01002.BExcluirClick(Sender: TObject);
 begin
-  inherited;
+  //
   DModule.qAux.Close;
   DModule.qAux.SQL.Text := 'select * from cronometragem c where c.idCronometrista =:idC';
   DModule.qAux.ParamByName('idC').AsInteger:= (ClientDataSet1idcronometrista.AsInteger);
