@@ -82,6 +82,33 @@ inherited F03002: TF03002
       ExplicitTop = 24
       ExplicitWidth = 810
       ExplicitHeight = 455
+      inherited DBGridBeleza1: TDBGridBeleza
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'idmodulo'
+            Title.Caption = 'COD'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Title.Caption = 'DESCRI'#199#195'O'
+            Width = 300
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'icone'
+            Title.Caption = 'ICONE'
+            Visible = True
+          end>
+      end
+    end
+  end
+  inherited Panel2: TPanel
+    inherited bRelatorio: TSpeedButton
+      Visible = False
     end
   end
   inherited DS: TDataSource
@@ -132,7 +159,7 @@ inherited F03002: TF03002
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

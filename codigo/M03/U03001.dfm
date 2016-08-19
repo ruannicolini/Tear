@@ -6,7 +6,6 @@ inherited F03001: TF03001
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    ActivePage = TbDados
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -169,6 +168,54 @@ inherited F03001: TF03001
         Height = 13
         Caption = 'idinterface'
       end
+      inherited DBGridBeleza1: TDBGridBeleza
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'idinterface'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idmodulo'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idgrupo'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'icone'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'tela'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'modulo'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'visivelMenu'
+            Visible = True
+          end>
+      end
+    end
+  end
+  inherited Panel2: TPanel
+    inherited bRelatorio: TSpeedButton
+      Visible = False
     end
   end
   inherited DS: TDataSource
@@ -269,7 +316,7 @@ inherited F03001: TF03001
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

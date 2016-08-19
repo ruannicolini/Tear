@@ -38,6 +38,8 @@ type
     ClientDataSet1login: TStringField;
     DBEdit3: TDBEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
+    procedure bRelatorioClick(Sender: TObject);
+    procedure BExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,9 +52,43 @@ var
 implementation
 
 uses
-UDataModule;
+UDataModule, u_relatorios;
 
 {$R *.dfm}
+
+procedure TF03003.BExcluirClick(Sender: TObject);
+begin
+  //
+end;
+
+
+procedure TF03003.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+begin
+  inherited;
+
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idUsuario', '');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
+end;
+
 
 procedure TF03003.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
