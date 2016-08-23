@@ -243,8 +243,8 @@ begin
               Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, nil, 'idMovimentacao', '');
               ShowModal;
           finally
-              Relatorios_sis.close;
-              relats_usur.close;
+              //Relatorios_sis.close;
+              //relats_usur.close;
               Free;
           end;
       end;
@@ -253,6 +253,7 @@ begin
     ShowMessage('Relatório necessita de pesquisa');
   end;
 end;
+
 
 
 procedure TF02002.BSalvarClick(Sender: TObject);

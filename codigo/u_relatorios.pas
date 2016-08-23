@@ -440,7 +440,9 @@ end;
 procedure TFRelatorios.gridRelatsSistemaDblClick(Sender: TObject);
 begin
   if not tDbGrid(Sender).DataSource.DataSet.IsEmpty then
+  begin
       btimprimirClick(btimprimir);
+  end;
 end;
 
 procedure TFRelatorios.Relatorios_sisAfterScroll(DataSet: TDataSet);
