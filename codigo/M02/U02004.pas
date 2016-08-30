@@ -457,9 +457,9 @@ end;
 
 procedure TF02004.FormShow(Sender: TObject);
 var
-  btnOrdem : TPanel;
+  btnOrdem, panelSeq : TPanel;
   LbOrdem: TBitBTN;
-  lbSequencia, lbFases : TLabel;
+  lbSequencia, lbFases, lbSeq : TLabel;
   cont : integer;
   DBEBfases :TDBEditBeleza;
   btnPesqFase : TSpeedButton;
@@ -482,29 +482,29 @@ begin
 
     //Panel
     btnOrdem.Align := alTop;
-    btnOrdem.Height :=  80;
+    btnOrdem.Height :=  69; //80;
     btnOrdem.AlignWithMargins := true;
     btnOrdem.Margins.Top := 5;
     btnOrdem.Margins.Bottom := 0;
     btnOrdem.Color := $00EAE9E8;
     btnOrdem.BevelInner := bvLowered;
     btnOrdem.ParentBackground := false;
-    btnOrdem.DragMode                := dmAutomatic;
-    btnOrdem.hint                    := 'Executado Por:';
-    btnOrdem.Cursor                  := crHandPoint;
+    //btnOrdem.DragMode                := dmAutomatic;
+    //btnOrdem.Cursor                  := crHandPoint;
 
     //LABEL Ordem
     LbOrdem              := TBitBTN.Create(btnOrdem);
     LbOrdem.Parent       := btnOrdem;
     LbOrdem.Font.Name    := 'tahoma';
     LbOrdem.Font.Size    := 8;
-    LbOrdem.Left         := 5;
+    LbOrdem.Left         := 30;//5;
+    lbOrdem.Width        := 170;
     LbOrdem.Top          := 3;
     LbOrdem.Caption := 'Nº: ' + DModule.qAux.FieldByName('numOrdem').AsString;
     //LbOrdem.Alignment := taCenter;
     //LbOrdem.ParentColor := false;
     //LbOrdem.Color := clWhite;
-    LbOrdem.Align := alTop;
+    //LbOrdem.Align := alTop;
 
     //LABEL Sequencia
     lbSequencia             := TLabel.Create(btnOrdem);
@@ -514,32 +514,55 @@ begin
     LbSequencia.Left         := 5;
     LbSequencia.Top          := 27; //19
     //LbSequencia.Caption := 'SEQ: ' + inttostr(cont);
-    cont := cont - 1;
+
 
     //LABEL Fases
     lbFases             := TLabel.Create(btnOrdem);
     lbFases.Parent       := btnOrdem;
     lbFases.Font.Name    := 'tahoma';
     lbFases.Font.Size    := 7;
-    lbFases.Left         := 5;
-    lbFases.Top          := 37; //19
+    lbFases.Left         := 31;
+    lbFases.Top          := 32;
     lbFases.Caption := 'FASE: ';
 
     //TDBEditBeleza
     DBEBfases             := TDBEditBeleza.Create(btnOrdem);
     DBEBfases.Parent       := btnOrdem;
     DBEBfases.Font.Name    := 'tahoma';
-    DBEBfases.Left         := 5;
-    DBEBfases.Top          := 50;
-    DBEBfases.Width := 172;
+    DBEBfases.Left         := 31;//5;
+    DBEBfases.Top          := 45; //50
+    DBEBfases.Width := 147;
     DBEBfases.mostrar_Botao := true;
 
     //BtnPesquisarFase
     btnPesqFase             := TSpeedButton.Create(btnOrdem);
     btnPesqFase.Parent       := btnOrdem;
     btnPesqFase.Left         := 177;
-    btnPesqFase.Top          := 49;
+    btnPesqFase.Top          := 44;
     btnPesqFase.Height := 23;
+
+    //Panel Seg
+    panelSeq := TPanel.Create(btnOrdem);
+    panelSeq.Parent := btnOrdem;
+    panelSeq.Height :=  63;
+    panelSeq.Width :=  40;
+    panelSeq.AlignWithMargins := true;
+    panelSeq.top := 3;
+    panelSeq.Left := 3;
+    panelSeq.Width := 25;
+    panelSeq.Color := $00EAE9E8;
+    panelSeq.BevelInner := bvLowered;
+    panelSeq.ParentBackground := false;
+
+    //Label Seq
+    lbSeq             := TLabel.Create(panelSeq);
+    lbSeq.Parent       := panelSeq;
+    lbSeq.Font.Name    := 'tahoma';
+    lbSeq.Font.Size    := 8;
+    lbSeq.Left         := 9;
+    lbSeq.Top          := 25;
+    lbSeq.Caption := inttostr(cont);
+    cont := cont - 1;
 
     DModule.qAux.Next;
   end;
