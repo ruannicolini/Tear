@@ -232,7 +232,8 @@ type
     DBEdit8: TDBEdit;
     Label9: TLabel;
     Label10: TLabel;
-    Memo1: TMemo;
+    ScrollBox2: TScrollBox;
+    PopupMenu1: TPopupMenu;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -249,6 +250,7 @@ type
     procedure moperacoesAfterInsert(DataSet: TDataSet);
     procedure DBEdit2Change(Sender: TObject);
     procedure DBEdit8Change(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -274,8 +276,6 @@ implementation
 
 {$R *.dfm}
 uses UDataModule, Math, System.Generics.Collections;
-
-
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
@@ -455,6 +455,98 @@ begin
   query_result.ParamByName('x').Value := (ClientDataSet1idOrdem.AsInteger);
 end;
 
+procedure TF02004.FormShow(Sender: TObject);
+var
+  btnOrdem : TPanel;
+  LbOrdem: TBitBTN;
+  lbSequencia, lbFases : TLabel;
+  cont : integer;
+  DBEBfases :TDBEditBeleza;
+  btnPesqFase : TSpeedButton;
+begin
+  inherited;
+
+  //onShow
+  //apaga os paineis dentro do scrollbox
+  ScrollBox2.DestroyComponents;
+  DModule.qAux.Close;
+  DModule.qAux.SQL.Text := 'select * from ordem_producao where sequenciado = false';
+  DModule.qAux.Open;
+  DModule.qAux.First;
+  cont := DModule.qAux.RecordCount;
+  while not(DModule.qAux.Eof) do
+  begin
+
+    btnOrdem := TPanel.Create(ScrollBox2);
+    btnOrdem.Parent := ScrollBox2;
+
+    //Panel
+    btnOrdem.Align := alTop;
+    btnOrdem.Height :=  80;
+    btnOrdem.AlignWithMargins := true;
+    btnOrdem.Margins.Top := 5;
+    btnOrdem.Margins.Bottom := 0;
+    btnOrdem.Color := $00EAE9E8;
+    btnOrdem.BevelInner := bvLowered;
+    btnOrdem.ParentBackground := false;
+    btnOrdem.DragMode                := dmAutomatic;
+    btnOrdem.hint                    := 'Executado Por:';
+    btnOrdem.Cursor                  := crHandPoint;
+
+    //LABEL Ordem
+    LbOrdem              := TBitBTN.Create(btnOrdem);
+    LbOrdem.Parent       := btnOrdem;
+    LbOrdem.Font.Name    := 'tahoma';
+    LbOrdem.Font.Size    := 8;
+    LbOrdem.Left         := 5;
+    LbOrdem.Top          := 3;
+    LbOrdem.Caption := 'Nº: ' + DModule.qAux.FieldByName('numOrdem').AsString;
+    //LbOrdem.Alignment := taCenter;
+    //LbOrdem.ParentColor := false;
+    //LbOrdem.Color := clWhite;
+    LbOrdem.Align := alTop;
+
+    //LABEL Sequencia
+    lbSequencia             := TLabel.Create(btnOrdem);
+    LbSequencia.Parent       := btnOrdem;
+    LbSequencia.Font.Name    := 'tahoma';
+    LbSequencia.Font.Size    := 6;
+    LbSequencia.Left         := 5;
+    LbSequencia.Top          := 27; //19
+    //LbSequencia.Caption := 'SEQ: ' + inttostr(cont);
+    cont := cont - 1;
+
+    //LABEL Fases
+    lbFases             := TLabel.Create(btnOrdem);
+    lbFases.Parent       := btnOrdem;
+    lbFases.Font.Name    := 'tahoma';
+    lbFases.Font.Size    := 7;
+    lbFases.Left         := 5;
+    lbFases.Top          := 37; //19
+    lbFases.Caption := 'FASE: ';
+
+    //TDBEditBeleza
+    DBEBfases             := TDBEditBeleza.Create(btnOrdem);
+    DBEBfases.Parent       := btnOrdem;
+    DBEBfases.Font.Name    := 'tahoma';
+    DBEBfases.Left         := 5;
+    DBEBfases.Top          := 50;
+    DBEBfases.Width := 172;
+    DBEBfases.mostrar_Botao := true;
+
+    //BtnPesquisarFase
+    btnPesqFase             := TSpeedButton.Create(btnOrdem);
+    btnPesqFase.Parent       := btnOrdem;
+    btnPesqFase.Left         := 177;
+    btnPesqFase.Top          := 49;
+    btnPesqFase.Height := 23;
+
+    DModule.qAux.Next;
+  end;
+
+
+end;
+
 procedure TF02004.montaCelulas(var celulas: TArray<TLinhaProducao>);
 var
 i : integer;
@@ -607,6 +699,7 @@ begin
   {************************* MONTA LAYOUT *************************}
   if not(MOperacoes.IsEmpty) then
   begin
+
     //apaga os paineis dentro do scrollbox
     ScrollBox1.DestroyComponents;
     ScrollLinhadeProducao.DestroyComponents;

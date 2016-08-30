@@ -1,35 +1,35 @@
 inherited F02004: TF02004
   Caption = 'F02004'
+  ClientHeight = 538
   ClientWidth = 1031
-  ExplicitLeft = -116
   ExplicitWidth = 1047
-  ExplicitHeight = 557
+  ExplicitHeight = 577
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
     Top = 93
     Width = 1031
-    Height = 425
+    Height = 445
     ActivePage = TbDados
     ExplicitTop = 93
     ExplicitWidth = 1031
-    ExplicitHeight = 425
+    ExplicitHeight = 445
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1023
-      ExplicitHeight = 397
+      ExplicitHeight = 417
       inherited grDados: TGroupBox
         Width = 1023
-        Height = 397
+        Height = 417
         ExplicitWidth = 1023
-        ExplicitHeight = 397
+        ExplicitHeight = 417
         object ScrollBox1: TScrollBox
           AlignWithMargins = True
           Left = 2
           Top = 15
           Width = 230
-          Height = 380
+          Height = 400
           Margins.Left = 0
           Margins.Top = 0
           Margins.Right = 0
@@ -48,7 +48,7 @@ inherited F02004: TF02004
           Left = 232
           Top = 15
           Width = 789
-          Height = 380
+          Height = 400
           Align = alClient
           TabOrder = 1
           object img: TImage
@@ -81,13 +81,12 @@ inherited F02004: TF02004
             Proportional = True
             Visible = False
           end
-          object Memo1: TMemo
-            Left = 435
+          object ScrollBox2: TScrollBox
+            Left = 555
             Top = 0
-            Width = 350
-            Height = 376
+            Width = 230
+            Height = 396
             Align = alRight
-            ScrollBars = ssBoth
             TabOrder = 0
           end
         end
@@ -97,7 +96,7 @@ inherited F02004: TF02004
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1023
-      ExplicitHeight = 397
+      ExplicitHeight = 417
       inherited GBFiltros: TGroupBox
         Width = 1023
         ExplicitWidth = 1023
@@ -112,7 +111,7 @@ inherited F02004: TF02004
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 1023
-        Height = 286
+        Height = 306
       end
       inherited PanelFiltros: TPanel
         Width = 1023
@@ -145,10 +144,10 @@ inherited F02004: TF02004
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 878
+      Left = 870
       Top = 3
       Width = 136
-      Height = 43
+      Height = 35
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
@@ -219,6 +218,12 @@ inherited F02004: TF02004
       Height = 13
       Caption = 'idgrupo'
       FocusControl = DBEdit8
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
     end
     object Label9: TLabel
       Left = 716
@@ -510,7 +515,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00740110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C007C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1169,5 +1174,9 @@ inherited F02004: TF02004
       FieldName = 'operacao'
       Size = 45
     end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 612
+    Top = 252
   end
 end
