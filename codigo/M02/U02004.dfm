@@ -1175,8 +1175,4 @@ inherited F02004: TF02004
       Size = 45
     end
   end
-  object PopupMenu1: TPopupMenu
-    Left = 612
-    Top = 252
-  end
 end

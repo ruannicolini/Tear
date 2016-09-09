@@ -233,7 +233,6 @@ type
     Label9: TLabel;
     Label10: TLabel;
     ScrollBox2: TScrollBox;
-    PopupMenu1: TPopupMenu;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
