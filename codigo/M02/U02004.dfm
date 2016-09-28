@@ -2,14 +2,15 @@ inherited F02004: TF02004
   Caption = 'F02004'
   ClientHeight = 538
   ClientWidth = 1031
+  ExplicitTop = -162
   ExplicitWidth = 1047
   ExplicitHeight = 577
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    Top = 93
+    Top = 97
     Width = 1031
-    Height = 445
+    Height = 441
     ActivePage = TbDados
     ExplicitTop = 93
     ExplicitWidth = 1031
@@ -21,35 +22,43 @@ inherited F02004: TF02004
       ExplicitHeight = 417
       inherited grDados: TGroupBox
         Width = 1023
-        Height = 417
+        Height = 413
+        Color = clMenuBar
+        Enabled = True
         ExplicitWidth = 1023
         ExplicitHeight = 417
-        object ScrollBox1: TScrollBox
+        object ScrollBoxOperacoes: TScrollBox
           AlignWithMargins = True
-          Left = 2
+          Left = 791
           Top = 15
           Width = 230
-          Height = 400
+          Height = 396
           Margins.Left = 0
           Margins.Top = 0
           Margins.Right = 0
           Margins.Bottom = 0
           HorzScrollBar.Color = clSilver
           HorzScrollBar.ParentColor = False
-          Align = alLeft
+          Align = alRight
           BevelInner = bvNone
           BevelOuter = bvNone
           BorderStyle = bsNone
           Color = clMenuBar
           ParentColor = False
           TabOrder = 0
+          ExplicitHeight = 400
         end
         object ScrollLinhadeProducao: TScrollBox
           Left = 232
           Top = 15
-          Width = 789
-          Height = 400
+          Width = 559
+          Height = 396
           Align = alClient
+          BevelInner = bvLowered
+          BevelKind = bkFlat
+          BorderStyle = bsNone
+          Color = clWindow
+          ParentColor = False
           TabOrder = 1
           object img: TImage
             Left = 677
@@ -81,13 +90,66 @@ inherited F02004: TF02004
             Proportional = True
             Visible = False
           end
-          object ScrollBox2: TScrollBox
-            Left = 555
+        end
+        object PanelBusca: TPanel
+          Left = 2
+          Top = 15
+          Width = 230
+          Height = 396
+          Align = alLeft
+          BevelKind = bkFlat
+          BevelOuter = bvNone
+          TabOrder = 2
+          ExplicitLeft = 292
+          ExplicitTop = 31
+          object ScrollBoxLinhaP: TScrollBox
+            Left = 0
             Top = 0
             Width = 230
-            Height = 396
-            Align = alRight
+            Height = 392
+            Align = alCustom
+            Anchors = [akLeft, akTop, akBottom]
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            Color = clMenuBar
+            ParentColor = False
             TabOrder = 0
+            object TabSet1: TTabSet
+              Left = 0
+              Top = 0
+              Width = 230
+              Height = 21
+              Align = alTop
+              BackgroundColor = clSilver
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              SelectedColor = clActiveCaption
+              Tabs.Strings = (
+                'LINHA PROD.'
+                'ORDEM PROD.')
+              TabIndex = 0
+              UnselectedColor = clSilver
+              OnClick = TabSet1Click
+              ExplicitLeft = 16
+              ExplicitTop = 8
+              ExplicitWidth = 185
+            end
+          end
+          object ScrollBoxOrdem: TScrollBox
+            Left = -2
+            Top = 24
+            Width = 230
+            Height = 392
+            Align = alCustom
+            Anchors = [akLeft, akTop, akBottom]
+            Color = clInactiveCaption
+            ParentColor = False
+            TabOrder = 1
+            Visible = False
           end
         end
       end
@@ -111,7 +173,7 @@ inherited F02004: TF02004
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 1023
-        Height = 306
+        Height = 302
       end
       inherited PanelFiltros: TPanel
         Width = 1023
@@ -135,7 +197,7 @@ inherited F02004: TF02004
     Left = 0
     Top = 35
     Width = 1031
-    Height = 58
+    Height = 62
     Align = alTop
     BevelKind = bkFlat
     BevelOuter = bvNone
@@ -145,226 +207,61 @@ inherited F02004: TF02004
     TabOrder = 2
     object SpeedButton1: TSpeedButton
       Left = 870
-      Top = 3
+      Top = 6
       Width = 136
-      Height = 35
+      Height = 46
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
       OnClick = SpeedButton1Click
-      ExplicitLeft = 882
-      ExplicitHeight = 47
     end
     object Label1: TLabel
-      Left = 9
+      Left = 16
       Top = 8
-      Width = 64
+      Width = 22
       Height = 13
-      Caption = 'COD LAYOUT'
-      FocusControl = DBEdit1
-    end
-    object Label2: TLabel
-      Left = 227
-      Top = 8
-      Width = 25
-      Height = 13
-      Caption = 'FASE'
-      FocusControl = DBEdit2
+      Caption = 'COD'
     end
     object Label3: TLabel
-      Left = 490
-      Top = 8
-      Width = 39
-      Height = 13
-      Caption = 'N'#186' OPE.'
-      FocusControl = DBEdit3
-    end
-    object Label4: TLabel
-      Left = 572
-      Top = 8
-      Width = 43
-      Height = 13
-      Caption = 'N'#186' FILAS'
-      FocusControl = DBEdit4
-    end
-    object Label5: TLabel
-      Left = 638
+      Left = 294
       Top = 8
       Width = 70
       Height = 13
       Caption = 'RESPONS'#193'VEL'
-      FocusControl = DBEdit5
     end
-    object Label6: TLabel
-      Left = 79
+    object Label2: TLabel
+      Left = 155
       Top = 8
-      Width = 61
+      Width = 27
       Height = 13
-      Caption = 'COD ORDEM'
-      FocusControl = DBEdit6
-    end
-    object Label7: TLabel
-      Left = 151
-      Top = 8
-      Width = 51
-      Height = 13
-      Caption = 'N'#186' ORDEM'
-      FocusControl = DBEdit7
-    end
-    object Label8: TLabel
-      Left = 429
-      Top = 8
-      Width = 36
-      Height = 13
-      Caption = 'idgrupo'
-      FocusControl = DBEdit8
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label9: TLabel
-      Left = 716
-      Top = 8
-      Width = 59
-      Height = 13
-      Caption = 'META HORA'
-    end
-    object Label10: TLabel
-      Left = 791
-      Top = 8
-      Width = 34
-      Height = 13
-      Caption = 'TEMPO'
+      Caption = 'DATA'
+      FocusControl = cxDBDateEdit1
     end
     object DBEdit1: TDBEdit
-      Left = 9
-      Top = 24
-      Width = 57
+      Left = 16
+      Top = 25
+      Width = 121
       Height = 21
-      DataField = 'idLayoutFase'
+      DataField = 'idSequenciamento'
       DataSource = DS
       TabOrder = 0
     end
     object DBEdit2: TDBEdit
-      Left = 227
-      Top = 24
-      Width = 35
+      Left = 294
+      Top = 25
+      Width = 345
       Height = 21
-      DataField = 'idOrdem_has_fase'
+      DataField = 'responstavel'
       DataSource = DS
-      ReadOnly = True
       TabOrder = 1
-      OnChange = DBEdit2Change
     end
-    object DBEdit3: TDBEdit
-      Left = 490
-      Top = 24
-      Width = 69
-      Height = 21
-      DataField = 'numOperadores'
-      DataSource = DS
+    object cxDBDateEdit1: TcxDBDateEdit
+      Left = 155
+      Top = 25
+      DataBinding.DataField = 'dataSeq'
+      DataBinding.DataSource = DS
       TabOrder = 2
-    end
-    object DBEdit4: TDBEdit
-      Left = 572
-      Top = 24
-      Width = 57
-      Height = 21
-      DataField = 'numFilas'
-      DataSource = DS
-      TabOrder = 3
-    end
-    object DBEdit5: TDBEdit
-      Left = 638
-      Top = 24
-      Width = 65
-      Height = 21
-      DataField = 'responsavel'
-      DataSource = DS
-      TabOrder = 4
-    end
-    object DBEdit6: TDBEdit
-      Left = 79
-      Top = 24
-      Width = 59
-      Height = 21
-      DataField = 'idordem'
-      DataSource = DS
-      TabOrder = 5
-      OnExit = DBEdit6Exit
-    end
-    object DBEditBeleza1: TDBEditBeleza
-      Left = 260
-      Top = 24
-      Width = 155
-      Height = 21
-      Color = 14737361
-      DataField = 'fase'
-      DataSource = DS
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      ReadOnly = True
-      TabOrder = 6
-      Ativar_Pesquisa = True
-      mostrar_Botao = True
-      sql.Strings = (
-        'select ohf.idOrdem_has_fase, f.descricao from ordem_has_fase ohf'
-        'left outer join fase f on ohf.idfase =  f.idfase '
-        
-          'where f.descricao like :varDescricao and ohf.idOrdem_has_fase in' +
-          ' (select distinct idOrdem_has_fase from ordem_has_fase where idO' +
-          'rdem =:x)')
-      database = 'balay'
-      campo = 'descricao'
-      Sempre_Mostrar_Janela = False
-      Outro_Edit = DBEdit2
-      campo_outro_edit = 'idOrdem_has_fase'
-      CorBorda = clGray
-      NovoLayout = False
-      OnButtonClick = DBEditBeleza1ButtonClick
-    end
-    object DBEdit7: TDBEdit
-      Left = 151
-      Top = 24
-      Width = 64
-      Height = 21
-      DataField = 'numOrdem'
-      DataSource = DS
-      ReadOnly = True
-      TabOrder = 7
-    end
-    object ed_metaHora: TEdit
-      Left = 716
-      Top = 24
-      Width = 62
-      Height = 21
-      TabOrder = 8
-      Text = 'ed_metaHora'
-    end
-    object Ed_tempo: TEdit
-      Left = 791
-      Top = 24
-      Width = 62
-      Height = 21
-      TabOrder = 9
-      Text = 'Ed_tempo'
-    end
-    object DBEdit8: TDBEdit
-      Left = 429
-      Top = 24
-      Width = 49
-      Height = 21
-      DataField = 'idgrupo'
-      DataSource = DS
-      TabOrder = 10
-      OnChange = DBEdit8Change
+      Width = 121
     end
   end
   inherited DS: TDataSource
@@ -374,45 +271,17 @@ inherited F02004: TF02004
   inherited ClientDataSet1: TClientDataSet
     Left = 704
     Top = 0
-    object ClientDataSet1idLayoutFase: TIntegerField
-      FieldName = 'idLayoutFase'
+    object ClientDataSet1idSequenciamento: TIntegerField
+      FieldName = 'idSequenciamento'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
     end
-    object ClientDataSet1idOrdem_has_fase: TIntegerField
-      FieldName = 'idOrdem_has_fase'
+    object ClientDataSet1dataSeq: TDateField
+      FieldName = 'dataSeq'
     end
-    object ClientDataSet1numOperadores: TIntegerField
-      FieldName = 'numOperadores'
-    end
-    object ClientDataSet1numFilas: TIntegerField
-      FieldName = 'numFilas'
-    end
-    object ClientDataSet1dataLayout: TDateField
-      FieldName = 'dataLayout'
-    end
-    object ClientDataSet1responsavel: TStringField
-      FieldName = 'responsavel'
+    object ClientDataSet1responstavel: TStringField
+      FieldName = 'responstavel'
       Size = 50
-    end
-    object ClientDataSet1fase: TStringField
-      FieldName = 'fase'
-      Size = 45
-    end
-    object ClientDataSet1grupo: TStringField
-      FieldName = 'grupo'
-      Size = 45
-    end
-    object ClientDataSet1idordem: TIntegerField
-      FieldName = 'idordem'
-    end
-    object ClientDataSet1numOrdem: TIntegerField
-      FieldName = 'numOrdem'
-    end
-    object ClientDataSet1produto: TStringField
-      FieldName = 'produto'
-      Size = 45
-    end
-    object ClientDataSet1idgrupo: TIntegerField
-      FieldName = 'idgrupo'
     end
   end
   inherited DataSetProvider1: TDataSetProvider
@@ -421,101 +290,32 @@ inherited F02004: TF02004
   end
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
-      
-        'select lf.*, prod.descricao as produto, op.numOrdem, f.descricao' +
-        ' as fase, ohf.idordem, g.descricao as grupo, g.idgrupo from layo' +
-        'utfase lf '#13#10#10
-      ''
-      ''
-      
-        'left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = lf.' +
-        'idOrdem_has_fase '#13#10#10
-      ''
-      ''
-      'left outer join ordem_producao op on op.idOrdem = ohf.idordem'
-      'left outer join produto prod on prod.idProduto = op.idproduto'
-      'left outer join fase f on f.idfase = ohf.idfase '#13#10#10
-      ''
-      ''
-      'left outer join grupo g on g.idgrupo = ohf.idLinhaProducao;')
+      'select * from sequenciamento;')
     Left = 640
     Top = 0
-    object FDQuery1idLayoutFase: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idLayoutFase'
-      Origin = 'idLayoutFase'
+    object FDQuery1idSequenciamento: TIntegerField
+      FieldName = 'idSequenciamento'
+      Origin = 'idSequenciamento'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
     end
-    object FDQuery1idOrdem_has_fase: TIntegerField
+    object FDQuery1dataSeq: TDateField
       AutoGenerateValue = arDefault
-      FieldName = 'idOrdem_has_fase'
-      Origin = 'idOrdem_has_fase'
+      FieldName = 'dataSeq'
+      Origin = 'dataSeq'
     end
-    object FDQuery1numOperadores: TIntegerField
+    object FDQuery1responstavel: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'numOperadores'
-      Origin = 'numOperadores'
-    end
-    object FDQuery1numFilas: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'numFilas'
-      Origin = 'numFilas'
-    end
-    object FDQuery1dataLayout: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'dataLayout'
-      Origin = 'dataLayout'
-    end
-    object FDQuery1responsavel: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'responsavel'
-      Origin = 'responsavel'
+      FieldName = 'responstavel'
+      Origin = 'responstavel'
       Size = 50
-    end
-    object FDQuery1fase: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'fase'
-      Origin = 'descricao'
-      ProviderFlags = []
-      Size = 45
-    end
-    object FDQuery1grupo: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'grupo'
-      Origin = 'descricao'
-      ProviderFlags = []
-      Size = 45
-    end
-    object FDQuery1idordem: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idordem'
-      Origin = 'idOrdem'
-      ProviderFlags = []
-    end
-    object FDQuery1numOrdem: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'numOrdem'
-      Origin = 'numOrdem'
-      ProviderFlags = []
-    end
-    object FDQuery1produto: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'produto'
-      Origin = 'descricao'
-      ProviderFlags = []
-      Size = 45
-    end
-    object FDQuery1idgrupo: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idgrupo'
-      Origin = 'idgrupo'
-      ProviderFlags = []
     end
   end
   inherited ImageListBase: TImageList
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C007C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00A00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
