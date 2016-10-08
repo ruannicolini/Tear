@@ -171,24 +171,8 @@ type
     ScrollLinhadeProducao: TScrollBox;
     FDQuery2: TFDQuery;
     DataSetProvider2: TDataSetProvider;
-    moperacoes: TClientDataSet;
+    mTarefas: TClientDataSet;
     img: TImage;
-    moperacoescota: TFloatField;
-    moperacoescotaPendente: TFloatField;
-    FDQuery2idLayoutOperacao: TIntegerField;
-    FDQuery2idLayoutFase: TIntegerField;
-    FDQuery2tempoOperacao: TSingleField;
-    FDQuery2idCronometragem: TIntegerField;
-    FDQuery2idTipo_Recurso: TIntegerField;
-    FDQuery2tipo_Recurso: TStringField;
-    FDQuery2operacao: TStringField;
-    moperacoesidLayoutOperacao: TIntegerField;
-    moperacoesidLayoutFase: TIntegerField;
-    moperacoestempoOperacao: TSingleField;
-    moperacoesidCronometragem: TIntegerField;
-    moperacoesidTipo_Recurso: TIntegerField;
-    moperacoestipo_Recurso: TStringField;
-    moperacoesoperacao: TStringField;
     ScrollBoxLinhaP: TScrollBox;
     FDQuery1idSequenciamento: TIntegerField;
     FDQuery1dataSeq: TDateField;
@@ -205,17 +189,39 @@ type
     PanelBusca: TPanel;
     TabSet1: TTabSet;
     ScrollBoxOrdem: TScrollBox;
+    FDQuery2idTarefaSequenciada: TIntegerField;
+    FDQuery2idCronometragem: TIntegerField;
+    FDQuery2operacao: TStringField;
+    FDQuery2idOrdem: TIntegerField;
+    FDQuery2numOrdem: TIntegerField;
+    FDQuery2idRecurso: TIntegerField;
+    FDQuery2tipoRecurso: TStringField;
+    FDQuery2IdLinha_producao: TIntegerField;
+    FDQuery2linhaProducao: TStringField;
+    FDQuery2tempoInicio: TDateTimeField;
+    FDQuery2TempoFim: TDateTimeField;
+    mTarefasidTarefaSequenciada: TIntegerField;
+    mTarefasidCronometragem: TIntegerField;
+    mTarefasoperacao: TStringField;
+    mTarefasidOrdem: TIntegerField;
+    mTarefasnumOrdem: TIntegerField;
+    mTarefasidRecurso: TIntegerField;
+    mTarefastipoRecurso: TStringField;
+    mTarefasIdLinha_producao: TIntegerField;
+    mTarefaslinhaProducao: TStringField;
+    mTarefastempoInicio: TDateTimeField;
+    mTarefasTempoFim: TDateTimeField;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
-    procedure moperacoesAfterDelete(DataSet: TDataSet);
-    procedure moperacoesAfterPost(DataSet: TDataSet);
-    procedure moperacoesAfterCancel(DataSet: TDataSet);
+    procedure mTarefasAfterDelete(DataSet: TDataSet);
+    procedure mTarefasAfterPost(DataSet: TDataSet);
+    procedure mTarefasAfterCancel(DataSet: TDataSet);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure moperacoesAfterInsert(DataSet: TDataSet);
+    procedure mTarefasAfterInsert(DataSet: TDataSet);
     procedure TabSet1Click(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
@@ -501,35 +507,35 @@ begin
 end;
 
 
-procedure TF02004.moperacoesAfterCancel(DataSet: TDataSet);
+procedure TF02004.mTarefasAfterCancel(DataSet: TDataSet);
 begin
   inherited;
-  moperacoes.CancelUpdates;
+  mTarefas.CancelUpdates;
 end;
 
-procedure TF02004.moperacoesAfterDelete(DataSet: TDataSet);
+procedure TF02004.mTarefasAfterDelete(DataSet: TDataSet);
 begin
   inherited;
-  moperacoes.ApplyUpdates(-1);
+  mTarefas.ApplyUpdates(-1);
 end;
 
-procedure TF02004.moperacoesAfterInsert(DataSet: TDataSet);
+procedure TF02004.mTarefasAfterInsert(DataSet: TDataSet);
 begin
   inherited;
-  moperacoesidLayoutOperacao.AsInteger := DModule.buscaProximoParametro('seqLayoutOperacao');
+  mTarefasidTarefaSequenciada.AsInteger := DModule.buscaProximoParametro('seqTarefaSequenciada');
 end;
 
-procedure TF02004.moperacoesAfterPost(DataSet: TDataSet);
+procedure TF02004.mTarefasAfterPost(DataSet: TDataSet);
 begin
   inherited;
-  moperacoes.ApplyUpdates(-1);
+  mTarefas.ApplyUpdates(-1);
 end;
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
 jobs: TArray<TOrdem>;
 celulas: TArray<TLinhaProducao>;
-retorno: TLProducao;
+retorno: array of TLProducao;
 begin
   inherited;
 
@@ -551,13 +557,14 @@ begin
   //retorno := unitMykel(jobs, celulas);
 
 
+
   {************************* MONTA SCROLLBOX_LINHA_DE_PRODUÇÃO *************************}
   montaLayoutOperadores(7,2,ScrollLinhadeProducao, IMG.Picture);
 
   {************************* MONTA SCROLLBOX_OPERAÇÕES *************************}
-  if not(MOperacoes.IsEmpty) then
+  if not(mTarefas.IsEmpty) then
   begin
-    montaLayoutOperacoes(ScrollboxOperacoes, moperacoes);
+    montaLayoutOperacoes(ScrollboxOperacoes, mTarefas);
   end;
 
 
@@ -952,6 +959,7 @@ begin
   codTipoMaquina := codTM;
   descricaoTipoMaquina := descTM;
 end;
+
 
 Initialization
   RegisterClass(TF02004);

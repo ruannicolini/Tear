@@ -853,73 +853,100 @@ inherited F02004: TF02004
     Connection = DModule.FDConnection
     SQL.Strings = (
       
-        'select lo.*, tr.idTipo_Recurso, tr.descricao as tipo_Recurso, o.' +
-        'descricao as operacao from layoutoperacao lo '#10
-      
-        'LEFT OUTER JOIN LayoutFase LF ON LF.idLayoutFase = LO.IDLAYOUTFA' +
-        'SE '#10
-      
-        'left outer join cronometragem c on c.idcronometragem = lo.idcron' +
-        'ometragem '#13#10#10
+        'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao a' +
+        's operacao, '
+      'ts.idOrdem, Op.numOrdem,'
+      'ts.idRecurso, tr.descricao as tipoRecurso,'
+      'ts.IdLinha_producao, lp.descricao as linhaProducao,'
+      'ts.tempoInicio, ts.TempoFim'
       ''
-      'LEFT OUTER JOIN OPERACAO O ON O.IDOPERACAO = C.idoperacao'#10' '
+      'from tarefa_sequenciada ts '
       
-        'left outer join cronometragem_has_tipo_recurso chtr on chtr.idCR' +
-        'ONOMETRAGEM = c.idCRONOMETRAGEM '#13#10#10
+        'left outer join cronometragem c on c.idCronometragem = ts.idCron' +
+        'ometragem '
+      'left outer join operacao o on o.idOperacao = c.idOperacao'
+      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem'
+      
+        'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecu' +
+        'rso'
+      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao'
       ''
-      
-        'left outer join tipo_recurso tr on tr.idtipo_recurso = chtr.idTi' +
-        'poRecurso '
-      'where LF.idLayoutFase =:idLF;')
+      'where ts.idSequenciamento =:idSeq')
     Left = 380
     Top = 188
     ParamData = <
       item
-        Name = 'IDLF'
+        Name = 'IDSEQ'
         DataType = ftInteger
         ParamType = ptInput
         Value = Null
       end>
-    object FDQuery2idLayoutOperacao: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idLayoutOperacao'
-      Origin = 'idLayoutOperacao'
+    object FDQuery2idTarefaSequenciada: TIntegerField
+      FieldName = 'idTarefaSequenciada'
+      Origin = 'idTarefaSequenciada'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object FDQuery2idLayoutFase: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idLayoutFase'
-      Origin = 'idLayoutFase'
-    end
-    object FDQuery2tempoOperacao: TSingleField
-      AutoGenerateValue = arDefault
-      FieldName = 'tempoOperacao'
-      Origin = 'tempoOperacao'
+      Required = True
     end
     object FDQuery2idCronometragem: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'idCronometragem'
       Origin = 'idCronometragem'
     end
-    object FDQuery2idTipo_Recurso: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'idTipo_Recurso'
-      Origin = 'idtipo_recurso'
-      ProviderFlags = []
-    end
-    object FDQuery2tipo_Recurso: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'tipo_Recurso'
-      Origin = 'descricao'
-      ProviderFlags = []
-      Size = 45
-    end
     object FDQuery2operacao: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'operacao'
       Origin = 'descricao'
       ProviderFlags = []
+      ReadOnly = True
       Size = 45
+    end
+    object FDQuery2idOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOrdem'
+      Origin = 'idOrdem'
+    end
+    object FDQuery2numOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOrdem'
+      Origin = 'numOrdem'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQuery2idRecurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idRecurso'
+      Origin = 'idRecurso'
+    end
+    object FDQuery2tipoRecurso: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipoRecurso'
+      Origin = 'descricao'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQuery2IdLinha_producao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'IdLinha_producao'
+      Origin = 'idLinha_Producao'
+    end
+    object FDQuery2linhaProducao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'linhaProducao'
+      Origin = 'descricao'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQuery2tempoInicio: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoInicio'
+      Origin = 'tempoInicio'
+    end
+    object FDQuery2TempoFim: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'TempoFim'
+      Origin = 'tempoFim'
     end
   end
   object DataSetProvider2: TDataSetProvider
@@ -927,47 +954,56 @@ inherited F02004: TF02004
     Left = 412
     Top = 188
   end
-  object moperacoes: TClientDataSet
+  object mTarefas: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider2'
-    AfterInsert = moperacoesAfterInsert
-    AfterPost = moperacoesAfterPost
-    AfterCancel = moperacoesAfterCancel
-    AfterDelete = moperacoesAfterDelete
+    AfterInsert = mTarefasAfterInsert
+    AfterPost = mTarefasAfterPost
+    AfterCancel = mTarefasAfterCancel
+    AfterDelete = mTarefasAfterDelete
     Left = 444
     Top = 188
-    object moperacoescota: TFloatField
-      FieldKind = fkInternalCalc
-      FieldName = 'cota'
+    object mTarefasidTarefaSequenciada: TIntegerField
+      FieldName = 'idTarefaSequenciada'
+      Required = True
     end
-    object moperacoescotaPendente: TFloatField
-      FieldKind = fkInternalCalc
-      FieldName = 'cotaPendente'
-    end
-    object moperacoesidLayoutOperacao: TIntegerField
-      FieldName = 'idLayoutOperacao'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object moperacoesidLayoutFase: TIntegerField
-      FieldName = 'idLayoutFase'
-    end
-    object moperacoestempoOperacao: TSingleField
-      FieldName = 'tempoOperacao'
-    end
-    object moperacoesidCronometragem: TIntegerField
+    object mTarefasidCronometragem: TIntegerField
       FieldName = 'idCronometragem'
     end
-    object moperacoesidTipo_Recurso: TIntegerField
-      FieldName = 'idTipo_Recurso'
-    end
-    object moperacoestipo_Recurso: TStringField
-      FieldName = 'tipo_Recurso'
-      Size = 45
-    end
-    object moperacoesoperacao: TStringField
+    object mTarefasoperacao: TStringField
       FieldName = 'operacao'
+      ReadOnly = True
       Size = 45
+    end
+    object mTarefasidOrdem: TIntegerField
+      FieldName = 'idOrdem'
+    end
+    object mTarefasnumOrdem: TIntegerField
+      FieldName = 'numOrdem'
+      ReadOnly = True
+    end
+    object mTarefasidRecurso: TIntegerField
+      FieldName = 'idRecurso'
+    end
+    object mTarefastipoRecurso: TStringField
+      FieldName = 'tipoRecurso'
+      ReadOnly = True
+      Size = 45
+    end
+    object mTarefasIdLinha_producao: TIntegerField
+      FieldName = 'IdLinha_producao'
+    end
+    object mTarefaslinhaProducao: TStringField
+      FieldName = 'linhaProducao'
+      ReadOnly = True
+      Size = 45
+    end
+    object mTarefastempoInicio: TDateTimeField
+      FieldName = 'tempoInicio'
+    end
+    object mTarefasTempoFim: TDateTimeField
+      FieldName = 'TempoFim'
     end
   end
 end
