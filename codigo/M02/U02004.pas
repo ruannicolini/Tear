@@ -144,24 +144,24 @@ type TLinhaProducao =  record
 end;
 
 {********** Declarações da estrutura DE RETORNO da unit de Sequenciamento e Balanceamento **********}
-{
-type TLProducao = record
-  CodLProducao    : Integer;
-  Lotes           : array of Integer;
-  Operadores      : array of TOperador;
-end;
-
-type TOperador = record
-  CodOperador   : Integer;
-  Tarefas       : array of TOperacao;
-end;
 
 type TTarefa = record
   CodTarefa     : Integer;
   TempoInicio   : Double;
   TempoTermino  : Double;
 end;
- }
+
+type TOperador = record
+  CodOperador   : Integer;
+  Tarefas       : array of TTarefa;
+end;
+
+type TLProducao = record
+  CodLProducao    : Integer;
+  Lotes           : array of Integer; //nº Ordem de produção
+  Operadores      : array of TOperador;
+end;
+
 //TELA
 type
   TF02004 = class(TFBase)
@@ -527,12 +527,9 @@ end;
 
 procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
-//i,j,k,l : integer;
-//textoFases, textoMaquinas : string;
-//matriz: array of array of integer; //matriz de atribuição de valores, problema no query e clientdataset
-//vetorTPF: array of double; //vetor de tempo Padrao final das operações
 jobs: TArray<TOrdem>;
 celulas: TArray<TLinhaProducao>;
+retorno: TLProducao;
 begin
   inherited;
 
@@ -551,6 +548,7 @@ begin
   montaCelulas(celulas);
 
   {************************* CHAMA UNIT DE BALANCEAMENTO E SEQUENCIAMENTO *************************}
+  //retorno := unitMykel(jobs, celulas);
 
 
   {************************* MONTA SCROLLBOX_LINHA_DE_PRODUÇÃO *************************}
@@ -561,9 +559,6 @@ begin
   begin
     montaLayoutOperacoes(ScrollboxOperacoes, moperacoes);
   end;
-
-
-
 
 
 end;

@@ -2,7 +2,6 @@ inherited F02004: TF02004
   Caption = 'F02004'
   ClientHeight = 538
   ClientWidth = 1031
-  ExplicitTop = -162
   ExplicitWidth = 1047
   ExplicitHeight = 577
   PixelsPerInch = 96
@@ -12,21 +11,21 @@ inherited F02004: TF02004
     Width = 1031
     Height = 441
     ActivePage = TbDados
-    ExplicitTop = 93
+    ExplicitTop = 97
     ExplicitWidth = 1031
-    ExplicitHeight = 445
+    ExplicitHeight = 441
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1023
-      ExplicitHeight = 417
+      ExplicitHeight = 413
       inherited grDados: TGroupBox
         Width = 1023
         Height = 413
         Color = clMenuBar
         Enabled = True
         ExplicitWidth = 1023
-        ExplicitHeight = 417
+        ExplicitHeight = 413
         object ScrollBoxOperacoes: TScrollBox
           AlignWithMargins = True
           Left = 791
@@ -46,7 +45,6 @@ inherited F02004: TF02004
           Color = clMenuBar
           ParentColor = False
           TabOrder = 0
-          ExplicitHeight = 400
         end
         object ScrollLinhadeProducao: TScrollBox
           Left = 232
@@ -100,13 +98,11 @@ inherited F02004: TF02004
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitLeft = 292
-          ExplicitTop = 31
           object ScrollBoxLinhaP: TScrollBox
             Left = 0
             Top = 0
             Width = 230
-            Height = 392
+            Height = 384
             Align = alCustom
             Anchors = [akLeft, akTop, akBottom]
             BevelInner = bvNone
@@ -134,16 +130,13 @@ inherited F02004: TF02004
               TabIndex = 0
               UnselectedColor = clSilver
               OnClick = TabSet1Click
-              ExplicitLeft = 16
-              ExplicitTop = 8
-              ExplicitWidth = 185
             end
           end
           object ScrollBoxOrdem: TScrollBox
             Left = -2
             Top = 24
             Width = 230
-            Height = 392
+            Height = 384
             Align = alCustom
             Anchors = [akLeft, akTop, akBottom]
             Color = clInactiveCaption
@@ -158,7 +151,7 @@ inherited F02004: TF02004
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1023
-      ExplicitHeight = 417
+      ExplicitHeight = 413
       inherited GBFiltros: TGroupBox
         Width = 1023
         ExplicitWidth = 1023
@@ -206,14 +199,16 @@ inherited F02004: TF02004
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 870
+      Left = 862
       Top = 6
       Width = 136
-      Height = 46
+      Height = 38
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
       OnClick = SpeedButton1Click
+      ExplicitLeft = 870
+      ExplicitHeight = 46
     end
     object Label1: TLabel
       Left = 16
@@ -315,7 +310,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00A00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00A80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
