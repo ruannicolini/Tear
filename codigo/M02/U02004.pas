@@ -26,16 +26,6 @@ uses
 
 {Declações do Layout}
 
-type TLLinhaProducao =  class(TPanel)
-   public
-   idLinhaProducao     : integer;
-   LinhaProducao            : string;
-   LbLinhaProducao          : tlabel;
-   constructor Create(AOwner: TComponent); override;
-
-end;
-
-
 type TOperacao =  class(TPanel)     //vai sair
    public
    IdLayOutOperacoes   : integer;
@@ -51,55 +41,6 @@ type TOperacao =  class(TPanel)     //vai sair
    LbOperacao          : tlabel;
    LbRecurso           : tlabel;
    constructor Create(AOwner: TComponent); override;
-end;
-
-type TOperacaoMaquina =  record
-   Operacao           : Toperacao;
-   Porcentagem        : real;
-end;
-
-type TMaquina = class(TPanel)
-    public
-    Ocupacao     : real;
-    GOcupacao    : TProgressBar;
-    Operacoes    : array [1..20] of TOperacaoMaquina;
-    NumOperacoes : integer;
-    idrecurso    : integer;
-    constructor Create(AOwner: TComponent); override;
-end;
-
-type TOperadorL =  class(TPanel)
-   public
-   Ocupacao     : real;
-   Gocupacao    : TProgressbar;
-   lbOcupacao   : tlabel;
-   LbPosicao    : tlabel;
-   Posicao      : Integer;
-   Imagem       : TImage;
-   Maquina1     : TMaquina;
-   Maquina2     : TMaquina;
-   constructor Create(AOwner: TComponent); override;
-end;
-
-type TLayout = class
-    Tela       : TScrollBox;
-    TelaOp     : TScrollBox;
-    idlayout   : integer;
-    q          : TFDQuery;
-    Operadores : array [1..40] of TOperadorL;
-    NOperadores: integer;
-    Operacoes  : array [1..40] of TOperacao;
-    NOperacoes : integer;
-    TempoTotal : real;
-    MetaHora   : integer;
-    Referencia : string;
-    Responsavel: string;
-    NumFilas   : integer;
-    data       : tdatetime;
-    idProduto : integer;
-    constructor Create(Local:TScrollBox;Dados:TClientDataSet;NumerodeOperadores : integer;Tempo:real;MetaPorHora:integer;
-    img : TPicture;Query : TFDQuery;CodigoLayOut: integer;CodigoProduto: integer;Resp: String;dt: Tdatetime;
-    ref :string;nfila : integer;LocalOP:TScrollBox);
 end;
 
 {********** Declarações da estrutura passada para a unit de Sequenciamento e Balanceamento **********}
@@ -173,7 +114,7 @@ type TLProducao = record
   Operadores      : array of TOperador;
 end;
 
-//TELA
+{********************  TELA  ********************}
 type
   TF02004 = class(TFBase)
     Panel3: TPanel;
@@ -236,8 +177,8 @@ type
     procedure TabSet1Click(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure BGIndexButtonClicked(Sender: TObject; Index: Integer);
+    procedure DSDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -247,17 +188,15 @@ type
     procedure CalculaMetaHora();
     procedure montaJobs(var jobs: TArray<TOrdem>);
     procedure montaCelulas(var celulas: TArray<TLinhaProducao>);
-    procedure montaLayoutOperadores(nOperadores, NumFilas:integer; tela :TScrollBox;img: TPicture);
     procedure montaLayoutOperacoes(telaOP: TScrollBox; dados: TClientDataSet);
 
-    procedure montaScrollBoxOrdem(dados: TClientDataSet);
-    procedure montaScrollBoxLinhaP(dados: TClientDataSet);
+    procedure montaBGIndexOrdem(dados: TClientDataSet);
+    procedure montaBGIndexLinhaP(dados: TClientDataSet);
     procedure montaScrollBox_Layout(tipoComportamento, idPesquisado : integer);
   end;
 
 var
   F02004: TF02004;
-  Layout: TLayout;
   TempoTotal : real;
   MetaHora   : integer;
 
@@ -298,9 +237,6 @@ begin
   inherited;
   //
   grdados.Enabled := true;
-  FDQuery2.ParamByName('idSeq').asinteger := ClientDataSet1idSequenciamento.AsInteger;
-  mTarefas.Close;
-  mtarefas.Open;
 end;
 
 procedure TF02004.BSalvarClick(Sender: TObject);
@@ -310,18 +246,10 @@ begin
   grdados.Enabled := true;
 end;
 
-procedure TF02004.Button1Click(Sender: TObject);
-var
-i:integer;
-begin
-  inherited;
-  montaScrollBoxLinhaP(mTarefas);
-end;
-
 procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
 begin
   inherited;
-  //
+  //Comportamento onClick de todos os Botões de BGIndex
 
   ShowMessage(  (sender as TButtonGroup).Items[index].Hint );
 
@@ -377,6 +305,14 @@ procedure TF02004.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet1idSequenciamento.AsInteger := DModule.buscaProximoParametro('seqSequenciamento');
+end;
+
+procedure TF02004.DSDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  //Aciona o click em Tabset e mostra as informações no TButtonGroup BDIndex
+  // A pesquisa pode ser por Linha de produção ou por Ordem sequenciada de acordo com o TabSet selecionado
+  TabSet1Click(sender);
 end;
 
 procedure TF02004.montaCelulas(var celulas: TArray<TLinhaProducao>);
@@ -466,83 +402,7 @@ begin
   end;
 end;
 
-procedure TF02004.montaLayoutOperadores(nOperadores, NumFilas: integer;
-  tela: TScrollBox; img: TPicture);
-var
-vertical,i, horizontal, PorFila, NumNaFila, countFilas, contaPosicoes :integer;
-Direcao : boolean;
-Caminho  : TShape;
-valorT : real;
-Operadores : array [1..40] of TOperadorL;
-begin
-
-// Limpa tela
-  tela.DestroyComponents;
-
-//adiciona operadores
-   horizontal := 10;
-   Vertical   := 10;
-   PorFila    := round(noperadores/NumFilas);
-   NumNaFila  := 0;
-   direcao    := true;
-   countFilas := 0;
-   for i := 1 to NOperadores do
-   begin
-       Operadores[i]                      := TOperadorL.Create(tela);
-       Operadores[i].Parent               := tela;
-       Operadores[i].Left                 := horizontal;
-       Operadores[i].Top                  := vertical;
-       Operadores[i].Posicao              := i;
-       operadores[i].Imagem.Picture       := img;
-       operadores[i].LbPosicao.Caption    := inttostr(i);
-
-       inc(NumNaFila);
-
-       if NumNaFila >= PorFila then
-       begin
-           inc(countFilas);
-           //testa se tem mais filas ainda antes de colocar o caminho
-           if NumFilas > countFilas then
-           begin
-               caminho                      := tshape.Create(tela);
-               caminho.Parent               := tela;
-               caminho.Left                 := horizontal  + round(Operadores[i].Width / 2 ) - 10 ;
-               caminho.Top                  := vertical + Operadores[i].Height - 10 ;
-               caminho.Height               := 40;
-               caminho.Width                := 25;
-               Caminho.Brush.Color          := $008080FF;
-           end;
-
-           if not direcao then
-              horizontal := 10;
-
-           vertical   := vertical + Operadores[i].Height + 20;
-           NumNaFila  := 0;
-           direcao := not direcao;
-
-       end else
-       begin
-           if direcao then
-              horizontal  := horizontal +  Operadores[i].Width + 10
-           else
-              horizontal  := horizontal - (Operadores[i].Width + 10);
-
-
-           caminho            := tshape.Create(tela);
-           caminho.Parent     := tela;
-           if direcao then
-               caminho.Left   := horizontal - 20
-           else
-               caminho.Left   := horizontal + Operadores[i].Width - 20;
-           caminho.Top        := vertical + round(Operadores[i].Height / 2 ) - 10 ;
-           caminho.Height     := 25;
-           caminho.Width      := 40;
-           Caminho.Brush.Color := $008080FF;
-       end;
-   end;
-end;
-
-procedure TF02004.montaScrollBoxLinhaP(dados: TClientDataSet);
+procedure TF02004.montaBGIndexLinhaP(dados: TClientDataSet);
 var
 listaLP : TList<Integer>;
 gbi          : TGrpButtonItem;
@@ -568,7 +428,7 @@ begin
 end;
 
 
-procedure TF02004.montaScrollBoxOrdem(dados: TClientDataSet);
+procedure TF02004.montaBGIndexOrdem(dados: TClientDataSet);
 var
 listaOP : TList<Integer>;
 gbi          : TGrpButtonItem;
@@ -663,10 +523,6 @@ begin
 
 
 
-
-  {************************* MONTA SCROLLBOX_LINHA_DE_PRODUÇÃO *************************}
-  montaLayoutOperadores(7,2,Scroll_Layout, IMG.Picture);   // vai sair
-
   {************************* MONTA SCROLLBOX_OPERAÇÕES *************************}
   if not(mTarefas.IsEmpty) then
   begin
@@ -714,7 +570,7 @@ begin
       FDQuery2.Open;
       mTarefas.open;
 
-      montaScrollBoxLinhaP(mtarefas);
+      montaBGIndexLinhaP(mtarefas);
       montaScrollBox_Layout(1, 10);  // (tipo 1= lp, tipo 2 = OP) / (idLinhadeProdução)
 
   end else
@@ -743,7 +599,7 @@ begin
       FDQuery2.Open;
       mTarefas.open;
 
-      montaScrollBoxOrdem(mtarefas);
+      montaBGIndexOrdem(mtarefas);
       montaScrollBox_Layout(2, 100); // (tipo 1= lp, tipo 2 = OP) / (idOrdem deProdução)
   end;
 
@@ -799,140 +655,6 @@ begin
     LbCotaPendente.Parent   := self;
     LbCotaPendente.Left     := 5;
     LbCotaPendente.Top      := 51;
-end;
-
-{ TMaquina }
-
-constructor TMaquina.Create(AOwner: TComponent);
-begin
-  inherited;
-  GOcupacao          := TProgressBar.create(Self);
-  GOcupacao.Parent   := self;
-  GOcupacao.Align    := alBottom;
-  GOcupacao.Height   := 8;
-  NumOperacoes       := 0;
-  Width              :=95;
-  Height             :=60;
-  Color              := clSilver; //$00A7F8BF;
-  ParentBackground   := false;
-  Ocupacao           := 0;
-  hint               := 'Operações:';
-
-end;
-
-{ TOperador }
-
-constructor TOperadorL.Create(AOwner: TComponent);
-begin
-  inherited;
-
-  Height                := 190;
-  Width                 := 128;
-  color                 :=  clMenu;; //$00C6E2FF;
-  ParentBackground      := false;
-  Caption               := '';
-  DragMode              := dmAutomatic;
-  Ocupacao              := 0;
-  Cursor                := crHandPoint;
-
-  Maquina1              := TMaquina.create(Self);
-  Maquina1.Parent       := self;
-  Maquina1.Align := alTop;
-  Maquina2              := TMaquina.create(Self);
-  Maquina2.Parent       := self;
-  Maquina2.Align := alBottom;
-
-
-  Imagem                := TImage.Create(self);
-  Imagem.Parent         := self;
-  imagem.Width          := 73;
-  imagem.Height         := 50;
-  imagem.Top            := 69;
-  imagem.Left           := 38;
-  imagem.Proportional   := true;
-  imagem.Stretch        := true;
-  imagem.AutoSize       := false;
-
-  lbOcupacao             := TLabel.Create(self);
-  lbOcupacao.Parent      := self;
-  lbOcupacao.Font.Name   := 'Tahoma';
-  lbOcupacao.Font.Size   := 7;
-  lbOcupacao.Width       := 10;
-  lbOcupacao.Top         := 67;
-  lbOcupacao.Left        := 110;
-  lbOcupacao.Caption     := '0';
-
-  LbPosicao             := TLabel.Create(self);
-  LbPosicao.Parent      := self;
-  LbPosicao.Font.Name   := 'Tahoma';
-  LbPosicao.Font.Size   := 12;
-  LbPosicao.Font.Style  := [fsbold];
-  LbPosicao.Top         := round(Height /2) - 5;
-  LbPosicao.Left        := 5;
-  LbPosicao.Color       := $00C7FEFB;
-  lbposicao.AutoSize    := false;
-  lbposicao.Width       := LbPosicao.Height;
-  lbposicao.Alignment   := taCenter;
-
-
-  Gocupacao             := TProgressBar.Create(self);
-  Gocupacao.Parent      := self;
-  //Gocupacao.ForeColor   := $004AA5FF;
-  Gocupacao.Orientation := pbVertical;
-  Gocupacao.Height      := 45;
-  Gocupacao.Width       := 9;
-  Gocupacao.Top         := 77;
-  Gocupacao.Left        := 113;
-  //Gocupacao.ShowText    := false;
-
-end;
-
-{ TLayout }
-constructor TLayout.Create(Local: TScrollBox; Dados: TClientDataSet;
-  NumerodeOperadores: integer; Tempo: real; MetaPorHora: integer; img: TPicture;
-  Query: TFDQuery; CodigoLayOut, CodigoProduto: integer; Resp: String;
-  dt: Tdatetime; ref: string; nfila: integer; LocalOP: TScrollBox);
-var
-vertical :integer;
-
-begin
-
-   TelaOp                := LocalOP;
-   TempoTotal            := tempo;
-   MetaHora              := MetaPorHora;
-   idlayout              := CodigoLayOut;
-   idProduto             := CodigoProduto;
-   Responsavel           := Resp;
-   data                  := dt;
-   Referencia            := ref;
-   NOperacoes            := 0;
-   vertical              := 10;
-
-   dados.First;
-   while not(dados.eof) do
-   begin
-       inc(NOperacoes);
-       Operacoes[NOperacoes]                        := TOperacao.Create(telaop);
-       Operacoes[NOperacoes].Parent                 := LocalOP;
-       Operacoes[NOperacoes].IdLayOutOperacoes      := dados.fieldbyname('IdLayOutOperacao').AsInteger;
-       Operacoes[NOperacoes].idTipoRecurso          := dados.fieldbyname('idTipo_Recurso').AsInteger;
-       Operacoes[NOperacoes].idCronometragem        := dados.fieldbyname('idCronometragem').AsInteger;
-       Operacoes[NOperacoes].Cota                   := dados.fieldbyname('Cota').AsInteger;
-       Operacoes[NOperacoes].CotaPendente           := dados.fieldbyname('CotaPendente').AsInteger;
-       Operacoes[NOperacoes].tipoRecurso            := dados.fieldbyname('tipo_Recurso').AsString;
-       Operacoes[NOperacoes].Operacao               := dados.fieldbyname('Operacao').AsString;
-       Operacoes[NOperacoes].LbOperacao.Caption     := dados.fieldbyname('Operacao').AsString;
-       Operacoes[NOperacoes].LbCota.Caption         := 'Cota: '+Floattostr(Operacoes[NOperacoes].Cota);
-       Operacoes[NOperacoes].LbCotaPendente.Caption := 'Cota Pendente: '+ Floattostr(Operacoes[NOperacoes].CotaPendente);
-       Operacoes[NOperacoes].LbRecurso.Caption      := dados.fieldbyname('tipo_Recurso').AsString ;
-       Operacoes[NOperacoes].GCotaPendente.Max :=  round(Operacoes[NOperacoes].CotaPendente) ;
-       Operacoes[NOperacoes].Top                    := vertical;
-       Operacoes[NOperacoes].Left                   := 5;
-       vertical := vertical + Operacoes[NOperacoes].Height + 5;
-       dados.Next;
-   end;
-
-
 end;
 
 { TOrdem }
@@ -1105,33 +827,6 @@ begin
   descricaoMaquina := descM;
   codTipoMaquina := codTM;
   descricaoTipoMaquina := descTM;
-end;
-
-
-{ TLLinhaProdução }
-
-constructor TLLinhaProducao.Create(AOwner: TComponent);
-begin
-  inherited;
-  //Panel
-    Align := alTop;
-    Height :=  40;
-    AlignWithMargins := true;
-    Margins.Top := 5;
-    Margins.Bottom := 0;
-    Color := $00EAE9E8;
-    BevelInner := bvLowered;
-    ParentBackground := false;
-    //DragMode                := dmAutomatic;
-    Cursor                  := crHandPoint;
-
-    LbLinhaProducao              := TLabel.Create(self);
-    LbLinhaProducao.Parent       := self;
-    LbLinhaProducao.Font.Name    := 'tahoma';
-    LbLinhaProducao.Font.Size    := 7;
-    LbLinhaProducao.Left         := 5;
-    LbLinhaProducao.Top          := 19;
-
 end;
 
 Initialization

@@ -113,6 +113,9 @@ inherited F02004: TF02004
             Height = 371
             Hint = 'true'
             Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
             ButtonHeight = 64
             ButtonOptions = [gboFullSize, gboGroupStyle, gboShowCaptions]
             Font.Charset = DEFAULT_CHARSET
@@ -123,10 +126,6 @@ inherited F02004: TF02004
             Items = <>
             TabOrder = 1
             OnButtonClicked = BGIndexButtonClicked
-            ExplicitLeft = 9
-            ExplicitTop = 3
-            ExplicitWidth = 217
-            ExplicitHeight = 196
           end
         end
         object ScrollBoxOperacoes: TScrollBox
