@@ -22,10 +22,21 @@ uses
   cxSchedulerTreeListBrowser, cxClasses, cxSchedulerDBStorage, IdBaseComponent,
   IdScheduler, IdSchedulerOfThread, IdSchedulerOfThreadDefault, cxContainer,
   cxDBEdit, cxDropDownEdit, cxCalendar, cxTextEdit, cxMaskEdit, cxSpinEdit,
-  DBEditCalendario, Vcl.Tabs;
+  DBEditCalendario, Vcl.Tabs, Vcl.ButtonGroup;
 
 {Declações do Layout}
-type TOperacao =  class(TPanel)
+
+type TLLinhaProducao =  class(TPanel)
+   public
+   idLinhaProducao     : integer;
+   LinhaProducao            : string;
+   LbLinhaProducao          : tlabel;
+   constructor Create(AOwner: TComponent); override;
+
+end;
+
+
+type TOperacao =  class(TPanel)     //vai sair
    public
    IdLayOutOperacoes   : integer;
    idTipoRecurso       : integer;
@@ -168,12 +179,11 @@ type
     Panel3: TPanel;
     ScrollBoxOperacoes: TScrollBox;
     SpeedButton1: TSpeedButton;
-    ScrollLinhadeProducao: TScrollBox;
+    Scroll_Layout: TScrollBox;
     FDQuery2: TFDQuery;
     DataSetProvider2: TDataSetProvider;
     mTarefas: TClientDataSet;
     img: TImage;
-    ScrollBoxLinhaP: TScrollBox;
     FDQuery1idSequenciamento: TIntegerField;
     FDQuery1dataSeq: TDateField;
     FDQuery1responstavel: TStringField;
@@ -188,7 +198,6 @@ type
     cxDBDateEdit1: TcxDBDateEdit;
     PanelBusca: TPanel;
     TabSet1: TTabSet;
-    ScrollBoxOrdem: TScrollBox;
     FDQuery2idTarefaSequenciada: TIntegerField;
     FDQuery2idCronometragem: TIntegerField;
     FDQuery2operacao: TStringField;
@@ -211,6 +220,8 @@ type
     mTarefaslinhaProducao: TStringField;
     mTarefastempoInicio: TDateTimeField;
     mTarefasTempoFim: TDateTimeField;
+    ScrollBox1: TScrollBox;
+    BGIndex: TButtonGroup;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -225,6 +236,8 @@ type
     procedure TabSet1Click(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure BGIndexButtonClicked(Sender: TObject; Index: Integer);
   private
     { Private declarations }
   public
@@ -236,6 +249,10 @@ type
     procedure montaCelulas(var celulas: TArray<TLinhaProducao>);
     procedure montaLayoutOperadores(nOperadores, NumFilas:integer; tela :TScrollBox;img: TPicture);
     procedure montaLayoutOperacoes(telaOP: TScrollBox; dados: TClientDataSet);
+
+    procedure montaScrollBoxOrdem(dados: TClientDataSet);
+    procedure montaScrollBoxLinhaP(dados: TClientDataSet);
+    procedure montaScrollBox_Layout(tipoComportamento, idPesquisado : integer);
   end;
 
 var
@@ -281,6 +298,9 @@ begin
   inherited;
   //
   grdados.Enabled := true;
+  FDQuery2.ParamByName('idSeq').asinteger := ClientDataSet1idSequenciamento.AsInteger;
+  mTarefas.Close;
+  mtarefas.Open;
 end;
 
 procedure TF02004.BSalvarClick(Sender: TObject);
@@ -288,6 +308,23 @@ begin
   inherited;
   Panel3.Enabled := false;
   grdados.Enabled := true;
+end;
+
+procedure TF02004.Button1Click(Sender: TObject);
+var
+i:integer;
+begin
+  inherited;
+  montaScrollBoxLinhaP(mTarefas);
+end;
+
+procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
+begin
+  inherited;
+  //
+
+  ShowMessage(  (sender as TButtonGroup).Items[index].Hint );
+
 end;
 
 procedure TF02004.CalculaMetaHora;
@@ -334,6 +371,7 @@ begin
   Ed_tempo.text    := Double.ToString(TempoTotal);
 }
 end;
+
 
 procedure TF02004.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
@@ -399,7 +437,6 @@ begin
 //
 
   telaOp.DestroyComponents;   // Limpa tela
-  telaOp.DestroyComponents;
 
   vertical := 10;
   NOperacoes := 0;
@@ -440,7 +477,6 @@ Operadores : array [1..40] of TOperadorL;
 begin
 
 // Limpa tela
-  tela.DestroyComponents;
   tela.DestroyComponents;
 
 //adiciona operadores
@@ -506,6 +542,61 @@ begin
    end;
 end;
 
+procedure TF02004.montaScrollBoxLinhaP(dados: TClientDataSet);
+var
+listaLP : TList<Integer>;
+gbi          : TGrpButtonItem;
+begin
+  listaLP := TList<Integer>.Create;
+  // Limpa tela
+  BGIndex.items.Clear;
+  //Popula ButtonGroup1
+  dados.First;
+  while not(dados.eof) do
+  begin
+        if(   NOT(listaLP.Contains(dados.FieldByName('idLinha_producao').AsInteger))    )then
+        begin
+           gbi := TGrpButtonItem.Create(BGIndex.Items);
+           gbi.Caption := (dados.fieldbyname('idLinha_producao').AsString);
+           gbi.Hint := dados.fieldbyname('linhaProducao').AsString;
+           listaLP.add(dados.FieldByName('idLinha_producao').AsInteger);
+        end;
+        dados.Next;
+  end;
+  listaLP.Free;
+
+end;
+
+
+procedure TF02004.montaScrollBoxOrdem(dados: TClientDataSet);
+var
+listaOP : TList<Integer>;
+gbi          : TGrpButtonItem;
+begin
+  listaOP := TList<Integer>.Create;
+  // Limpa tela
+  BGIndex.items.Clear;
+  //Popula TButtonGroup  BGIndex
+  dados.First;
+  while not(dados.eof) do
+  begin
+        if(   NOT(listaOP.Contains(dados.FieldByName('idOrdem').AsInteger))    )then
+        begin
+           gbi := TGrpButtonItem.Create(BGIndex.Items);
+           gbi.Caption := (dados.fieldbyname('NumOrdem').AsString);
+           gbi.Hint := dados.fieldbyname('idOrdem').AsString;
+           listaOP.add(dados.FieldByName('idOrdem').AsInteger);
+        end;
+        dados.Next;
+  end;
+  listaOP.Free;
+end;
+
+procedure TF02004.montaScrollBox_Layout(tipoComportamento,
+  idPesquisado: integer);
+begin
+  //
+end;
 
 procedure TF02004.mTarefasAfterCancel(DataSet: TDataSet);
 begin
@@ -536,6 +627,9 @@ var
 jobs: TArray<TOrdem>;
 celulas: TArray<TLinhaProducao>;
 retorno: array of TLProducao;
+scr : TScrollBox;
+  I: Integer;
+  J: Integer;
 begin
   inherited;
 
@@ -556,15 +650,27 @@ begin
   {************************* CHAMA UNIT DE BALANCEAMENTO E SEQUENCIAMENTO *************************}
   //retorno := unitMykel(jobs, celulas);
 
+  // salva em mtarefas
+
+  // comando popular scrollboxLinhaP ou ScrollboxOrdem e mostrar scrollbox_layout
+  TabSet1Click(Sender);
+
+
+
+
+
+
+
+
 
 
   {************************* MONTA SCROLLBOX_LINHA_DE_PRODUÇÃO *************************}
-  montaLayoutOperadores(7,2,ScrollLinhadeProducao, IMG.Picture);
+  montaLayoutOperadores(7,2,Scroll_Layout, IMG.Picture);   // vai sair
 
   {************************* MONTA SCROLLBOX_OPERAÇÕES *************************}
   if not(mTarefas.IsEmpty) then
   begin
-    montaLayoutOperacoes(ScrollboxOperacoes, mTarefas);
+    montaLayoutOperacoes(ScrollboxOperacoes, mTarefas);    //vai sair
   end;
 
 
@@ -586,23 +692,64 @@ begin
 
   if(TabSet1.TabIndex = 0)then
   begin
-    ScrollBoxOrdem.Visible := false;
+    //LP
+    FDQuery2.Close;
+    mTarefas.Close;
+    FDQuery2.SQL.Text :=
+      'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
+      'ts.idOrdem, Op.numOrdem,                                                    '+
+      'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
+      'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
+      'ts.tempoInicio, ts.TempoFim                                                 '+
+      'from tarefa_sequenciada ts                                                  '+
+      'left outer join cronometragem c on c.idCronometragem = ts.idCronometragem   '+
+      'left outer join operacao o on o.idOperacao = c.idOperacao                   '+
+      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
+      'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
+      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
+      'where ts.idSequenciamento =:idSeq                                          '+
+      'Order by ts.IdLinha_producao, ts.numOperador';
+
+      FDQuery2.ParamByName('idSeq').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+      FDQuery2.Open;
+      mTarefas.open;
+
+      montaScrollBoxLinhaP(mtarefas);
+      montaScrollBox_Layout(1, 10);  // (tipo 1= lp, tipo 2 = OP) / (idLinhadeProdução)
 
   end else
   if(TabSet1.TabIndex = 1)then
   begin
-    ScrollBoxOrdem.Visible := true;
+
+    //OP
+    FDQuery2.Close;
+    mTarefas.Close;
+    FDQuery2.SQL.Text :=
+      'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
+      'ts.idOrdem, Op.numOrdem,                                                    '+
+      'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
+      'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
+      'ts.tempoInicio, ts.TempoFim                                                 '+
+      'from tarefa_sequenciada ts                                                  '+
+      'left outer join cronometragem c on c.idCronometragem = ts.idCronometragem   '+
+      'left outer join operacao o on o.idOperacao = c.idOperacao                   '+
+      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
+      'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
+      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
+      'where ts.idSequenciamento =:idSeq                                          '+
+      'Order by ts.IdOrdem, ts.idCronometragem, ts.tempoInicio';
+
+      FDQuery2.ParamByName('idSeq').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+      FDQuery2.Open;
+      mTarefas.open;
+
+      montaScrollBoxOrdem(mtarefas);
+      montaScrollBox_Layout(2, 100); // (tipo 1= lp, tipo 2 = OP) / (idOrdem deProdução)
   end;
 
 end;
 
-{procedure TF02004.TabSet1Click(Sender: TObject);
-begin
-  inherited;
-
-end;
-
- TOperacao }
+{TOperacao }
 
 constructor TOperacao.Create(AOwner: TComponent);
 begin
@@ -960,6 +1107,32 @@ begin
   descricaoTipoMaquina := descTM;
 end;
 
+
+{ TLLinhaProdução }
+
+constructor TLLinhaProducao.Create(AOwner: TComponent);
+begin
+  inherited;
+  //Panel
+    Align := alTop;
+    Height :=  40;
+    AlignWithMargins := true;
+    Margins.Top := 5;
+    Margins.Bottom := 0;
+    Color := $00EAE9E8;
+    BevelInner := bvLowered;
+    ParentBackground := false;
+    //DragMode                := dmAutomatic;
+    Cursor                  := crHandPoint;
+
+    LbLinhaProducao              := TLabel.Create(self);
+    LbLinhaProducao.Parent       := self;
+    LbLinhaProducao.Font.Name    := 'tahoma';
+    LbLinhaProducao.Font.Size    := 7;
+    LbLinhaProducao.Left         := 5;
+    LbLinhaProducao.Top          := 19;
+
+end;
 
 Initialization
   RegisterClass(TF02004);

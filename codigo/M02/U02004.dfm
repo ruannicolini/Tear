@@ -26,27 +26,7 @@ inherited F02004: TF02004
         Enabled = True
         ExplicitWidth = 1023
         ExplicitHeight = 413
-        object ScrollBoxOperacoes: TScrollBox
-          AlignWithMargins = True
-          Left = 791
-          Top = 15
-          Width = 230
-          Height = 396
-          Margins.Left = 0
-          Margins.Top = 0
-          Margins.Right = 0
-          Margins.Bottom = 0
-          HorzScrollBar.Color = clSilver
-          HorzScrollBar.ParentColor = False
-          Align = alRight
-          BevelInner = bvNone
-          BevelOuter = bvNone
-          BorderStyle = bsNone
-          Color = clMenuBar
-          ParentColor = False
-          TabOrder = 0
-        end
-        object ScrollLinhadeProducao: TScrollBox
+        object Scroll_Layout: TScrollBox
           Left = 232
           Top = 15
           Width = 559
@@ -57,7 +37,7 @@ inherited F02004: TF02004
           BorderStyle = bsNone
           Color = clWindow
           ParentColor = False
-          TabOrder = 1
+          TabOrder = 0
           object img: TImage
             Left = 677
             Top = 3
@@ -88,6 +68,14 @@ inherited F02004: TF02004
             Proportional = True
             Visible = False
           end
+          object ScrollBox1: TScrollBox
+            Left = 0
+            Top = 0
+            Width = 555
+            Height = 137
+            Align = alTop
+            TabOrder = 0
+          end
         end
         object PanelBusca: TPanel
           Left = 2
@@ -97,53 +85,69 @@ inherited F02004: TF02004
           Align = alLeft
           BevelKind = bkFlat
           BevelOuter = bvNone
-          TabOrder = 2
-          object ScrollBoxLinhaP: TScrollBox
+          TabOrder = 1
+          object TabSet1: TTabSet
             Left = 0
             Top = 0
-            Width = 230
-            Height = 384
-            Align = alCustom
-            Anchors = [akLeft, akTop, akBottom]
-            BevelInner = bvNone
-            BevelOuter = bvNone
-            BorderStyle = bsNone
-            Color = clMenuBar
-            ParentColor = False
-            TabOrder = 0
-            object TabSet1: TTabSet
-              Left = 0
-              Top = 0
-              Width = 230
-              Height = 21
-              Align = alTop
-              BackgroundColor = clSilver
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              SelectedColor = clActiveCaption
-              Tabs.Strings = (
-                'LINHA PROD.'
-                'ORDEM PROD.')
-              TabIndex = 0
-              UnselectedColor = clSilver
-              OnClick = TabSet1Click
-            end
+            Width = 226
+            Height = 21
+            Align = alTop
+            BackgroundColor = clSilver
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            SelectedColor = clActiveCaption
+            Tabs.Strings = (
+              'LINHA PROD.'
+              'ORDEM PROD.')
+            TabIndex = 0
+            UnselectedColor = clSilver
+            OnClick = TabSet1Click
           end
-          object ScrollBoxOrdem: TScrollBox
-            Left = -2
-            Top = 24
-            Width = 230
-            Height = 384
-            Align = alCustom
-            Anchors = [akLeft, akTop, akBottom]
-            Color = clInactiveCaption
-            ParentColor = False
+          object BGIndex: TButtonGroup
+            Left = 0
+            Top = 21
+            Width = 226
+            Height = 371
+            Hint = 'true'
+            Align = alClient
+            ButtonHeight = 64
+            ButtonOptions = [gboFullSize, gboGroupStyle, gboShowCaptions]
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Items = <>
             TabOrder = 1
-            Visible = False
+            OnButtonClicked = BGIndexButtonClicked
+            ExplicitLeft = 9
+            ExplicitTop = 3
+            ExplicitWidth = 217
+            ExplicitHeight = 196
           end
+        end
+        object ScrollBoxOperacoes: TScrollBox
+          AlignWithMargins = True
+          Left = 791
+          Top = 15
+          Width = 230
+          Height = 396
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          HorzScrollBar.Color = clSilver
+          HorzScrollBar.ParentColor = False
+          Align = alRight
+          BevelInner = bvNone
+          BevelOuter = bvNone
+          BorderStyle = bsNone
+          Color = clMenuBar
+          ParentColor = False
+          TabOrder = 2
         end
       end
     end
@@ -199,16 +203,14 @@ inherited F02004: TF02004
     ParentBackground = False
     TabOrder = 2
     object SpeedButton1: TSpeedButton
-      Left = 862
+      Left = 850
       Top = 6
       Width = 136
-      Height = 38
+      Height = 48
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
       OnClick = SpeedButton1Click
-      ExplicitLeft = 870
-      ExplicitHeight = 46
     end
     object Label1: TLabel
       Left = 16
@@ -310,7 +312,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00A80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00B40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -859,7 +861,6 @@ inherited F02004: TF02004
       'ts.idRecurso, tr.descricao as tipoRecurso,'
       'ts.IdLinha_producao, lp.descricao as linhaProducao,'
       'ts.tempoInicio, ts.TempoFim'
-      ''
       'from tarefa_sequenciada ts '
       
         'left outer join cronometragem c on c.idCronometragem = ts.idCron' +
@@ -870,8 +871,8 @@ inherited F02004: TF02004
         'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecu' +
         'rso'
       'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao'
-      ''
-      'where ts.idSequenciamento =:idSeq')
+      'where ts.idSequenciamento =:idSeq'
+      'Order by ts.IdLinha_producao, ts.numOperador')
     Left = 380
     Top = 188
     ParamData = <
