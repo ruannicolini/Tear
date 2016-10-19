@@ -347,88 +347,6 @@ INSERT INTO `interface` VALUES (1,1,NULL,'Ação',1,'01001',1),(2,1,NULL,'Produt
 UNLOCK TABLES;
 
 --
--- Table structure for table `layoutfase`
---
-
-DROP TABLE IF EXISTS `layoutfase`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `layoutfase` (
-  `idLayoutFase` int(11) NOT NULL,
-  `idOrdem_has_fase` int(11) DEFAULT NULL,
-  `numOperadores` int(11) DEFAULT NULL,
-  `numFilas` int(11) DEFAULT NULL,
-  `dataLayout` date DEFAULT NULL,
-  `responsavel` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idLayoutFase`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `layoutfase`
---
-
-LOCK TABLES `layoutfase` WRITE;
-/*!40000 ALTER TABLE `layoutfase` DISABLE KEYS */;
-INSERT INTO `layoutfase` VALUES (22,88,7,2,NULL,NULL),(30,154,6,2,NULL,NULL);
-/*!40000 ALTER TABLE `layoutfase` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `layoutmaquina`
---
-
-DROP TABLE IF EXISTS `layoutmaquina`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `layoutmaquina` (
-  `idLayoutMaquina` int(11) NOT NULL,
-  `idLayoutOperacao` int(11) DEFAULT NULL,
-  `idOperador` int(11) DEFAULT NULL,
-  `postoDeTrabalho` int(11) DEFAULT NULL,
-  `numMaquina` int(11) DEFAULT NULL,
-  `idTipo_Recurso` int(11) DEFAULT NULL,
-  `porcentagemOperacao` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idLayoutMaquina`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `layoutmaquina`
---
-
-LOCK TABLES `layoutmaquina` WRITE;
-/*!40000 ALTER TABLE `layoutmaquina` DISABLE KEYS */;
-/*!40000 ALTER TABLE `layoutmaquina` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `layoutoperacao`
---
-
-DROP TABLE IF EXISTS `layoutoperacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `layoutoperacao` (
-  `idLayoutOperacao` int(11) NOT NULL,
-  `idLayoutFase` int(11) DEFAULT NULL,
-  `tempoOperacao` float DEFAULT NULL,
-  `idCronometragem` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idLayoutOperacao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `layoutoperacao`
---
-
-LOCK TABLES `layoutoperacao` WRITE;
-/*!40000 ALTER TABLE `layoutoperacao` DISABLE KEYS */;
-INSERT INTO `layoutoperacao` VALUES (524,22,2297.13,191),(525,22,2622.84,244),(1120,30,2297,191),(1121,30,4560,192),(1122,30,2658,194),(1123,30,2623,244);
-/*!40000 ALTER TABLE `layoutoperacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `modulo`
 --
 
@@ -633,7 +551,7 @@ CREATE TABLE `ordem_producao` (
 
 LOCK TABLES `ordem_producao` WRITE;
 /*!40000 ALTER TABLE `ordem_producao` DISABLE KEYS */;
-INSERT INTO `ordem_producao` VALUES (7,1012,7,25,'2016-03-03','Teste de observações',0),(35,35,7,10,'2016-03-23',NULL,1),(84,35,7,4,'2016-03-25','Finalização Parcial da Ordem 35',0),(85,35,7,2,'2016-03-25','Retrabalho da Ordem 35',0),(87,1170516,105,100,'2016-05-17','Ordem de produção ativa.',0),(91,1,7,100,NULL,NULL,0),(92,799,105,10,'2016-07-23','teste',0);
+INSERT INTO `ordem_producao` VALUES (7,1012,7,25,'2016-03-03','Teste de observações',0),(35,35,7,10,'2016-03-23',NULL,0),(84,35,7,4,'2016-03-25','Finalização Parcial da Ordem 35',0),(85,35,7,2,'2016-03-25','Retrabalho da Ordem 35',0),(87,1170516,105,100,'2016-05-17','Ordem de produção ativa.',0),(91,1,7,100,NULL,NULL,0),(92,799,105,10,'2016-07-23','teste',0);
 /*!40000 ALTER TABLE `ordem_producao` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -677,7 +595,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,27),('seqBatida',NULL,399),('seqCelula',NULL,28),('seqCronometragem',NULL,284),('seqCronometrista',NULL,12),('seqFase',NULL,20),('seqGrupoProduto',NULL,16),('seqLayoutFase',NULL,31),('seqLayoutOperacao',NULL,1124),('seqMovimentacao',NULL,168),('seqOperacao',NULL,67),('seqOperador',NULL,71),('seqOrdemFase',NULL,163),('seqOrdemProducao',NULL,93),('seqParte',NULL,36),('seqProduto',NULL,108),('seqRecurso',NULL,20),('seqTecido',NULL,15),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,17),('seqUsuario',NULL,6);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,27),('seqBatida',NULL,399),('seqCelula',NULL,28),('seqCronometragem',NULL,284),('seqCronometrista',NULL,12),('seqFase',NULL,20),('seqGrupoProduto',NULL,16),('seqMovimentacao',NULL,168),('seqOperacao',NULL,67),('seqOperador',NULL,71),('seqOrdemFase',NULL,163),('seqOrdemProducao',NULL,93),('seqParte',NULL,36),('seqProduto',NULL,108),('seqRecurso',NULL,20),('seqSequenciamento',NULL,8),('seqTarefaSequenciada',NULL,6),('seqTecido',NULL,15),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,17),('seqUsuario',NULL,6);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -798,7 +716,7 @@ CREATE TABLE `recurso` (
 
 LOCK TABLES `recurso` WRITE;
 /*!40000 ALTER TABLE `recurso` DISABLE KEYS */;
-INSERT INTO `recurso` VALUES (2,123456789,'MAQUINA 100',2,1),(3,987654321,'MAQUINA 102',2,1),(8,0,'MAQUINA 101',4,1),(17,71,'MAQUINA 103',3,1);
+INSERT INTO `recurso` VALUES (2,123456789,'MAQUINA 100',2,1),(3,987654321,'MAQUINA 102',2,1),(8,112355009,'MAQUINA 101',4,1),(17,718809252,'MAQUINA 103',3,1);
 /*!40000 ALTER TABLE `recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -828,6 +746,65 @@ LOCK TABLES `seguranca` WRITE;
 /*!40000 ALTER TABLE `seguranca` DISABLE KEYS */;
 INSERT INTO `seguranca` VALUES (1,1,1,1,1,1),(1,2,1,1,1,1),(1,3,1,1,1,1),(1,4,1,1,1,1),(1,5,1,1,1,1),(1,6,1,1,1,1),(1,7,1,1,1,1),(1,8,1,1,1,1),(1,9,1,1,1,1),(1,10,1,1,1,1),(1,11,1,1,1,1),(1,12,1,1,1,1),(1,13,1,1,1,1),(1,14,1,1,1,1),(1,15,1,1,1,1),(1,16,1,1,1,1),(1,17,1,1,1,1),(1,18,1,1,1,1),(1,19,1,1,1,1),(1,20,1,1,1,1),(1,21,1,1,1,1),(2,1,1,1,1,1),(2,2,1,1,1,1),(2,3,1,1,1,1),(2,4,1,1,1,1),(2,5,1,1,1,1),(2,6,1,1,1,1),(2,7,1,1,1,1),(2,8,1,1,1,1),(2,9,1,1,1,1),(2,10,1,1,1,1),(2,11,1,1,1,1),(2,12,1,1,1,1),(2,19,1,1,1,1),(2,21,1,1,1,1),(3,16,1,1,1,1),(3,17,1,1,1,1),(3,18,1,1,1,1),(3,20,1,1,1,1),(4,17,1,1,1,1),(4,20,1,1,1,1),(5,17,1,1,0,0);
 /*!40000 ALTER TABLE `seguranca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sequenciamento`
+--
+
+DROP TABLE IF EXISTS `sequenciamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sequenciamento` (
+  `idSequenciamento` int(11) NOT NULL,
+  `dataSeq` date DEFAULT NULL,
+  `responstavel` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idSequenciamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sequenciamento`
+--
+
+LOCK TABLES `sequenciamento` WRITE;
+/*!40000 ALTER TABLE `sequenciamento` DISABLE KEYS */;
+INSERT INTO `sequenciamento` VALUES (5,'2016-09-27','Ruan Nicolini'),(7,'2016-10-14','teste');
+/*!40000 ALTER TABLE `sequenciamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tarefa_sequenciada`
+--
+
+DROP TABLE IF EXISTS `tarefa_sequenciada`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tarefa_sequenciada` (
+  `idTarefaSequenciada` int(11) NOT NULL,
+  `idCronometragem` int(11) DEFAULT NULL,
+  `idOrdem` int(11) DEFAULT NULL,
+  `idRecurso` int(11) DEFAULT NULL,
+  `idLinha_Producao` int(11) DEFAULT NULL,
+  `NumOperador` int(11) DEFAULT NULL,
+  `tempoInicio` datetime DEFAULT NULL,
+  `tempoFim` datetime DEFAULT NULL,
+  `idSequenciamento` int(11) DEFAULT NULL,
+  `eventType` int(11) DEFAULT NULL,
+  `options` int(11) DEFAULT NULL,
+  `Mensagem` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idTarefaSequenciada`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tarefa_sequenciada`
+--
+
+LOCK TABLES `tarefa_sequenciada` WRITE;
+/*!40000 ALTER TABLE `tarefa_sequenciada` DISABLE KEYS */;
+INSERT INTO `tarefa_sequenciada` VALUES (20,191,7,1,1,1,'2016-10-16 15:00:00','2016-10-16 17:30:00',5,0,0,'Colocar aqui o num da ordem'),(21,244,35,1,1,2,'2016-10-16 13:00:00','2016-10-16 18:00:00',5,0,0,NULL),(22,13,87,1,21,1,NULL,NULL,5,0,0,NULL),(23,19,91,1,8,1,'2016-08-10 08:00:00','2016-08-10 12:00:00',5,0,0,NULL);
+/*!40000 ALTER TABLE `tarefa_sequenciada` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -977,4 +954,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-19 16:53:11
+-- Dump completed on 2016-10-19 15:02:51
