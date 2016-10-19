@@ -24,6 +24,7 @@ inherited F02004: TF02004
         Height = 413
         Color = clMenuBar
         Enabled = True
+        ParentCtl3D = False
         ExplicitWidth = 1023
         ExplicitHeight = 413
         object Scroll_Layout: TScrollBox
@@ -68,13 +69,61 @@ inherited F02004: TF02004
             Proportional = True
             Visible = False
           end
-          object ScrollBox1: TScrollBox
+          object Panel4: TPanel
+            Left = 0
+            Top = 23
+            Width = 555
+            Height = 369
+            Align = alClient
+            BevelInner = bvLowered
+            Color = 16053492
+            ParentBackground = False
+            TabOrder = 0
+            object cxScheduler1: TcxScheduler
+              Left = 2
+              Top = 2
+              Width = 551
+              Height = 365
+              DateNavigator.Visible = False
+              ViewTimeGrid.Active = True
+              ViewTimeGrid.EventDetailInfo = True
+              OnCustomDrawEvent = cxScheduler1CustomDrawEvent
+              Align = alClient
+              ContentPopupMenu.UseBuiltInPopupMenu = False
+              ContentPopupMenu.Items = []
+              ControlBox.Visible = False
+              DialogsLookAndFeel.NativeStyle = True
+              DialogsStyle = 'Standard'
+              EventOperations.DialogShowing = False
+              EventOperations.Intersection = False
+              EventOperations.ReadOnly = True
+              EventOperations.Recurrence = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              LookAndFeel.Kind = lfUltraFlat
+              LookAndFeel.NativeStyle = True
+              OptionsView.ResourcesPerPage = 4
+              Storage = cxSchedulerDBStorage1
+              TabOrder = 0
+              OnKeyDown = cxScheduler1KeyDown
+              OnScaleScroll = cxScheduler1ScaleScroll
+              Splitters = {
+                970100007E00000026020000830000009201000001000000970100006C010000}
+              StoredClientBounds = {0100000001000000260200006C010000}
+            end
+          end
+          object PanelNome: TPanel
             Left = 0
             Top = 0
             Width = 555
-            Height = 137
+            Height = 23
             Align = alTop
-            TabOrder = 0
+            Color = clActiveCaption
+            ParentBackground = False
+            TabOrder = 1
           end
         end
         object PanelBusca: TPanel
@@ -85,12 +134,13 @@ inherited F02004: TF02004
           Align = alLeft
           BevelKind = bkFlat
           BevelOuter = bvNone
+          ParentBackground = False
           TabOrder = 1
           object TabSet1: TTabSet
             Left = 0
             Top = 0
             Width = 226
-            Height = 21
+            Height = 23
             Align = alTop
             BackgroundColor = clSilver
             Font.Charset = DEFAULT_CHARSET
@@ -107,10 +157,11 @@ inherited F02004: TF02004
             OnClick = TabSet1Click
           end
           object BGIndex: TButtonGroup
-            Left = 0
-            Top = 21
-            Width = 226
-            Height = 371
+            AlignWithMargins = True
+            Left = 3
+            Top = 26
+            Width = 220
+            Height = 363
             Hint = 'true'
             Align = alClient
             BevelInner = bvNone
@@ -147,6 +198,20 @@ inherited F02004: TF02004
           Color = clMenuBar
           ParentColor = False
           TabOrder = 2
+          object DBGrid1: TDBGrid
+            Left = 0
+            Top = 0
+            Width = 230
+            Height = 396
+            Align = alClient
+            DataSource = DSChart
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
       end
     end
@@ -189,7 +254,7 @@ inherited F02004: TF02004
       ExplicitLeft = 997
     end
   end
-  object Panel3: TPanel [2]
+  object PanelInformacoes: TPanel [2]
     Left = 0
     Top = 35
     Width = 1031
@@ -201,41 +266,44 @@ inherited F02004: TF02004
     Enabled = False
     ParentBackground = False
     TabOrder = 2
+    Visible = False
     object SpeedButton1: TSpeedButton
-      Left = 850
-      Top = 6
+      Left = 878
+      Top = 4
       Width = 136
-      Height = 48
+      Height = 46
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
       OnClick = SpeedButton1Click
+      ExplicitLeft = 882
+      ExplicitHeight = 50
     end
     object Label1: TLabel
-      Left = 16
-      Top = 8
+      Left = 13
+      Top = 6
       Width = 22
       Height = 13
       Caption = 'COD'
     end
     object Label3: TLabel
-      Left = 294
-      Top = 8
+      Left = 291
+      Top = 6
       Width = 70
       Height = 13
       Caption = 'RESPONS'#193'VEL'
     end
     object Label2: TLabel
-      Left = 155
-      Top = 8
+      Left = 152
+      Top = 6
       Width = 27
       Height = 13
       Caption = 'DATA'
       FocusControl = cxDBDateEdit1
     end
     object DBEdit1: TDBEdit
-      Left = 16
-      Top = 25
+      Left = 13
+      Top = 23
       Width = 121
       Height = 21
       DataField = 'idSequenciamento'
@@ -243,8 +311,8 @@ inherited F02004: TF02004
       TabOrder = 0
     end
     object DBEdit2: TDBEdit
-      Left = 294
-      Top = 25
+      Left = 291
+      Top = 23
       Width = 345
       Height = 21
       DataField = 'responstavel'
@@ -252,12 +320,21 @@ inherited F02004: TF02004
       TabOrder = 1
     end
     object cxDBDateEdit1: TcxDBDateEdit
-      Left = 155
-      Top = 25
+      Left = 152
+      Top = 23
       DataBinding.DataField = 'dataSeq'
       DataBinding.DataSource = DS
       TabOrder = 2
       Width = 121
+    end
+    object Button1: TButton
+      Left = 808
+      Top = 4
+      Width = 75
+      Height = 50
+      Caption = 'Button1'
+      TabOrder = 3
+      OnClick = Button1Click
     end
   end
   inherited DS: TDataSource
@@ -311,7 +388,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00B40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00E00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -849,6 +926,11 @@ inherited F02004: TF02004
   inherited Acoes: TActionList
     Left = 576
     Top = 0
+    object ActionMostrarPainelInformacoes: TAction
+      Caption = 'ActionMostrarPainelInformacoes'
+      ShortCut = 118
+      OnExecute = ActionMostrarPainelInformacoesExecute
+    end
   end
   object FDQuery2: TFDQuery
     Connection = DModule.FDConnection
@@ -872,8 +954,8 @@ inherited F02004: TF02004
       'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao'
       'where ts.idSequenciamento =:idSeq'
       'Order by ts.IdLinha_producao, ts.numOperador')
-    Left = 380
-    Top = 188
+    Left = 676
+    Top = 52
     ParamData = <
       item
         Name = 'IDSEQ'
@@ -951,8 +1033,8 @@ inherited F02004: TF02004
   end
   object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
-    Left = 412
-    Top = 188
+    Left = 708
+    Top = 52
   end
   object mTarefas: TClientDataSet
     Aggregates = <>
@@ -962,8 +1044,8 @@ inherited F02004: TF02004
     AfterPost = mTarefasAfterPost
     AfterCancel = mTarefasAfterCancel
     AfterDelete = mTarefasAfterDelete
-    Left = 444
-    Top = 188
+    Left = 740
+    Top = 52
     object mTarefasidTarefaSequenciada: TIntegerField
       FieldName = 'idTarefaSequenciada'
       Required = True
@@ -1005,5 +1087,262 @@ inherited F02004: TF02004
     object mTarefasTempoFim: TDateTimeField
       FieldName = 'TempoFim'
     end
+  end
+  object cxSchedulerStorage1: TcxSchedulerStorage
+    CustomFields = <>
+    Resources.Items = <
+      item
+        Name = 'Oper1'
+        ResourceID = '0'
+      end
+      item
+        Name = 'Oper2'
+        ResourceID = '1'
+      end
+      item
+        Name = 'Oper3'
+        ResourceID = '2'
+      end
+      item
+        Name = 'Oper4'
+        ResourceID = '3'
+      end
+      item
+        Name = 'Oper5'
+        ResourceID = '4'
+      end>
+    Left = 86
+    Top = 200
+  end
+  object cxStyleRepository1: TcxStyleRepository
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+    end
+    object cxStyle2: TcxStyle
+    end
+    object cxStyle3: TcxStyle
+    end
+  end
+  object cxSchedulerDBStorage1: TcxSchedulerDBStorage
+    Resources.Items = <>
+    Resources.OnGetResourceName = cxSchedulerDBStorage1ResourcesGetResourceName
+    Resources.DataSource = DSChart
+    Resources.ResourceID = 'numOperador'
+    Resources.ResourceName = 'numOperador'
+    SmartRefresh = True
+    CustomFields = <>
+    DataSource = DSChart
+    FieldNames.Caption = 'operacao'
+    FieldNames.EventType = 'eventType'
+    FieldNames.Finish = 'TempoFim'
+    FieldNames.ID = 'idTarefaSequenciada'
+    FieldNames.Options = 'options'
+    FieldNames.ResourceID = 'numOperador'
+    FieldNames.Start = 'tempoInicio'
+    UseIndexedID = True
+    Left = 158
+    Top = 272
+  end
+  object DSChart: TDataSource
+    DataSet = ClientDataSetChart
+    Left = 126
+    Top = 272
+  end
+  object DataSetProviderChart: TDataSetProvider
+    DataSet = FDQueryChart
+    Left = 62
+    Top = 272
+  end
+  object ClientDataSetChart: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProviderChart'
+    AfterInsert = ClientDataSetChartAfterInsert
+    AfterPost = ClientDataSetChartAfterPost
+    Left = 94
+    Top = 272
+    object ClientDataSetChartidTarefaSequenciada: TIntegerField
+      FieldName = 'idTarefaSequenciada'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object ClientDataSetChartidCronometragem: TIntegerField
+      FieldName = 'idCronometragem'
+    end
+    object ClientDataSetChartoperacao: TStringField
+      FieldName = 'operacao'
+      Size = 45
+    end
+    object ClientDataSetChartidOrdem: TIntegerField
+      FieldName = 'idOrdem'
+    end
+    object ClientDataSetChartnumOrdem: TIntegerField
+      FieldName = 'numOrdem'
+    end
+    object ClientDataSetChartidRecurso: TIntegerField
+      FieldName = 'idRecurso'
+    end
+    object ClientDataSetCharttipoRecurso: TStringField
+      FieldName = 'tipoRecurso'
+      Size = 45
+    end
+    object ClientDataSetChartIdLinha_producao: TIntegerField
+      FieldName = 'IdLinha_producao'
+    end
+    object ClientDataSetChartlinhaProducao: TStringField
+      FieldName = 'linhaProducao'
+      Size = 45
+    end
+    object ClientDataSetCharttempoInicio: TDateTimeField
+      FieldName = 'tempoInicio'
+    end
+    object ClientDataSetChartTempoFim: TDateTimeField
+      FieldName = 'TempoFim'
+    end
+    object ClientDataSetChartnumOperador: TIntegerField
+      FieldName = 'numOperador'
+    end
+    object ClientDataSetChartidsequenciamento: TIntegerField
+      FieldName = 'idsequenciamento'
+    end
+    object ClientDataSetCharteventType: TIntegerField
+      FieldName = 'eventType'
+    end
+    object ClientDataSetChartoptions: TIntegerField
+      FieldName = 'options'
+    end
+    object ClientDataSetChartmensagem: TStringField
+      FieldName = 'mensagem'
+      Size = 45
+    end
+  end
+  object FDQueryChart: TFDQuery
+    Connection = DModule.FDConnection
+    SQL.Strings = (
+      
+        'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao a' +
+        's operacao, '
+      
+        'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento, ts.' +
+        'eventType, ts.options, ts.mensagem,'
+      'ts.idRecurso, tr.descricao as tipoRecurso,'
+      'ts.IdLinha_producao, lp.descricao as linhaProducao,'
+      'ts.tempoInicio, ts.TempoFim'
+      'from tarefa_sequenciada ts '
+      
+        'left outer join cronometragem c on c.idCronometragem = ts.idCron' +
+        'ometragem '
+      'left outer join operacao o on o.idOperacao = c.idOperacao'
+      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem'
+      
+        'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecu' +
+        'rso'
+      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao'
+      'where ts.idSequenciamento =:idSeq and ts.IdLinha_producao =:idLP'
+      'Order by ts.IdLinha_producao, ts.numOperador')
+    Left = 30
+    Top = 272
+    ParamData = <
+      item
+        Name = 'IDSEQ'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'IDLP'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object FDQueryChartidTarefaSequenciada: TIntegerField
+      FieldName = 'idTarefaSequenciada'
+      Origin = 'idTarefaSequenciada'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQueryChartidCronometragem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idCronometragem'
+      Origin = 'idCronometragem'
+    end
+    object FDQueryChartoperacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'operacao'
+      Origin = 'descricao'
+      Size = 45
+    end
+    object FDQueryChartidOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOrdem'
+      Origin = 'idOrdem'
+    end
+    object FDQueryChartnumOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOrdem'
+      Origin = 'numOrdem'
+    end
+    object FDQueryChartidRecurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idRecurso'
+      Origin = 'idRecurso'
+    end
+    object FDQueryCharttipoRecurso: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipoRecurso'
+      Origin = 'descricao'
+      Size = 45
+    end
+    object FDQueryChartIdLinha_producao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'IdLinha_producao'
+      Origin = 'idLinha_Producao'
+    end
+    object FDQueryChartlinhaProducao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'linhaProducao'
+      Origin = 'descricao'
+      Size = 45
+    end
+    object FDQueryCharttempoInicio: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoInicio'
+      Origin = 'tempoInicio'
+    end
+    object FDQueryChartTempoFim: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'TempoFim'
+      Origin = 'tempoFim'
+    end
+    object FDQueryChartnumOperador: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOperador'
+      Origin = 'NumOperador'
+    end
+    object FDQueryChartidsequenciamento: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idsequenciamento'
+      Origin = 'idSequenciamento'
+    end
+    object FDQueryCharteventType: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'eventType'
+      Origin = 'eventType'
+    end
+    object FDQueryChartoptions: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'options'
+      Origin = 'options'
+    end
+    object FDQueryChartmensagem: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'mensagem'
+      Origin = 'Mensagem'
+      Size = 45
+    end
+  end
+  object DSTarefas: TDataSource
+    DataSet = mTarefas
+    Left = 776
+    Top = 51
   end
 end

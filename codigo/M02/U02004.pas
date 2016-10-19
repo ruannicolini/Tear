@@ -22,7 +22,8 @@ uses
   cxSchedulerTreeListBrowser, cxClasses, cxSchedulerDBStorage, IdBaseComponent,
   IdScheduler, IdSchedulerOfThread, IdSchedulerOfThreadDefault, cxContainer,
   cxDBEdit, cxDropDownEdit, cxCalendar, cxTextEdit, cxMaskEdit, cxSpinEdit,
-  DBEditCalendario, Vcl.Tabs, Vcl.ButtonGroup;
+  DBEditCalendario, Vcl.Tabs, Vcl.ButtonGroup, dxGalleryControl, dxColorGallery,
+  dxDBColorGallery;
 
 {Declações do Layout}
 
@@ -114,10 +115,14 @@ type TLProducao = record
   Operadores      : array of TOperador;
 end;
 
+
+type
+  TcxSchedulerTimeGridViewAccess = class(TcxSchedulerTimeGridView);
+
 {********************  TELA  ********************}
 type
   TF02004 = class(TFBase)
-    Panel3: TPanel;
+    PanelInformacoes: TPanel;
     ScrollBoxOperacoes: TScrollBox;
     SpeedButton1: TSpeedButton;
     Scroll_Layout: TScrollBox;
@@ -161,8 +166,56 @@ type
     mTarefaslinhaProducao: TStringField;
     mTarefastempoInicio: TDateTimeField;
     mTarefasTempoFim: TDateTimeField;
-    ScrollBox1: TScrollBox;
     BGIndex: TButtonGroup;
+    Panel4: TPanel;
+    ActionMostrarPainelInformacoes: TAction;
+    PanelNome: TPanel;
+    cxSchedulerStorage1: TcxSchedulerStorage;
+    cxScheduler1: TcxScheduler;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
+    cxStyle2: TcxStyle;
+    cxSchedulerDBStorage1: TcxSchedulerDBStorage;
+    DSChart: TDataSource;
+    DataSetProviderChart: TDataSetProvider;
+    ClientDataSetChart: TClientDataSet;
+    FDQueryChart: TFDQuery;
+    FDQueryChartidTarefaSequenciada: TIntegerField;
+    FDQueryChartidCronometragem: TIntegerField;
+    FDQueryChartoperacao: TStringField;
+    FDQueryChartidOrdem: TIntegerField;
+    FDQueryChartnumOrdem: TIntegerField;
+    FDQueryChartidRecurso: TIntegerField;
+    FDQueryCharttipoRecurso: TStringField;
+    FDQueryChartIdLinha_producao: TIntegerField;
+    FDQueryChartlinhaProducao: TStringField;
+    FDQueryCharttempoInicio: TDateTimeField;
+    FDQueryChartTempoFim: TDateTimeField;
+    ClientDataSetChartidTarefaSequenciada: TIntegerField;
+    ClientDataSetChartidCronometragem: TIntegerField;
+    ClientDataSetChartoperacao: TStringField;
+    ClientDataSetChartidOrdem: TIntegerField;
+    ClientDataSetChartnumOrdem: TIntegerField;
+    ClientDataSetChartidRecurso: TIntegerField;
+    ClientDataSetCharttipoRecurso: TStringField;
+    ClientDataSetChartIdLinha_producao: TIntegerField;
+    ClientDataSetChartlinhaProducao: TStringField;
+    ClientDataSetCharttempoInicio: TDateTimeField;
+    ClientDataSetChartTempoFim: TDateTimeField;
+    FDQueryChartnumOperador: TIntegerField;
+    ClientDataSetChartnumOperador: TIntegerField;
+    DSTarefas: TDataSource;
+    FDQueryChartidsequenciamento: TIntegerField;
+    ClientDataSetChartidsequenciamento: TIntegerField;
+    DBGrid1: TDBGrid;
+    cxStyle3: TcxStyle;
+    FDQueryCharteventType: TIntegerField;
+    FDQueryChartoptions: TIntegerField;
+    ClientDataSetCharteventType: TIntegerField;
+    ClientDataSetChartoptions: TIntegerField;
+    FDQueryChartmensagem: TStringField;
+    ClientDataSetChartmensagem: TStringField;
+    Button1: TButton;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -179,6 +232,21 @@ type
     procedure BExcluirClick(Sender: TObject);
     procedure BGIndexButtonClicked(Sender: TObject; Index: Integer);
     procedure DSDataChange(Sender: TObject; Field: TField);
+    procedure StatusBar1DrawPanel(StatusBar: TStatusBar; Panel: TStatusPanel;
+      const Rect: TRect);
+    procedure ActionMostrarPainelInformacoesExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ClientDataSetChartAfterInsert(DataSet: TDataSet);
+    procedure ClientDataSetChartAfterPost(DataSet: TDataSet);
+    procedure Button1Click(Sender: TObject);
+    procedure cxScheduler1ScaleScroll(Sender: TcxCustomScheduler;
+      AStartDateTime, AFinishDateTime: TDateTime);
+    procedure cxScheduler1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cxSchedulerDBStorage1ResourcesGetResourceName(Sender: TObject;
+      AResource: TcxSchedulerStorageResourceItem; var AResourceName: string);
+    procedure cxScheduler1CustomDrawEvent(Sender: TObject; ACanvas: TcxCanvas;
+      AViewInfo: TcxSchedulerEventCellViewInfo; var ADone: Boolean);
   private
     { Private declarations }
   public
@@ -199,24 +267,39 @@ var
   F02004: TF02004;
   TempoTotal : real;
   MetaHora   : integer;
+  LP: integer; //Linha de Produção visivel no momento
 
 implementation
 
 {$APPTYPE CONSOLE}
 
 {$R *.dfm}
-uses UDataModule, Math, System.Generics.Collections;
+uses UDataModule, Math, System.Generics.Collections, uPrincipal;
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
   inherited;
-  panel3.Enabled := false;
+  PanelInformacoes.Enabled := false;
 end;
 
-procedure TF02004.BEditarClick(Sender: TObject);
+procedure TF02004.ActionMostrarPainelInformacoesExecute(Sender: TObject);
 begin
   inherited;
-  Panel3.Enabled := true;
+  //
+  if(PanelInformacoes.Visible = true) then
+  begin
+       PanelInformacoes.Visible := false;
+       BtnLimparFiltros.Click;
+  end else
+  begin
+    PanelInformacoes.Visible := true;
+  end;
+end;
+
+procedure TF02004.BEditarClick(Sender: TObject);
+begin
+  inherited;
+  PanelInformacoes.Enabled := true;
   grdados.Enabled := true;
 end;
 
@@ -229,7 +312,7 @@ end;
 procedure TF02004.BInserirClick(Sender: TObject);
 begin
   inherited;
-  Panel3.Enabled := true;
+  PanelInformacoes.Enabled := true;
 end;
 
 procedure TF02004.BPesquisarClick(Sender: TObject);
@@ -242,18 +325,33 @@ end;
 procedure TF02004.BSalvarClick(Sender: TObject);
 begin
   inherited;
-  Panel3.Enabled := false;
+  PanelInformacoes.Enabled := false;
   grdados.Enabled := true;
 end;
 
-procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
+procedure TF02004.Button1Click(Sender: TObject);
 begin
   inherited;
-  //Comportamento onClick de todos os Botões de BGIndex
+  //
 
-  ShowMessage(  (sender as TButtonGroup).Items[index].Hint );
+
 
 end;
+
+procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
+var
+  AEventID : Variant;
+  i: integer;
+begin
+  //Comportamento onClick de todos os Botões de BGIndex
+  inherited;
+
+  PanelNome.caption := (sender as TButtonGroup).Items[index].Caption;
+  // (tipo 0= lp, tipo 1 = OP) / (idLinhadeProdução)
+  montaScrollBox_Layout(TabSet1.TabIndex, strtoint((sender as TButtonGroup).Items[index].Hint));
+
+end;
+
 
 procedure TF02004.CalculaMetaHora;
 begin
@@ -307,12 +405,44 @@ begin
   ClientDataSet1idSequenciamento.AsInteger := DModule.buscaProximoParametro('seqSequenciamento');
 end;
 
+procedure TF02004.ClientDataSetChartAfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+    //ClientDataSetChartnumOperador.AsInteger := cxSchedulerStorage1.Resources.
+    ClientDataSetChartidTarefaSequenciada.AsInteger := DModule.buscaProximoParametro('seqTarefaSequenciada');
+end;
+
+procedure TF02004.ClientDataSetChartAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+  ClientDataSetChart.ApplyUpdates(-1);
+end;
+
+procedure TF02004.cxSchedulerDBStorage1ResourcesGetResourceName(Sender: TObject;
+  AResource: TcxSchedulerStorageResourceItem; var AResourceName: string);
+begin
+  inherited;
+  //Editando Nome do operador que aparece na lateral direita d cxScheduler
+  AResourceName := 'OPER ' + AResourceName;
+
+end;
+
 procedure TF02004.DSDataChange(Sender: TObject; Field: TField);
 begin
   inherited;
   //Aciona o click em Tabset e mostra as informações no TButtonGroup BDIndex
   // A pesquisa pode ser por Linha de produção ou por Ordem sequenciada de acordo com o TabSet selecionado
   TabSet1Click(sender);
+
+end;
+
+procedure TF02004.FormShow(Sender: TObject);
+begin
+  inherited;
+  //
+  //Panel4.Height := 1000;//369
+  //Scroll_Layout.Height := 1000;//369
+
 end;
 
 procedure TF02004.montaCelulas(var celulas: TArray<TLinhaProducao>);
@@ -417,8 +547,8 @@ begin
         if(   NOT(listaLP.Contains(dados.FieldByName('idLinha_producao').AsInteger))    )then
         begin
            gbi := TGrpButtonItem.Create(BGIndex.Items);
-           gbi.Caption := (dados.fieldbyname('idLinha_producao').AsString);
-           gbi.Hint := dados.fieldbyname('linhaProducao').AsString;
+           gbi.Caption := (dados.fieldbyname('Linhaproducao').AsString);
+           gbi.Hint := dados.fieldbyname('idLinha_Producao').AsString;
            listaLP.add(dados.FieldByName('idLinha_producao').AsInteger);
         end;
         dados.Next;
@@ -454,8 +584,40 @@ end;
 
 procedure TF02004.montaScrollBox_Layout(tipoComportamento,
   idPesquisado: integer);
+var
+dataini :Tdatetime;
 begin
-  //
+  //ShowMessage( 'hint:'+ inttostr(idPesquisado) + '||  indexTab: ' + inttostr(tipoComportamento) );
+
+  if(tipoComportamento = 0)then //tipoComportamento = 0 -> LinhaProdução
+  begin
+        FDQueryChart.ParamByName('idSeq').Value:=(ClientDataSet1idSequenciamento.AsInteger);
+        FDQueryChart.ParamByName('idLP').Value:= (idPesquisado);
+        DSChart.DataSet.Close;
+        DSChart.DataSet.Open;
+        if not(ClientDataSetChart.IsEmpty)then
+        begin
+          DModule.qAux.Close;
+          DModule.qAux.open;
+          DModule.qAux.sql.Text := 'select min(ts.tempoInicio) as inicio, max(ts.tempoFim) as fim from tarefa_sequenciada ts '+
+                                    'where ts.idSequenciamento =:IDSEQ and ts.idLinha_Producao =:IDLP';
+          DModule.qAux.ParamByName('IDSEQ').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+          DModule.qAux.ParamByName('IDLP').AsInteger := idPesquisado;
+          DModule.qAux.Open;
+
+          dataIni := DModule.qAux.FieldByName('Inicio').AsDateTime; //first;;
+          cxScheduler1.GoToDate(dataini);
+          //Faz com que o Scroll seja direcionado para o local exato do inicio da primeira tarefa
+          cxScheduler1.OnScaleScroll(cxScheduler1, DModule.qAux.FieldByName('Inicio').AsDateTime, DModule.qAux.FieldByName('Inicio').AsDateTime);
+        end;
+
+
+
+  end else
+  if(tipoComportamento = 1)then //tipoComportamento = 1 -> OrdemProdução
+  begin
+
+  end;
 end;
 
 procedure TF02004.mTarefasAfterCancel(DataSet: TDataSet);
@@ -542,12 +704,26 @@ begin
   end;
 end;
 
+procedure TF02004.StatusBar1DrawPanel(StatusBar: TStatusBar;
+  Panel: TStatusPanel; const Rect: TRect);
+begin
+  inherited;
+  if Panel.Index = 0 then
+    begin
+      StatusBar.Canvas.Brush.Color := clBlack;
+      StatusBar.Canvas.FillRect(Rect);
+    end
+end;
+
 procedure TF02004.TabSet1Click(Sender: TObject);
+var
+g : TGrpButtonItem;
 begin
 //
 
   if(TabSet1.TabIndex = 0)then
   begin
+    cxScheduler1.Visible := true;
     //LP
     FDQuery2.Close;
     mTarefas.Close;
@@ -570,12 +746,21 @@ begin
       FDQuery2.Open;
       mTarefas.open;
 
-      montaBGIndexLinhaP(mtarefas);
-      montaScrollBox_Layout(1, 10);  // (tipo 1= lp, tipo 2 = OP) / (idLinhadeProdução)
+      if not(mTarefas.IsEmpty)then
+      begin
+          montaBGIndexLinhaP(mtarefas);
+          PanelNome.caption := BGIndex.Items[0].Caption;
+          montaScrollBox_Layout(0, strtoint(BGIndex.Items[0].hint));  // (tipo 0= lp, tipo 1 = OP) / (idLinhadeProdução)
+
+      end else
+      begin
+        BGIndex.items.Clear;
+      end;
 
   end else
   if(TabSet1.TabIndex = 1)then
   begin
+    cxScheduler1.Visible := false;
 
     //OP
     FDQuery2.Close;
@@ -599,8 +784,14 @@ begin
       FDQuery2.Open;
       mTarefas.open;
 
-      montaBGIndexOrdem(mtarefas);
-      montaScrollBox_Layout(2, 100); // (tipo 1= lp, tipo 2 = OP) / (idOrdem deProdução)
+      if not(mTarefas.IsEmpty)then
+      begin
+          montaBGIndexOrdem(mtarefas);
+          montaScrollBox_Layout(1, strtoint(BGIndex.Items[0].hint)); // (tipo 0= lp, tipo 2 = OP) / (idOrdem deProdução)
+      end else
+      begin
+        BGIndex.items.Clear;
+      end;
   end;
 
 end;
@@ -828,6 +1019,111 @@ begin
   codTipoMaquina := codTM;
   descricaoTipoMaquina := descTM;
 end;
+
+procedure TF02004.cxScheduler1CustomDrawEvent(Sender: TObject;
+  ACanvas: TcxCanvas; AViewInfo: TcxSchedulerEventCellViewInfo;
+  var ADone: Boolean);
+begin
+  inherited;
+  // Atribui numero da Ordem a Tarefa apresentada
+  if(cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Message = '')then
+  begin
+        ShowMessage('ops');
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Text := 'select ts.idOrdem, op.numOrdem from tarefa_sequenciada ts ' +
+        'left outer join ordem_producao op on op.idOrdem = ts.idOrdem ' +
+        'where ts.idTarefasequenciada =:ID';
+        DModule.qAux.ParamByName('ID').value := AViewInfo.Event.ID;
+        DModule.qAux.Open;
+        cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Message := 'Ordem' + DModule.qAux.FieldByName('numOrdem').AsString;
+   end;
+end;
+
+procedure TF02004.cxScheduler1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  AScheduler: TcxScheduler;
+  ATimeGridView: TcxSchedulerTimeGridViewAccess;
+  dataIni ,dataFim : TDateTime;
+begin
+
+     if not(ClientDataSetChart.IsEmpty)then
+     begin
+            DModule.qAux.Close;
+            DModule.qAux.open;
+            DModule.qAux.sql.Text := 'select min(ts.tempoInicio) as inicio, max(ts.tempoFim) as fim from tarefa_sequenciada ts '+
+                                      'where ts.idSequenciamento =:IDSEQ and ts.idLinha_Producao =:IDLP';
+            DModule.qAux.ParamByName('IDSEQ').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+            DModule.qAux.ParamByName('IDLP').AsInteger := ClientDataSetChartIdLinha_producao.AsInteger;
+            DModule.qAux.Open;
+            dataIni := DModule.qAux.FieldByName('Inicio').AsDateTime; //first;;
+            dataFim := DModule.qAux.FieldByName('fim').AsDateTime;
+     end else
+     begin
+       dataIni := Date;
+       dataFim := Date;
+     end;
+
+     AScheduler := TcxScheduler(Sender);
+     if AScheduler.CurrentView is TcxSchedulerTimeGridView then
+     begin
+        ATimeGridView := TcxSchedulerTimeGridViewAccess(AScheduler.CurrentView);
+        if (Key = VK_LEFT) and (AScheduler.SelStart <= dataIni) then
+        begin
+            Key := 0
+        end else
+        begin
+            if (Key = VK_RIGHT) and (AScheduler.SelFinish > dataFim + 1) then
+            begin
+              Key := 0;
+            end;
+        end;
+     end;
+end;
+
+procedure TF02004.cxScheduler1ScaleScroll(Sender: TcxCustomScheduler;
+  AStartDateTime, AFinishDateTime: TDateTime);
+var
+  AScheduler: TcxScheduler;
+  ATimeGridView: TcxSchedulerTimeGridViewAccess;
+  aDelta, dataIni, dataFim: TDateTime;
+begin
+  if not(ClientDataSetChart.IsEmpty)then
+  begin
+      DModule.qAux.Close;
+      DModule.qAux.open;
+      DModule.qAux.sql.Text := 'select min(ts.tempoInicio) as inicio, max(ts.tempoFim) as fim from tarefa_sequenciada ts '+
+                                'where ts.idSequenciamento =:IDSEQ and ts.idLinha_Producao =:IDLP';
+      DModule.qAux.ParamByName('IDSEQ').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+      DModule.qAux.ParamByName('IDLP').AsInteger := ClientDataSetChartIdLinha_producao.AsInteger;
+      DModule.qAux.Open;
+      dataIni := DModule.qAux.FieldByName('Inicio').AsDateTime; //first;;
+      dataFim := DModule.qAux.FieldByName('fim').AsDateTime;
+  end else
+  begin
+      dataIni := Date;
+      dataFim := Date;
+  end;
+
+  //Esse codigo cuida para que o usuário só possa trafegar por um intervalo de tempo no cxScheduler1
+  AScheduler := TcxScheduler(Sender);
+  if AScheduler.CurrentView is TcxSchedulerTimeGridView then
+  begin
+      ATimeGridView := TcxSchedulerTimeGridViewAccess(AScheduler.CurrentView);
+      if (ATimeGridView.VisibleStart < dataIni) then
+          ATimeGridView.VisibleStart := dataIni
+      else
+      begin
+          if (ATimeGridView.VisibleFinish > dataFim + 1) then
+          begin
+              ADelta := ATimeGridView.VisibleFinish - ATimeGridView.VisibleStart;
+              ATimeGridView.VisibleStart := dataFim + 1 - ADelta;
+          end;
+      end;
+  end;
+
+end;
+
 
 Initialization
   RegisterClass(TF02004);
