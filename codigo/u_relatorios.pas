@@ -342,6 +342,7 @@ begin
 
   ppreport1.print;
 
+
 end;
 
 procedure TFRelatorios.btsairClick(Sender: TObject);

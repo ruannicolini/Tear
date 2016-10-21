@@ -23,7 +23,8 @@ uses
   IdScheduler, IdSchedulerOfThread, IdSchedulerOfThreadDefault, cxContainer,
   cxDBEdit, cxDropDownEdit, cxCalendar, cxTextEdit, cxMaskEdit, cxSpinEdit,
   DBEditCalendario, Vcl.Tabs, Vcl.ButtonGroup, dxGalleryControl, dxColorGallery,
-  dxDBColorGallery;
+  dxDBColorGallery, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
+  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef;
 
 {Declações do Layout}
 
@@ -170,11 +171,7 @@ type
     Panel4: TPanel;
     ActionMostrarPainelInformacoes: TAction;
     PanelNome: TPanel;
-    cxSchedulerStorage1: TcxSchedulerStorage;
     cxScheduler1: TcxScheduler;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
-    cxStyle2: TcxStyle;
     cxSchedulerDBStorage1: TcxSchedulerDBStorage;
     DSChart: TDataSource;
     DataSetProviderChart: TDataSetProvider;
@@ -208,7 +205,6 @@ type
     FDQueryChartidsequenciamento: TIntegerField;
     ClientDataSetChartidsequenciamento: TIntegerField;
     DBGrid1: TDBGrid;
-    cxStyle3: TcxStyle;
     FDQueryCharteventType: TIntegerField;
     FDQueryChartoptions: TIntegerField;
     ClientDataSetCharteventType: TIntegerField;
@@ -216,6 +212,10 @@ type
     FDQueryChartmensagem: TStringField;
     ClientDataSetChartmensagem: TStringField;
     Button1: TButton;
+    FDQuery2idSequenciamento: TIntegerField;
+    mTarefasidSequenciamento: TIntegerField;
+    FDQuery2numOperador: TIntegerField;
+    mTarefasnumOperador: TIntegerField;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -243,10 +243,12 @@ type
       AStartDateTime, AFinishDateTime: TDateTime);
     procedure cxScheduler1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure cxSchedulerDBStorage1ResourcesGetResourceName(Sender: TObject;
-      AResource: TcxSchedulerStorageResourceItem; var AResourceName: string);
     procedure cxScheduler1CustomDrawEvent(Sender: TObject; ACanvas: TcxCanvas;
       AViewInfo: TcxSchedulerEventCellViewInfo; var ADone: Boolean);
+    procedure bRelatorioClick(Sender: TObject);
+    procedure cxSchedulerDBStorage1GetEventGeneratedID(
+      Sender: TcxSchedulerDBStorage; AEvent: TcxSchedulerEvent;
+      var EventID: Variant);
   private
     { Private declarations }
   public
@@ -274,7 +276,7 @@ implementation
 {$APPTYPE CONSOLE}
 
 {$R *.dfm}
-uses UDataModule, Math, System.Generics.Collections, uPrincipal;
+uses UDataModule, Math, System.Generics.Collections, u_relatorios;
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
@@ -322,6 +324,32 @@ begin
   grdados.Enabled := true;
 end;
 
+procedure TF02004.bRelatorioClick(Sender: TObject);
+var
+  nomeTela: String;
+begin
+  inherited;
+  if NOT(Ds.DataSet.IsEmpty)then
+  begin
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0,DS.DataSet, DSChart.DataSet, 'idSequenciamento', 'idSequenciamento');
+              ShowModal;
+          finally
+              //Relatorios_sis.close;
+              //relats_usur.close;
+              //Free;
+          end;
+      end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
+end;
+
 procedure TF02004.BSalvarClick(Sender: TObject);
 begin
   inherited;
@@ -346,6 +374,7 @@ begin
   //Comportamento onClick de todos os Botões de BGIndex
   inherited;
 
+  cxSchedulerDBStorage1.Resources.Items.Clear;
   PanelNome.caption := (sender as TButtonGroup).Items[index].Caption;
   // (tipo 0= lp, tipo 1 = OP) / (idLinhadeProdução)
   montaScrollBox_Layout(TabSet1.TabIndex, strtoint((sender as TButtonGroup).Items[index].Hint));
@@ -418,13 +447,13 @@ begin
   ClientDataSetChart.ApplyUpdates(-1);
 end;
 
-procedure TF02004.cxSchedulerDBStorage1ResourcesGetResourceName(Sender: TObject;
-  AResource: TcxSchedulerStorageResourceItem; var AResourceName: string);
+procedure TF02004.cxSchedulerDBStorage1GetEventGeneratedID(
+  Sender: TcxSchedulerDBStorage; AEvent: TcxSchedulerEvent;
+  var EventID: Variant);
 begin
   inherited;
-  //Editando Nome do operador que aparece na lateral direita d cxScheduler
-  AResourceName := 'OPER ' + AResourceName;
-
+  ShowMessage('entrou');
+  EventID := DModule.buscaProximoParametro('seqTarefaSequenciada');
 end;
 
 procedure TF02004.DSDataChange(Sender: TObject; Field: TField);
@@ -586,11 +615,28 @@ procedure TF02004.montaScrollBox_Layout(tipoComportamento,
   idPesquisado: integer);
 var
 dataini :Tdatetime;
+i: integer;
 begin
   //ShowMessage( 'hint:'+ inttostr(idPesquisado) + '||  indexTab: ' + inttostr(tipoComportamento) );
-
   if(tipoComportamento = 0)then //tipoComportamento = 0 -> LinhaProdução
   begin
+        //Cria os Resources dinamicamente sem vincular em tabela
+        cxSchedulerDBStorage1.Resources.Items.Clear;
+        DModule.qAux.Close;
+        DModule.qAux.SQL.Text := 'select max(ts.NumOperador) as numResources from tarefa_sequenciada ts ' +
+                                 'where ts.idSequenciamento =:idSeq and ts.IdLinha_producao =:idLP';
+        DModule.qAux.ParamByName('idSeq').Value :=(ClientDataSet1idSequenciamento.AsInteger);
+        DModule.qAux.ParamByName('idLP').Value:= (idPesquisado);
+        DModule.qAux.open;
+
+        for I := 0 to (DModule.qAux.FieldByName('numResources').AsInteger -1) do
+        begin
+        cxSchedulerDBStorage1.Resources.Items.Items[i] := TcxSchedulerStorageResourceItem.Create(cxSchedulerDBStorage1.Resources.Items);
+        cxSchedulerDBStorage1.Resources.Items.Items[i].ResourceID := i +1;
+        cxSchedulerDBStorage1.Resources.Items.Items[i].Name := 'OPER ' + inttostr(i+1);
+        end;
+
+        //Adiciona os eventos aos resources
         FDQueryChart.ParamByName('idSeq').Value:=(ClientDataSet1idSequenciamento.AsInteger);
         FDQueryChart.ParamByName('idLP').Value:= (idPesquisado);
         DSChart.DataSet.Close;
@@ -720,7 +766,6 @@ var
 g : TGrpButtonItem;
 begin
 //
-
   if(TabSet1.TabIndex = 0)then
   begin
     cxScheduler1.Visible := true;
@@ -729,7 +774,7 @@ begin
     mTarefas.Close;
     FDQuery2.SQL.Text :=
       'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
-      'ts.idOrdem, Op.numOrdem,                                                    '+
+      'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
       'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
       'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
       'ts.tempoInicio, ts.TempoFim                                                 '+
@@ -767,7 +812,7 @@ begin
     mTarefas.Close;
     FDQuery2.SQL.Text :=
       'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
-      'ts.idOrdem, Op.numOrdem,                                                    '+
+      'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
       'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
       'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
       'ts.tempoInicio, ts.TempoFim                                                 '+
@@ -1025,18 +1070,22 @@ procedure TF02004.cxScheduler1CustomDrawEvent(Sender: TObject;
   var ADone: Boolean);
 begin
   inherited;
+
   // Atribui numero da Ordem a Tarefa apresentada
   if(cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Message = '')then
   begin
-        ShowMessage('ops');
+        //ShowMessage('reformulação de mensagem');
         DModule.qAux.Close;
         DModule.qAux.SQL.Text := 'select ts.idOrdem, op.numOrdem from tarefa_sequenciada ts ' +
         'left outer join ordem_producao op on op.idOrdem = ts.idOrdem ' +
         'where ts.idTarefasequenciada =:ID';
         DModule.qAux.ParamByName('ID').value := AViewInfo.Event.ID;
         DModule.qAux.Open;
-        cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Message := 'Ordem' + DModule.qAux.FieldByName('numOrdem').AsString;
-   end;
+        cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Location := 'Ordem' + DModule.qAux.FieldByName('numOrdem').AsString;
+        //
+        cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).LabelColor := 13952740;
+  end;
+
 end;
 
 procedure TF02004.cxScheduler1KeyDown(Sender: TObject; var Key: Word;

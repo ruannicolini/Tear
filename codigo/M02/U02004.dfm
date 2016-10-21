@@ -30,7 +30,7 @@ inherited F02004: TF02004
         object Scroll_Layout: TScrollBox
           Left = 232
           Top = 15
-          Width = 559
+          Width = 576
           Height = 396
           Align = alClient
           BevelInner = bvLowered
@@ -72,7 +72,7 @@ inherited F02004: TF02004
           object Panel4: TPanel
             Left = 0
             Top = 23
-            Width = 555
+            Width = 572
             Height = 369
             Align = alClient
             BevelInner = bvLowered
@@ -82,28 +82,23 @@ inherited F02004: TF02004
             object cxScheduler1: TcxScheduler
               Left = 2
               Top = 2
-              Width = 551
+              Width = 568
               Height = 365
               DateNavigator.Visible = False
               ViewTimeGrid.Active = True
               ViewTimeGrid.EventDetailInfo = True
               OnCustomDrawEvent = cxScheduler1CustomDrawEvent
               Align = alClient
-              ContentPopupMenu.UseBuiltInPopupMenu = False
-              ContentPopupMenu.Items = []
               ControlBox.Visible = False
+              DialogsLookAndFeel.Kind = lfUltraFlat
               DialogsLookAndFeel.NativeStyle = True
               DialogsStyle = 'Standard'
-              EventOperations.DialogShowing = False
-              EventOperations.Intersection = False
-              EventOperations.ReadOnly = True
-              EventOperations.Recurrence = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = []
-              LookAndFeel.Kind = lfUltraFlat
+              LookAndFeel.Kind = lfStandard
               LookAndFeel.NativeStyle = True
               OptionsView.ResourcesPerPage = 4
               Storage = cxSchedulerDBStorage1
@@ -112,16 +107,16 @@ inherited F02004: TF02004
               OnScaleScroll = cxScheduler1ScaleScroll
               Splitters = {
                 970100007E00000026020000830000009201000001000000970100006C010000}
-              StoredClientBounds = {0100000001000000260200006C010000}
+              StoredClientBounds = {0100000001000000370200006C010000}
             end
           end
           object PanelNome: TPanel
             Left = 0
             Top = 0
-            Width = 555
+            Width = 572
             Height = 23
             Align = alTop
-            Color = clActiveCaption
+            Color = 14933980
             ParentBackground = False
             TabOrder = 1
           end
@@ -181,9 +176,9 @@ inherited F02004: TF02004
         end
         object ScrollBoxOperacoes: TScrollBox
           AlignWithMargins = True
-          Left = 791
+          Left = 808
           Top = 15
-          Width = 230
+          Width = 213
           Height = 396
           Margins.Left = 0
           Margins.Top = 0
@@ -201,7 +196,7 @@ inherited F02004: TF02004
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
-            Width = 230
+            Width = 213
             Height = 396
             Align = alClient
             DataSource = DSChart
@@ -266,12 +261,11 @@ inherited F02004: TF02004
     Enabled = False
     ParentBackground = False
     TabOrder = 2
-    Visible = False
     object SpeedButton1: TSpeedButton
-      Left = 878
+      Left = 850
       Top = 4
       Width = 136
-      Height = 46
+      Height = 18
       Align = alCustom
       Anchors = [akTop, akRight, akBottom]
       Caption = 'DISTRIBUIR OPERA'#199#213'ES'
@@ -328,7 +322,7 @@ inherited F02004: TF02004
       Width = 121
     end
     object Button1: TButton
-      Left = 808
+      Left = 800
       Top = 4
       Width = 75
       Height = 50
@@ -388,7 +382,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00E00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00FC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -938,7 +932,7 @@ inherited F02004: TF02004
       
         'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao a' +
         's operacao, '
-      'ts.idOrdem, Op.numOrdem,'
+      'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,'
       'ts.idRecurso, tr.descricao as tipoRecurso,'
       'ts.IdLinha_producao, lp.descricao as linhaProducao,'
       'ts.tempoInicio, ts.TempoFim'
@@ -1030,6 +1024,16 @@ inherited F02004: TF02004
       FieldName = 'TempoFim'
       Origin = 'tempoFim'
     end
+    object FDQuery2idSequenciamento: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idSequenciamento'
+      Origin = 'idSequenciamento'
+    end
+    object FDQuery2numOperador: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOperador'
+      Origin = 'NumOperador'
+    end
   end
   object DataSetProvider2: TDataSetProvider
     DataSet = FDQuery2
@@ -1044,7 +1048,7 @@ inherited F02004: TF02004
     AfterPost = mTarefasAfterPost
     AfterCancel = mTarefasAfterCancel
     AfterDelete = mTarefasAfterDelete
-    Left = 740
+    Left = 748
     Top = 52
     object mTarefasidTarefaSequenciada: TIntegerField
       FieldName = 'idTarefaSequenciada'
@@ -1087,48 +1091,15 @@ inherited F02004: TF02004
     object mTarefasTempoFim: TDateTimeField
       FieldName = 'TempoFim'
     end
-  end
-  object cxSchedulerStorage1: TcxSchedulerStorage
-    CustomFields = <>
-    Resources.Items = <
-      item
-        Name = 'Oper1'
-        ResourceID = '0'
-      end
-      item
-        Name = 'Oper2'
-        ResourceID = '1'
-      end
-      item
-        Name = 'Oper3'
-        ResourceID = '2'
-      end
-      item
-        Name = 'Oper4'
-        ResourceID = '3'
-      end
-      item
-        Name = 'Oper5'
-        ResourceID = '4'
-      end>
-    Left = 86
-    Top = 200
-  end
-  object cxStyleRepository1: TcxStyleRepository
-    PixelsPerInch = 96
-    object cxStyle1: TcxStyle
+    object mTarefasidSequenciamento: TIntegerField
+      FieldName = 'idSequenciamento'
     end
-    object cxStyle2: TcxStyle
-    end
-    object cxStyle3: TcxStyle
+    object mTarefasnumOperador: TIntegerField
+      FieldName = 'numOperador'
     end
   end
   object cxSchedulerDBStorage1: TcxSchedulerDBStorage
     Resources.Items = <>
-    Resources.OnGetResourceName = cxSchedulerDBStorage1ResourcesGetResourceName
-    Resources.DataSource = DSChart
-    Resources.ResourceID = 'numOperador'
-    Resources.ResourceName = 'numOperador'
     SmartRefresh = True
     CustomFields = <>
     DataSource = DSChart
@@ -1140,6 +1111,7 @@ inherited F02004: TF02004
     FieldNames.ResourceID = 'numOperador'
     FieldNames.Start = 'tempoInicio'
     UseIndexedID = True
+    OnGetEventGeneratedID = cxSchedulerDBStorage1GetEventGeneratedID
     Left = 158
     Top = 272
   end
@@ -1239,7 +1211,7 @@ inherited F02004: TF02004
         'rso'
       'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao'
       'where ts.idSequenciamento =:idSeq and ts.IdLinha_producao =:idLP'
-      'Order by ts.IdLinha_producao, ts.numOperador')
+      'Order by ts.numOperador')
     Left = 30
     Top = 272
     ParamData = <
