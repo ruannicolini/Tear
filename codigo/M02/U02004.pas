@@ -24,7 +24,7 @@ uses
   cxDBEdit, cxDropDownEdit, cxCalendar, cxTextEdit, cxMaskEdit, cxSpinEdit,
   DBEditCalendario, Vcl.Tabs, Vcl.ButtonGroup, dxGalleryControl, dxColorGallery,
   dxDBColorGallery, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
-  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef;
+  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, u_relatorios;
 
 {Declações do Layout}
 
@@ -211,7 +211,6 @@ type
     ClientDataSetChartoptions: TIntegerField;
     FDQueryChartmensagem: TStringField;
     ClientDataSetChartmensagem: TStringField;
-    Button1: TButton;
     FDQuery2idSequenciamento: TIntegerField;
     mTarefasidSequenciamento: TIntegerField;
     FDQuery2numOperador: TIntegerField;
@@ -238,17 +237,16 @@ type
     procedure FormShow(Sender: TObject);
     procedure ClientDataSetChartAfterInsert(DataSet: TDataSet);
     procedure ClientDataSetChartAfterPost(DataSet: TDataSet);
-    procedure Button1Click(Sender: TObject);
     procedure cxScheduler1ScaleScroll(Sender: TcxCustomScheduler;
       AStartDateTime, AFinishDateTime: TDateTime);
     procedure cxScheduler1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure cxScheduler1CustomDrawEvent(Sender: TObject; ACanvas: TcxCanvas;
       AViewInfo: TcxSchedulerEventCellViewInfo; var ADone: Boolean);
-    procedure bRelatorioClick(Sender: TObject);
     procedure cxSchedulerDBStorage1GetEventGeneratedID(
       Sender: TcxSchedulerDBStorage; AEvent: TcxSchedulerEvent;
       var EventID: Variant);
+    procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -276,7 +274,7 @@ implementation
 {$APPTYPE CONSOLE}
 
 {$R *.dfm}
-uses UDataModule, Math, System.Generics.Collections, u_relatorios;
+uses UDataModule, Math, System.Generics.Collections;
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
@@ -331,17 +329,17 @@ begin
   inherited;
   if NOT(Ds.DataSet.IsEmpty)then
   begin
-      frelatorios := tfrelatorios.Create(self);
+      frelatorios := tfrelatorios.Create(Application);
       with frelatorios do
       begin
           try
               visible := false;
-              Assimila_Relat_q(Screen.ActiveForm.Name, 0,DS.DataSet, DSChart.DataSet, 'idSequenciamento', 'idSequenciamento');
+              Frelatorios.Assimila_Relat_q(Screen.ActiveForm.Name, 0,DS.DataSet, DSChart.DataSet, 'idSequenciamento', 'idSequenciamento');
               ShowModal;
           finally
               //Relatorios_sis.close;
               //relats_usur.close;
-              //Free;
+              Free;
           end;
       end;
   end else
@@ -350,20 +348,12 @@ begin
   end;
 end;
 
+
 procedure TF02004.BSalvarClick(Sender: TObject);
 begin
   inherited;
   PanelInformacoes.Enabled := false;
   grdados.Enabled := true;
-end;
-
-procedure TF02004.Button1Click(Sender: TObject);
-begin
-  inherited;
-  //
-
-
-
 end;
 
 procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
