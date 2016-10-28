@@ -24,7 +24,7 @@ uses
   cxDBEdit, cxDropDownEdit, cxCalendar, cxTextEdit, cxMaskEdit, cxSpinEdit,
   DBEditCalendario, Vcl.Tabs, Vcl.ButtonGroup, dxGalleryControl, dxColorGallery,
   dxDBColorGallery, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
-  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, u_relatorios;
+  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef;
 
 {Declações do Layout}
 
@@ -274,7 +274,7 @@ implementation
 {$APPTYPE CONSOLE}
 
 {$R *.dfm}
-uses UDataModule, Math, System.Generics.Collections;
+uses u_relatorios, UDataModule, Math, System.Generics.Collections;
 
 procedure TF02004.Action5Execute(Sender: TObject);
 begin
@@ -326,7 +326,9 @@ procedure TF02004.bRelatorioClick(Sender: TObject);
 var
   nomeTela: String;
 begin
-  inherited;
+  ClientDataSet1.First;
+  mTarefas.First;
+
   if NOT(Ds.DataSet.IsEmpty)then
   begin
       frelatorios := tfrelatorios.Create(Application);
@@ -334,11 +336,11 @@ begin
       begin
           try
               visible := false;
-              Frelatorios.Assimila_Relat_q(Screen.ActiveForm.Name, 0,DS.DataSet, DSChart.DataSet, 'idSequenciamento', 'idSequenciamento');
-              ShowModal;
+              Frelatorios.Assimila_Relat_q(Screen.ActiveForm.Name, 0,ClientDataSet1, DSChart.DataSet, 'idSequenciamento', 'idSequenciamento');
+              Frelatorios.ShowModal;
           finally
-              //Relatorios_sis.close;
-              //relats_usur.close;
+              Relatorios_sis.close;
+              relats_usur.close;
               Free;
           end;
       end;
@@ -346,6 +348,7 @@ begin
   begin
     ShowMessage('Relatório necessita de pesquisa');
   end;
+
 end;
 
 

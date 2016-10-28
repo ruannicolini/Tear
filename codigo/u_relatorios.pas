@@ -292,6 +292,7 @@ var nomerep : string;
 begin
 
   // Add Registro da Tela Atual no Dataset
+
   mNumTelaRelat.Edit;
   mNumTelaRelatTela.AsString            := Copy(Application.Title, 9, Length(Application.Title));
   mNumTelaRelatNomeRelatorio.AsString   := lbRelatAtual.Caption;
@@ -323,25 +324,20 @@ begin
   }
   mNumTelaRelat.Post;
 
-
   ppReport1.ShowPrintDialog := True;
   ppReport1.DeviceType      := 'Screen';
 
-  //case RelatsAtual of
-  //1: nomerep := f_principal.BuscaParamTexto('RelatoriosSistema') + '\' + Relatorios_Sisarquivo.AsString;
-  //2: nomerep := f_principal.BuscaParamTexto('RelatoriosUsuario') + '\' +Relats_UsurArquivo.AsString;
-  //end;
   case RelatsAtual of
       1: nomerep := ExtractFilePath(Application.ExeName)+'relatorios\sistema'+ '\' + Relatorios_Sisarquivo.AsString;
       2: nomerep := ExtractFilePath(Application.ExeName)+'relatorios\usuarios'+ '\' + Relats_UsurArquivo.AsString;
       end;
 
+  ppReport1.Reset;
   ppReport1.template.FileName := nomerep;
   ppReport1.template.LoadFromFile;
 
-
   ppreport1.print;
-
+  
 
 end;
 
@@ -358,7 +354,7 @@ end;
 procedure TFRelatorios.FormShow(Sender: TObject);
 begin
     ppDesigner1.IniStorageName := ExtractFilePath(Application.ExeName)+'\RBuilder.ini';
-    
+
 //    if not dm_dados.mConfig.active then
 //        dm_dados.mConfig.open;
 
@@ -371,7 +367,7 @@ begin
 
     btalterar.Enabled           := true;
     btexcluir.Enabled           := true;
-    
+
 
     tbRelatsSistema.TabVisible  := False;
     tbRelatsUsuarios.TabVisible := False;
@@ -627,6 +623,8 @@ begin
         ppReport1.TextFileName        := SaveDialog1.FileName;
         ppReport1.Print;
     end;
+
+
 
 end;
 
