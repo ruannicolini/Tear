@@ -777,7 +777,10 @@ begin
 
       end else
       begin
+        // LIMPA BOTOES LP E cxScheduler1
         BGIndex.items.Clear;
+        ClientDataSetChart.EmptyDataSet;
+        cxSchedulerDBStorage1.Resources.Items.Clear;
       end;
 
   end else
