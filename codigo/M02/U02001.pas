@@ -219,53 +219,53 @@ var
   nomeTela: String;
   q: TFDQuery;
 begin
-  q := TFDQuery.Create(self);
-  q.Connection := DModule.FDConnection;
-
-  q.sql.text := 'select op.idordem, op.numOrdem, op.qtdOriginal, op.dataCadastro, '+
-                '  p.idproduto as codigoProd, p.descricao as produto, '+
-                '  f.idFase as codigoFase , ohf.idOrdem_has_Fase, f.descricao as fase, ohf.sequencia, '+
-                '  ohf.qtdOriginal as qtdOriginalLinha, ohf.qtdPrevista as qtdPrevistaLinha, '+
-                '  ohf.qtdProduzindo as qtdProduzindoLinha, ohf.qtdFinalizada as qtdFinalizadaLinha, '+
-                '  g.idGrupo as CodLinhaProducao, g.descricao as LinhaProducao '+
-                '  from ordem_producao op '+
-
-                '  left outer join ordem_has_fase ohf on ohf.idOrdem = op.idOrdem '+
-                '  left outer join fase f on f.idfase = ohf.idFase '+
-                '  left outer join produto p on p.idProduto = op.idProduto '+
-
-                '  left outer join grupo g on g.idGrupo = ohf.idLinhaProducao and op.idOrdem in (-1  ';
-
-  ds.DataSet.first;
-  while not ds.DataSet.Eof do
+  if NOT(Ds.DataSet.IsEmpty)then
   begin
-    q.sql.add(','+  ds.DataSet.FieldByName('idOrdem').AsString);
-    ds.DataSet.Next;
-  end;
-  q.sql.add(')');
+      q := TFDQuery.Create(self);
+      q.Connection := DModule.FDConnection;
+      q.sql.text := 'select op.idordem, op.numOrdem, op.qtdOriginal, op.dataCadastro, '+
+                    '  p.idproduto as codigoProd, p.descricao as produto, '+
+                    '  f.idFase as codigoFase , ohf.idOrdem_has_Fase, f.descricao as fase, ohf.sequencia, '+
+                    '  ohf.qtdOriginal as qtdOriginalLinha, ohf.qtdPrevista as qtdPrevistaLinha, '+
+                    '  ohf.qtdProduzindo as qtdProduzindoLinha, ohf.qtdFinalizada as qtdFinalizadaLinha, '+
+                    '  g.idGrupo as CodLinhaProducao, g.descricao as LinhaProducao '+
+                    '  from ordem_producao op '+
 
-
-  q.sql.add(' order by op.idordem, ohf.sequencia ');
-  q.open;
-
-  if ds.DataSet.IsEmpty then
-  begin
-    ds.DataSet.Open;
-  end;
-
-  frelatorios := tfrelatorios.Create(self);
-  with frelatorios do
-  begin
-      try
-          visible := false;
-          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idOrdem', 'idordem');
-          ShowModal;
-      finally
-          Relatorios_sis.close;
-          relats_usur.close;
-          Free;
+                    '  left outer join ordem_has_fase ohf on ohf.idOrdem = op.idOrdem '+
+                    '  left outer join fase f on f.idfase = ohf.idFase '+
+                    '  left outer join produto p on p.idProduto = op.idProduto '+
+                    '  left outer join grupo g on g.idGrupo = ohf.idLinhaProducao and op.idOrdem in (-1  ';
+      ds.DataSet.first;
+      while not ds.DataSet.Eof do
+      begin
+        q.sql.add(','+  ds.DataSet.FieldByName('idOrdem').AsString);
+        ds.DataSet.Next;
       end;
-   end;
+      q.sql.add(')');
+      q.sql.add(' order by op.idordem, ohf.sequencia ');
+      q.open;
+
+      if ds.DataSet.IsEmpty then
+      begin
+        ds.DataSet.Open;
+      end;
+      frelatorios := tfrelatorios.Create(self);
+      with frelatorios do
+      begin
+          try
+              visible := false;
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idOrdem', 'idordem');
+              ShowModal;
+          finally
+              Relatorios_sis.close;
+              relats_usur.close;
+              Free;
+          end;
+       end;
+  end else
+  begin
+    ShowMessage('Relatório necessita de pesquisa');
+  end;
 end;
 
 procedure TF02001.BSalvarClick(Sender: TObject);

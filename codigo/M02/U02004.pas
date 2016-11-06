@@ -329,9 +329,9 @@ begin
 
   if NOT(Ds.DataSet.IsEmpty)then
   begin
+      // Mosta query com tarefas dos Sequenciamentos selecionados
       q := TFDQuery.Create(self);
       q.Connection := DModule.FDConnection;
-
       q.sql.text :=
       'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
       'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
@@ -344,7 +344,18 @@ begin
       'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
       'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
       'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
-      'Order by ts.IdLinha_producao, ts.numOperador';
+      'and ts.idsequenciamento in (-1  ';
+      ds.DataSet.first;
+      while not ds.DataSet.Eof do
+      begin
+        q.sql.add(','+  ds.DataSet.FieldByName('idSequenciamento').AsString);
+        ds.DataSet.Next;
+      end;
+      q.sql.add(')');
+      q.sql.add(' Order by ts.IdLinha_producao, ts.numOperador ');
+      q.open;
+
+      //chama tela relatórios
       ds.DataSet.first;
       frelatorios := tfrelatorios.Create(Application);
       with frelatorios do

@@ -2,7 +2,6 @@ inherited F02004: TF02004
   Caption = 'F02004'
   ClientHeight = 538
   ClientWidth = 1031
-  ExplicitTop = -71
   ExplicitWidth = 1047
   ExplicitHeight = 577
   PixelsPerInch = 96
@@ -1044,7 +1043,7 @@ inherited F02004: TF02004
     AfterPost = mTarefasAfterPost
     AfterCancel = mTarefasAfterCancel
     AfterDelete = mTarefasAfterDelete
-    Left = 748
+    Left = 740
     Top = 52
     object mTarefasidTarefaSequenciada: TIntegerField
       FieldName = 'idTarefaSequenciada'
@@ -1310,7 +1309,7 @@ inherited F02004: TF02004
   end
   object DSTarefas: TDataSource
     DataSet = mTarefas
-    Left = 776
+    Left = 768
     Top = 51
   end
 end
