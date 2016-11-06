@@ -2,6 +2,7 @@ inherited F02004: TF02004
   Caption = 'F02004'
   ClientHeight = 538
   ClientWidth = 1031
+  ExplicitTop = -71
   ExplicitWidth = 1047
   ExplicitHeight = 577
   PixelsPerInch = 96
@@ -93,6 +94,7 @@ inherited F02004: TF02004
               DialogsLookAndFeel.Kind = lfUltraFlat
               DialogsLookAndFeel.NativeStyle = True
               DialogsStyle = 'Standard'
+              EventOperations.ReadOnly = True
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -373,7 +375,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00240210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00280210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

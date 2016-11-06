@@ -324,23 +324,34 @@ end;
 
 procedure TF02004.bRelatorioClick(Sender: TObject);
 var
-  nomeTela: String;
+  q: TFDQuery;
 begin
 
   if NOT(Ds.DataSet.IsEmpty)then
   begin
+      q := TFDQuery.Create(self);
+      q.Connection := DModule.FDConnection;
+
+      q.sql.text :=
+      'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
+      'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
+      'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
+      'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
+      'ts.tempoInicio, ts.TempoFim                                                 '+
+      'from tarefa_sequenciada ts                                                  '+
+      'left outer join cronometragem c on c.idCronometragem = ts.idCronometragem   '+
+      'left outer join operacao o on o.idOperacao = c.idOperacao                   '+
+      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
+      'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
+      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
+      'Order by ts.IdLinha_producao, ts.numOperador';
+      ds.DataSet.first;
       frelatorios := tfrelatorios.Create(Application);
       with frelatorios do
       begin
           try
-              //fdquery1.Close;
-              //fdquery1.open;
-              //ClientDataSet1.First;
-              //mTarefas.First;
               visible := false;
-              //Frelatorios.Assimila_Relat_q(Screen.ActiveForm.Name, 0,ClientDataSet1, DSChart.DataSet, 'idSequenciamento', 'idSequenciamento');
-              Frelatorios.Assimila_Relat_q(Screen.ActiveForm.Name, 0,fdquery1, mtarefas, 'idSequenciamento', 'idSequenciamento');
-
+              Frelatorios.Assimila_Relat_q(Screen.ActiveForm.Name, 0,fdquery1, q, 'idSequenciamento', 'idSequenciamento');
               Frelatorios.ShowModal;
           finally
               Relatorios_sis.close;
@@ -348,6 +359,7 @@ begin
               Free;
           end;
       end;
+      q.Free;
   end else
   begin
     ShowMessage('Relatório necessita de pesquisa');
@@ -364,9 +376,6 @@ begin
 end;
 
 procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
-var
-  AEventID : Variant;
-  i: integer;
 begin
   //Comportamento onClick de todos os Botões de BGIndex
   inherited;
@@ -381,8 +390,6 @@ end;
 
 procedure TF02004.CalculaMetaHora;
 begin
-  //
-
   TempoTotal := 0;
 {  Dmodule.QAux.sql.Text := 'select sum(tempoOperacao) from LayOutOperacao where IdLayoutFase =:IdLF ';
   Dmodule.QAux.ParamByName('IdLF').AsInteger := ClientDataSet1idLayoutFase.AsInteger;
@@ -680,10 +687,6 @@ procedure TF02004.SpeedButton1Click(Sender: TObject);
 var
 jobs: TArray<TOrdem>;
 celulas: TArray<TLinhaProducao>;
-retorno: array of TLProducao;
-scr : TScrollBox;
-  I: Integer;
-  J: Integer;
 begin
   inherited;
 
@@ -740,8 +743,6 @@ begin
 end;
 
 procedure TF02004.TabSet1Click(Sender: TObject);
-var
-g : TGrpButtonItem;
 begin
 //
   if(TabSet1.TabIndex = 0)then
@@ -1062,8 +1063,12 @@ begin
         DModule.qAux.ParamByName('ID').value := AViewInfo.Event.ID;
         DModule.qAux.Open;
         cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Location := 'Ordem' + DModule.qAux.FieldByName('numOrdem').AsString;
+
+        cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Message := 'Recurso: ' + ClientDataSetCharttipoRecurso.AsString +
+                  #13 + 'Qtd: ' + inttostr(45);
         //
         cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).LabelColor := 13952740;
+
   end;
 
 end;
