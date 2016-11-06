@@ -90,11 +90,14 @@ inherited F02004: TF02004
               ViewTimeGrid.EventDetailInfo = True
               OnCustomDrawEvent = cxScheduler1CustomDrawEvent
               Align = alClient
+              ContentPopupMenu.UseBuiltInPopupMenu = False
+              ContentPopupMenu.Items = []
               ControlBox.Visible = False
               DialogsLookAndFeel.Kind = lfUltraFlat
               DialogsLookAndFeel.NativeStyle = True
               DialogsStyle = 'Standard'
               EventOperations.ReadOnly = True
+              EventPopupMenu.UseBuiltInPopupMenu = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -102,7 +105,7 @@ inherited F02004: TF02004
               Font.Style = []
               LookAndFeel.Kind = lfStandard
               LookAndFeel.NativeStyle = True
-              OptionsView.ResourcesPerPage = 4
+              OptionsView.ResourcesPerPage = 3
               Storage = cxSchedulerDBStorage1
               TabOrder = 0
               OnKeyDown = cxScheduler1KeyDown
