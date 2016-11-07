@@ -373,10 +373,10 @@ begin
                 '  op.idoperacao, op.descricao as operacao, '+
                 '  c.idCronometragem, c.ritmo, sec_to_time(c.tempopadraofinal/1000) as tempoPadraoFinal, c.tolerancia, phf.sequencia '+
                 '  from produto p '+
-                '  left outer join produto_has_fase phf on phf.idproduto = p.idProduto '+
-                '  left outer join fase f on f.idFase = phf.idfase '+
-                '  left outer join operacao op on op.idfase = f.idfase '+
-                '  left outer join cronometragem c on c.idproduto = p.idproduto and c.idoperacao = op.idoperacao and p.idproduto in (-1  ';
+                '  inner join produto_has_fase phf on phf.idproduto = p.idProduto '+
+                '  inner join fase f on f.idFase = phf.idfase '+
+                '  inner join operacao op on op.idfase = f.idfase '+
+                '  inner join cronometragem c on c.idproduto = p.idproduto and c.idoperacao = op.idoperacao and p.idproduto in (-1  ';
 
   ds.DataSet.first;
   while not ds.DataSet.Eof do

@@ -352,7 +352,7 @@ begin
         ds.DataSet.Next;
       end;
       q.sql.add(')');
-      q.sql.add(' Order by ts.IdLinha_producao, ts.numOperador ');
+      q.sql.add(' Order by ts.IdLinha_producao, ts.numOperador,ts.tempoInicio ');
       q.open;
 
       //chama tela relatórios
