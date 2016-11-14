@@ -10,27 +10,26 @@ inherited F02004: TF02004
     Width = 1031
     Height = 503
     ActivePage = TbDados
-    ExplicitTop = 97
     ExplicitWidth = 1031
-    ExplicitHeight = 441
+    ExplicitHeight = 503
     inherited TbDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1023
-      ExplicitHeight = 413
+      ExplicitHeight = 475
       inherited grDados: TGroupBox
         Width = 1023
         Height = 475
-        Color = clMenuBar
         Enabled = True
         ParentCtl3D = False
+        ParentDoubleBuffered = False
         ExplicitWidth = 1023
-        ExplicitHeight = 413
+        ExplicitHeight = 475
         object Scroll_Layout: TScrollBox
           Left = 232
-          Top = 77
-          Width = 576
-          Height = 396
+          Top = 63
+          Width = 789
+          Height = 410
           Align = alClient
           BevelInner = bvLowered
           BevelKind = bkFlat
@@ -38,7 +37,8 @@ inherited F02004: TF02004
           Color = clWindow
           ParentColor = False
           TabOrder = 0
-          ExplicitTop = 15
+          ExplicitTop = 66
+          ExplicitHeight = 407
           object img: TImage
             Left = 677
             Top = 3
@@ -73,17 +73,18 @@ inherited F02004: TF02004
             Left = 0
             Top = 23
             Width = 572
-            Height = 369
+            Height = 383
             Align = alClient
             BevelInner = bvLowered
             Color = 16053492
             ParentBackground = False
             TabOrder = 0
+            ExplicitHeight = 380
             object cxScheduler1: TcxScheduler
               Left = 2
               Top = 2
               Width = 568
-              Height = 365
+              Height = 379
               DateNavigator.Visible = False
               ViewTimeGrid.Active = True
               ViewTimeGrid.EventDetailInfo = True
@@ -109,15 +110,16 @@ inherited F02004: TF02004
               TabOrder = 0
               OnKeyDown = cxScheduler1KeyDown
               OnScaleScroll = cxScheduler1ScaleScroll
+              ExplicitHeight = 376
               Splitters = {
                 970100007E00000026020000830000009201000001000000970100006C010000}
-              StoredClientBounds = {0100000001000000370200006C010000}
+              StoredClientBounds = {0100000001000000370200007A010000}
             end
             object DBGridOP: TDBGridBeleza
               Left = 2
               Top = 2
               Width = 568
-              Height = 365
+              Height = 379
               Hint = 'Clique no Titulo da Coluna para Ordenar'
               Align = alClient
               BorderStyle = bsNone
@@ -273,25 +275,62 @@ inherited F02004: TF02004
           object PanelNome: TPanel
             Left = 0
             Top = 0
-            Width = 572
+            Width = 785
             Height = 23
             Align = alTop
             Color = 14933980
             ParentBackground = False
             TabOrder = 1
           end
+          object ScrollBoxOperacoes: TScrollBox
+            AlignWithMargins = True
+            Left = 572
+            Top = 23
+            Width = 213
+            Height = 383
+            Margins.Left = 0
+            Margins.Top = 0
+            Margins.Right = 0
+            Margins.Bottom = 0
+            HorzScrollBar.Color = clSilver
+            HorzScrollBar.ParentColor = False
+            Align = alRight
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            Color = clMenuBar
+            ParentColor = False
+            TabOrder = 2
+            Visible = False
+            ExplicitHeight = 380
+            object DBGrid1: TDBGrid
+              Left = 0
+              Top = 0
+              Width = 213
+              Height = 383
+              Align = alClient
+              DataSource = DSChart
+              TabOrder = 0
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWindowText
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+            end
+          end
         end
         object PanelBusca: TPanel
           Left = 2
-          Top = 77
+          Top = 63
           Width = 230
-          Height = 396
+          Height = 410
           Align = alLeft
           BevelKind = bkFlat
           BevelOuter = bvNone
           ParentBackground = False
           TabOrder = 1
-          ExplicitTop = 15
+          ExplicitTop = 66
+          ExplicitHeight = 407
           object TabSet1: TTabSet
             Left = 0
             Top = 0
@@ -317,7 +356,7 @@ inherited F02004: TF02004
             Left = 3
             Top = 26
             Width = 220
-            Height = 363
+            Height = 358
             Hint = 'true'
             Align = alClient
             BevelInner = bvNone
@@ -333,71 +372,40 @@ inherited F02004: TF02004
             Items = <>
             TabOrder = 1
             OnButtonClicked = BGIndexButtonClicked
+            ExplicitHeight = 374
           end
-        end
-        object ScrollBoxOperacoes: TScrollBox
-          AlignWithMargins = True
-          Left = 808
-          Top = 77
-          Width = 213
-          Height = 396
-          Margins.Left = 0
-          Margins.Top = 0
-          Margins.Right = 0
-          Margins.Bottom = 0
-          HorzScrollBar.Color = clSilver
-          HorzScrollBar.ParentColor = False
-          Align = alRight
-          BevelInner = bvNone
-          BevelOuter = bvNone
-          BorderStyle = bsNone
-          Color = clMenuBar
-          ParentColor = False
-          TabOrder = 2
-          Visible = False
-          ExplicitTop = 15
-          object DBGrid1: TDBGrid
+          object StatusBar1: TStatusBar
             Left = 0
-            Top = 0
-            Width = 213
-            Height = 396
-            Align = alClient
-            DataSource = DSChart
-            TabOrder = 0
-            TitleFont.Charset = DEFAULT_CHARSET
-            TitleFont.Color = clWindowText
-            TitleFont.Height = -11
-            TitleFont.Name = 'Tahoma'
-            TitleFont.Style = []
+            Top = 387
+            Width = 226
+            Height = 19
+            Panels = <
+              item
+                Style = psOwnerDraw
+                Width = 50
+              end>
+            OnDrawPanel = StatusBar1DrawPanel
+            ExplicitTop = 456
+            ExplicitWidth = 1023
           end
         end
-        object PanelInformacoes: TPanel
+        object PanelInformacoes: TXiPanel
           Left = 2
           Top = 15
           Width = 1019
-          Height = 62
+          Height = 48
+          ColorFace = 14079702
+          ColorGrad = 11582905
+          ColorLight = clScrollBar
+          ColorDark = clScrollBar
+          ColorScheme = csCustom
+          FillDirection = fdVertical
           Align = alTop
-          BevelKind = bkFlat
-          BevelOuter = bvNone
-          Color = 15395304
+          BevelWidth = 3
           Enabled = False
-          ParentBackground = False
-          TabOrder = 3
-          ExplicitLeft = 0
-          ExplicitTop = 35
-          ExplicitWidth = 1031
-          object SpeedButton1: TSpeedButton
-            Left = 879
-            Top = 0
-            Width = 136
-            Height = 58
-            Align = alRight
-            Caption = 'DISTRIBUIR OPERA'#199#213'ES'
-            OnClick = SpeedButton1Click
-            ExplicitLeft = 889
-            ExplicitTop = 3
-            ExplicitHeight = 50
-          end
+          TabOrder = 2
+          UseDockManager = True
+          Visible = False
           object Label1: TLabel
             Left = 13
             Top = 6
@@ -405,46 +413,60 @@ inherited F02004: TF02004
             Height = 13
             Caption = 'COD'
           end
-          object Label3: TLabel
-            Left = 291
-            Top = 6
-            Width = 70
-            Height = 13
-            Caption = 'RESPONS'#193'VEL'
-          end
           object Label2: TLabel
-            Left = 152
+            Left = 124
             Top = 6
             Width = 27
             Height = 13
             Caption = 'DATA'
             FocusControl = cxDBDateEdit1
           end
+          object Label3: TLabel
+            Left = 234
+            Top = 6
+            Width = 70
+            Height = 13
+            Caption = 'RESPONS'#193'VEL'
+          end
+          object SpeedButton1: TSpeedButton
+            Left = 880
+            Top = 3
+            Width = 136
+            Height = 42
+            Align = alRight
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            Caption = 'DISTRIBUIR OPERA'#199#213'ES'
+            OnClick = SpeedButton1Click
+            ExplicitLeft = 889
+            ExplicitHeight = 50
+          end
           object DBEdit1: TDBEdit
             Left = 13
-            Top = 23
-            Width = 121
+            Top = 20
+            Width = 100
             Height = 21
+            Color = 16382457
             DataField = 'idSequenciamento'
             DataSource = DS
             TabOrder = 0
           end
-          object DBEdit2: TDBEdit
-            Left = 291
-            Top = 23
-            Width = 345
-            Height = 21
-            DataField = 'responstavel'
-            DataSource = DS
-            TabOrder = 1
-          end
           object cxDBDateEdit1: TcxDBDateEdit
-            Left = 152
-            Top = 23
+            Left = 123
+            Top = 20
             DataBinding.DataField = 'dataSeq'
             DataBinding.DataSource = DS
+            TabOrder = 1
+            Width = 100
+          end
+          object DBEdit2: TDBEdit
+            Left = 233
+            Top = 20
+            Width = 633
+            Height = 21
+            Color = 16382457
+            DataField = 'responstavel'
+            DataSource = DS
             TabOrder = 2
-            Width = 121
           end
         end
       end
@@ -453,7 +475,7 @@ inherited F02004: TF02004
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 1023
-      ExplicitHeight = 413
+      ExplicitHeight = 475
       inherited GBFiltros: TGroupBox
         Width = 1023
         ExplicitWidth = 1023
@@ -494,6 +516,7 @@ inherited F02004: TF02004
       end
       inherited PanelFiltros: TPanel
         Width = 1023
+        ParentCtl3D = False
         ExplicitWidth = 1023
         inherited btnFiltrar: TButton
           Left = 972
@@ -561,7 +584,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00340210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00440210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

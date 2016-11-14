@@ -24,7 +24,7 @@ uses
   cxDBEdit, cxDropDownEdit, cxCalendar, cxTextEdit, cxMaskEdit, cxSpinEdit,
   DBEditCalendario, Vcl.Tabs, Vcl.ButtonGroup, dxGalleryControl, dxColorGallery,
   dxDBColorGallery, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
-  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef;
+  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, XiPanel, dxStatusBar;
 
 {Declações do Layout}
 
@@ -123,7 +123,6 @@ type
 {********************  TELA  ********************}
 type
   TF02004 = class(TFBase)
-    PanelInformacoes: TPanel;
     ScrollBoxOperacoes: TScrollBox;
     SpeedButton1: TSpeedButton;
     Scroll_Layout: TScrollBox;
@@ -242,6 +241,8 @@ type
     ClientdatasetGridOPtempoInicio: TDateTimeField;
     ClientdatasetGridOPTempoFim: TDateTimeField;
     ClientdatasetGridOPnumOrdem: TIntegerField;
+    PanelInformacoes: TXiPanel;
+    StatusBar1: TStatusBar;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -274,6 +275,7 @@ type
     procedure bRelatorioClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure ClientDataSet1BeforeInsert(DataSet: TDataSet);
+    procedure BCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -323,7 +325,14 @@ begin
   end;
 end;
 
-procedure TF02004.BEditarClick(Sender: TObject);
+procedure TF02004.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  PanelInformacoes.VISIBLE := false;
+
+end;
+
+Procedure TF02004.BEditarClick(Sender: TObject);
 begin
   inherited;
   PanelInformacoes.Enabled := true;
@@ -342,6 +351,12 @@ begin
   inherited;
   PanelInformacoes.Enabled := true;
   PanelInformacoes.visible := true;
+  ClientDataSet1dataSeq.AsDateTime := (Date);
+
+  // Limpa panel busca e Layout visible;
+  BGIndex.items.Clear;
+  ClientDataSetChart.EmptyDataSet;
+  cxSchedulerDBStorage1.Resources.Items.Clear;
 end;
 
 procedure TF02004.BPesquisarClick(Sender: TObject);
@@ -412,7 +427,9 @@ procedure TF02004.BSalvarClick(Sender: TObject);
 begin
   inherited;
   PanelInformacoes.Enabled := false;
+  PanelInformacoes.VISIBLE := false;
   grdados.Enabled := true;
+
 end;
 
 procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
@@ -504,8 +521,7 @@ procedure TF02004.cxSchedulerDBStorage1GetEventGeneratedID(
   var EventID: Variant);
 begin
   inherited;
-  ShowMessage('entrou');
-  EventID := DModule.buscaProximoParametro('seqTarefaSequenciada');
+  //EventID := DModule.buscaProximoParametro('seqTarefaSequenciada');
 end;
 
 procedure TF02004.DSDataChange(Sender: TObject; Field: TField);
@@ -513,6 +529,7 @@ begin
   inherited;
   //Aciona o click em Tabset e mostra as informações no TButtonGroup BDIndex
   // A pesquisa pode ser por Linha de produção ou por Ordem sequenciada de acordo com o TabSet selecionado
+  StatusBar1.Panels[0].Text := 'SEQ [ '+ ClientDataSet1idSequenciamento.AsString+' ]';
   TabSet1Click(sender);
 end;
 
@@ -676,6 +693,7 @@ begin
         cxSchedulerDBStorage1.Resources.Items.Items[i] := TcxSchedulerStorageResourceItem.Create(cxSchedulerDBStorage1.Resources.Items);
         cxSchedulerDBStorage1.Resources.Items.Items[i].ResourceID := i +1;
         cxSchedulerDBStorage1.Resources.Items.Items[i].Name := 'OPER ' + inttostr(i+1);
+
         end;
 
         //Adiciona os eventos aos resources
@@ -788,12 +806,14 @@ end;
 procedure TF02004.StatusBar1DrawPanel(StatusBar: TStatusBar;
   Panel: TStatusPanel; const Rect: TRect);
 begin
-  inherited;
-  if Panel.Index = 0 then
+    if Panel.Index = 0 then
     begin
-      StatusBar.Canvas.Brush.Color := clBlack;
-      StatusBar.Canvas.FillRect(Rect);
-    end
+    end;
+    StatusBar1.Canvas.Font.Color := clblack;
+    StatusBar1.Canvas.brush.Color:=$D1D1D1;
+    StatusBar1.Canvas.FillRect(Rect);
+    StatusBar1.Canvas.TextOut(Rect.Left + Font.Size, Rect.Top + 1, Panel.Text );
+
 end;
 
 procedure TF02004.TabSet1Click(Sender: TObject);
@@ -851,7 +871,6 @@ begin
           if not(mTarefas.IsEmpty)then
           begin
               montaBGIndexOrdem(mtarefas);
-
               PanelNome.caption := 'OP ' + BGIndex.Items[0].Caption;
               montaScrollBox_Layout(1, strtoint(BGIndex.Items[0].hint)); // (tipo 0= lp, tipo 2 = OP) / (idOrdem deProdução)
           end else
