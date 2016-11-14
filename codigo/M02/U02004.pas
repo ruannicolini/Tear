@@ -215,6 +215,33 @@ type
     mTarefasidSequenciamento: TIntegerField;
     FDQuery2numOperador: TIntegerField;
     mTarefasnumOperador: TIntegerField;
+    DBGridOP: TDBGridBeleza;
+    FDQueryGridOP: TFDQuery;
+    providerGridOP: TDataSetProvider;
+    ClientdatasetGridOP: TClientDataSet;
+    DSGridOP: TDataSource;
+    FDQueryGridOPoperacao: TStringField;
+    FDQueryGridOPnumOrdem: TIntegerField;
+    FDQueryGridOPnumOperador: TIntegerField;
+    FDQueryGridOPidRecurso: TIntegerField;
+    FDQueryGridOPtipoRecurso: TStringField;
+    FDQueryGridOPIdLinha_producao: TIntegerField;
+    FDQueryGridOPlinhaProducao: TStringField;
+    FDQueryGridOPtempoInicio: TDateTimeField;
+    FDQueryGridOPTempoFim: TDateTimeField;
+    FDQueryGridOPidOperacao: TIntegerField;
+    FDQueryGridOPidTarefaSequenciada: TIntegerField;
+    ClientdatasetGridOPidTarefaSequenciada: TIntegerField;
+    ClientdatasetGridOPidOperacao: TIntegerField;
+    ClientdatasetGridOPoperacao: TStringField;
+    ClientdatasetGridOPIdLinha_producao: TIntegerField;
+    ClientdatasetGridOPlinhaProducao: TStringField;
+    ClientdatasetGridOPidRecurso: TIntegerField;
+    ClientdatasetGridOPnumOperador: TIntegerField;
+    ClientdatasetGridOPtipoRecurso: TStringField;
+    ClientdatasetGridOPtempoInicio: TDateTimeField;
+    ClientdatasetGridOPTempoFim: TDateTimeField;
+    ClientdatasetGridOPnumOrdem: TIntegerField;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
@@ -300,6 +327,7 @@ procedure TF02004.BEditarClick(Sender: TObject);
 begin
   inherited;
   PanelInformacoes.Enabled := true;
+  PanelInformacoes.visible := true;
   grdados.Enabled := true;
 end;
 
@@ -313,6 +341,7 @@ procedure TF02004.BInserirClick(Sender: TObject);
 begin
   inherited;
   PanelInformacoes.Enabled := true;
+  PanelInformacoes.visible := true;
 end;
 
 procedure TF02004.BPesquisarClick(Sender: TObject);
@@ -392,7 +421,16 @@ begin
   inherited;
 
   cxSchedulerDBStorage1.Resources.Items.Clear;
+  if(TabSet1.TabIndex = 0)then
+  begin
   PanelNome.caption := (sender as TButtonGroup).Items[index].Caption;
+  end else
+    if(TabSet1.TabIndex = 1)then
+    begin
+      PanelNome.caption := 'OP ' + (sender as TButtonGroup).Items[index].Caption;
+    end else
+        PanelNome.caption := ' ';
+
   // (tipo 0= lp, tipo 1 = OP) / (idLinhadeProdução)
   montaScrollBox_Layout(TabSet1.TabIndex, strtoint((sender as TButtonGroup).Items[index].Hint));
 
@@ -666,6 +704,11 @@ begin
   end else
   if(tipoComportamento = 1)then //tipoComportamento = 1 -> OrdemProdução
   begin
+    ClientdatasetGridOP.Close;
+    FDQueryGridOP.ParamByName('idSeq').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+    FDQueryGridOP.ParamByName('idOP').AsInteger := idPesquisado;
+
+    ClientdatasetGridOP.open;
 
   end;
 end;
@@ -756,82 +799,67 @@ end;
 procedure TF02004.TabSet1Click(Sender: TObject);
 begin
 //
-  if(TabSet1.TabIndex = 0)then
+  if not(DS.DataSet.IsEmpty)then
   begin
-    cxScheduler1.Visible := true;
-    //LP
-    FDQuery2.Close;
-    mTarefas.Close;
-    FDQuery2.SQL.Text :=
-      'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
-      'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
-      'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
-      'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
-      'ts.tempoInicio, ts.TempoFim                                                 '+
-      'from tarefa_sequenciada ts                                                  '+
-      'left outer join cronometragem c on c.idCronometragem = ts.idCronometragem   '+
-      'left outer join operacao o on o.idOperacao = c.idOperacao                   '+
-      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
-      'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
-      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
-      'where ts.idSequenciamento =:idSeq                                          '+
-      'Order by ts.IdLinha_producao, ts.numOperador';
-
-      FDQuery2.ParamByName('idSeq').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
-      FDQuery2.Open;
-      mTarefas.open;
-
-      if not(mTarefas.IsEmpty)then
+      if(TabSet1.TabIndex = 0)then
       begin
-          montaBGIndexLinhaP(mtarefas);
-          PanelNome.caption := BGIndex.Items[0].Caption;
-          montaScrollBox_Layout(0, strtoint(BGIndex.Items[0].hint));  // (tipo 0= lp, tipo 1 = OP) / (idLinhadeProdução)
+        cxScheduler1.Visible := true;
+        DBGridOP.Visible := false;
+        //LP
+          FDQuery2.Close;
+          mTarefas.Close;
+          FDQuery2.SQL.Text :=
+          'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
+          'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
+          'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
+          'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
+          'ts.tempoInicio, ts.TempoFim                                                 '+
+          'from tarefa_sequenciada ts                                                  '+
+          'left outer join cronometragem c on c.idCronometragem = ts.idCronometragem   '+
+          'left outer join operacao o on o.idOperacao = c.idOperacao                   '+
+          'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
+          'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
+          'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
+          'where ts.idSequenciamento =:idSeq                                          '+
+          'Order by ts.IdLinha_producao, ts.numOperador';
+
+          FDQuery2.ParamByName('idSeq').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+          FDQuery2.Open;
+          mTarefas.open;
+
+          if not(mTarefas.IsEmpty)then
+          begin
+              montaBGIndexLinhaP(mtarefas);
+              PanelNome.caption := BGIndex.Items[0].Caption;
+              montaScrollBox_Layout(0, strtoint(BGIndex.Items[0].hint));  // (tipo 0= lp, tipo 1 = OP) / (idLinhadeProdução)
+
+          end else
+          begin
+            // LIMPA BOTOES LP E cxScheduler1
+            BGIndex.items.Clear;
+            ClientDataSetChart.EmptyDataSet;
+            cxSchedulerDBStorage1.Resources.Items.Clear;
+          end;
 
       end else
+      if(TabSet1.TabIndex = 1)then
       begin
-        // LIMPA BOTOES LP E cxScheduler1
-        BGIndex.items.Clear;
-        ClientDataSetChart.EmptyDataSet;
-        cxSchedulerDBStorage1.Resources.Items.Clear;
-      end;
+        cxScheduler1.Visible := false;
+        DBGridOP.Visible := true;
 
-  end else
-  if(TabSet1.TabIndex = 1)then
-  begin
-    cxScheduler1.Visible := false;
+        //OP
+          if not(mTarefas.IsEmpty)then
+          begin
+              montaBGIndexOrdem(mtarefas);
 
-    //OP
-    FDQuery2.Close;
-    mTarefas.Close;
-    FDQuery2.SQL.Text :=
-      'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
-      'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
-      'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
-      'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
-      'ts.tempoInicio, ts.TempoFim                                                 '+
-      'from tarefa_sequenciada ts                                                  '+
-      'left outer join cronometragem c on c.idCronometragem = ts.idCronometragem   '+
-      'left outer join operacao o on o.idOperacao = c.idOperacao                   '+
-      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
-      'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
-      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
-      'where ts.idSequenciamento =:idSeq                                          '+
-      'Order by ts.IdOrdem, ts.idCronometragem, ts.tempoInicio';
-
-      FDQuery2.ParamByName('idSeq').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
-      FDQuery2.Open;
-      mTarefas.open;
-
-      if not(mTarefas.IsEmpty)then
-      begin
-          montaBGIndexOrdem(mtarefas);
-          montaScrollBox_Layout(1, strtoint(BGIndex.Items[0].hint)); // (tipo 0= lp, tipo 2 = OP) / (idOrdem deProdução)
-      end else
-      begin
-        BGIndex.items.Clear;
+              PanelNome.caption := 'OP ' + BGIndex.Items[0].Caption;
+              montaScrollBox_Layout(1, strtoint(BGIndex.Items[0].hint)); // (tipo 0= lp, tipo 2 = OP) / (idOrdem deProdução)
+          end else
+          begin
+            BGIndex.items.Clear;
+          end;
       end;
   end;
-
 end;
 
 {TOperacao }

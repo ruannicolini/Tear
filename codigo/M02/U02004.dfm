@@ -2,15 +2,13 @@ inherited F02004: TF02004
   Caption = 'F02004'
   ClientHeight = 538
   ClientWidth = 1031
-  ExplicitLeft = -260
   ExplicitWidth = 1047
   ExplicitHeight = 577
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    Top = 97
     Width = 1031
-    Height = 441
+    Height = 503
     ActivePage = TbDados
     ExplicitTop = 97
     ExplicitWidth = 1031
@@ -22,7 +20,7 @@ inherited F02004: TF02004
       ExplicitHeight = 413
       inherited grDados: TGroupBox
         Width = 1023
-        Height = 413
+        Height = 475
         Color = clMenuBar
         Enabled = True
         ParentCtl3D = False
@@ -30,7 +28,7 @@ inherited F02004: TF02004
         ExplicitHeight = 413
         object Scroll_Layout: TScrollBox
           Left = 232
-          Top = 15
+          Top = 77
           Width = 576
           Height = 396
           Align = alClient
@@ -40,6 +38,7 @@ inherited F02004: TF02004
           Color = clWindow
           ParentColor = False
           TabOrder = 0
+          ExplicitTop = 15
           object img: TImage
             Left = 677
             Top = 3
@@ -114,6 +113,162 @@ inherited F02004: TF02004
                 970100007E00000026020000830000009201000001000000970100006C010000}
               StoredClientBounds = {0100000001000000370200006C010000}
             end
+            object DBGridOP: TDBGridBeleza
+              Left = 2
+              Top = 2
+              Width = 568
+              Height = 365
+              Hint = 'Clique no Titulo da Coluna para Ordenar'
+              Align = alClient
+              BorderStyle = bsNone
+              Color = clSilver
+              DataSource = DSGridOP
+              FixedColor = 16762447
+              GradientEndColor = 16382457
+              GradientStartColor = clSilver
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 1
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWhite
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              Cor_2 = 16250871
+              Direcao_Cor2 = dg_Horiz
+              Direcao_Enter = dg_Horiz
+              ClickTituloOrdenar = True
+              MarcarLinhaInteira = True
+              CorLinhaMarcada = 15854564
+              BloquearExportacoes = False
+              Columns = <
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'idTarefaSequenciada'
+                  Title.Caption = 'COD'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'idOperacao'
+                  Title.Caption = 'OPERA'#199#195'O'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'operacao'
+                  Title.Caption = ' '
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 200
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'IdLinha_producao'
+                  Title.Caption = 'LP'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 49
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'linhaProducao'
+                  Title.Caption = ' '
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 161
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'numOperador'
+                  Title.Caption = 'OPER'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'tipoRecurso'
+                  Title.Caption = 'RECURSO'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 180
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'tempoInicio'
+                  Title.Caption = 'INICIO'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'TempoFim'
+                  Title.Caption = 'FIM'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end
+                item
+                  Alignment = taCenter
+                  Expanded = False
+                  FieldName = 'numOrdem'
+                  Title.Caption = 'N'#186' ORDEM'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clBlack
+                  Title.Font.Height = -11
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Visible = True
+                end>
+            end
           end
           object PanelNome: TPanel
             Left = 0
@@ -128,7 +283,7 @@ inherited F02004: TF02004
         end
         object PanelBusca: TPanel
           Left = 2
-          Top = 15
+          Top = 77
           Width = 230
           Height = 396
           Align = alLeft
@@ -136,6 +291,7 @@ inherited F02004: TF02004
           BevelOuter = bvNone
           ParentBackground = False
           TabOrder = 1
+          ExplicitTop = 15
           object TabSet1: TTabSet
             Left = 0
             Top = 0
@@ -182,7 +338,7 @@ inherited F02004: TF02004
         object ScrollBoxOperacoes: TScrollBox
           AlignWithMargins = True
           Left = 808
-          Top = 15
+          Top = 77
           Width = 213
           Height = 396
           Margins.Left = 0
@@ -199,6 +355,7 @@ inherited F02004: TF02004
           ParentColor = False
           TabOrder = 2
           Visible = False
+          ExplicitTop = 15
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -212,6 +369,82 @@ inherited F02004: TF02004
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
+          end
+        end
+        object PanelInformacoes: TPanel
+          Left = 2
+          Top = 15
+          Width = 1019
+          Height = 62
+          Align = alTop
+          BevelKind = bkFlat
+          BevelOuter = bvNone
+          Color = 15395304
+          Enabled = False
+          ParentBackground = False
+          TabOrder = 3
+          ExplicitLeft = 0
+          ExplicitTop = 35
+          ExplicitWidth = 1031
+          object SpeedButton1: TSpeedButton
+            Left = 879
+            Top = 0
+            Width = 136
+            Height = 58
+            Align = alRight
+            Caption = 'DISTRIBUIR OPERA'#199#213'ES'
+            OnClick = SpeedButton1Click
+            ExplicitLeft = 889
+            ExplicitTop = 3
+            ExplicitHeight = 50
+          end
+          object Label1: TLabel
+            Left = 13
+            Top = 6
+            Width = 22
+            Height = 13
+            Caption = 'COD'
+          end
+          object Label3: TLabel
+            Left = 291
+            Top = 6
+            Width = 70
+            Height = 13
+            Caption = 'RESPONS'#193'VEL'
+          end
+          object Label2: TLabel
+            Left = 152
+            Top = 6
+            Width = 27
+            Height = 13
+            Caption = 'DATA'
+            FocusControl = cxDBDateEdit1
+          end
+          object DBEdit1: TDBEdit
+            Left = 13
+            Top = 23
+            Width = 121
+            Height = 21
+            DataField = 'idSequenciamento'
+            DataSource = DS
+            TabOrder = 0
+          end
+          object DBEdit2: TDBEdit
+            Left = 291
+            Top = 23
+            Width = 345
+            Height = 21
+            DataField = 'responstavel'
+            DataSource = DS
+            TabOrder = 1
+          end
+          object cxDBDateEdit1: TcxDBDateEdit
+            Left = 152
+            Top = 23
+            DataBinding.DataField = 'dataSeq'
+            DataBinding.DataSource = DS
+            TabOrder = 2
+            Width = 121
           end
         end
       end
@@ -235,7 +468,29 @@ inherited F02004: TF02004
       end
       inherited DBGridBeleza1: TDBGridBeleza
         Width = 1023
-        Height = 302
+        Height = 364
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'idSequenciamento'
+            Title.Caption = 'COD'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'dataSeq'
+            Title.Caption = 'DATA'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'responstavel'
+            Title.Caption = 'RESPONS'#193'VEL'
+            Width = 1185
+            Visible = True
+          end>
       end
       inherited PanelFiltros: TPanel
         Width = 1023
@@ -253,79 +508,6 @@ inherited F02004: TF02004
     inherited BFechar: TSpeedButton
       Left = 997
       ExplicitLeft = 997
-    end
-  end
-  object PanelInformacoes: TPanel [2]
-    Left = 0
-    Top = 35
-    Width = 1031
-    Height = 62
-    Align = alTop
-    BevelKind = bkFlat
-    BevelOuter = bvNone
-    Color = 15395304
-    Enabled = False
-    ParentBackground = False
-    TabOrder = 2
-    object SpeedButton1: TSpeedButton
-      Left = 891
-      Top = 0
-      Width = 136
-      Height = 58
-      Align = alRight
-      Caption = 'DISTRIBUIR OPERA'#199#213'ES'
-      OnClick = SpeedButton1Click
-      ExplicitLeft = 889
-      ExplicitTop = 3
-      ExplicitHeight = 50
-    end
-    object Label1: TLabel
-      Left = 13
-      Top = 6
-      Width = 22
-      Height = 13
-      Caption = 'COD'
-    end
-    object Label3: TLabel
-      Left = 291
-      Top = 6
-      Width = 70
-      Height = 13
-      Caption = 'RESPONS'#193'VEL'
-    end
-    object Label2: TLabel
-      Left = 152
-      Top = 6
-      Width = 27
-      Height = 13
-      Caption = 'DATA'
-      FocusControl = cxDBDateEdit1
-    end
-    object DBEdit1: TDBEdit
-      Left = 13
-      Top = 23
-      Width = 121
-      Height = 21
-      DataField = 'idSequenciamento'
-      DataSource = DS
-      TabOrder = 0
-    end
-    object DBEdit2: TDBEdit
-      Left = 291
-      Top = 23
-      Width = 345
-      Height = 21
-      DataField = 'responstavel'
-      DataSource = DS
-      TabOrder = 1
-    end
-    object cxDBDateEdit1: TcxDBDateEdit
-      Left = 152
-      Top = 23
-      DataBinding.DataField = 'dataSeq'
-      DataBinding.DataSource = DS
-      TabOrder = 2
-      Width = 121
     end
   end
   inherited DS: TDataSource
@@ -379,7 +561,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C002C0210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00340210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1313,5 +1495,193 @@ inherited F02004: TF02004
     DataSet = mTarefas
     Left = 768
     Top = 51
+  end
+  object FDQueryGridOP: TFDQuery
+    Connection = DModule.FDConnection
+    SQL.Strings = (
+      
+        'select ts.idTarefaSequenciada, ts.idCronometragem, o.idOperacao,' +
+        'o.descricao as operacao, '#13#10#10
+      ''
+      
+        'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento, ts.' +
+        'eventType, ts.options, '
+      
+        'ts.mensagem,'#10'ts.idRecurso, tr.descricao as tipoRecurso,'#10'ts.IdLin' +
+        'ha_producao, lp.descricao '
+      
+        'as linhaProducao,'#10'ts.tempoInicio, ts.TempoFim '#10'from tarefa_seque' +
+        'nciada ts '#13#10#10
+      ''
+      
+        'left outer join cronometragem c on c.idCronometragem = ts.idCron' +
+        'ometragem '#10
+      'left outer join operacao o on o.idOperacao = c.idOperacao'#10' '
+      'left outer join ordem_producao op on op.idOrdem = ts.idOrdem '#13#10#10
+      ''
+      
+        'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecu' +
+        'rso'#10' '
+      'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao '#13#10#10
+      ''
+      'where ts.idSequenciamento =:idSeq and ts.Idordem =:idOP'#10
+      'Order by tempoInicio')
+    Left = 22
+    Top = 328
+    ParamData = <
+      item
+        Name = 'IDSEQ'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'IDOP'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object FDQueryGridOPidOperacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idOperacao'
+      Origin = 'idoperacao'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+    end
+    object FDQueryGridOPoperacao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'operacao'
+      Origin = 'descricao'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQueryGridOPIdLinha_producao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'IdLinha_producao'
+      Origin = 'idLinha_Producao'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+    end
+    object FDQueryGridOPlinhaProducao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'linhaProducao'
+      Origin = 'descricao'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQueryGridOPidRecurso: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idRecurso'
+      Origin = 'idRecurso'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+    end
+    object FDQueryGridOPnumOperador: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOperador'
+      Origin = 'NumOperador'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+    end
+    object FDQueryGridOPtipoRecurso: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipoRecurso'
+      Origin = 'descricao'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+      Size = 45
+    end
+    object FDQueryGridOPtempoInicio: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'tempoInicio'
+      Origin = 'tempoInicio'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+    end
+    object FDQueryGridOPTempoFim: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'TempoFim'
+      Origin = 'tempoFim'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+    end
+    object FDQueryGridOPnumOrdem: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'numOrdem'
+      Origin = 'numOrdem'
+      ProviderFlags = [pfInWhere]
+      ReadOnly = True
+    end
+    object FDQueryGridOPidTarefaSequenciada: TIntegerField
+      FieldName = 'idTarefaSequenciada'
+      Origin = 'idTarefaSequenciada'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+  end
+  object providerGridOP: TDataSetProvider
+    DataSet = FDQueryGridOP
+    Left = 54
+    Top = 328
+  end
+  object ClientdatasetGridOP: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'providerGridOP'
+    Left = 86
+    Top = 328
+    object ClientdatasetGridOPidTarefaSequenciada: TIntegerField
+      FieldName = 'idTarefaSequenciada'
+      Required = True
+    end
+    object ClientdatasetGridOPidOperacao: TIntegerField
+      FieldName = 'idOperacao'
+      ReadOnly = True
+    end
+    object ClientdatasetGridOPoperacao: TStringField
+      FieldName = 'operacao'
+      ReadOnly = True
+      Size = 45
+    end
+    object ClientdatasetGridOPIdLinha_producao: TIntegerField
+      FieldName = 'IdLinha_producao'
+      ReadOnly = True
+    end
+    object ClientdatasetGridOPlinhaProducao: TStringField
+      FieldName = 'linhaProducao'
+      ReadOnly = True
+      Size = 45
+    end
+    object ClientdatasetGridOPidRecurso: TIntegerField
+      FieldName = 'idRecurso'
+      ReadOnly = True
+    end
+    object ClientdatasetGridOPnumOperador: TIntegerField
+      FieldName = 'numOperador'
+      ReadOnly = True
+    end
+    object ClientdatasetGridOPtipoRecurso: TStringField
+      FieldName = 'tipoRecurso'
+      ReadOnly = True
+      Size = 45
+    end
+    object ClientdatasetGridOPtempoInicio: TDateTimeField
+      FieldName = 'tempoInicio'
+      ReadOnly = True
+    end
+    object ClientdatasetGridOPTempoFim: TDateTimeField
+      FieldName = 'TempoFim'
+      ReadOnly = True
+    end
+    object ClientdatasetGridOPnumOrdem: TIntegerField
+      FieldName = 'numOrdem'
+      ReadOnly = True
+    end
+  end
+  object DSGridOP: TDataSource
+    DataSet = ClientdatasetGridOP
+    Left = 118
+    Top = 328
   end
 end
