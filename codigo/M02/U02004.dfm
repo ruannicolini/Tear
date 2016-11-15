@@ -2,6 +2,7 @@ inherited F02004: TF02004
   Caption = 'F02004'
   ClientHeight = 538
   ClientWidth = 1031
+  ExplicitLeft = -260
   ExplicitWidth = 1047
   ExplicitHeight = 577
   PixelsPerInch = 96
@@ -13,8 +14,6 @@ inherited F02004: TF02004
     ExplicitWidth = 1031
     ExplicitHeight = 503
     inherited TbDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 1023
       ExplicitHeight = 475
       inherited grDados: TGroupBox
@@ -37,8 +36,6 @@ inherited F02004: TF02004
           Color = clWindow
           ParentColor = False
           TabOrder = 0
-          ExplicitTop = 66
-          ExplicitHeight = 407
           object img: TImage
             Left = 677
             Top = 3
@@ -79,7 +76,6 @@ inherited F02004: TF02004
             Color = 16053492
             ParentBackground = False
             TabOrder = 0
-            ExplicitHeight = 380
             object cxScheduler1: TcxScheduler
               Left = 2
               Top = 2
@@ -110,7 +106,6 @@ inherited F02004: TF02004
               TabOrder = 0
               OnKeyDown = cxScheduler1KeyDown
               OnScaleScroll = cxScheduler1ScaleScroll
-              ExplicitHeight = 376
               Splitters = {
                 970100007E00000026020000830000009201000001000000970100006C010000}
               StoredClientBounds = {0100000001000000370200007A010000}
@@ -302,14 +297,13 @@ inherited F02004: TF02004
             ParentColor = False
             TabOrder = 2
             Visible = False
-            ExplicitHeight = 380
             object DBGrid1: TDBGrid
               Left = 0
               Top = 0
               Width = 213
               Height = 383
               Align = alClient
-              DataSource = DSChart
+              DataSource = DSTarefas
               TabOrder = 0
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWindowText
@@ -329,8 +323,6 @@ inherited F02004: TF02004
           BevelOuter = bvNone
           ParentBackground = False
           TabOrder = 1
-          ExplicitTop = 66
-          ExplicitHeight = 407
           object TabSet1: TTabSet
             Left = 0
             Top = 0
@@ -372,7 +364,6 @@ inherited F02004: TF02004
             Items = <>
             TabOrder = 1
             OnButtonClicked = BGIndexButtonClicked
-            ExplicitHeight = 374
           end
           object StatusBar1: TStatusBar
             Left = 0
@@ -385,8 +376,6 @@ inherited F02004: TF02004
                 Width = 50
               end>
             OnDrawPanel = StatusBar1DrawPanel
-            ExplicitTop = 456
-            ExplicitWidth = 1023
           end
         end
         object PanelInformacoes: TXiPanel
@@ -472,8 +461,6 @@ inherited F02004: TF02004
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 1023
       ExplicitHeight = 475
       inherited GBFiltros: TGroupBox
@@ -584,7 +571,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C00440210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00480210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

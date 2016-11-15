@@ -245,9 +245,7 @@ type
     StatusBar1: TStatusBar;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
-    procedure BInserirClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure mTarefasAfterDelete(DataSet: TDataSet);
     procedure mTarefasAfterPost(DataSet: TDataSet);
@@ -276,6 +274,7 @@ type
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure ClientDataSet1BeforeInsert(DataSet: TDataSet);
     procedure BCancelarClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -328,35 +327,16 @@ end;
 procedure TF02004.BCancelarClick(Sender: TObject);
 begin
   inherited;
+  PanelInformacoes.Enabled := false;
   PanelInformacoes.VISIBLE := false;
-
-end;
-
-Procedure TF02004.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  PanelInformacoes.Enabled := true;
-  PanelInformacoes.visible := true;
   grdados.Enabled := true;
+
 end;
 
 procedure TF02004.BExcluirClick(Sender: TObject);
 begin
   inherited;
   grdados.Enabled := true;
-end;
-
-procedure TF02004.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  PanelInformacoes.Enabled := true;
-  PanelInformacoes.visible := true;
-  ClientDataSet1dataSeq.AsDateTime := (Date);
-
-  // Limpa panel busca e Layout visible;
-  BGIndex.items.Clear;
-  ClientDataSetChart.EmptyDataSet;
-  cxSchedulerDBStorage1.Resources.Items.Clear;
 end;
 
 procedure TF02004.BPesquisarClick(Sender: TObject);
@@ -530,7 +510,34 @@ begin
   //Aciona o click em Tabset e mostra as informações no TButtonGroup BDIndex
   // A pesquisa pode ser por Linha de produção ou por Ordem sequenciada de acordo com o TabSet selecionado
   StatusBar1.Panels[0].Text := 'SEQ [ '+ ClientDataSet1idSequenciamento.AsString+' ]';
+
   TabSet1Click(sender);
+end;
+
+procedure TF02004.DSStateChange(Sender: TObject);
+begin
+  inherited;
+
+  if (ds.DataSet.State = dsInsert) then
+  begin
+      //
+      PanelInformacoes.Enabled := true;
+      PanelInformacoes.visible := true;
+      ClientDataSet1dataSeq.AsDateTime := (Date);
+
+      // Limpa panel busca e Layout visible;
+
+      ClientDataSetChart.EmptyDataSet;
+      cxSchedulerDBStorage1.Resources.Items.Clear;
+      BGIndex.items.Clear;
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+      PanelInformacoes.Enabled := true;
+      PanelInformacoes.visible := true;
+      grdados.Enabled := true;
+  end;
+
 end;
 
 procedure TF02004.montaCelulas(var celulas: TArray<TLinhaProducao>);
@@ -864,10 +871,31 @@ begin
       end else
       if(TabSet1.TabIndex = 1)then
       begin
-        cxScheduler1.Visible := false;
-        DBGridOP.Visible := true;
+          //OP
+          cxScheduler1.Visible := false;
+          DBGridOP.Visible := true;
 
-        //OP
+          FDQuery2.Close;
+          mTarefas.Close;
+          FDQuery2.SQL.Text :=
+          'select ts.idTarefaSequenciada, ts.idCronometragem, o.descricao as operacao,'+
+          'ts.idOrdem, Op.numOrdem,ts.numOperador, ts.idsequenciamento,                '+
+          'ts.idRecurso, tr.descricao as tipoRecurso,                                  '+
+          'ts.IdLinha_producao, lp.descricao as linhaProducao,                         '+
+          'ts.tempoInicio, ts.TempoFim                                                 '+
+          'from tarefa_sequenciada ts                                                  '+
+          'left outer join cronometragem c on c.idCronometragem = ts.idCronometragem   '+
+          'left outer join operacao o on o.idOperacao = c.idOperacao                   '+
+          'left outer join ordem_producao op on op.idOrdem = ts.idOrdem                '+
+          'left outer join tipo_recurso tr on tr.idTipo_recurso = ts.idrecurso         '+
+          'left outer join grupo lp on lp.idGrupo = ts.idLinha_Producao                '+
+          'where ts.idSequenciamento =:idSeq                                          '+
+          'Order by ts.IdLinha_producao, ts.numOperador';
+
+          FDQuery2.ParamByName('idSeq').AsInteger := ClientDataSet1idSequenciamento.AsInteger;
+          FDQuery2.Open;
+          mTarefas.open;
+
           if not(mTarefas.IsEmpty)then
           begin
               montaBGIndexOrdem(mtarefas);
@@ -876,6 +904,7 @@ begin
           end else
           begin
             BGIndex.items.Clear;
+            ClientDataSetGridOP.EmptyDataSet;
           end;
       end;
   end;
