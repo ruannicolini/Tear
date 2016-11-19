@@ -92,8 +92,7 @@ type TLinhaProducao =  record
     qtdOperadores : integer;
     maquinas : array of TRecursoMaquina;
     fasesHabilitadas : array of integer; // Fases de produtos que a linha de produção pode executar;
-    dataUltimoAgendamento : String;    //Passar para dateTime
-    HoraUltimoAgendamento: String;
+    UltimoAgendamento : TdateTime;    //data e hora de ate quando a Linha estará ocupada
     constructor Create(codLP,qtdO:integer;descLP :String);
 end;
 
@@ -101,8 +100,8 @@ end;
 
 type TTarefa = record
   CodTarefa     : Integer;
-  TempoInicio   : Double; //dateTime
-  TempoTermino  : Double;
+  TempoInicio   : TdateTime;
+  TempoTermino  : TdateTime;
 
 end;
 
@@ -245,7 +244,6 @@ type
     PanelInformacoes: TXiPanel;
     StatusBar1: TStatusBar;
     procedure SpeedButton1Click(Sender: TObject);
-    procedure SpeedButton2Click(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure mTarefasAfterDelete(DataSet: TDataSet);
@@ -282,7 +280,6 @@ type
     { Public declarations }
     Panel : TPANEL;
     ProgressBar : TProgressBar;
-    procedure CalculaMetaHora();
     procedure montaJobs(var jobs: TArray<TOrdem>);
     procedure montaCelulas(var celulas: TArray<TLinhaProducao>);
     procedure montaLayoutOperacoes(telaOP: TScrollBox; dados: TClientDataSet);
@@ -295,7 +292,6 @@ type
 var
   F02004: TF02004;
   TempoTotal : real;
-  MetaHora   : integer;
   LP: integer; //Linha de Produção visivel no momento
 
 implementation
@@ -434,51 +430,6 @@ begin
 
 end;
 
-
-procedure TF02004.CalculaMetaHora;
-begin
-  TempoTotal := 0;
-{  Dmodule.QAux.sql.Text := 'select sum(tempoOperacao) from LayOutOperacao where IdLayoutFase =:IdLF ';
-  Dmodule.QAux.ParamByName('IdLF').AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-  Dmodule.QAux.open;
-
-  //showmessage(FloatToStr(Dmodule.qaux.Fields[0].AsFloat));
-  TempoTotal := (Dmodule.qaux.Fields[0].AsFloat)/1000; //converte de milesegundos para segundos
-
-  //calculando a cota por operacao
-  MOperacoes.close;
-  fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-  MOperacoes.Open;
-
-
-  if TempoTotal > 0 then
-  begin
-      //meta hora calculo
-      MetaHora := trunc((60/TempoTotal)* ClientDataSet1numOperadores.AsInteger);
-      //showmessage('Tempo total '+floattostr(TempoTotal)+' meta hora '+inttostr(MetaHora));
-
-      //showmessage('Montou pro layout  '+inttostr(MLayoutIdLayout.AsInteger));
-      //calculando a cota por operacao
-      MOperacoes.close;
-      fdquery2.Params[0].AsInteger := ClientDataSet1idLayoutFase.AsInteger;
-      MOperacoes.Open;
-
-      MOperacoes.First;
-      while not(moperacoes.Eof) do
-      begin
-          moperacoes.Edit;
-          MOperacoesCota.AsFloat         := (MetaHora/(60/ (moperacoestempoOperacao.AsFloat/1000)))*100; // OBS: tempo operação é dividido por 1000 para passar de milesegundos para segundos
-          MOperacoesCotaPendente.AsFloat := MOperacoesCota.AsFloat;
-          MOperacoes.Next;
-      end;
-  end;
-
-  ed_metaHora.text := Integer.ToString(MetaHora);
-  Ed_tempo.text    := Double.ToString(TempoTotal);
-}
-end;
-
-
 procedure TF02004.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin
   inherited;
@@ -557,10 +508,10 @@ begin
     celulas[i] := TLinhaProducao.create(
     DModule.qAux.FieldByName('idGrupo').AsInteger,
     DModule.qAux.FieldByName('qtdOperadores').AsInteger,
-    DModule.qAux.FieldByName('descricao').AsString
-    );
+    DModule.qAux.FieldByName('descricao').AsString);
     Dmodule.qAux.Next;
   end;
+
 
 end;
 
@@ -770,45 +721,34 @@ celulas: TArray<TLinhaProducao>;
 begin
   inherited;
 
-  //Salva registro principal
-  if not(Ds.DataSet.State = dsEdit)then
+  if Application.MessageBox('Confirma nova distribuição de tarefa? O registro será salvo para dar continuidade ao balanceamento.','Processamento',mb_yesno+mb_iconquestion) = id_yes then
   begin
-  DS.DataSet.Post;
-  DS.DataSet.edit;
+      //Salva registro principal
+      if not(Ds.DataSet.State = dsEdit)then
+      begin
+      DS.DataSet.Post;
+      DS.DataSet.edit;
+      end;
+
+      {************************* MONTA Array Jobs e Celulas *************************}
+      montaJobs(jobs);
+      montaCelulas(celulas);
+
+      {************************* CHAMA UNIT DE BALANCEAMENTO E SEQUENCIAMENTO *************************}
+      //retorno := unitMykel(jobs, celulas);
+
+      // salva em mtarefas
+
+      // comando popular scrollboxLinhaP ou ScrollboxOrdem e mostrar scrollbox_layout
+      TabSet1Click(Sender);
+
+      {************************* MONTA SCROLLBOX_OPERAÇÕES *************************}
+      if not(mTarefas.IsEmpty) then
+      begin
+        montaLayoutOperacoes(ScrollboxOperacoes, mTarefas);    //vai sair
+      end;
   end;
 
-  {************************* CALCULA META HORA *************************}
-  CalculaMetaHora;
-
-  {************************* MONTA Array Jobs e Celulas *************************}
-  montaJobs(jobs);
-  montaCelulas(celulas);
-
-  {************************* CHAMA UNIT DE BALANCEAMENTO E SEQUENCIAMENTO *************************}
-  //retorno := unitMykel(jobs, celulas);
-
-  // salva em mtarefas
-
-  // comando popular scrollboxLinhaP ou ScrollboxOrdem e mostrar scrollbox_layout
-  TabSet1Click(Sender);
-
-  {************************* MONTA SCROLLBOX_OPERAÇÕES *************************}
-  if not(mTarefas.IsEmpty) then
-  begin
-    montaLayoutOperacoes(ScrollboxOperacoes, mTarefas);    //vai sair
-  end;
-
-
-end;
-
-procedure TF02004.SpeedButton2Click(Sender: TObject);
-begin
-  inherited;
-  //
-  if Application.MessageBox('Confirma Processar LayOut?','Processamento',mb_yesno+mb_iconquestion) = id_yes then
-  begin
-
-  end;
 end;
 
 procedure TF02004.StatusBar1DrawPanel(StatusBar: TStatusBar;
@@ -1084,9 +1024,20 @@ begin
   descricaoLinhaProducao := descLP;
   qtdOperadores := qtdO;
 
-  //Array fasesHabilitadas, é um array de integer
+  // SET DATETIME ULTIMO HORARIO AGENDADO DA LINHA DE PRODUÇÃO
   qAux2 := TFDQuery.Create(Application);
   qAux2.Connection := DModule.FDConnection;
+  qAux2.SQL.Text := 'select max(tempoFim) as ultimoAgendamento from tarefa_sequenciada where idLinha_Producao =:IDLP';
+  qAux2.ParamByName('IDLP').AsInteger := codLinhaProducao;
+  qAux2.Open;
+
+  if NOT(qAux2.FieldByName('ultimoAgendamento').IsNull)then
+  begin
+    UltimoAgendamento := qAux2.FieldByName('ultimoAgendamento').AsDateTime;
+  end;
+
+  //Array fasesHabilitadas, é um array de integer
+  qAux2.Close;
   qAux2.SQL.Text := 'SELECT * FROM fase_has_grupo fhg where fhg.idGrupo =:IDG';
   qAux2.ParamByName('IDG').AsInteger := codLinhaProducao;
   qAux2.Open;
@@ -1152,8 +1103,7 @@ begin
         DModule.qAux.Open;
         cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Location := 'Ordem' + DModule.qAux.FieldByName('numOrdem').AsString;
 
-        cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Message := 'Recurso: ' + ClientDataSetCharttipoRecurso.AsString +
-                  #13 + 'Qtd: ' + inttostr(45);
+        cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).Message := 'Recurso: ' + ClientDataSetCharttipoRecurso.AsString;
         //
         cxSchedulerDBStorage1.GetEventByID(AViewInfo.Event.ID).LabelColor := 13952740;
 
