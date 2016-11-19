@@ -92,7 +92,7 @@ type TLinhaProducao =  record
     qtdOperadores : integer;
     maquinas : array of TRecursoMaquina;
     fasesHabilitadas : array of integer; // Fases de produtos que a linha de produção pode executar;
-    dataUltimoAgendamento : String;
+    dataUltimoAgendamento : String;    //Passar para dateTime
     HoraUltimoAgendamento: String;
     constructor Create(codLP,qtdO:integer;descLP :String);
 end;
@@ -101,8 +101,9 @@ end;
 
 type TTarefa = record
   CodTarefa     : Integer;
-  TempoInicio   : Double;
+  TempoInicio   : Double; //dateTime
   TempoTermino  : Double;
+
 end;
 
 type TOperador = record
