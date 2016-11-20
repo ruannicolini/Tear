@@ -9,10 +9,11 @@ inherited F02004: TF02004
   inherited PageControl: TPageControl
     Width = 1031
     Height = 503
-    ActivePage = TbDados
     ExplicitWidth = 1031
     ExplicitHeight = 503
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1023
       ExplicitHeight = 475
       inherited grDados: TGroupBox
@@ -210,6 +211,7 @@ inherited F02004: TF02004
                   Alignment = taCenter
                   Expanded = False
                   FieldName = 'numOperador'
+                  Title.Alignment = taCenter
                   Title.Caption = 'OPER'
                   Title.Font.Charset = DEFAULT_CHARSET
                   Title.Font.Color = clBlack
@@ -460,6 +462,8 @@ inherited F02004: TF02004
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 1023
       ExplicitHeight = 475
       inherited GBFiltros: TGroupBox
@@ -570,7 +574,7 @@ inherited F02004: TF02004
     Left = 608
     Top = 0
     Bitmap = {
-      494C01010E002C004C0210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00540210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

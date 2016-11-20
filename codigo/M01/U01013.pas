@@ -149,6 +149,7 @@ type
     Edit6: TEdit;
     chkTempoOriginal: TCheckBox;
     chkTempoIdeal: TCheckBox;
+    CDS_BatidaUTI: TStringField;
     procedure DBEditBeleza1Click(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
@@ -190,6 +191,10 @@ type
     procedure BExcluirClick(Sender: TObject);
     procedure DBEdit17Click(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DBGridBatidaDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DBGridBatidaDblClick(Sender: TObject);
+    procedure DBGridBatidaColEnter(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -846,7 +851,7 @@ begin
   //CalculaTempoPadraoFinal;
 end;
 
-procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
+Procedure TF01013.CDS_RecursoAfterCancel(DataSet: TDataSet);
 begin
   inherited;
   CDS_Recurso.CancelUpdates;
@@ -964,6 +969,60 @@ begin
   DBEditBeleza1.Text := '';
 end;
 
+procedure TF01013.DBGridBatidaColEnter(Sender: TObject);
+begin
+  inherited;
+
+  {
+  if UpperCase(DBGridBatida.SelectedField.FieldName) = 'UTI' then
+  BEGIN
+    DBGridBatida.Options := DBGridBatida.Options - [dgEditing];
+    ShowMessage('ENT');
+  END
+  else
+    DBGridBatida.Options := DBGridBatida.Options + [dgEditing];
+  }
+end;
+
+Procedure TF01013.DBGridBatidaDblClick(Sender: TObject);
+VAR
+Check: Integer;
+R: TRect;
+begin
+  inherited;
+  IF NOT(CDS_Batida.IsEmpty)THEN
+  BEGIN
+      CDS_Batida.Edit;
+      CDS_Batidautilizar.AsBoolean := not CDS_Batidautilizar.AsBoolean;
+      CDS_Batida.Post;
+
+  END;
+end;
+
+procedure TF01013.DBGridBatidaDrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+Check: Integer;
+R: TRect;
+begin
+    //Desenha um checkbox no dbgrid
+    if Column.FieldName = 'UTI' then
+    begin
+      DBGridBatida.Canvas.FillRect(Rect);
+      Check := 0;
+      if CDS_Batidautilizar.AsBoolean = TRUE then
+        Check := DFCS_CHECKED
+    else
+    BEGIN
+      Check := 0;
+    END;
+    R:=Rect;
+    InflateRect(R,-2,-2); {Diminue o tamanho do CheckBox}
+    DrawFrameControl(DBGridBatida.Canvas.Handle,R,DFC_BUTTON, DFCS_BUTTONCHECK or Check);
+    end;
+end;
+
+
 procedure TF01013.DBGridBatidaKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -975,7 +1034,6 @@ begin
      begin
         CDS_Batida.Delete;
         DS.OnDataChange(Sender, nil);
-
         CalculaTempoPadraoFinal();
      end;
   end;

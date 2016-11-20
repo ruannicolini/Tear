@@ -482,12 +482,14 @@ begin
       ClientDataSetChart.EmptyDataSet;
       cxSchedulerDBStorage1.Resources.Items.Clear;
       BGIndex.items.Clear;
+      BCancelar.Visible := true;
   end;
   if (ds.DataSet.State = dsEdit) then
   begin
       PanelInformacoes.Enabled := true;
       PanelInformacoes.visible := true;
       grdados.Enabled := true;
+      BCancelar.Visible := true;
   end;
 
 end;
@@ -726,8 +728,9 @@ begin
       //Salva registro principal
       if not(Ds.DataSet.State = dsEdit)then
       begin
-      DS.DataSet.Post;
-      DS.DataSet.edit;
+          DS.DataSet.Post;
+          DS.DataSet.edit;
+          BCancelar.Visible := false;
       end;
 
       {************************* MONTA Array Jobs e Celulas *************************}

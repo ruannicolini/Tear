@@ -3,6 +3,8 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
+  ExplicitLeft = -305
+  ExplicitTop = -190
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -10,6 +12,7 @@ inherited F01013: TF01013
   inherited PageControl: TPageControl
     Width = 1190
     Height = 615
+    ActivePage = TbDados
     ExplicitWidth = 1190
     ExplicitHeight = 615
     inherited TbDados: TTabSheet
@@ -538,13 +541,16 @@ inherited F01013: TF01013
               TitleFont.Height = -13
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
+              OnColEnter = DBGridBatidaColEnter
+              OnDrawColumnCell = DBGridBatidaDrawColumnCell
+              OnDblClick = DBGridBatidaDblClick
               OnKeyDown = DBGridBatidaKeyDown
               Cor_2 = 16382457
               Direcao_Cor2 = dg_Vertical
               Direcao_Enter = dg_Horiz
               ClickTituloOrdenar = True
-              MarcarLinhaInteira = True
-              CorLinhaMarcada = 16382457
+              MarcarLinhaInteira = False
+              CorLinhaMarcada = 15854564
               BloquearExportacoes = False
               Columns = <
                 item
@@ -584,12 +590,9 @@ inherited F01013: TF01013
                   Visible = True
                 end
                 item
-                  Alignment = taCenter
                   Expanded = False
-                  FieldName = 'utilizar'
-                  Title.Alignment = taCenter
+                  FieldName = 'UTI'
                   Title.Caption = 'UTILIZAR'
-                  Width = 75
                   Visible = True
                 end>
             end
@@ -1416,7 +1419,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00180210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00200210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -2086,6 +2089,11 @@ inherited F01013: TF01013
     object CDS_BatidaidCronometragem: TIntegerField
       FieldName = 'idCronometragem'
       Origin = 'idCronometragem'
+    end
+    object CDS_BatidaUTI: TStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'UTI'
+      Size = 1
     end
   end
   object FDQ_Batida: TFDQuery
