@@ -40,7 +40,6 @@ end;
 
 procedure TF01014.Button1Click(Sender: TObject);
 var
-i:integer;
 arq : TextFile;
 pasta : string;
 arqCompleto : TJsonObject;

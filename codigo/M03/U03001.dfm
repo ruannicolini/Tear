@@ -82,7 +82,7 @@ inherited F03001: TF03001
         object DBEdit4: TDBEdit
           Left = 16
           Top = 155
-          Width = 270
+          Width = 286
           Height = 21
           DataField = 'descricao'
           DataSource = DS
@@ -147,7 +147,7 @@ inherited F03001: TF03001
         object DBCheckBox1: TDBCheckBox
           Left = 91
           Top = 37
-          Width = 97
+          Width = 88
           Height = 17
           Caption = 'visivelMenu'
           DataField = 'visivelMenu'
@@ -171,44 +171,52 @@ inherited F03001: TF03001
       inherited DBGridBeleza1: TDBGridBeleza
         Columns = <
           item
+            Alignment = taCenter
             Expanded = False
             FieldName = 'idinterface'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'idmodulo'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'idgrupo'
+            Title.Caption = 'COD'
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'descricao'
+            Title.Caption = 'DESCRI'#199#195'O'
             Visible = True
           end
           item
+            Alignment = taCenter
             Expanded = False
-            FieldName = 'icone'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'tela'
+            FieldName = 'idmodulo'
+            Title.Caption = 'MODULO'
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'modulo'
+            Title.Caption = ' '
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'tela'
+            Title.Caption = 'TELA'
+            Width = 534
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'visivelMenu'
-            Visible = True
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'idgrupo'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'icone'
+            Visible = False
           end>
       end
     end
@@ -316,7 +324,7 @@ inherited F03001: TF03001
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010C002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010C002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

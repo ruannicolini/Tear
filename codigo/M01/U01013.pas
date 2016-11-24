@@ -11,7 +11,7 @@ uses
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.ComCtrls, Vcl.Buttons, Vcl.DBCtrls, Vcl.Mask, DBEditBeleza, EditBeleza, DATEUTILS,
-  DBSQLEditBeleza;
+  DBSQLEditBeleza, system.UITypes;
 
 type
   TF01013 = class(TFBase)
@@ -194,7 +194,6 @@ type
     procedure DBGridBatidaDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure DBGridBatidaDblClick(Sender: TObject);
-    procedure DBGridBatidaColEnter(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -408,8 +407,6 @@ begin
 end;
 
 procedure TF01013.bRelatorioClick(Sender: TObject);
-var
-  nomeTela: String;
 begin
   inherited;
 
@@ -568,9 +565,7 @@ end;
 
 procedure TF01013.btnLapClick(Sender: TObject);
 var
-Ano, Mes, Dia, Hora, Min, Seg, MSeg: Word;
-tempoCronometro :TDateTime;
-r: TDateTime;
+Hora, Min, Seg, MSeg: Word;
 begin
   inherited;
   if(status = false)then
@@ -744,7 +739,7 @@ end;
 
 procedure TF01013.cronoTimer(Sender: TObject);
 var
-  Ano, Mes, Dia, Hora, Min, Seg, MSeg: Word;
+Hora, Min, Seg, MSeg: Word;
 begin
   inherited;
   if(statusParada = true)then
@@ -775,9 +770,8 @@ end;
 
 procedure TF01013.CalculaTempoPadraoFinal();
 var
-i, hor, min, seg, mil, soma : integer;
+i, min, seg, mil, soma : integer;
 tempoMedio, tempoPadrao, tempoPadraoFinal: double;
-fTPF: Ttime;
 begin
   //idcronometragem
   //num_pecas
@@ -969,25 +963,7 @@ begin
   DBEditBeleza1.Text := '';
 end;
 
-procedure TF01013.DBGridBatidaColEnter(Sender: TObject);
-begin
-  inherited;
-
-  {
-  if UpperCase(DBGridBatida.SelectedField.FieldName) = 'UTI' then
-  BEGIN
-    DBGridBatida.Options := DBGridBatida.Options - [dgEditing];
-    ShowMessage('ENT');
-  END
-  else
-    DBGridBatida.Options := DBGridBatida.Options + [dgEditing];
-  }
-end;
-
 Procedure TF01013.DBGridBatidaDblClick(Sender: TObject);
-VAR
-Check: Integer;
-R: TRect;
 begin
   inherited;
   IF NOT(CDS_Batida.IsEmpty)THEN
@@ -1056,8 +1032,7 @@ end;
 
 procedure TF01013.DSDataChange(Sender: TObject; Field: TField);
 var
-matriz: array of array of integer;
-i, hor, min, seg, mil : integer;
+min, seg, mil : integer;
 fTempoCronometr: TTime;
 begin
   inherited;
@@ -1074,7 +1049,6 @@ begin
   DModule.qAux.first;
 
   //Contagem dos valores
-  i := 0;
   while not DModule.qAux.eof do
   begin
     //Converte Todos para milésimos
@@ -1082,7 +1056,6 @@ begin
     seg := StrToInt(DModule.qAux.FieldByName('segundos').AsString) * 1000;
     mil := StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
     fTempoCronometr := fTempoCronometr + ((mil + seg + min) * OneMillisecond);
-    i := i +1;
     DModule.qAux.next;
   end;
   edit2.Text := formatdatetime('hh:nn:ss.zzz',  fTempoCronometr);

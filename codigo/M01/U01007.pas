@@ -11,7 +11,7 @@ uses
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza, DBEditCalendario,
-  EditBeleza;
+  EditBeleza, System.UITypes;
 
 type
   TF01007 = class(TFBase)
@@ -362,7 +362,6 @@ end;
 
 procedure TF01007.BitBtn5Click(Sender: TObject);
 var
-  nomeTela: String;
   q: TFDQuery;
 begin
   q := TFDQuery.Create(self);
@@ -422,7 +421,6 @@ end;
 
 procedure TF01007.bRelatorioClick(Sender: TObject);
 var
-  nomeTela: String;
   q: TFDQuery;
 begin
   inherited;
@@ -493,8 +491,6 @@ begin
 end;
 
 procedure TF01007.BtnExcluirOperacaoClick(Sender: TObject);
-var
-x: integer;
 begin
      inherited;
      DModule.qAux.Close;

@@ -1,7 +1,5 @@
 inherited F01005: TF01005
   Caption = 'F01005'
-  ExplicitWidth = 834
-  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
@@ -50,10 +48,6 @@ inherited F01005: TF01005
       end
     end
     inherited TbFiltros: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 810
-      ExplicitHeight = 455
       inherited DBGridBeleza1: TDBGridBeleza
         Columns = <
           item
@@ -119,7 +113,7 @@ inherited F01005: TF01005
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00D80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

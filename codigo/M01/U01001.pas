@@ -37,7 +37,6 @@ type
     procedure Action5Execute(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
-    procedure BPesquisarClick(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
   private
     { Private declarations }
@@ -126,15 +125,7 @@ begin
   DBEdit1.Color := CorCamposOnlyRead();
 end;
 
-procedure TF01001.BPesquisarClick(Sender: TObject);
-begin
-  inherited;
-  //FDQuery1.SQL.Text := 'select * from acao';
-end;
-
 procedure TF01001.bRelatorioClick(Sender: TObject);
-var
-  nomeTela: String;
 begin
   inherited;
 

@@ -3,8 +3,6 @@ inherited F01013: TF01013
   ClientHeight = 650
   ClientWidth = 1190
   OnCreate = FormCreate
-  ExplicitLeft = -305
-  ExplicitTop = -190
   ExplicitWidth = 1206
   ExplicitHeight = 689
   PixelsPerInch = 96
@@ -541,7 +539,6 @@ inherited F01013: TF01013
               TitleFont.Height = -13
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
-              OnColEnter = DBGridBatidaColEnter
               OnDrawColumnCell = DBGridBatidaDrawColumnCell
               OnDblClick = DBGridBatidaDblClick
               OnKeyDown = DBGridBatidaKeyDown
@@ -600,6 +597,10 @@ inherited F01013: TF01013
           object TabSheet2: TTabSheet
             Caption = 'Recursos'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object GroupBox2: TGroupBox
               Left = 0
               Top = 0
@@ -1419,7 +1420,7 @@ inherited F01013: TF01013
     Left = 824
     Top = 80
     Bitmap = {
-      494C01010E002C00200210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00240210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -10,7 +10,7 @@ uses
   System.Actions, Vcl.ActnList, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, EditBeleza;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, EditBeleza, System.UITypes;
 
 type
   TF01003 = class(TFBase)
@@ -325,7 +325,6 @@ end;
 
 procedure TF01003.bRelatorioClick(Sender: TObject);
 var
-  nomeTela: String;
   q: TFDQuery;
 begin
   inherited;

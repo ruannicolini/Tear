@@ -126,8 +126,6 @@ begin
 end;
 
 procedure TF01002.bRelatorioClick(Sender: TObject);
-var
-  nomeTela: String;
 begin
   inherited;
 

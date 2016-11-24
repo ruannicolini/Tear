@@ -228,8 +228,6 @@ begin
 end;
 
 procedure TF02002.bRelatorioClick(Sender: TObject);
-var
-  nomeTela: String;
 begin
   inherited;
   if NOT(Ds.DataSet.IsEmpty)then
@@ -260,9 +258,9 @@ end;
 procedure TF02002.BSalvarClick(Sender: TObject);
 var
 matriz: array of array of integer;
-idProd, idN, NOrdem, qtd, idOrdem : Integer;
+idProd, idN, NOrdem, qtd: Integer;
 qtdInsereMatriz : integer;
-QTD_PRODUZINDO, QTD_PREVISTA, QTD_FINALIZADA, QTD_Original, I, IDFASE, IDGRUPO, SEQUENCIA: INTEGER;
+I{, QTD_PRODUZINDO, QTD_PREVISTA, QTD_FINALIZADA, QTD_Original, IDFASE, IDGRUPO, SEQUENCIA}: INTEGER;
 obs : string;
 QAUX2: TFDQUERY;
 status,dividirAvancar, dividirRetrabalho : boolean;
@@ -295,7 +293,7 @@ begin
         //ShowMessage('DividirOrdem');
         QAUX2 := TFDQuery.Create(SELF);
         QAUX2.Connection := DModule.FDConnection;
-        QTD_Original := strtoint(dbedit5.Text);
+        {QTD_Original := strtoint(dbedit5.Text);}
 
         //Aqui vou criar outra ordem com as mesmas fases e com a quantidade indormada,
         // em observações basta informar que é uma ordem de Finalização parcial.

@@ -102,8 +102,6 @@ begin
 end;
 
 procedure TF02003.bRelatorioClick(Sender: TObject);
-var
-  nomeTela: String;
 begin
   inherited;
   if NOT(Ds.DataSet.IsEmpty)then
