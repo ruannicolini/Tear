@@ -1006,11 +1006,14 @@ begin
   qAux2.ParamByName('idC').AsInteger := codCro;
   qAux2.open;
 
-  SetLength(precedencia, qAux2.RecordCount);
-  for I := 0 to (qAux2.RecordCount - 1) do
+  if(qAux2.RecordCount > 0)then
   begin
-      precedencia[i] := qaux2.FieldByName('idCronometragemDependencia').AsInteger;
-      qAux2.Next;
+      SetLength(precedencia, qAux2.RecordCount);
+      for I := 0 to (qAux2.RecordCount - 1) do
+      begin
+          precedencia[i] := qaux2.FieldByName('idCronometragemDependencia').AsInteger;
+          qAux2.Next;
+      end;
   end;
   FreeAndNil(qAux2);
 end;

@@ -194,6 +194,8 @@ type
     procedure DBGridBatidaDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure DBGridBatidaDblClick(Sender: TObject);
+    procedure DBGridBeleza1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -1015,6 +1017,29 @@ begin
   end;
 
 end;
+
+procedure TF01013.DBGridBeleza1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+Check: Integer;
+R: TRect;
+begin
+    //Desenha um checkbox no dbgrid
+    if Column.FieldName = 'tempo_original' then
+    begin
+      if ClientDataSet1tempo_original.AsBoolean = TRUE then
+      begin
+        //
+
+      end else
+      BEGIN
+        //
+
+      END;
+    end;
+    inherited;
+end;
+
 
 procedure TF01013.DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
