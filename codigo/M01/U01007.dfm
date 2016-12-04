@@ -13,6 +13,8 @@ inherited F01007: TF01007
     ExplicitWidth = 843
     ExplicitHeight = 490
     inherited TbDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 835
       ExplicitHeight = 462
       inherited grDados: TGroupBox
@@ -215,6 +217,15 @@ inherited F01007: TF01007
                 FieldName = 'tempoPadraoFinal'
                 Title.Alignment = taCenter
                 Title.Caption = 'TPF'
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'Time'
+                Title.Alignment = taCenter
+                Title.Caption = 'TPF-Hora'
+                Width = 150
                 Visible = True
               end>
           end
@@ -554,7 +565,7 @@ inherited F01007: TF01007
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = []
-            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
             ParentFont = False
             ParentShowHint = False
             ShowHint = True
@@ -624,6 +635,8 @@ inherited F01007: TF01007
       end
     end
     inherited TbFiltros: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 835
       ExplicitHeight = 462
       inherited GBFiltros: TGroupBox
@@ -746,15 +759,6 @@ inherited F01007: TF01007
           TabOrder = 5
           Visible = False
         end
-        object BitBtn5: TBitBtn
-          Left = 560
-          Top = 24
-          Width = 75
-          Height = 25
-          Caption = 'BitBtn5'
-          TabOrder = 6
-          OnClick = BitBtn5Click
-        end
       end
     end
   end
@@ -843,7 +847,7 @@ inherited F01007: TF01007
     Left = 632
     Top = 232
     Bitmap = {
-      494C01010D002C00E80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00F00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E
@@ -1397,6 +1401,7 @@ inherited F01007: TF01007
     AfterPost = ClientDataSet3AfterPost
     AfterCancel = ClientDataSet3AfterCancel
     AfterDelete = ClientDataSet3AfterDelete
+    OnCalcFields = ClientDataSet3CalcFields
     Left = 440
     Top = 240
     object ClientDataSet3idcronometragem: TIntegerField
@@ -1445,6 +1450,11 @@ inherited F01007: TF01007
     object ClientDataSet3tempoPadraoFinal: TSingleField
       FieldName = 'tempoPadraoFinal'
       ProviderFlags = []
+    end
+    object ClientDataSet3Time: TStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'Time'
+      Size = 50
     end
   end
   object DataSetProvider3: TDataSetProvider
@@ -1557,7 +1567,7 @@ inherited F01007: TF01007
     Left = 596
     Top = 233
     Bitmap = {
-      494C010103000800540110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101030008005C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       000000000000000000000000000000000000000000000000000000000000F7F7
       F708B2B2B24D505050AF131313EC000000FF000000FF111111EE4D4D4DB2AEAE

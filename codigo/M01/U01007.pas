@@ -11,7 +11,7 @@ uses
   Datasnap.Provider, Datasnap.DBClient, System.ImageList, Vcl.ImgList,
   Vcl.Grids, Vcl.DBGrids, DBGridBeleza, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, DBEditBeleza, DBEditCalendario,
-  EditBeleza, System.UITypes;
+  EditBeleza, System.UITypes, system.DateUtils;
 
 type
   TF01007 = class(TFBase)
@@ -120,7 +120,7 @@ type
     ClientDataSet4sequencia: TIntegerField;
     ClientDataSet4descricao: TStringField;
     BitBtn4: TBitBtn;
-    BitBtn5: TBitBtn;
+    ClientDataSet3Time: TStringField;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
     procedure ClientDataSet3AfterCancel(DataSet: TDataSet);
@@ -160,10 +160,10 @@ type
       var query_result: TFDQuery);
     procedure DataSource4DataChange(Sender: TObject; Field: TField);
     procedure BitBtn4Click(Sender: TObject);
-    procedure BitBtn5Click(Sender: TObject);
     procedure btnRelatoriosClick(Sender: TObject);
     procedure PageControlChange(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure ClientDataSet3CalcFields(DataSet: TDataSet);
   private
     { Private declarations }
 
@@ -358,56 +358,6 @@ begin
     DataSource3.DataSet.Refresh;
 
   End;
-end;
-
-procedure TF01007.BitBtn5Click(Sender: TObject);
-var
-  q: TFDQuery;
-begin
-  q := TFDQuery.Create(self);
-  q.Connection := DModule.FDConnection;
-
-  //OBS : sec_to_time(c.tempopadraofinal/1000) - converte de milesegundos para segundos e retorna tempo
-  q.sql.text := 'select  p.idProduto, p.descricao as produto, f.idFase, f.descricao as fase, '+
-                '  op.idoperacao, op.descricao as operacao, '+
-                '  c.idCronometragem, c.ritmo, sec_to_time(c.tempopadraofinal/1000) as tempoPadraoFinal, c.tolerancia, phf.sequencia '+
-                '  from produto p '+
-                '  inner join produto_has_fase phf on phf.idproduto = p.idProduto '+
-                '  inner join fase f on f.idFase = phf.idfase '+
-                '  inner join operacao op on op.idfase = f.idfase '+
-                '  inner join cronometragem c on c.idproduto = p.idproduto and c.idoperacao = op.idoperacao and p.idproduto in (-1  ';
-
-  ds.DataSet.first;
-  while not ds.DataSet.Eof do
-  begin
-    q.sql.add(','+  ds.DataSet.FieldByName('idproduto').AsString);
-    ds.DataSet.Next;
-  end;
-  q.sql.add(')');
-
-
-  q.sql.add(' order by p.idproduto, phf.sequencia ');
-  q.open;
-
-  showmessage(q.SQL.Text);
-  if ds.DataSet.IsEmpty then
-  begin
-    ds.DataSet.Open;
-  end;
-
-  frelatorios := tfrelatorios.Create(self);
-  with frelatorios do
-  begin
-      try
-          visible := false;
-          Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idProduto', 'idProduto');
-          ShowModal;
-      finally
-          Relatorios_sis.close;
-          relats_usur.close;
-          Free;
-      end;
-   end;
 end;
 
 procedure TF01007.BPesquisarClick(Sender: TObject);
@@ -670,6 +620,15 @@ procedure TF01007.ClientDataSet3AfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSet3.ApplyUpdates(-1);
+end;
+
+procedure TF01007.ClientDataSet3CalcFields(DataSet: TDataSet);
+var
+fTPF: TTime;
+begin
+  inherited;
+  fTPF := ClientDataSet3tempoPadraoFinal.AsFloat * OneMillisecond;
+  ClientDataSet3Time.Value := formatdatetime('hh:nn:ss.zzz',  fTPF);
 end;
 
 procedure TF01007.ClientDataSet4AfterCancel(DataSet: TDataSet);

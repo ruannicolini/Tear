@@ -782,7 +782,7 @@ begin
 
   //Obtenção dos dados
     DModule.qAux.Close;
-    DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro';
+    DModule.qAux.SQL.Text := 'select * from batida where idCronometragem =:idCro and utilizar = true';
     DModule.qAux.ParamByName('idCro').AsInteger:= (ClientDataSet1idcronometragem.AsInteger);
     DModule.qAux.Open;
     DModule.qAux.first;
@@ -792,31 +792,40 @@ begin
     seg := 0;
     mil := 0;
     soma := 0;
-    while not DModule.qAux.eof do
+
+    if(DModule.qAux.RecordCount > 0)then
     begin
-      min := min + DModule.qAux.FieldByName('minutos').AsInteger;
-      seg := seg + StrToInt(DModule.qAux.FieldByName('segundos').AsString);
-      mil := mil + StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
-      i := i +1;
-      DModule.qAux.next;
-    end;
-    soma := (min* 60000) + seg * 1000 + mil;
+        while not DModule.qAux.eof do
+        begin
+          min := min + DModule.qAux.FieldByName('minutos').AsInteger;
+          seg := seg + StrToInt(DModule.qAux.FieldByName('segundos').AsString);
+          mil := mil + StrToInt(DModule.qAux.FieldByName('milesimos').AsString);
+          i := i +1;
+          DModule.qAux.next;
+        end;
 
-    if((i > 0) and ( ClientDataSet1num_pecas.AsInteger > 0))then
+        soma := (min* 60000) + seg * 1000 + mil;
+
+        if((i > 0) and ( ClientDataSet1num_pecas.AsInteger > 0))then
+        begin
+          //TempoMedio = (SomatórioTempo/NumeroBatidas)/NumerodePeças
+            tempoMedio := (soma/i)/ClientDataSet1num_pecas.AsInteger;
+
+          //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
+            tempoPadrao := tempoMedio * (ClientDataSet1ritmo.AsInteger/100);
+
+          //TempoPadraoFinal = TempoPadrao * (1+(Tolerancia/100))
+            tempoPadraoFinal := tempoPadrao * (1+(ClientDataSet1tolerancia.AsInteger/100));
+
+            ClientDataSet1tempoPadraoFinal.Value := tempoPadraoFinal;
+            DBEdit16.Text := FloatToStr(tempoPadraoFinal);
+        end;
+    end else
     begin
-      //TempoMedio = (SomatórioTempo/NumeroBatidas)/NumerodePeças
-        tempoMedio := (soma/i)/ClientDataSet1num_pecas.AsInteger;
-
-      //TempoPadrao = TempoMedio * (1+(1-(ritmo/100)))
-        tempoPadrao := tempoMedio * (ClientDataSet1ritmo.AsInteger/100);
-
-      //TempoPadraoFinal = TempoPadrao * (1+(Tolerancia/100))
-        tempoPadraoFinal := tempoPadrao * (1+(ClientDataSet1tolerancia.AsInteger/100));
-
-        ClientDataSet1tempoPadraoFinal.Value := tempoPadraoFinal;
-        DBEdit16.Text := FloatToStr(tempoPadraoFinal);
+        //Caso nenhum tempo seja utilizado
+        ClientDataSet1tempoPadraoFinal.Value := 0;
+        DBEdit16.Text := ClientDataSet1tempoPadraoFinal.AsString;
     end;
-
 end;
 
 procedure TF01013.CDS_BatidaAfterCancel(DataSet: TDataSet);
@@ -973,7 +982,7 @@ begin
       CDS_Batida.Edit;
       CDS_Batidautilizar.AsBoolean := not CDS_Batidautilizar.AsBoolean;
       CDS_Batida.Post;
-
+      CalculaTempoPadraoFinal();
   END;
 end;
 
