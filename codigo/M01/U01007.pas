@@ -566,18 +566,23 @@ begin
         ShowMessage('Selecione uma Operação.');
 
     end else
+    begin
       ShowMessage('Depedência não permitida');
+    end;
 
+    EditBeleza2.Clear;
+    EditBeleza2.Outro_Edit.Text := '';
 end;
 
 procedure TF01007.btnExcluirDependenciaClick(Sender: TObject);
 begin
   inherited;
   if MessageDlg('Deseja Apagar Dependência '+ IntToStr(ClientDataSet2idOperacao.AsInteger)+ ' - ' + ClientDataSet2descricao.AsString + '?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-     begin
+  begin
       ClientDataSet2.Delete;
-     end;
-
+  end;
+  EditBeleza2.Clear;
+  EditBeleza2.Outro_Edit.Text := '';
 end;
 
 procedure TF01007.ClientDataSet1AfterInsert(DataSet: TDataSet);

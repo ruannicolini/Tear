@@ -214,6 +214,7 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit3.Color := CorCamposOnlyRead();
+  ClientDataSet1sequenciado.AsBoolean := false;
 end;
 
 procedure TF02001.bRelatorioClick(Sender: TObject);

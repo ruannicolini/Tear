@@ -198,7 +198,7 @@ CREATE TABLE `dependencia` (
 
 LOCK TABLES `dependencia` WRITE;
 /*!40000 ALTER TABLE `dependencia` DISABLE KEYS */;
-INSERT INTO `dependencia` VALUES (191,244),(244,194),(250,256);
+INSERT INTO `dependencia` VALUES (191,244),(244,194),(250,256),(285,288),(286,288),(287,292),(288,289),(290,287),(290,289),(291,288),(294,287),(295,296),(296,297),(298,297),(299,296),(300,295),(300,302),(304,318),(306,311),(307,323),(308,305),(308,310),(308,336),(309,337),(311,323),(311,327),(312,309),(314,313),(315,314),(316,339),(317,338),(318,317),(319,308),(320,319),(321,319),(322,307),(322,323),(324,315),(325,314),(326,322),(327,307),(327,323),(328,311),(329,307),(330,324),(330,325),(331,312),(333,334),(334,335),(335,304),(337,330),(338,331),(338,332);
 /*!40000 ALTER TABLE `dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -523,7 +523,7 @@ CREATE TABLE `ordem_has_fase` (
 
 LOCK TABLES `ordem_has_fase` WRITE;
 /*!40000 ALTER TABLE `ordem_has_fase` DISABLE KEYS */;
-INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0),(88,35,8,10,0,0,1,1,10),(89,35,1,10,0,0,8,2,4),(90,35,5,10,0,0,22,3,4),(114,84,1,4,0,0,8,2,4),(115,84,5,4,0,4,22,3,0),(116,85,8,2,0,2,1,1,0),(117,85,1,2,2,0,8,2,0),(118,85,5,2,2,0,22,3,0),(119,87,8,100,0,0,21,1,100),(120,87,1,100,0,100,8,2,0),(121,87,5,100,100,0,22,3,0),(122,87,6,100,100,0,23,4,0),(123,87,7,100,100,0,1,5,0),(124,87,17,100,100,0,24,6,0),(125,87,18,100,100,0,25,7,0),(126,87,19,100,100,0,26,8,0),(151,91,8,100,0,100,21,1,0),(152,91,1,100,100,0,8,2,0),(153,91,5,100,100,0,22,3,0),(154,91,7,100,100,0,1,4,0),(163,93,7,530,0,530,29,1,0);
+INSERT INTO `ordem_has_fase` VALUES (31,7,8,25,0,0,NULL,1,26),(32,7,1,25,0,21,NULL,2,5),(33,7,5,25,21,3,NULL,3,0),(88,35,8,10,0,0,1,1,10),(89,35,1,10,0,0,8,2,4),(90,35,5,10,0,0,22,3,4),(114,84,1,4,0,0,8,2,4),(115,84,5,4,0,4,22,3,0),(116,85,8,2,0,2,1,1,0),(117,85,1,2,2,0,8,2,0),(118,85,5,2,2,0,22,3,0),(119,87,8,100,0,0,21,1,100),(120,87,1,100,0,100,8,2,0),(121,87,5,100,100,0,22,3,0),(122,87,6,100,100,0,23,4,0),(123,87,7,100,100,0,1,5,0),(124,87,17,100,100,0,24,6,0),(125,87,18,100,100,0,25,7,0),(126,87,19,100,100,0,26,8,0),(151,91,8,100,0,100,21,1,0),(152,91,1,100,100,0,8,2,0),(153,91,5,100,100,0,22,3,0),(154,91,7,100,100,0,1,4,0),(163,93,7,530,0,530,29,1,0),(164,94,7,400,0,400,28,1,0),(165,95,7,350,0,350,1,1,0),(166,96,7,1500,0,1500,1,1,0);
 /*!40000 ALTER TABLE `ordem_has_fase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,7 +552,7 @@ CREATE TABLE `ordem_producao` (
 
 LOCK TABLES `ordem_producao` WRITE;
 /*!40000 ALTER TABLE `ordem_producao` DISABLE KEYS */;
-INSERT INTO `ordem_producao` VALUES (7,1012,7,25,'2016-03-03','Teste de observações',1),(35,35,7,10,'2016-03-23',NULL,1),(84,35,7,4,'2016-03-25','Finalização Parcial da Ordem 35',1),(85,35,7,2,'2016-03-25','Retrabalho da Ordem 35',1),(87,1170516,105,100,'2016-05-17','Ordem de produção ativa.',1),(91,1,7,100,NULL,NULL,1),(93,1801,108,530,'2016-12-09','Prioridade',0);
+INSERT INTO `ordem_producao` VALUES (7,1012,7,25,'2016-03-03','Teste de observações',1),(35,35,7,10,'2016-03-23',NULL,1),(84,35,7,4,'2016-03-25','Finalização Parcial da Ordem 35',1),(85,35,7,2,'2016-03-25','Retrabalho da Ordem 35',1),(87,1170516,105,100,'2016-05-17','Ordem de produção ativa.',1),(91,1,7,100,NULL,NULL,1),(93,1801,108,530,'2016-12-09','Prioridade',0),(94,11012,108,400,'2016-12-10',NULL,0),(95,21012,110,350,'2016-12-10',NULL,0),(96,11012,111,1500,'2016-12-10',NULL,0);
 /*!40000 ALTER TABLE `ordem_producao` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -596,7 +596,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES ('seqAcao',NULL,35),('seqBatida',NULL,519),('seqCelula',NULL,30),('seqCronometragem',NULL,340),('seqCronometrista',NULL,12),('seqFase',NULL,22),('seqGrupoProduto',NULL,16),('seqMovimentacao',NULL,169),('seqOperacao',NULL,140),('seqOperador',NULL,98),('seqOrdemFase',NULL,164),('seqOrdemProducao',NULL,94),('seqParte',NULL,57),('seqProduto',NULL,112),('seqRecurso',NULL,73),('seqSequenciamento',NULL,71),('seqTarefaSequenciada',NULL,50),('seqTecido',NULL,15),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,34),('seqUsuario',NULL,6);
+INSERT INTO `parametros` VALUES ('seqAcao',NULL,35),('seqBatida',NULL,519),('seqCelula',NULL,30),('seqCronometragem',NULL,340),('seqCronometrista',NULL,12),('seqFase',NULL,22),('seqGrupoProduto',NULL,16),('seqMovimentacao',NULL,169),('seqOperacao',NULL,140),('seqOperador',NULL,98),('seqOrdemFase',NULL,167),('seqOrdemProducao',NULL,97),('seqParte',NULL,57),('seqProduto',NULL,112),('seqRecurso',NULL,73),('seqSequenciamento',NULL,71),('seqTarefaSequenciada',NULL,50),('seqTecido',NULL,15),('seqTipoMovimentacao',NULL,14),('seqTipoRecurso',NULL,34),('seqUsuario',NULL,6);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -646,7 +646,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',3),(105,'M CA 46 19448','2016-05-16',15),(108,'VJ TSC 123 33170 - CAMISETA TRADICIONAL','2016-12-09',15),(110,'M BL 35 7646 - BLUSA REGATA - ID 5579','2016-12-09',15),(111,'M CA 35 3274 - CALÇA SKINNY MEDIA BORD - 5843','2016-12-09',15);
+INSERT INTO `produto` VALUES (7,'PRODUTO 1 TESTE','2015-10-22',3),(105,'M CA 46 19448','2016-05-16',3),(108,'VJ TSC 123 33170 - CAMISETA TRADICIONAL','2016-12-09',15),(110,'M BL 35 7646 - BLUSA REGATA - ID 5579','2016-12-09',15),(111,'M CA 35 3274 - CALÇA SKINNY MEDIA BORD - 5843','2016-12-09',15);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -955,4 +955,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-09 23:07:49
+-- Dump completed on 2016-12-10 13:22:45
