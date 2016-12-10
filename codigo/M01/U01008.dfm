@@ -68,6 +68,13 @@ inherited F01008: TF01008
             Caption = 'FASE'
             FocusControl = DBEdit5
           end
+          object Label6: TLabel
+            Left = 23
+            Top = 219
+            Width = 75
+            Height = 13
+            Caption = 'COMPLEMENTO'
+          end
           object DBEdit1: TDBEdit
             Left = 24
             Top = 32
@@ -131,6 +138,17 @@ inherited F01008: TF01008
             DataSource = DS
             ReadOnly = True
             TabOrder = 4
+            OnChange = DBEdit3Change
+          end
+          object DBEdit6: TDBEdit
+            Left = 24
+            Top = 235
+            Width = 367
+            Height = 21
+            CharCase = ecUpperCase
+            DataField = 'complemento'
+            DataSource = DS
+            TabOrder = 5
             OnChange = DBEdit3Change
           end
         end
@@ -495,6 +513,10 @@ inherited F01008: TF01008
       ProviderFlags = []
       Size = 45
     end
+    object ClientDataSet1complemento: TStringField
+      FieldName = 'complemento'
+      Size = 45
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 600
@@ -564,10 +586,16 @@ inherited F01008: TF01008
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery1complemento: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'complemento'
+      Origin = 'complemento'
+      Size = 45
+    end
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00F80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00040110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -1,6 +1,7 @@
 inherited F02002: TF02002
   Caption = 'F02002'
   ClientHeight = 557
+  ExplicitLeft = -47
   ExplicitWidth = 834
   ExplicitHeight = 596
   PixelsPerInch = 96
@@ -398,6 +399,12 @@ inherited F02002: TF02002
             Expanded = False
             FieldName = 'qtdOriginal'
             Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'sequenciado'
+            Title.Caption = 'Balanceada'
+            Visible = False
           end>
       end
       inherited PanelFiltros: TPanel
@@ -480,7 +487,7 @@ inherited F02002: TF02002
   end
   inherited ClientDataSet1: TClientDataSet
     AfterApplyUpdates = ClientDataSet1AfterApplyUpdates
-    Left = 512
+    Left = 520
     Top = 8
     object ClientDataSet1idmovimentacao: TIntegerField
       FieldName = 'idmovimentacao'
@@ -650,7 +657,7 @@ inherited F02002: TF02002
     Left = 608
     Top = 8
     Bitmap = {
-      494C01010E002C00940110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00980110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

@@ -275,7 +275,11 @@ begin
     end else
       ShowMessage('Operação já adicionada');
   end else
+  begin
     ShowMessage('Selecione uma fase.');
+  end;
+  EditBeleza1.Clear;
+  EditBeleza1.Outro_Edit.Text := '';
 end;
 
 procedure TF01007.BitBtn2Click(Sender: TObject);
@@ -455,9 +459,13 @@ begin
          end;
 
      end else
+     begin
        ShowMessage('Não é possível excluir.' +#13+'Esta Operação vinculada a outra Operação (' +
        DModule.qAux.FieldByName('idOperacao').AsString + ' '+ DModule.qAux.FieldByName('descricao').AsString + ') como dependência.');
+     end;
 
+     EditBeleza1.Clear;
+     EditBeleza1.Outro_Edit.Text := '';
 end;
 
 procedure TF01007.btnFiltrarClick(Sender: TObject);

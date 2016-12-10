@@ -56,6 +56,10 @@ type
     Edit1: TEdit;
     Edit2: TEdit;
     Edit3: TEdit;
+    FDQuery1complemento: TStringField;
+    ClientDataSet1complemento: TStringField;
+    Label6: TLabel;
+    DBEdit6: TDBEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
@@ -117,15 +121,7 @@ begin
   DModule.qAux.Open;
   if(DModule.qAux.IsEmpty)then
   begin
-      DModule.qAux.Close;
-      DModule.qAux.SQL.Text := 'select * from produto_has_operacao pho where pho.idOperacao =:idOP';
-      DModule.qAux.ParamByName('idOP').AsInteger:= (ClientDataSet1idoperacao.AsInteger);
-      DModule.qAux.Open;
-      if(DModule.qAux.IsEmpty)then
-      begin
-        inherited;
-      end else
-        ShowMessage('Operação esta vinculada a um Produto. Não é possível excluir.');
+     inherited;
   end else
     ShowMessage('Cronometragem vinculada a esta Operação. Não é possível excluir.');
 
@@ -172,6 +168,7 @@ begin
           inherited;
           DBEdit1.Color := clWindow;
           DBEdit4.Color := clWindow;
+          grDados.Enabled := false;
         end else
            showmessage('Preencha o Campo Ação');
       end else
@@ -228,14 +225,14 @@ begin
   begin
       if (trim(DBEdit3.Text) <>'') and (trim(DBEdit4.Text) <>'') then
       begin
-      ClientDataSet1descricao.Value := DBEditBeleza1.Text + ' ' + DBEditBeleza2.Text;
+      ClientDataSet1descricao.Value := DBEditBeleza1.Text + ' ' + DBEditBeleza2.Text + ' ' + DBEdit6.Text
       end else
         ClientDataSet1descricao.Clear;
   end;
 
 end;
 
-Initialization
+initialization
   RegisterClass(TF01008);
 Finalization
   UnRegisterClass(TF01008);

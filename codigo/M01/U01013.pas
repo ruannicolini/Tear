@@ -402,9 +402,15 @@ end;
 procedure TF01013.BitBtn2Click(Sender: TObject);
 begin
   inherited;
-  if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  if not(CDS_Recurso.IsEmpty)then
   begin
-    CDS_Recurso.Delete;
+      if MessageDlg('Deseja Apagar Item Selecionado ?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      begin
+        CDS_Recurso.Delete;
+      end;
+  end else
+  begin
+      ShowMessage('Não exitem recursos adicionados');
   end;
 end;
 

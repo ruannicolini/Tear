@@ -190,6 +190,8 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit3.Color := CorCamposOnlyRead();
+  EditBeleza1.Clear;
+  EditBeleza1.Outro_Edit.Text := '';
 end;
 
 procedure TF01010.BExcluirClick(Sender: TObject);
@@ -210,6 +212,8 @@ begin
   inherited;
   DBEdit1.Color := CorCamposOnlyRead();
   DBEdit3.Color := CorCamposOnlyRead();
+  EditBeleza1.Clear;
+  EditBeleza1.Outro_Edit.Text := '';
 
   if not DS_TR.DataSet.Active then
         DS_TR.DataSet.Open;
@@ -243,7 +247,12 @@ begin
       ShowMessage('Tipo de Recurso já adicionado.');
 
     end else
+    BEGIN
        showmessage('Preencha o Campo.');
+    END;
+    EditBeleza1.Clear;
+    EditBeleza1.Outro_Edit.Text := '';
+
 end;
 
 procedure TF01010.BPesquisarClick(Sender: TObject);
@@ -316,7 +325,7 @@ begin
       inherited;
       DBEdit1.Color := clWindow;
       DBEdit3.Color := $00EFEFEF;
-      DS_TR.DataSet.Close;
+      //DS_TR.DataSet.Close;
     end else
       showmessage('Preencha o Campo Grupo');
   end else

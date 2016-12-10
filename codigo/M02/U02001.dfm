@@ -615,6 +615,15 @@ inherited F02001: TF02001
             Visible = True
           end
           item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'sequenciado'
+            Title.Alignment = taCenter
+            Title.Caption = 'BALANC.'
+            Width = 65
+            Visible = True
+          end
+          item
             Expanded = False
             FieldName = 'observacao'
             Title.Caption = 'OBS'
@@ -738,6 +747,9 @@ inherited F02001: TF02001
       ProviderFlags = []
       Size = 45
     end
+    object ClientDataSet1sequenciado: TBooleanField
+      FieldName = 'sequenciado'
+    end
   end
   inherited DataSetProvider1: TDataSetProvider
     Left = 696
@@ -789,12 +801,17 @@ inherited F02001: TF02001
       ProviderFlags = []
       Size = 45
     end
+    object FDQuery1sequenciado: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'sequenciado'
+      Origin = 'sequenciado'
+    end
   end
   inherited ImageListBase: TImageList
     Left = 632
     Top = 40
     Bitmap = {
-      494C01010E002C009C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010E002C00A40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

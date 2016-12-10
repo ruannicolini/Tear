@@ -148,7 +148,7 @@ begin
   //Busca fases da ordem;
   DModule.qAux.Close;
   DModule.qAux.SQL.Text :='SELECT OHF.*,ohf.idOrdem_has_fase as idO_H_S, OP.qtdOriginal AS qORI FROM ordem_has_fase OHF LEFT OUTER JOIN ordem_producao OP ON OHF.idOrdem = OP.idORDEM where OHF.idORDEM =:IDOrd Order by (sequencia)';
-  ShowMessage('Id Ordem: ' + inttostr(idOrd));
+  //ShowMessage('Id Ordem: ' + inttostr(idOrd));
   DModule.qAux.ParamByName('IDOrd').AsInteger:= idOrd;
   DModule.qAux.Open;
   DModule.qAux.first;
