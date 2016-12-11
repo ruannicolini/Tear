@@ -197,16 +197,28 @@ end;
 procedure TF02001.BExcluirClick(Sender: TObject);
 begin
   DModule.qAux.Close;
-  DModule.qAux.SQL.Text := 'select * from movimentacao m left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase WHERE ohf.idordem =:id';
+  DModule.qAux.SQL.Text := 'select sequenciado from ordem_producao where idOrdem =:id';
   DModule.qAux.ParamByName('id').value := ClientDataSet1idOrdem.AsInteger;
   DModule.qAux.open;
 
-  if (DModule.qAux.IsEmpty)then
+  if (ClientDataSet1sequenciado.AsBoolean = false)then
   begin
-    inherited;
-  end else
-    ShowMessage('Fases já possuem movimentações. Não é possivel excluir ordem');
+      DModule.qAux.Close;
+      DModule.qAux.SQL.Text := 'select * from movimentacao m left outer join ordem_has_fase ohf on ohf.idOrdem_has_fase = m.idOrdem_has_fase WHERE ohf.idordem =:id';
+      DModule.qAux.ParamByName('id').value := ClientDataSet1idOrdem.AsInteger;
+      DModule.qAux.open;
 
+      if (DModule.qAux.IsEmpty)then
+      begin
+        inherited;
+      end else
+      begin
+        ShowMessage('Fases já possuem movimentações. Não é possivel excluir ordem!');
+      end;
+  end else
+  begin
+    ShowMessage('Ordem balanceada. Não é possivel excluir!');
+  end;
 end;
 
 procedure TF02001.BInserirClick(Sender: TObject);

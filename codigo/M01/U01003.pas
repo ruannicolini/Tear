@@ -355,7 +355,7 @@ begin
       begin
           try
               visible := false;
-              Assimila_Relat_q(Screen.ActiveForm.Name, 0, DS.DataSet, q, 'idGrupo', 'idGrupo');
+              Assimila_Relat_q(Screen.ActiveForm.Name, 0, ds.DataSet, q, 'idGrupo', 'idGrupo');
               ShowModal;
           finally
               Relatorios_sis.close;
