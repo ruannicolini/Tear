@@ -1,0 +1,19 @@
+{
+	"Dados": [{
+		"cronometrista": 4,
+		"operador": 45,
+		"operacao": 5,
+		"tecido": 1,
+		"recurso": 15,
+		"tempo": [925, 1386, 1633, 1921],
+		"data": "06-12-2016"
+	}, {
+		"cronometrista": 4,
+		"operador": 80,
+		"operacao": 34,
+		"tecido": 1,
+		"recurso": 5,
+		"tempo": [925, 1386, 1633, 1921],
+		"data": "06-12-2016"
+	}]
+}

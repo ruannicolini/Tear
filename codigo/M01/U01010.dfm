@@ -563,8 +563,8 @@ inherited F01010: TF01010
   inherited FDQuery1: TFDQuery
     SQL.Strings = (
       
-        'select op.*, g.descricao as grupo from operador op'#10'left outer jo' +
-        'in grupo g on g.idgrupo = op.idgrupo;')
+        'select op.*, g.descricao as grupo from operador op'#10' left outer j' +
+        'oin grupo g on g.idgrupo = op.idgrupo;')
     Left = 664
     Top = 80
     object FDQuery1idoperador: TIntegerField
@@ -598,7 +598,7 @@ inherited F01010: TF01010
     Left = 560
     Top = 120
     Bitmap = {
-      494C01010D002C00080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C000C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

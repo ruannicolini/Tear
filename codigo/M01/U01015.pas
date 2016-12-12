@@ -16,14 +16,27 @@ type
     Panel1: TPanel;
     DirectoryListBox1: TDirectoryListBox;
     FileListBox1: TFileListBox;
-    ListView1: TListView;
     BitBtn1: TBitBtn;
+    DBGridBeleza1: TDBGridBeleza;
+    ClientDataSet1: TClientDataSet;
+    DS: TDataSource;
+    ClientDataSet1idOperacao: TIntegerField;
+    ClientDataSet1operacao: TStringField;
+    ClientDataSet1idOperador: TIntegerField;
+    ClientDataSet1operador: TStringField;
+    ClientDataSet1idCronometrista: TIntegerField;
+    ClientDataSet1cronometrista: TStringField;
+    ClientDataSet1idTipoRecurso: TIntegerField;
+    ClientDataSet1tipoRecurso: TStringField;
+    ClientDataSet1idTecido: TIntegerField;
+    ClientDataSet1tecido: TStringField;
+    ClientDataSet1dataCronometragem: TDateField;
     procedure FormShow(Sender: TObject);
     procedure FileListBox1DblClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
-    matriz: array of array of integer;
+    matriz: array of array of integer; // valor das batidas deTempos
     ParIdProduto : integer;
   public
     { Public declarations }
@@ -52,21 +65,21 @@ begin
   QAux2 := TFDQuery.Create(self);
   QAux2.Connection := DModule.FDConnection;
 
-  if ListView1.Selected <> nil then
+  if NOT(ClientDataSet1.IsEmpty) then
   BEGIN
-    //Obtenção dos valores na listview
-     idOperacao := strtoint(ListView1.Items[ListView1.Selected.Index].Caption);
-     idOperador := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[0]);
-     idCronometrista := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[1]);
-     idTecido := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[2]);
-     idRecurso := strtoint(ListView1.Items[ListView1.Selected.Index].SubItems[3]);
-     dataCronometragem := StrToDate(ListView1.Items[ListView1.Selected.Index].SubItems[4]);
+
+     idOperacao := ClientDataSet1idOperacao.AsInteger;
+     idOperador := ClientDataSet1idOperador.AsInteger;
+     idCronometrista := ClientDataSet1idCronometrista.AsInteger;
+     idTecido := ClientDataSet1idTecido.AsInteger;
+     idRecurso := ClientDataSet1idTipoRecurso.AsInteger;
+     dataCronometragem := ClientDataSet1dataCronometragem.AsDateTime;
 
      //Valores
      ritmo := 80;
      num_pecas := 1;
      tolerancia := 15;
-     COMPRIMENTO_PECA := 35;
+     COMPRIMENTO_PECA := 0;
      num_Ocorrencia := 1;
 
      //Verifica se Fase da cronometragem esta habilitada para o produto
@@ -87,13 +100,13 @@ begin
          DModule.qAux.first;
          if(DModule.qAux.IsEmpty)then
          begin
-              ShowMessage('Operação:' + inttostr(idOperacao) +#13+
+              {ShowMessage('Operação:' + inttostr(idOperacao) +#13+
                       'Operador:' + inttostr(idOperador) +#13+
                       'Cronometrista:' + inttostr(idCronometrista) +#13+
                       'Tecido:' + inttostr(idTecido) +#13+
                       'Recurso:' + inttostr(idRecurso) +#13+
                       'Data:' + DateToStr(dataCronometragem)
-              );
+              );}
 
              //ID NOVA CRONOMETRAGEM
              idNovaCronometragem := DModule.buscaProximoParametro('seqCronometragem');
@@ -119,10 +132,10 @@ begin
              DModule.qAux.ExecSQL;
 
              //Obtenção dos tempos na matriz
-             For I := 0 to (Length(matriz[ListView1.Selected.Index]) -1) do
+             For I := 0 to (Length(matriz[DBGridBeleza1.SelectedIndex]) -1) do
              begin
                 //SEPARA MIN, SEG E MSEG
-                DecodeTime(( (matriz[ListView1.Selected.Index][I] ) * OneMillisecond), Hora, Min, Seg, MSeg);
+                DecodeTime(( (matriz[DBGridBeleza1.SelectedIndex][I] ) * OneMillisecond), Hora, Min, Seg, MSeg);
 
                 //INSERI BATIDA
                 DModule.qAux.Close;
@@ -178,18 +191,17 @@ end;
 
 procedure TF01015.FileListBox1DblClick(Sender: TObject);
 var
-LI: TListItem;
 arqCompleto, jSubObj: TJSONObject;
 jp: TJSONPair;  //
 jArrayCronometragem, jarrayTempo : TJSONArray;
 i,j,r: integer;
 begin
     TRY
-      //Propriedade para selecionar a linha toda
-      ListView1.RowSelect := true;
-
-      //Limpa ListView
-      ListView1.Clear;
+      //Limpa clientDataset
+      ClientDataSet1.Close;
+      ClientDataSet1.CreateDataSet;
+      ClientDataSet1.Close;
+      ClientDataSet1.Open;
 
       //Lendo arquivo json
       arqCompleto := TJSONObject.ParseJSONValue(TEncoding.ASCII.GetBytes(TFile.ReadAllText(FileListBox1.FileName)), 0) as TJSONObject;
@@ -205,7 +217,7 @@ begin
           jArrayCronometragem := (jp.JsonValue as TJSONArray);
           jSubObj:= TJSONObject.Create;
 
-          //Tamanho Matriz Vertical
+          //Tamanho MatrizTemo Vertical
           matriz := nil;
           SetLength(matriz,jArrayCronometragem.Size);
 
@@ -214,69 +226,80 @@ begin
           begin
               jSubObj := (jArrayCronometragem.Get(j) as TJSONObject);
               try
-                  LI := ListView1.Items.Add;
+                  ClientDataSet1.insert;
+
                   //Operacao
-                  li.Caption := ((jSubObj.GetValue('operacao').Value)); //
+                  ClientDataSet1idOperacao.AsInteger := StrToInt((jSubObj.GetValue('operacao').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select descricao from operacao where idOperacao =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('operacao').Value));
                   DModule.qAux.Open;
                   if not(DModule.qAux.IsEmpty)then
                   begin
-                    LI.SubItems.Add(DModule.qAux.FieldByName('descricao').AsString);
+                      ClientDataSet1Operacao.AsString := DModule.qAux.FieldByName('descricao').AsString;
                   end else
-                    LI.SubItems.Add('Operação Desconhecida');
+                  begin
+                      ClientDataSet1Operacao.AsString := 'Operação Desconhecida';
+                  end;
 
                   //Operador
-                  //LI.SubItems.Add((jSubObj.GetValue('operador').Value));
+                  ClientDataSet1idOperador.AsInteger := StrToInt((jSubObj.GetValue('operador').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select nome from operador where idOperador =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('operador').Value));
                   DModule.qAux.Open;
                   if not(DModule.qAux.IsEmpty)then
                   begin
-                    LI.SubItems.Add(DModule.qAux.FieldByName('nome').AsString);
+                    ClientDataSet1operador.AsString := DModule.qAux.FieldByName('nome').AsString;
                   end else
-                    LI.SubItems.Add('Operador Desconhecido');
+                  begin
+                    ClientDataSet1operador.AsString := 'Operador Desconhecido';
+                  end;
 
                   //Cronometrista
-                  //LI.SubItems.Add((jSubObj.GetValue('cronometrista').Value));
+                  ClientDataSet1idCronometrista.AsInteger := StrToInt((jSubObj.GetValue('cronometrista').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select nome from cronometrista where idCronometrista =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('cronometrista').Value));
                   DModule.qAux.Open;
                   if not(DModule.qAux.IsEmpty)then
                   begin
-                    LI.SubItems.Add(DModule.qAux.FieldByName('nome').AsString);
+                      ClientDataSet1cronometrista.AsSTRING:= DModule.qAux.FieldByName('nome').AsString;
                   end else
-                    LI.SubItems.Add('Cronometrista Desconhecido');
+                  begin
+                      ClientDataSet1cronometrista.AsString := 'Cronometrista Desconhecido';
+                  end;
 
                   //Tecido
-                  //LI.SubItems.Add(jSubObj.GetValue('tecido').Value);
+                  ClientDataSet1idTecido.AsInteger := StrToInt((jSubObj.GetValue('tecido').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select descricao from tecido where idTecido =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('tecido').Value));
                   DModule.qAux.Open;
                   if not(DModule.qAux.IsEmpty)then
                   begin
-                    LI.SubItems.Add(DModule.qAux.FieldByName('descricao').AsString);
+                    ClientDataSet1tecido.AsString := (DModule.qAux.FieldByName('descricao').AsString);
                   end else
-                    LI.SubItems.Add('Tecido Desconhecido');
+                  begin
+                    ClientDataSet1tecido.AsString := 'Tecido Desconhecido';
+                  end;
 
                   //Recurso
-                  //LI.SubItems.Add((jSubObj.GetValue('recurso').Value));
+                  ClientDataSet1idTipoRecurso.AsInteger := StrToInt((jSubObj.GetValue('recurso').Value));
                   DModule.qAux.Close;
                   DModule.qAux.SQL.Text := 'select descricao from recurso where idRecurso =:idO';
                   DModule.qAux.ParamByName('idO').Value := StrToInt((jSubObj.GetValue('recurso').Value));
                   DModule.qAux.Open;
                   if not(DModule.qAux.IsEmpty)then
                   begin
-                    LI.SubItems.Add(DModule.qAux.FieldByName('descricao').AsString);
+                      ClientDataSet1tipoRecurso.AsString := (DModule.qAux.FieldByName('descricao').AsString);
                   end else
-                    LI.SubItems.Add('Recurso Desconhecido');
+                  begin
+                      ClientDataSet1tipoRecurso.AsString := (DModule.qAux.FieldByName('descricao').AsString);
+                  end;
 
                   //Data
-                  LI.SubItems.Add((jSubObj.GetValue('data').Value));;
+                  ClientDataSet1dataCronometragem.AsDateTime := StrToDate(StringReplace(jSubObj.GetValue('data').Value, '-', '/', [rfReplaceAll, rfIgnoreCase]));
 
                   {ShowMessage(
                   jSubObj.Get(0).JsonString.Value + ': ' + jSubObj.Get(0).JsonValue.Value + #13 +
@@ -286,8 +309,10 @@ begin
                   jSubObj.Get(4).JsonString.Value + ': ' + jSubObj.Get(4).JsonValue.Value + #13 +
                   jSubObj.Get(5).JsonString.Value + ': ' + jSubObj.Get(5).JsonValue.Value + #13 +
                   jSubObj.Get(6).JsonString.Value + ': ' + jSubObj.Get(6).JsonValue.Value + #13
-                  );}
-
+                  );
+                   }
+                  //Add no clientDataSet / DGBrid
+                  ClientDataSet1.Post;
 
                   //Pega o array "TEMPO"
                   jArrayTempo := TJSONArray.Create;
@@ -299,15 +324,11 @@ begin
                   //percorre cada elemento
                   for r := 0 to jArrayTempo.Size -1 do
                   begin
-                      //ShowMessage(jArrayTempo.Get(r).Value);
                       matriz[j][r] := strtoint(jArrayTempo.Get(r).Value);
                   end;
-
               finally
               begin
-                //desaloca memoria
-                li := nil;
-                li.Free;
+                  //Finally
               end;
           end;
 
@@ -315,9 +336,7 @@ begin
 
       end;
     FINALLY
-      arqCompleto.Free;
-      //ShowMessage('OK');
-
+        arqCompleto.Free;
     END;
 end;
 

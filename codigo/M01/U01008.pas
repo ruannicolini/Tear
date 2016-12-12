@@ -182,6 +182,12 @@ procedure TF01008.btnFiltrarClick(Sender: TObject);
 begin
   inherited;
   FDQuery1.Close;
+
+
+
+
+
+
   FDQuery1.SQL.Text := 'select op.*, p.descricao as parte, f.descricao as fase, a.descricao as acao from operacao op ';
   FDQuery1.SQL.add(' left outer join parte p on p.idparte = op.idparte');
   FDQuery1.SQL.add(' left outer join fase f on f.idfase = op.idfase');

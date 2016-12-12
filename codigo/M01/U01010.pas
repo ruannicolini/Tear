@@ -347,14 +347,16 @@ end;
 procedure TF01010.btnFiltrarClick(Sender: TObject);
 begin
   inherited;
+
   FDQuery1.Close;
   FDQuery1.SQL.Text := 'select op.*, g.descricao as grupo from operador op ';
+  FDQuery1.SQL.add('left outer join operador_has_tipo_recurso otr on otr.idOperador = op.idOperador ');
   FDQuery1.SQL.add('left outer join grupo g on g.idgrupo = op.idgrupo where 1=1');
 
   if(chkNome.Checked = true)then
     FDQuery1.SQL.Add(' and op.nome like "%' + Edit2.Text +'%"');
   if(chkTipoRecurso.Checked = true)then
-    FDQuery1.SQL.Add(' and idtipo_recurso = ' + Edit3.Text);
+    FDQuery1.SQL.Add(' and otr.idtiporecurso = ' + Edit3.Text);
   if(chkGrupo.Checked = true)then
     FDQuery1.SQL.Add(' and g.idgrupo = ' + Edit4.Text);
 
