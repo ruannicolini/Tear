@@ -23,7 +23,6 @@ object F01015: TF01015
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitTop = 8
     object DirectoryListBox1: TDirectoryListBox
       Left = 8
       Top = 229
@@ -45,7 +44,6 @@ object F01015: TF01015
       Mask = '*.json'
       TabOrder = 1
       OnDblClick = FileListBox1DblClick
-      ExplicitHeight = 151
     end
     object BitBtn1: TBitBtn
       Left = 985
@@ -57,8 +55,6 @@ object F01015: TF01015
       Caption = 'ADD'
       TabOrder = 2
       OnClick = BitBtn1Click
-      ExplicitLeft = 615
-      ExplicitTop = 173
     end
     object DBGridBeleza1: TDBGridBeleza
       Left = 181
@@ -68,6 +64,7 @@ object F01015: TF01015
       Hint = 'Clique no Titulo da Coluna para Ordenar'
       Align = alCustom
       Anchors = [akLeft, akTop, akRight, akBottom]
+      BorderStyle = bsNone
       Color = clWhite
       DataSource = DS
       DrawingStyle = gdsGradient
