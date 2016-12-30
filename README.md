@@ -10,6 +10,12 @@ Principais pontos de desenvolvimento do sistema:
 * Sistema de login: Em desenvolvimento;
 * Aplicação de uma técnica apropriada de balanceamento de linha de produção: Em desenvolvimento;
 * Exibiçao dos dados de balanceamento através de grafico de Gantt: Concluído; 
-* Relatórios dinâmicos: Conluído;
+* Relatórios dinâmicos: Concluído;
 
 _____________________________________________________________________________
+
+##Componentes Utilizados
+* MsgDlgs (Pasta componentes do projeto);
+* Componente Beleza (Pasta componentes do projeto);
+* Report Builder 22;
+* VCL DevExpress 14.2.2 para RadStudio XE8;
