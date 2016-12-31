@@ -19,3 +19,11 @@ _____________________________________________________________________________
 * Componente Beleza (Pasta componentes do projeto);
 * Report Builder 22;
 * VCL DevExpress 14.2.2 para RadStudio XE8;
+
+_____________________________________________________________________________
+
+##Requisitos e Configurações
+* Executar o script do banco de dados;
+* Dentro do projeto, acessar uDataModule.pas e configurar FDConnection, conforme figura. Os valores devem ser alterados conforme as configurações do MYSQL (Database, User, Password,  Server, Port).
+
+![tear_config](https://cloud.githubusercontent.com/assets/6893004/21574888/ba15b3e2-cee2-11e6-8f2e-f4a24bf7cee8.png)
