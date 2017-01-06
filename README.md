@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿# TEAR - Software Para Balanceamento de Produção na Indústria de Confecção
+=======
+# TEAR - Software Para Balanceamento de Produção na Indústria de Confecção
+>>>>>>> 56382e05f4aaae7185cf11a00f754d7e7c5f3e62
 
 Principais pontos de desenvolvimento do sistema:
 * CRUD Cadastros Base (Produto, Recurso, Linha de Produção, Operação, Ordem de Produção, etc): Concluído;
@@ -27,6 +31,7 @@ _____________________________________________________________________________
 * Dentro do projeto, acessar uDataModule.pas e configurar FDConnection, conforme figura. Os valores devem ser alterados conforme as configurações do MYSQL (Database, User, Password,  Server, Port).
 
 ![tear_config](https://cloud.githubusercontent.com/assets/6893004/21574888/ba15b3e2-cee2-11e6-8f2e-f4a24bf7cee8.png)
+<<<<<<< HEAD
 
 _____________________________________________________________________________
 
@@ -55,3 +60,5 @@ _____________________________________________________________________________
 ##Interface Balanceamento
 
 ![interfacebalanceamento](https://cloud.githubusercontent.com/assets/6893004/21731048/97df290a-d439-11e6-9b4e-d476fec97dad.png)
+=======
+>>>>>>> 56382e05f4aaae7185cf11a00f754d7e7c5f3e62
