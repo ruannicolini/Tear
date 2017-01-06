@@ -61,7 +61,6 @@ type
     Label6: TLabel;
     DBEdit6: TDBEdit;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
@@ -70,6 +69,7 @@ type
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure DBEdit3Change(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -101,16 +101,6 @@ procedure TF01008.BCancelarClick(Sender: TObject);
 begin
   inherited;
   //
-end;
-
-procedure TF01008.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  PageControl.ActivePageIndex := 0;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-  DBEdit5.Color := CorCamposOnlyRead();
 end;
 
 procedure TF01008.BExcluirClick(Sender: TObject);
@@ -238,7 +228,29 @@ begin
 
 end;
 
-initialization
+procedure TF01008.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    PageControl.ActivePageIndex := 0;
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit3.Color := CorCamposOnlyRead();
+    DBEdit4.Color := CorCamposOnlyRead();
+    DBEdit5.Color := CorCamposOnlyRead();
+
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    PageControl.ActivePageIndex := 0;
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit3.Color := CorCamposOnlyRead();
+    DBEdit4.Color := CorCamposOnlyRead();
+    DBEdit5.Color := CorCamposOnlyRead();
+  end;
+end;
+
+Initialization
   RegisterClass(TF01008);
 Finalization
   UnRegisterClass(TF01008);

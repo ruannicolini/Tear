@@ -1,14 +1,13 @@
 inherited F01012: TF01012
   Caption = 'F01012'
-  ClientHeight = 508
-  ClientWidth = 815
-  ExplicitWidth = 831
-  ExplicitHeight = 547
+  ClientHeight = 378
+  Position = poDesigned
+  ExplicitWidth = 834
+  ExplicitHeight = 417
   PixelsPerInch = 96
   TextHeight = 13
   inherited PageControl: TPageControl
-    Width = 815
-    Height = 473
+    Height = 343
     ExplicitWidth = 815
     ExplicitHeight = 473
     inherited TbDados: TTabSheet
@@ -17,8 +16,7 @@ inherited F01012: TF01012
       ExplicitWidth = 807
       ExplicitHeight = 445
       inherited grDados: TGroupBox
-        Width = 807
-        Height = 445
+        Height = 315
         ExplicitWidth = 807
         ExplicitHeight = 445
         object Label1: TLabel
@@ -66,12 +64,16 @@ inherited F01012: TF01012
       ExplicitWidth = 807
       ExplicitHeight = 445
       inherited GBFiltros: TGroupBox
-        Width = 807
         ExplicitWidth = 807
+        inherited Panel1: TPanel
+          Width = 804
+          inherited BtnLimparFiltros: TButton
+            Left = 759
+          end
+        end
       end
       inherited DBGridBeleza1: TDBGridBeleza
-        Width = 807
-        Height = 334
+        Height = 204
         Columns = <
           item
             Alignment = taCenter
@@ -89,7 +91,6 @@ inherited F01012: TF01012
           end>
       end
       inherited PanelFiltros: TPanel
-        Width = 807
         ExplicitWidth = 807
         object Label3: TLabel [0]
           Left = 13
@@ -99,7 +100,6 @@ inherited F01012: TF01012
           Caption = 'PARTE'
         end
         inherited btnFiltrar: TButton
-          Left = 756
           OnClick = btnFiltrarClick
           ExplicitLeft = 756
         end
@@ -114,10 +114,8 @@ inherited F01012: TF01012
     end
   end
   inherited Panel2: TPanel
-    Width = 815
     ExplicitWidth = 815
     inherited BFechar: TSpeedButton
-      Left = 781
       ExplicitLeft = 781
     end
   end
@@ -151,7 +149,7 @@ inherited F01012: TF01012
   end
   inherited ImageListBase: TImageList
     Bitmap = {
-      494C01010D002C00F00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002C00F40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000F7F7F708C3C3C33C77777788363636C9101010EF1E1E

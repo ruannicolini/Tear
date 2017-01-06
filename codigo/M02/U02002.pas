@@ -75,8 +75,6 @@ type
     procedure DBEditBeleza2ButtonClick(Sender: TObject;
       var query_result: TFDQuery);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure DBEdit8Exit(Sender: TObject);
@@ -97,6 +95,7 @@ type
     procedure ClientDataSet1AfterApplyUpdates(Sender: TObject;
       var OwnerData: OleVariant);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -179,22 +178,6 @@ begin
   DBEdit6.Enabled := true;
 end;
 
-procedure TF02002.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit2.Color := CorCamposOnlyRead();
-  DBEdit6.Color := CorCamposOnlyRead();
-  DBEdit9.Color := $00EFEFEF;
-
-  DBEditBeleza1.Enabled := false;
-  DBEditBeleza2.Enabled := false;
-  DBEdit5.Enabled := false;
-  DBEdit8.Enabled := false;
-  DBEdit2.Enabled := false;
-  DBEdit6.Enabled := false;
-end;
-
 procedure TF02002.BExcluirClick(Sender: TObject);
 begin
   DModule.qAux.Close;
@@ -212,19 +195,6 @@ begin
     end else
       ShowMessage('Não é possível excluir movimentação tendo movimentações posteriores a ela.');
   end;
-end;
-
-procedure TF02002.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit2.Color := CorCamposOnlyRead();
-  DBEdit6.Color := CorCamposOnlyRead();
-  DBEdit9.Color := $00EFEFEF;
-
-  DBEditBeleza1.Enabled := false;
-  DBEditBeleza2.Enabled := false;
-  DBEdit5.Enabled := false;
 end;
 
 procedure TF02002.bRelatorioClick(Sender: TObject);
@@ -731,6 +701,37 @@ begin
   DModule.qAux.ParamByName('IDOHF').AsInteger := ClientDataSet1idOrdem_has_fase.AsInteger;
   DModule.qAux.Open;
   ClientDataSet1SEQUENCIA.Value := DModule.qAux.FieldByName('SEQUENCIA').AsInteger;
+end;
+
+procedure TF02002.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit2.Color := CorCamposOnlyRead();
+    DBEdit6.Color := CorCamposOnlyRead();
+    DBEdit9.Color := $00EFEFEF;
+
+    DBEditBeleza1.Enabled := false;
+    DBEditBeleza2.Enabled := false;
+    DBEdit5.Enabled := false;
+
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+      DBEdit1.Color := CorCamposOnlyRead();
+      DBEdit2.Color := CorCamposOnlyRead();
+      DBEdit6.Color := CorCamposOnlyRead();
+      DBEdit9.Color := $00EFEFEF;
+
+      DBEditBeleza1.Enabled := false;
+      DBEditBeleza2.Enabled := false;
+      DBEdit5.Enabled := false;
+      DBEdit8.Enabled := false;
+      DBEdit2.Enabled := false;
+      DBEdit6.Enabled := false;
+  end;
 end;
 
 procedure TF02002.Edit1Change(Sender: TObject);

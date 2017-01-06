@@ -266,9 +266,6 @@ type
       Shift: TShiftState);
     procedure cxScheduler1CustomDrawEvent(Sender: TObject; ACanvas: TcxCanvas;
       AViewInfo: TcxSchedulerEventCellViewInfo; var ADone: Boolean);
-    procedure cxSchedulerDBStorage1GetEventGeneratedID(
-      Sender: TcxSchedulerDBStorage; AEvent: TcxSchedulerEvent;
-      var EventID: Variant);
     procedure bRelatorioClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure ClientDataSet1BeforeInsert(DataSet: TDataSet);
@@ -406,7 +403,6 @@ begin
   PanelInformacoes.Enabled := false;
   PanelInformacoes.VISIBLE := false;
   grdados.Enabled := true;
-
 end;
 
 procedure TF02004.BGIndexButtonClicked(Sender: TObject; Index: Integer);
@@ -446,14 +442,6 @@ procedure TF02004.ClientDataSetChartAfterPost(DataSet: TDataSet);
 begin
   inherited;
   ClientDataSetChart.ApplyUpdates(-1);
-end;
-
-procedure TF02004.cxSchedulerDBStorage1GetEventGeneratedID(
-  Sender: TcxSchedulerDBStorage; AEvent: TcxSchedulerEvent;
-  var EventID: Variant);
-begin
-  inherited;
-  //EventID := DModule.buscaProximoParametro('seqTarefaSequenciada');
 end;
 
 procedure TF02004.DSDataChange(Sender: TObject; Field: TField);

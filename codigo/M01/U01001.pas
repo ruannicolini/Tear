@@ -30,14 +30,13 @@ type
     procedure acSalvarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
     procedure acExcluirExecute(Sender: TObject);
-    procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -99,12 +98,6 @@ begin
   DBEdit1.Color := clWindow;
 end;
 
-procedure TF01001.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-end;
-
 procedure TF01001.BExcluirClick(Sender: TObject);
 begin
   DModule.qAux.Close;
@@ -117,12 +110,6 @@ begin
   end else
     ShowMessage('Operação vinculada a esta Ação. Não é possível excluír.');
 
-end;
-
-procedure TF01001.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
 end;
 
 procedure TF01001.bRelatorioClick(Sender: TObject);
@@ -187,6 +174,19 @@ begin
   inherited;
   ClientDataSet1idacao.AsInteger := DModule.buscaProximoParametro('seqAcao');
 
+end;
+
+procedure TF01001.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+  end;
 end;
 
 Initialization

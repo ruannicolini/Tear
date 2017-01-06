@@ -87,11 +87,9 @@ type
     procedure Action4Execute(Sender: TObject);
     procedure Action2Execute(Sender: TObject);
     procedure acInserirExecute(Sender: TObject);
-    procedure BInserirClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
     procedure DSDataChange(Sender: TObject; Field: TField);
-    procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure DBGridBeleza3KeyDown(Sender: TObject; var Key: Word;
@@ -99,6 +97,7 @@ type
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -233,13 +232,6 @@ begin
   Edit1.Color := clWindow;
 end;
 
-procedure TF01003.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  Edit1.Color := CorCamposOnlyRead();
-end;
-
 procedure TF01003.BExcluirClick(Sender: TObject);
 begin
   //
@@ -252,17 +244,6 @@ begin
     inherited;
   end else
     ShowMessage('Operadores vinculados a esse grupo. Não é possível excluir.');
-end;
-
-procedure TF01003.BInserirClick(Sender: TObject);
-begin
-  PageControl.ActivePageIndex := 0;
-  ClientDataSet3.Close;
-  ClientDataSet2.Close;
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  Edit1.Color := CorCamposOnlyRead();
-
 end;
 
 procedure TF01003.BitBtn1Click(Sender: TObject);
@@ -449,6 +430,24 @@ begin
   DS_GRUPO_HAS_RECURSO.DataSet.Close;
   DS_GRUPO_HAS_RECURSO.DataSet.Open;
 
+end;
+
+procedure TF01003.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    PageControl.ActivePageIndex := 0;
+    ClientDataSet3.Close;
+    ClientDataSet2.Close;
+    DBEdit1.Color := CorCamposOnlyRead();
+    Edit1.Color := CorCamposOnlyRead();
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    Edit1.Color := CorCamposOnlyRead();
+  end;
 end;
 
 Initialization

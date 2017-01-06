@@ -5,26 +5,26 @@ object DModule: TDModule
   object qAux: TFDQuery
     BeforeExecute = qAuxBeforeExecute
     Connection = FDConnection
-    Left = 48
-    Top = 152
+    Left = 96
+    Top = 32
   end
   object FModulo: TFDQuery
     Connection = FDConnection
     SQL.Strings = (
       'SELECT * FROM MODULO')
-    Left = 48
-    Top = 88
+    Left = 136
+    Top = 32
   end
   object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
     DriverID = 'MySQL'
     VendorLib = 'libmysql.dll'
-    Left = 144
-    Top = 40
+    Left = 288
+    Top = 24
   end
   object FDGUIxWaitCursor1: TFDGUIxWaitCursor
     Provider = 'Forms'
-    Left = 264
-    Top = 40
+    Left = 320
+    Top = 24
   end
   object FDConnection: TFDConnection
     ConnectionName = 'balay'
@@ -37,8 +37,8 @@ object DModule: TDModule
     Connected = True
     LoginPrompt = False
     BeforeConnect = FDConnectionBeforeConnect
-    Left = 184
-    Top = 152
+    Left = 40
+    Top = 32
   end
   object qAcesso: TFDQuery
     Connection = FDConnection

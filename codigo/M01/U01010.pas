@@ -76,8 +76,6 @@ type
     procedure CDS_TRAfterPost(DataSet: TDataSet);
     procedure CDS_TRAfterDelete(DataSet: TDataSet);
     procedure acExcluirExecute(Sender: TObject);
-    procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
@@ -89,6 +87,7 @@ type
     procedure btnFiltrarClick(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -185,15 +184,6 @@ begin
   DBEdit3.Color := $00EFEFEF;
 end;
 
-procedure TF01010.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  EditBeleza1.Clear;
-  EditBeleza1.Outro_Edit.Text := '';
-end;
-
 procedure TF01010.BExcluirClick(Sender: TObject);
 begin
   DModule.qAux.Close;
@@ -205,19 +195,6 @@ begin
     inherited;
   end else
     ShowMessage('Cronometragem vinculada ao Operador. Não é possível excluir.');
-end;
-
-procedure TF01010.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  EditBeleza1.Clear;
-  EditBeleza1.Outro_Edit.Text := '';
-
-  if not DS_TR.DataSet.Active then
-        DS_TR.DataSet.Open;
-
 end;
 
 procedure TF01010.BitBtn1Click(Sender: TObject);
@@ -420,6 +397,28 @@ begin
   Query_TR.ParamByName('id').Value:=(ClientDataSet1idoperador.AsInteger);
   DS_TR.DataSet.Close;
   DS_TR.DataSet.Open;
+end;
+
+procedure TF01010.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit3.Color := CorCamposOnlyRead();
+    EditBeleza1.Clear;
+    EditBeleza1.Outro_Edit.Text := '';
+    if not DS_TR.DataSet.Active then
+          DS_TR.DataSet.Open;
+
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit3.Color := CorCamposOnlyRead();
+    EditBeleza1.Clear;
+    EditBeleza1.Outro_Edit.Text := '';
+  end;
 end;
 
 procedure TF01010.Edit2Change(Sender: TObject);

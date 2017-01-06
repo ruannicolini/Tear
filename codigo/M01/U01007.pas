@@ -127,8 +127,6 @@ type
     procedure ClientDataSet3AfterDelete(DataSet: TDataSet);
     procedure ClientDataSet3AfterPost(DataSet: TDataSet);
     procedure BtnExcluirOperacaoClick(Sender: TObject);
-    procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure BPesquisarClick(Sender: TObject);
@@ -164,6 +162,7 @@ type
     procedure PageControlChange(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
     procedure ClientDataSet3CalcFields(DataSet: TDataSet);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
 
@@ -203,13 +202,6 @@ begin
   DBEdit4.Color := $00EFEFEF;
 end;
 
-procedure TF01007.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-end;
-
 procedure TF01007.BExcluirClick(Sender: TObject);
 begin
   DModule.qAux.Close;
@@ -231,15 +223,6 @@ begin
     ShowMessage('Ordem de produção vinculada a este Produto. Não é possível excluir.');
 
 
-end;
-
-procedure TF01007.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-  DataSource3.DataSet.Close;
-  DataSource2.DataSet.Close;
 end;
 
 procedure TF01007.BitBtn1Click(Sender: TObject);
@@ -725,7 +708,24 @@ begin
 
 end;
 
-procedure TF01007.Edit3Change(Sender: TObject);
+procedure TF01007.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit4.Color := CorCamposOnlyRead();
+    DataSource3.DataSet.Close;
+    DataSource2.DataSet.Close;
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit4.Color := CorCamposOnlyRead();
+  end;
+end;
+
+Procedure TF01007.Edit3Change(Sender: TObject);
 begin
   inherited;
   if((edit3.Text = '')or (edit3.Text = ' '))then

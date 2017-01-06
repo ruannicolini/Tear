@@ -52,8 +52,6 @@ type
     procedure acCancelarExecute(Sender: TObject);
     procedure acEditarExecute(Sender: TObject);
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
@@ -62,6 +60,7 @@ type
     procedure Edit1Change(Sender: TObject);
     procedure BtnLimparFiltrosClick(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -114,24 +113,10 @@ begin
   DBEdit4.Color := $00EFEFEF;
 end;
 
-procedure TF01006.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
-end;
-
 procedure TF01006.BExcluirClick(Sender: TObject);
 begin
   inherited;
   //
-end;
-
-procedure TF01006.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit4.Color := CorCamposOnlyRead();
 end;
 
 procedure TF01006.bRelatorioClick(Sender: TObject);
@@ -212,7 +197,22 @@ begin
 
 end;
 
-procedure TF01006.Edit1Change(Sender: TObject);
+procedure TF01006.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit4.Color := CorCamposOnlyRead();
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit4.Color := CorCamposOnlyRead();
+  end;
+end;
+
+Procedure TF01006.Edit1Change(Sender: TObject);
 begin
   inherited;
   if((edit1.Text = '')or (edit1.Text = ' '))then

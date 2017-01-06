@@ -171,7 +171,6 @@ type
     procedure DSDataChange(Sender: TObject; Field: TField);
     procedure DBGridBeleza2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure BEditarClick(Sender: TObject);
     procedure BInserirClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure btnLapKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -196,6 +195,7 @@ type
     procedure DBGridBatidaDblClick(Sender: TObject);
     procedure DBGridBeleza1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
     fTempo: Ttime;  //Tempo corrido do cronometro
@@ -298,22 +298,6 @@ begin
   //
 end;
 
-procedure TF01013.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  BReutilizar.Enabled := false;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit7.Color := CorCamposOnlyRead();
-  DBEdit8.Color := CorCamposOnlyRead();
-  DBEdit9.Color := CorCamposOnlyRead();
-  DBEdit10.Color := CorCamposOnlyRead();
-  DBEdit11.Color := CorCamposOnlyRead();
-  Edit6.Color := CorCamposOnlyRead();
-
-  DBEditBeleza1.Enabled := false;
-  DBEdit7.Enabled := false;
-end;
-
 procedure TF01013.BExcluirClick(Sender: TObject);
 begin
 
@@ -349,15 +333,6 @@ begin
   CDS_Batida.Close;
   BReutilizar.Enabled := false;
   inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit7.Color := CorCamposOnlyRead();
-  DBEdit8.Color := CorCamposOnlyRead();
-  DBEdit9.Color := CorCamposOnlyRead();
-  DBEdit10.Color := CorCamposOnlyRead();
-  DBEdit11.Color := CorCamposOnlyRead();
-  Edit6.Color := CorCamposOnlyRead();
-  DBCheckBox1.Checked := false;
-  DBCheckBox2.Checked := false;
 
 end;
 
@@ -1106,6 +1081,38 @@ begin
   DS_Batida.DataSet.Close;
   DS_Batida.DataSet.Open;
 
+end;
+
+procedure TF01013.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit7.Color := CorCamposOnlyRead();
+    DBEdit8.Color := CorCamposOnlyRead();
+    DBEdit9.Color := CorCamposOnlyRead();
+    DBEdit10.Color := CorCamposOnlyRead();
+    DBEdit11.Color := CorCamposOnlyRead();
+    Edit6.Color := CorCamposOnlyRead();
+    DBCheckBox1.Checked := false;
+    DBCheckBox2.Checked := false;
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    BReutilizar.Enabled := false;
+    DBEdit1.Color := CorCamposOnlyRead();
+    DBEdit7.Color := CorCamposOnlyRead();
+    DBEdit8.Color := CorCamposOnlyRead();
+    DBEdit9.Color := CorCamposOnlyRead();
+    DBEdit10.Color := CorCamposOnlyRead();
+    DBEdit11.Color := CorCamposOnlyRead();
+    Edit6.Color := CorCamposOnlyRead();
+
+    DBEditBeleza1.Enabled := false;
+    DBEdit7.Enabled := false;
+
+  end;
 end;
 
 procedure TF01013.FormCreate(Sender: TObject);

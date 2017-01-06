@@ -129,8 +129,6 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure TBtnExcluirClick(Sender: TObject);
     procedure TBtnLimparClick(Sender: TObject);
-    procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure DataSource2StateChange(Sender: TObject);
@@ -143,6 +141,7 @@ type
     procedure ClientDataSet1AfterDelete(DataSet: TDataSet);
     procedure BExcluirClick(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -185,15 +184,6 @@ begin
   end;
 end;
 
-procedure TF02001.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  DBEdit4.Enabled := false;
-  DBEditBeleza1.Enabled := false;
-end;
-
 procedure TF02001.BExcluirClick(Sender: TObject);
 begin
   DModule.qAux.Close;
@@ -219,14 +209,6 @@ begin
   begin
     ShowMessage('Ordem balanceada. Não é possivel excluir!');
   end;
-end;
-
-procedure TF02001.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  DBEdit3.Color := CorCamposOnlyRead();
-  ClientDataSet1sequenciado.AsBoolean := false;
 end;
 
 procedure TF02001.bRelatorioClick(Sender: TObject);
@@ -421,6 +403,24 @@ begin
   FDQuery3.ParamByName('idOrdem').Value:=(ClientDataSet1idOrdem.AsInteger);
   DataSource3.DataSet.Close;
   DataSource3.DataSet.Open;
+end;
+
+procedure TF02001.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+      DBEdit1.Color := CorCamposOnlyRead();
+      DBEdit3.Color := CorCamposOnlyRead();
+      ClientDataSet1sequenciado.AsBoolean := false;
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+      DBEdit1.Color := CorCamposOnlyRead();
+      DBEdit3.Color := CorCamposOnlyRead();
+      DBEdit4.Enabled := false;
+      DBEditBeleza1.Enabled := false;
+  end;
 end;
 
 procedure TF02001.Edit1Change(Sender: TObject);

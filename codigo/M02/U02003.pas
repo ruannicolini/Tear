@@ -41,12 +41,11 @@ type
     ClientDataSet1finalizarParcial: TBooleanField;
     DBCheckBox2: TDBCheckBox;
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
-    procedure BInserirClick(Sender: TObject);
-    procedure BEditarClick(Sender: TObject);
     procedure BSalvarClick(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
     procedure bRelatorioClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
+    procedure DSStateChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -69,12 +68,6 @@ begin
   DBEdit1.Color := clWindow;
 end;
 
-procedure TF02003.BEditarClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-end;
-
 procedure TF02003.BExcluirClick(Sender: TObject);
 begin
   //
@@ -89,16 +82,6 @@ begin
     ShowMessage('Movimentações existentes. Não é possivel excluir.');
 
 
-end;
-
-procedure TF02003.BInserirClick(Sender: TObject);
-begin
-  inherited;
-  DBEdit1.Color := CorCamposOnlyRead();
-  CHKINCREMENTAR.Checked := FALSE;
-  CHKDECREMENTAR.Checked := FALSE;
-  CHKFINALIZAR.Checked := FALSE;
-  CHKDIVIDIR.Checked := FALSE;
 end;
 
 procedure TF02003.bRelatorioClick(Sender: TObject);
@@ -136,6 +119,24 @@ begin
   inherited;
   ClientDataSet1idtipo_Movimentacao.AsInteger := DModule.buscaProximoParametro('seqTipoMovimentacao');
 
+end;
+
+procedure TF02003.DSStateChange(Sender: TObject);
+begin
+  inherited;
+  if (ds.DataSet.State = dsInsert) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+    CHKINCREMENTAR.Checked := FALSE;
+    CHKDECREMENTAR.Checked := FALSE;
+    CHKFINALIZAR.Checked := FALSE;
+    CHKDIVIDIR.Checked := FALSE;
+
+  end;
+  if (ds.DataSet.State = dsEdit) then
+  begin
+    DBEdit1.Color := CorCamposOnlyRead();
+  end;
 end;
 
 Initialization
