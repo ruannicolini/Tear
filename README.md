@@ -1,5 +1,3 @@
-﻿# TEAR - Software Para Balanceamento de Produção na Indústria de Confecção
-=======
 # TEAR - Software Para Balanceamento de Produção na Indústria de Confecção
 
 Principais pontos de desenvolvimento do sistema:
