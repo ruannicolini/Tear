@@ -40,6 +40,7 @@ type
     procedure ClientDataSet1AfterInsert(DataSet: TDataSet);
     procedure bRelatorioClick(Sender: TObject);
     procedure BExcluirClick(Sender: TObject);
+    procedure BSalvarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,7 +53,7 @@ var
 implementation
 
 uses
-UDataModule, u_relatorios;
+UDataModule, u_relatorios, uFuncao;
 
 {$R *.dfm}
 
@@ -87,6 +88,12 @@ begin
   end;
 end;
 
+
+procedure TF03003.BSalvarClick(Sender: TObject);
+begin
+  ClientDataSet1senha.AsString := MD5(DBEdit4.Text);
+  inherited;
+end;
 
 procedure TF03003.ClientDataSet1AfterInsert(DataSet: TDataSet);
 begin

@@ -36,8 +36,6 @@ type
     procedure AbrirTela(Sender: TObject);
     procedure CriarForm(Tela, Desc : String);
     procedure ArredondarComponente(Componente: TWinControl; const Radius: SmallInt);
-    procedure AumentarBotao(Sender: TObject);
-    procedure DiminuirBotao(Sender: TObject);
     function fncAlturaBarraTarefas: Integer;
     procedure FormCreate(Sender: TObject);
   private
@@ -69,14 +67,12 @@ begin
   DModule.qAux.ParamByName('ID').AsInteger := TButton(Sender).Tag;
   DModule.qAux.Open;
 
-  AumentarBotao(Sender);
   TButton(Sender).Images := ImageList32Selected;
 
   Tela := 'F' + DModule.qAux.Fields[5].AsString;
   Desc := DModule.qAux.Fields[3].AsString;
   CriarForm(Tela, Desc);
 
-  DiminuirBotao(Sender);
   TButton(Sender).Images := ImageList32;
   TButton(Sender).Enabled := True;
 end;
@@ -98,15 +94,6 @@ begin
     Invalidate;
   end;
 
-end;
-
-procedure TFPrincipal.AumentarBotao(Sender: TObject);
-begin
-  {TButton(sender).Height := TButton(sender).Height + 10;
-  TButton(sender).Width := TButton(sender).Width + 10;
-  TButton(sender).Left := TButton(sender).Left - 5;
-  TButton(sender).Top := TButton(sender).Top - 5;
-  }
 end;
 
 procedure TFPrincipal.CriarForm(Tela, Desc : String);
@@ -151,15 +138,6 @@ begin
    end;
 end;
 
-procedure TFPrincipal.DiminuirBotao(Sender: TObject);
-begin
-  {TButton(sender).Height := TButton(sender).Height - 10;
-  TButton(sender).Width := TButton(sender).Width - 10;
-  TButton(sender).Left := TButton(sender).Left + 5;
-  TButton(sender).Top := TButton(sender).Top + 5;
-  }
-end;
-
 function TFPrincipal.fncAlturaBarraTarefas: Integer;
 var
   rRect: TRect;
@@ -179,66 +157,77 @@ procedure TFPrincipal.FormCreate(Sender: TObject);
 var
   Hora: Integer;
   Data : TDateTime;
-  Hash, gerado, Serial : String;
+  HashGeradoAgora, geradoConfig, Serial : String;
   Arquivo: TIniFile;
+  username, senha : string;
 begin
-  //
 
   Hora := HourOf(Now);
   Data := Date();
   //Serial := SerialHD(Serial);
-  Hash := MD5(IntToStr(Hora) + DateToStr(Data) + Serial);
+  HashGeradoAgora := MD5(IntToStr(Hora) + DateToStr(Data) + Serial);
 
   Arquivo := TIniFile.Create(GetCurrentDir+'\Config.ini');
-  Gerado := Arquivo.ReadString('Login', 'Numero', Gerado);
+  GeradoConfig := Arquivo.ReadString('Login', 'Numero', GeradoConfig);
 
-  ShowMessage('HASH:  '+ hash + #13 + 'GERADO:  ' + gerado);
+  //ShowMessage('HASH gerado agora:  '+ HashGeradoAgora + #13 + 'arquivo config.ini:  ' + GeradoConfig);
 
-  if ((Hash) <> (Gerado)) then
+  if ((HashGeradoAgora) <> (GeradoConfig)) then
   begin
-   Application.Terminate;
+      ShowMessage('Acesso Negado!');
+      Application.Terminate;
+  end else
+  begin
+      //Controle de Acesso
+      username := CRIP(Arquivo.ReadString('Login', 'username', username));
+      senha := MD5(CRIP(Arquivo.ReadString('Login', 'userpassword', senha)));
+
+      //Obtem Dados do Usuário (username, senha, idTipoUsuario)
+      Dmodule.idTipoUsuario := 0;
+      Dmodule.qAux.close;
+      Dmodule.qAux.SQL.Text := 'select * from usuario where login =:idUsuario and senha=:idSenha';
+      Dmodule.qAux.ParamByName('idUsuario').Value := username;
+      Dmodule.qAux.ParamByName('idSenha').Value := senha;
+      Dmodule.qAux.open;
+      Dmodule.idUsuario := Dmodule.qAux.FieldByName('idUsuario').AsInteger;
+      Dmodule.username := Dmodule.qAux.FieldByName('login').AsString;
+      Dmodule.senha := Dmodule.qAux.FieldByName('senha').AsString;
+      Dmodule.idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
+
+      {
+      showmessage(
+      Dmodule.qAux.FieldByName('idUsuario').AsString + #13 +
+      Dmodule.qAux.FieldByName('login').AsString + #13 +
+      Dmodule.qAux.FieldByName('senha').AsString + #13 +
+      Dmodule.qAux.FieldByName('idTipoUsuario').AsString    );
+      }
+
+      //Obtem Dados de acesso do tipoUsuário
+      DModule.qAcesso.Close;
+      DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
+      DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
+      DModule.qAcesso.SQL.Add('left outer join modulo m on m.idmodulo = i.idmodulo ');
+      DModule.qAcesso.SQL.Add('where s.idTipo_usuario =:idTU');
+      DModule.qAcesso.ParamByName('idTU').Value := Dmodule.idTipoUsuario;
+      DModule.qAcesso.Open();
+      DModule.cdsAcesso.Close;
+      DModule.cdsAcesso.Open;
+      DModule.cdsAcesso.First;
   end;
+
+  //Apaga Numero de acesso Gerado
+  Arquivo := TIniFile.Create(GetCurrentDir+'\Config.ini');
+  Arquivo.EraseSection('Login');
+  Arquivo.Free;
 
 end;
 
 procedure TFPrincipal.FormShow(Sender: TObject);
-var
-iduser : string;
-idInterface : integer;
-ArqIni: TIniFile;
-nomeInterface : string;
 begin
-  //Definição de acesso do usuário
-  ArqIni := TIniFile.Create( ExtractFilePath(Application.ExeName) + '\user.ini' );
-  try
-    iduser := ArqIni.ReadString('usuario', 'iduser', iduser);
-
-    //Obtem id tipo de usuário
-    Dmodule.idTipoUsuario := 0;
-    Dmodule.qAux.close;
-    Dmodule.qAux.SQL.Text := 'select * from usuario where idusuario =:idU';
-    Dmodule.qAux.ParamByName('idU').Value := strtoint(idUser);
-    Dmodule.qAux.open;
-    Dmodule.idTipoUsuario := Dmodule.qAux.FieldByName('idTipoUsuario').AsInteger;
-
-    DModule.qAcesso.Close;
-    DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
-    DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
-    DModule.qAcesso.SQL.Add('left outer join modulo m on m.idmodulo = i.idmodulo ');
-    DModule.qAcesso.SQL.Add('where s.idTipo_usuario =:idTU');
-    DModule.qAcesso.ParamByName('idTU').Value := Dmodule.idTipoUsuario;
-    DModule.qAcesso.Open();
-    DModule.cdsAcesso.Close;
-    DModule.cdsAcesso.Open;
-    DModule.cdsAcesso.First;
-  finally
-    ArqIni.Free;
-  end;
-
   // Configurações
   NomeForm := 'TEAR - Sistema de Acompanhamento e Balancameanto de Produção';
   MontarMenu(PageScroller);
-
+  //labelUSER.Caption := 'USER: '+ DModule.username + '  ';
 end;
 
 //Função de movimento do Botão

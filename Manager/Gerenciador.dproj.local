@@ -2,13 +2,13 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2015/10/08 12:40:55.000.645,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2015/10/08 12:41:38.000.248,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\uFrmPrincipal.dfm</Transaction>
-    <Transaction>2015/10/08 12:41:38.000.248,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\uFrmPrincipal.pas</Transaction>
-    <Transaction>2015/10/08 12:41:45.000.546,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\Gerenciador.dproj</Transaction>
+    <Transaction>2015/10/08 12:41:38.000.248,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\uFrmPrincipal.dfm=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2015/10/08 12:41:38.000.248,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\uFrmPrincipal.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/10/08 12:41:45.000.546,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\Gerenciador.dproj=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2015/10/08 12:42:49.000.132,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\uFrmPrincipal.pas</Transaction>
     <Transaction>2015/10/08 12:43:30.000.778,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\Unit2.pas</Transaction>
-    <Transaction>2015/10/08 12:43:36.000.964,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\uFrmLogin.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\Unit2.pas</Transaction>
-    <Transaction>2015/10/08 12:43:36.000.964,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\uFrmLogin.dfm=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\Unit2.dfm</Transaction>
+    <Transaction>2015/10/08 12:43:36.000.964,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\Unit2.dfm=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\uFrmLogin.dfm</Transaction>
+    <Transaction>2015/10/08 12:43:36.000.964,C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\Unit2.pas=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\Gerenciador\uFrmLogin.pas</Transaction>
     <Transaction>2015/10/13 13:21:40.000.380,=C:\Users\Maykel\Documents\Embarcadero\Studio\Projects\uFuncao.pas</Transaction>
     <Transaction>2017/01/21 12:06:37.000.736,=C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\TEAR\Manager\uFuncao.pas</Transaction>
   </Transactions>

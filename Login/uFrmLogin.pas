@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, iniFiles, DateUtils,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, Zlib;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, Zlib, ShellAPI;
 
   procedure configurarDB(Arquivo : TIniFile);
   procedure executarAplicacao(Arquivo : TIniFile);
@@ -73,6 +73,10 @@ begin
   end
   else
   begin
+    //Salva dados usuário-login
+    Arquivo.WriteString('Login', 'username', crip(usuario));
+    Arquivo.WriteString('Login', 'userpassword', crip(senha));
+    //Executa TEAR
     ExecutarAplicacao(Arquivo);
     Close;
   end;
@@ -111,9 +115,14 @@ begin
     AtualizarExecutavel;
 
     try
+    begin
       //WinExec('Loading.exe', SW_NORMAL);
-      WinExec('C:\Users\Ruan\Documents\TEAR\Tear\codigo\Win32\Release\Tear.exe', SW_NORMAL);
+      //WinExec('C:\Users\Ruan\Documents\TEAR\Tear\codigo\Win32\Release\Tear.exe', SW_NORMAL);
+      ShellExecute(Application.Handle,'open',PChar(ExtractFilePath(Application.ExeName)+'/tear.exe'), '','',SW_SHOWNORMAL);
+    end;
+
     finally
+      //O num é apagado no final do CREATE do FPrincipal do tear.exe
       //Arquivo.EraseSection('Login');
       Arquivo.Free;
     end;

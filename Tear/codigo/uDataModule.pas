@@ -42,6 +42,9 @@ type
   private
     { Private declarations }
   public
+    idUsuario: integer;
+    username: String;
+    senha: String;
     idTipoUsuario: integer;
     function buscaProximoParametro(p: string): integer;
     procedure CalculaTempoPadraoFinal(idCronometragem :integer; num_pecas:integer; ritmo: integer; tolerancia:integer);
