@@ -30,7 +30,6 @@ type
     ImageList32Selected: TImageList;
     XPManifest1: TXPManifest;
     procedure FormShow(Sender: TObject);
-    procedure MouseEnterComponente(Sender: TObject);
     procedure MouseLeaveComponente(Sender: TObject);
     procedure MouseClickComponente(Sender: TObject);
     procedure MontarMenu(Sender: TObject);
@@ -40,6 +39,7 @@ type
     procedure AumentarBotao(Sender: TObject);
     procedure DiminuirBotao(Sender: TObject);
     function fncAlturaBarraTarefas: Integer;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     function validacaoModulo(idModulo : integer):Boolean;
@@ -175,6 +175,34 @@ begin
   Result := rRect.Bottom - rRect.Top;
 end;
 
+procedure TFPrincipal.FormCreate(Sender: TObject);
+var
+  Hora: Integer;
+  Data : TDateTime;
+  Hash, gerado, Serial : String;
+  Arquivo: TIniFile;
+begin
+  //
+  showmessage(ExtractFileDir(Application.ExeName));
+
+
+  Hora := HourOf(Now);
+  Data := Date();
+  //Serial := SerialHD(Serial);
+  Hash := IntToStr(Hora) + DateToStr(Data) + Serial;
+
+  Arquivo := TIniFile.Create(GetCurrentDir+'\Config.ini');
+  Gerado := Arquivo.ReadString('Login', 'Numero', Gerado);
+
+  ShowMessage('HASH:  '+ hash + #13 + 'GERADO:  ' + gerado);
+
+  if ((Hash) <> (Gerado)) then
+  begin
+   Application.Terminate;
+  end;
+
+end;
+
 procedure TFPrincipal.FormShow(Sender: TObject);
 var
 iduser : string;
@@ -205,7 +233,6 @@ begin
     DModule.cdsAcesso.Close;
     DModule.cdsAcesso.Open;
     DModule.cdsAcesso.First;
-
   finally
     ArqIni.Free;
   end;
@@ -214,17 +241,6 @@ begin
   NomeForm := 'TEAR - Sistema de Acompanhamento e Balancameanto de Produção';
   MontarMenu(PageScroller);
 
-end;
-
-//Função de movimento do Botão
-procedure TFPrincipal.MouseEnterComponente(Sender: TObject);
-begin
-{
-  TButton(sender).Height := TButton(sender).Height + 8;
-  TButton(sender).Width := TButton(sender).Width + 8;
-  TButton(sender).Left := TButton(sender).Left - 4;
-  TButton(sender).Top := TButton(sender).Top - 4;
-}
 end;
 
 //Função de movimento do Botão
@@ -245,7 +261,7 @@ begin
   //verifica se tem alguma tela do modulo habilitado
   resultado := false;
 
-  //ShowMessage('Entrou');
+
   DModule.qAcesso.Close;
   DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
   DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
@@ -255,6 +271,7 @@ begin
   DModule.qAcesso.Open();
   DModule.cdsAcesso.close;
   DModule.cdsAcesso.open;
+
   DModule.cdsAcesso.First;
 
   while not dModule.cdsAcesso.Eof do
@@ -276,7 +293,6 @@ begin
   //verifica se tem alguma tela do modulo habilitado
   resultado := false;
 
-  //ShowMessage('Entrou');
   DModule.qAcesso.Close;
   DModule.qAcesso.SQL.Text := 'select s.*, i.idinterface as interface, m.idmodulo as modulo from seguranca s ';
   DModule.qAcesso.SQL.Add('left outer join interface i on i.idinterface = s.idinterface ');
@@ -286,7 +302,9 @@ begin
   DModule.qAcesso.Open();
   DModule.cdsAcesso.close;
   DModule.cdsAcesso.open;
+
   DModule.cdsAcesso.First;
+
 
   while not dModule.cdsAcesso.Eof do
   begin
@@ -355,7 +373,6 @@ begin
       Button.ImageAlignment := iaCenter;
       Button.ImageIndex := DModule.qAux.Fields[4].AsInteger;
       Button.Tag := DModule.qAux.Fields[0].AsInteger;
-      Button.OnMouseEnter := MouseEnterComponente;
       Button.OnMouseLeave := MouseLeaveComponente;
       Button.OnClick := AbrirTela;
 
@@ -413,7 +430,6 @@ begin
         Button.ImageAlignment := iaCenter;
         Button.ImageIndex := DModule.FModulo.Fields[2].AsInteger;
         Button.Tag := DModule.FModulo.Fields[0].AsInteger;
-        Button.OnMouseEnter := MouseEnterComponente;
         Button.OnMouseLeave := MouseLeaveComponente;
         Button.OnClick := MouseClickComponente;
 

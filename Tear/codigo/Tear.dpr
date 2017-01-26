@@ -36,8 +36,8 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TFPrincipal, FPrincipal);
   Application.CreateForm(TDModule, DModule);
+  Application.CreateForm(TFPrincipal, FPrincipal);
   Application.CreateForm(TFBase, FBase);
   Application.Run;
 end.

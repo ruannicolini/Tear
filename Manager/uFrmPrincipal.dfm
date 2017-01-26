@@ -1,0 +1,142 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'frmPrincipal'
+  ClientHeight = 306
+  ClientWidth = 395
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 10
+    Top = 123
+    Width = 37
+    Height = 18
+    Caption = 'Login:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 90
+    Top = 8
+    Width = 219
+    Height = 26
+    Caption = 'Configura'#231#245'es do Sistema'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 10
+    Top = 61
+    Width = 98
+    Height = 18
+    Caption = 'Caminho do BD:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 10
+    Top = 187
+    Width = 42
+    Height = 18
+    Caption = 'Senha:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+  end
+  object edtCaminho: TEdit
+    Left = 8
+    Top = 80
+    Width = 374
+    Height = 27
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+  end
+  object btnSalvar: TButton
+    Left = 226
+    Top = 265
+    Width = 75
+    Height = 25
+    Caption = 'Salvar'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    OnClick = btnSalvarClick
+  end
+  object btnFechar: TButton
+    Left = 307
+    Top = 265
+    Width = 75
+    Height = 25
+    Caption = 'Fechar'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnClick = btnFecharClick
+  end
+  object edtLogin: TEdit
+    Left = 8
+    Top = 144
+    Width = 374
+    Height = 27
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+  end
+  object edtSenha: TEdit
+    Left = 8
+    Top = 208
+    Width = 374
+    Height = 27
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+  end
+end

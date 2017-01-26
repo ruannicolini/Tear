@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{77877EDA-7157-4A4C-A4FF-A3E07DDC4798}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Tear\codigo\Tear.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Login\Login.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Manager\Gerenciador.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Tear">
+        <MSBuild Projects="Tear\codigo\Tear.dproj"/>
+    </Target>
+    <Target Name="Tear:Clean">
+        <MSBuild Projects="Tear\codigo\Tear.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Tear:Make">
+        <MSBuild Projects="Tear\codigo\Tear.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Login">
+        <MSBuild Projects="Login\Login.dproj"/>
+    </Target>
+    <Target Name="Login:Clean">
+        <MSBuild Projects="Login\Login.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Login:Make">
+        <MSBuild Projects="Login\Login.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Gerenciador">
+        <MSBuild Projects="Manager\Gerenciador.dproj"/>
+    </Target>
+    <Target Name="Gerenciador:Clean">
+        <MSBuild Projects="Manager\Gerenciador.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Gerenciador:Make">
+        <MSBuild Projects="Manager\Gerenciador.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Tear;Login;Gerenciador"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Tear:Clean;Login:Clean;Gerenciador:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Tear:Make;Login:Make;Gerenciador:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
