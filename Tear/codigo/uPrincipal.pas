@@ -57,7 +57,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDataModule, UBase, u_relatorios;
+uses uDataModule, UBase, u_relatorios, uFuncao;
 
 procedure TFPrincipal.AbrirTela(Sender: TObject);
 var
@@ -183,13 +183,11 @@ var
   Arquivo: TIniFile;
 begin
   //
-  showmessage(ExtractFileDir(Application.ExeName));
-
 
   Hora := HourOf(Now);
   Data := Date();
   //Serial := SerialHD(Serial);
-  Hash := IntToStr(Hora) + DateToStr(Data) + Serial;
+  Hash := MD5(IntToStr(Hora) + DateToStr(Data) + Serial);
 
   Arquivo := TIniFile.Create(GetCurrentDir+'\Config.ini');
   Gerado := Arquivo.ReadString('Login', 'Numero', Gerado);

@@ -112,9 +112,9 @@ begin
 
     try
       //WinExec('Loading.exe', SW_NORMAL);
-      WinExec('C:\Users\Ruan\Documents\Embarcadero\Studio\Projects\TEAR\Tear\codigo\Win32\Release\Tear.exe', SW_NORMAL);
+      WinExec('C:\Users\Ruan\Documents\TEAR\Tear\codigo\Win32\Release\Tear.exe', SW_NORMAL);
     finally
-      Arquivo.EraseSection('Login');
+      //Arquivo.EraseSection('Login');
       Arquivo.Free;
     end;
 

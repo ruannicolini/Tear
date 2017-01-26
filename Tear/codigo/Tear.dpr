@@ -29,7 +29,8 @@ uses
   U01015 in 'M01\U01015.pas' {F01015},
   U02004 in 'M02\U02004.pas' {F02004},
   U03003 in 'M03\U03003.pas' {F03003},
-  u_relatorios in 'u_relatorios.pas' {FRelatorios};
+  u_relatorios in 'u_relatorios.pas' {FRelatorios},
+  uFuncao in 'uFuncao.pas';
 
 {$R *.res}
 
