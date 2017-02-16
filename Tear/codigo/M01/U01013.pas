@@ -980,13 +980,13 @@ begin
       Check := 0;
       if CDS_Batidautilizar.AsBoolean = TRUE then
         Check := DFCS_CHECKED
-    else
-    BEGIN
-      Check := 0;
-    END;
-    R:=Rect;
-    InflateRect(R,-2,-2); {Diminue o tamanho do CheckBox}
-    DrawFrameControl(DBGridBatida.Canvas.Handle,R,DFC_BUTTON, DFCS_BUTTONCHECK or Check);
+      else
+      BEGIN
+        Check := 0;
+      END;
+      R:=Rect;
+      InflateRect(R,-2,-2); {Diminue o tamanho do CheckBox}
+      DrawFrameControl(DBGridBatida.Canvas.Handle,R,DFC_BUTTON, DFCS_BUTTONCHECK or Check);
     end;
 end;
 
